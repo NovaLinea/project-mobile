@@ -1,4 +1,4 @@
-package com.example.projectunion.screens
+package com.example.projectunion.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

@@ -1,21 +1,22 @@
-package com.example.projectunion.screens
+package com.example.projectunion.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -24,12 +25,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.projectunion.R
 import com.example.projectunion.navigation.ProjectNavRoute
 import com.example.projectunion.navigation.Router
 
 @Composable
-fun AdditionallyScreen(externalRouter: Router) {
+fun AdditionallyScreen(navController: NavController) {
 	Scaffold(
 		topBar = {
 			TopAppBar(
@@ -53,21 +55,21 @@ fun AdditionallyScreen(externalRouter: Router) {
 		},
 	) {
 		Column {
-			AdditionallyItem(title = "Профиль", icon = R.drawable.ic_person, ProjectNavRoute.Profile.route, externalRouter)
-			AdditionallyItem(title = "Избранное", icon = R.drawable.ic_favoritres, ProjectNavRoute.Favorites.route, externalRouter)
-			AdditionallyItem(title = "Настройки", icon = R.drawable.ic_settings, ProjectNavRoute.Settings.route, externalRouter)
+			AdditionallyItem(title = "Профиль", icon = Icons.Default.Person, ProjectNavRoute.Profile.route, navController)
+			AdditionallyItem(title = "Избранное", icon = Icons.Default.Bookmark, ProjectNavRoute.Favorites.route, navController)
+			AdditionallyItem(title = "Настройки", icon = Icons.Default.Settings, ProjectNavRoute.Settings.route, navController)
 		}
 	}
 }
 
 @Composable
-fun AdditionallyItem(title: String, icon: Int, route: String, externalRouter: Router) {
+fun AdditionallyItem(title: String, icon: ImageVector, route: String, navController: NavController) {
 	Card(
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(horizontal = 10.dp, vertical = 5.dp)
 			.clickable {
-				externalRouter.navigateTo(route)
+				navController.navigate(route)
 			},
 		shape = RoundedCornerShape(10.dp),
 		elevation = 0.dp
@@ -81,14 +83,13 @@ fun AdditionallyItem(title: String, icon: Int, route: String, externalRouter: Ro
 			Row(
 				verticalAlignment = Alignment.CenterVertically
 			) {
-				Image(
-					painter = painterResource(id = icon),
-					contentDescription = "image",
-					contentScale = ContentScale.Crop,
+				Icon(
+					imageVector = icon,
+					contentDescription = "Icon",
 					modifier = Modifier
-						.padding(5.dp)
-						.size(24.dp)
-						.clip(CircleShape)
+					.padding(5.dp)
+					.size(24.dp)
+					.clip(CircleShape)
 				)
 				Box(
 					modifier = Modifier

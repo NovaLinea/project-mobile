@@ -1,4 +1,4 @@
-package com.example.projectunion.screens.auth
+package com.example.projectunion.ui.screens.auth
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,13 +19,10 @@ import com.example.projectunion.R
 import com.example.projectunion.navigation.ProjectNavRoute
 
 @Composable
-fun LoginScreen(navController: NavController) {
-	var email by remember {
-		mutableStateOf("")
-	}
-	var password by remember {
-		mutableStateOf("")
-	}
+fun RegisterScreen(navController: NavController) {
+	var name by remember { mutableStateOf("") }
+	var email by remember { mutableStateOf("") }
+	var password by remember { mutableStateOf("") }
 
 	Scaffold {
 		Column(
@@ -34,12 +31,34 @@ fun LoginScreen(navController: NavController) {
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Text(
-				text = stringResource(id = R.string.login_screen),
+				text = stringResource(id = R.string.register_screen),
 				modifier = Modifier
 					.padding(bottom = 30.dp),
 				style = TextStyle(
 					fontSize = 25.sp,
 					fontWeight = FontWeight.Bold
+				)
+			)
+
+			TextField(
+				modifier = Modifier
+					.fillMaxWidth()
+					.wrapContentHeight(align = Alignment.CenterVertically)
+					.height(65.dp)
+					.padding(horizontal = 40.dp, vertical = 5.dp),
+				value = name,
+				onValueChange = {value -> name = value},
+				placeholder = { Text(stringResource(id = R.string.name_field)) },
+				singleLine = true,
+				textStyle = TextStyle(fontSize = 16.sp),
+				shape = RoundedCornerShape(10.dp),
+				colors = TextFieldDefaults.textFieldColors(
+					textColor = Color.Gray,
+					disabledTextColor = Color.Transparent,
+					backgroundColor = colorResource(id = R.color.app_background),
+					focusedIndicatorColor = Color.Transparent,
+					unfocusedIndicatorColor = Color.Transparent,
+					disabledIndicatorColor = Color.Transparent
 				)
 			)
 
@@ -99,8 +118,8 @@ fun LoginScreen(navController: NavController) {
 				),
 				shape = RoundedCornerShape(10.dp)
 			) {
-				Text( 
-					text="Войти",
+				Text(
+					text="Зарегестрироваться",
 					modifier = Modifier
 						.padding(horizontal = 5.dp, vertical = 3.dp),
 					style = TextStyle(
@@ -111,11 +130,11 @@ fun LoginScreen(navController: NavController) {
 			}
 
 			Text(
-				text="Зарегестрироваться",
+				text="Войти",
 				modifier = Modifier
 					.padding(top = 10.dp)
 					.clickable {
-						navController.navigate(ProjectNavRoute.Register.route)
+						navController.navigate(ProjectNavRoute.Login.route)
 					},
 				style = TextStyle(
 					fontSize = 16.sp,

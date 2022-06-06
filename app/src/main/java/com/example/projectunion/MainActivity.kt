@@ -10,17 +10,15 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.projectunion.navigation.ProjectNavRoute
 import com.example.projectunion.navigation.createRouter
-import com.example.projectunion.screens.*
-import com.example.projectunion.screens.auth.LoginScreen
-import com.example.projectunion.screens.auth.RegisterScreen
-import com.example.projectunion.ui.theme.ProjectmobilecomposeTheme
+import com.example.projectunion.ui.screens.*
+import com.example.projectunion.ui.theme.ProjectUnionTheme
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		setContent {
-			ProjectmobilecomposeTheme {
+			ProjectUnionTheme {
 				val navController = rememberNavController()
 
 				NavHost(navController = navController, startDestination = ProjectNavRoute.Main.route) {
@@ -44,10 +42,6 @@ class MainActivity : ComponentActivity() {
 							projectID = it.arguments?.getInt("projectID") ?: -1
 						)
 					}
-					composable(ProjectNavRoute.Create.route) { CreateScreen() }
-					composable(ProjectNavRoute.Profile.route) { ProfileScreen() }
-					composable(ProjectNavRoute.Favorites.route) { FavoritesScreen() }
-					composable(ProjectNavRoute.Settings.route) { SettingsScreen() }
 				}
 			}
 		}

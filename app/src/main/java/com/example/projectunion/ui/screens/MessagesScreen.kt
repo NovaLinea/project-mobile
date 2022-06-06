@@ -1,8 +1,10 @@
-package com.example.projectunion.screens
+package com.example.projectunion.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -75,7 +77,7 @@ fun Search() {
 		placeholder = { Text(stringResource(id = R.string.search_field)) },
 		singleLine = true,
 		leadingIcon = { Icon(
-			painter = painterResource(id = R.drawable.ic_search),
+			imageVector = Icons.Default.Search,
 			contentDescription = "Search chat")
 		},
 		textStyle = TextStyle(fontSize = 16.sp),

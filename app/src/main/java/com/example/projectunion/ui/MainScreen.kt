@@ -1,4 +1,4 @@
-package com.example.projectunion.screens
+package com.example.projectunion.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -6,21 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
-import com.example.projectunion.R
 import com.example.projectunion.navigation.BottomNavRoute
 import com.example.projectunion.navigation.ProjectNavRoute
 import com.example.projectunion.navigation.Router
-import com.example.projectunion.screens.auth.LoginScreen
-import com.example.projectunion.screens.auth.RegisterScreen
+import com.example.projectunion.ui.screens.auth.LoginScreen
+import com.example.projectunion.ui.screens.auth.RegisterScreen
 
 @Composable
 fun MainScreen( externalRouter: Router) {
@@ -36,39 +31,18 @@ fun MainScreen( externalRouter: Router) {
 				NavHost(navController = navController, startDestination = BottomNavRoute.Home.route) {
 					composable(BottomNavRoute.Home.route) { HomeScreen(externalRouter) }
 					composable(BottomNavRoute.Messages.route) { MessagesScreen() }
-					composable(BottomNavRoute.Create.route) { LoginScreen(navController) }
+					composable(BottomNavRoute.Create.route) { CreateScreen() }
 					composable(BottomNavRoute.Notifications.route) { NotificationsScreen() }
-					composable(BottomNavRoute.Additionally.route) { AdditionallyScreen(externalRouter) }
+					composable(BottomNavRoute.Additionally.route) { AdditionallyScreen(navController) }
+
+					composable(ProjectNavRoute.Profile.route) { ProfileScreen() }
+					composable(ProjectNavRoute.Favorites.route) { FavoritesScreen() }
+					composable(ProjectNavRoute.Settings.route) { SettingsScreen() }
 
 					composable(ProjectNavRoute.Login.route) { LoginScreen(navController) }
 					composable(ProjectNavRoute.Register.route) { RegisterScreen(navController) }
 				}
 			}
-	}
-}
-
-@Composable
-fun TopBar(navController: NavController) {
-	val navBackStackEntry by navController.currentBackStackEntryAsState()
-	val currentDestination = navBackStackEntry?.destination
-
-	TopAppBar(
-		backgroundColor = Color.White,
-		elevation = 1.dp
-	) {
-		Row(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalArrangement = Arrangement.Center
-		) {
-			Text(
-				text = stringResource(id = R.string.home_screen),
-				style = TextStyle(
-					color = Color.Black,
-					fontWeight = FontWeight.W600,
-					fontSize = 18.sp
-				)
-			)
-		}
 	}
 }
 

@@ -1,15 +1,12 @@
 package com.example.projectunion.navigation
 
+import androidx.compose.foundation.Image
+import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.example.projectunion.screens.*
-import com.example.projectunion.screens.auth.LoginScreen
-import com.example.projectunion.screens.auth.RegisterScreen
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 
 
 sealed class ProjectNavRoute(val route: String, title: String) {
@@ -25,7 +22,7 @@ sealed class ProjectNavRoute(val route: String, title: String) {
 
 sealed class BottomNavRoute(val route: String, title: String, val icon: ImageVector) {
 	object Home: BottomNavRoute("home", "Домашняя", Icons.Default.Home)
-	object Messages: BottomNavRoute("messages", "Сообщения", Icons.Default.Menu)
+	object Messages: BottomNavRoute("messages", "Сообщения", Icons.Default.Message)
 	object Create: BottomNavRoute("create", "Создание проекта", Icons.Default.Add)
 	object Notifications: BottomNavRoute("notifications", "Уведомления", Icons.Default.Notifications)
 	object Additionally: BottomNavRoute("additionally", "Дополнительно", Icons.Default.Menu)

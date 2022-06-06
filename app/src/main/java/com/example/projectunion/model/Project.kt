@@ -1,5 +1,6 @@
 package com.example.projectunion.model
 
+import java.sql.Date
 import java.sql.Time
 
 data class Project (
@@ -7,14 +8,14 @@ data class Project (
 	val title: String,
 	val description: String,
 	//val type: String,
-	//val price: Int,
+	val price: Int,
 	//val paymentSystem: String,
 	//val listStaff: List<String>,
-	//val createdAt: Time,
+	val createdAt: String,
 	//val updatedAt: Time,
 	//val likes: Int,
 	//val views: Int,
-	//val creatorID: String,
-	//val creatorName: String,
+	//val creatorID: Int,
+	val creatorName: String,
 	//val creatorPhoto: String
 )
