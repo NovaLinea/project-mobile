@@ -13,41 +13,42 @@ import com.example.projectunion.navigation.createRouter
 import com.example.projectunion.screens.*
 import com.example.projectunion.screens.auth.LoginScreen
 import com.example.projectunion.screens.auth.RegisterScreen
+import com.example.projectunion.ui.theme.ProjectmobilecomposeTheme
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		setContent {
-			val navController = rememberNavController()
+			ProjectmobilecomposeTheme {
+				val navController = rememberNavController()
 
-			NavHost(navController = navController, startDestination = ProjectNavRoute.Main.route) {
-				composable(ProjectNavRoute.Main.route) {
-					MainScreen(
-						createRouter { route ->
-							navController.navigate(route)
-						}
-					)
+				NavHost(navController = navController, startDestination = ProjectNavRoute.Main.route) {
+					composable(ProjectNavRoute.Main.route) {
+						MainScreen(
+							createRouter { route ->
+								navController.navigate(route)
+							}
+						)
+					}
+					composable(
+						route = "${ProjectNavRoute.Project.route}/{projectID}",
+						arguments = listOf(
+							navArgument("projectID") {
+								type = NavType.IntType
+							}
+						)
+					) {
+						ProjectScreen(
+							navController = navController,
+							projectID = it.arguments?.getInt("projectID") ?: -1
+						)
+					}
+					composable(ProjectNavRoute.Create.route) { CreateScreen() }
+					composable(ProjectNavRoute.Profile.route) { ProfileScreen() }
+					composable(ProjectNavRoute.Favorites.route) { FavoritesScreen() }
+					composable(ProjectNavRoute.Settings.route) { SettingsScreen() }
 				}
-				composable(ProjectNavRoute.Login.route) { LoginScreen() }
-				composable(ProjectNavRoute.Register.route) { RegisterScreen() }
-				composable(
-					route = "${ProjectNavRoute.Project.route}/{projectID}",
-					arguments = listOf(
-						navArgument("projectID") {
-							type = NavType.IntType
-						}
-					)
-				) {
-					ProjectScreen(
-						navController = navController,
-						projectID = it.arguments?.getInt("projectID") ?: -1
-					)
-				}
-				composable(ProjectNavRoute.Create.route) { CreateScreen() }
-				composable(ProjectNavRoute.Profile.route) { ProfileScreen() }
-				composable(ProjectNavRoute.Favorites.route) { FavoritesScreen() }
-				composable(ProjectNavRoute.Settings.route) { SettingsScreen() }
 			}
 		}
 	}

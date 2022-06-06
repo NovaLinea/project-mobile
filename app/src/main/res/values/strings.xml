@@ -9,6 +9,11 @@
     <string name="profile_screen">Профиль</string>
     <string name="favorite_screen">Избранное</string>
     <string name="settings_screen">Настройки</string>
+    <string name="login_screen">Вход</string>
+    <string name="register_screen">Регистрация</string>
 
     <string name="search_field">Поиск</string>
+    <string name="email_field">Почта</string>
+    <string name="password_field">Пароль</string>
+    <string name="name_field">Имя и фамилия</string>
 </resources>

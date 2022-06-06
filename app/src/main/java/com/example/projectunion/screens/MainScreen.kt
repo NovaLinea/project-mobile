@@ -17,7 +17,10 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
 import com.example.projectunion.R
 import com.example.projectunion.navigation.BottomNavRoute
+import com.example.projectunion.navigation.ProjectNavRoute
 import com.example.projectunion.navigation.Router
+import com.example.projectunion.screens.auth.LoginScreen
+import com.example.projectunion.screens.auth.RegisterScreen
 
 @Composable
 fun MainScreen( externalRouter: Router) {
@@ -33,9 +36,12 @@ fun MainScreen( externalRouter: Router) {
 				NavHost(navController = navController, startDestination = BottomNavRoute.Home.route) {
 					composable(BottomNavRoute.Home.route) { HomeScreen(externalRouter) }
 					composable(BottomNavRoute.Messages.route) { MessagesScreen() }
-					composable(BottomNavRoute.Create.route) { CreateScreen() }
+					composable(BottomNavRoute.Create.route) { LoginScreen(navController) }
 					composable(BottomNavRoute.Notifications.route) { NotificationsScreen() }
 					composable(BottomNavRoute.Additionally.route) { AdditionallyScreen(externalRouter) }
+
+					composable(ProjectNavRoute.Login.route) { LoginScreen(navController) }
+					composable(ProjectNavRoute.Register.route) { RegisterScreen(navController) }
 				}
 			}
 	}
