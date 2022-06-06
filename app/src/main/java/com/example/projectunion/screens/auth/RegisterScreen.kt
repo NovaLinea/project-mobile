@@ -1,9 +1,8 @@
-package com.example.projectunion.screens
+package com.example.projectunion.screens.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -18,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
 
 @Composable
-fun CreateScreen() {
+fun RegisterScreen() {
 	Scaffold(
 		topBar = {
 			TopAppBar(
@@ -41,6 +40,6 @@ fun CreateScreen() {
 			}
 		},
 	) {
-		Text(text = "Create")
+		Text(text = "Register")
 	}
 }

@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#000</color>
     <color name="white">#FFF</color>
-    <color name="app_backgroung">#F2F2F2</color>
+    <color name="app_background">#F2F2F2</color>
     <color name="app_blue">#1E2D43</color>
     <color name="app_grey">#808080</color>
 </resources>

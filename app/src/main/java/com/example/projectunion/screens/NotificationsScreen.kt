@@ -1,12 +1,11 @@
 package com.example.projectunion.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -22,10 +21,10 @@ fun NotificationsScreen() {
 		topBar = {
 			TopAppBar(
 				backgroundColor = Color.White,
-				elevation = 1.dp
+				elevation = 0.dp
 			) {
 				Row(
-					modifier = Modifier.padding(start = 10.dp),
+					modifier = Modifier.fillMaxWidth(),
 					horizontalArrangement = Arrangement.Center
 				) {
 					Text(
@@ -40,6 +39,17 @@ fun NotificationsScreen() {
 			}
 		},
 	) {
-		Text(text = "Notifications")
+		Column(
+			modifier = Modifier.fillMaxSize().padding(top = 170.dp),
+			horizontalAlignment = Alignment.CenterHorizontally
+		) {
+			Text(
+				text = "Пока нет уведомлений",
+				style = TextStyle(
+					color = Color.Gray,
+					fontSize = 15.sp
+				)
+			)
+		}
 	}
 }
