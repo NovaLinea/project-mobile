@@ -11,14 +11,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
+import com.example.projectunion.navigation.BottomNavGraph
 import com.example.projectunion.navigation.BottomNavRoute
-import com.example.projectunion.navigation.ProjectNavRoute
 import com.example.projectunion.navigation.Router
-import com.example.projectunion.ui.screens.auth.LoginScreen
-import com.example.projectunion.ui.screens.auth.RegisterScreen
 
 @Composable
-fun MainScreen( externalRouter: Router) {
+fun MainScreen(externalRouter: Router) {
 	val navController = rememberNavController()
 
 	Scaffold(
@@ -28,20 +26,7 @@ fun MainScreen( externalRouter: Router) {
 			Box(
 				modifier = Modifier.padding(innerPadding)
 			) {
-				NavHost(navController = navController, startDestination = BottomNavRoute.Home.route) {
-					composable(BottomNavRoute.Home.route) { HomeScreen(externalRouter) }
-					composable(BottomNavRoute.Messages.route) { MessagesScreen() }
-					composable(BottomNavRoute.Create.route) { CreateScreen() }
-					composable(BottomNavRoute.Notifications.route) { NotificationsScreen() }
-					composable(BottomNavRoute.Additionally.route) { AdditionallyScreen(navController) }
-
-					composable(ProjectNavRoute.Profile.route) { ProfileScreen() }
-					composable(ProjectNavRoute.Favorites.route) { FavoritesScreen() }
-					composable(ProjectNavRoute.Settings.route) { SettingsScreen() }
-
-					composable(ProjectNavRoute.Login.route) { LoginScreen(navController) }
-					composable(ProjectNavRoute.Register.route) { RegisterScreen(navController) }
-				}
+				BottomNavGraph(navController, externalRouter)
 			}
 	}
 }
@@ -50,10 +35,7 @@ fun MainScreen( externalRouter: Router) {
 fun BottomBar(navController: NavController) {
 	val screens = listOf(
 		BottomNavRoute.Home,
-		BottomNavRoute.Messages,
-		BottomNavRoute.Create,
-		BottomNavRoute.Notifications,
-		BottomNavRoute.Additionally
+		BottomNavRoute.Messages
 	)
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -1,32 +1,38 @@
 package com.example.projectunion.ui.screens
 
-import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projectunion.R
 import com.example.projectunion.model.Project
-import com.example.projectunion.navigation.ProjectNavRoute
+import com.example.projectunion.navigation.AUTHENTICATION_ROUTE
+import com.example.projectunion.navigation.MainNavRoute
 import com.example.projectunion.navigation.Router
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 @Composable
-fun HomeScreen(externalRouter: Router) {
+fun HomeScreen(
+	externalRouter: Router
+) {
 	val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
 	val currentDate = sdf.format(Date())
 	val projects = listOf(
@@ -41,27 +47,9 @@ fun HomeScreen(externalRouter: Router) {
 	)
 
 	Scaffold(
-		topBar = {
-			TopAppBar(
-				backgroundColor = Color.White,
-				elevation = 1.dp
-			) {
-				Row(
-					modifier = Modifier.fillMaxWidth(),
-					horizontalArrangement = Arrangement.Center
-				) {
-					Text(
-						text = stringResource(id = R.string.home_screen),
-						style = TextStyle(
-							color = Color.Black,
-							fontWeight = FontWeight.W600,
-							fontSize = 18.sp
-						)
-					)
-				}
-			}
-		},
-		modifier = Modifier.fillMaxSize()
+		modifier = Modifier.fillMaxSize(),
+		topBar = { TopBar(externalRouter) },
+		floatingActionButton = { FloatingButton(externalRouter) }
 	) {
 		LazyColumn(
 			modifier = Modifier
@@ -69,20 +57,98 @@ fun HomeScreen(externalRouter: Router) {
 				.fillMaxSize()
 		) {
 			projects.map { item {
-				//ProjectItem(it, externalRouter)
+				ProjectItem(it, externalRouter)
 			}}
 		}
 	}
 }
 
 @Composable
-fun ProjectItem(project: Project) {
+fun TopBar(externalRouter: Router) {
+	TopAppBar(
+		modifier = Modifier
+			.fillMaxWidth(),
+		title = {
+			Box(
+				modifier = Modifier
+					.fillMaxWidth(),
+				Alignment.Center
+			) {
+				Text(
+					text = stringResource(R.string.home_screen),
+					style = TextStyle(
+						fontWeight = FontWeight.Bold,
+						fontSize = 20.sp
+					)
+				)
+			}
+		},
+		navigationIcon = {
+			IconButton(
+				onClick = {
+					externalRouter.navigateTo(AUTHENTICATION_ROUTE)
+				}
+			) {
+				Icon(
+					imageVector = Icons.Default.Person,
+					contentDescription = "Person icon",
+					tint = Color.Black
+				)
+			}
+		},
+		actions = {
+			IconButton(
+				onClick = {
+					externalRouter.navigateTo(MainNavRoute.Notifications.route)
+				}
+			) {
+				Icon(
+					imageVector = Icons.Default.Notifications,
+					contentDescription = "Notifications icon",
+					tint = Color.Black
+				)
+			}
+			IconButton(
+				onClick = {
+					externalRouter.navigateTo(MainNavRoute.Search.route)
+				}
+			) {
+				Icon(
+					imageVector = Icons.Default.Search,
+					contentDescription = "Search icon",
+					tint = Color.Black
+				)
+			}
+		},
+		backgroundColor = Color.White,
+		elevation = 1.dp
+	)
+}
+
+@Composable
+fun FloatingButton(externalRouter: Router) {
+	FloatingActionButton(
+		onClick = {
+			externalRouter.navigateTo(MainNavRoute.Create.route)
+		},
+		backgroundColor = colorResource(id = R.color.app_blue),
+		contentColor = Color.White
+	){
+		Icon(imageVector = Icons.Default.Create, contentDescription = "Create project icon")
+	}
+}
+
+@Composable
+fun ProjectItem(
+	project: Project,
+	externalRouter: Router
+) {
 	Card(
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(horizontal = 0.dp, vertical = 7.dp)
 			.clickable {
-				//externalRouter.navigateTo("${ProjectNavRoute.Project.route}/${project.id}")
+				externalRouter.navigateTo("project_screen/${project.id}")
 			},
 		backgroundColor = Color.White,
 		elevation = 0.dp
@@ -146,19 +212,4 @@ fun ProjectItem(project: Project) {
 			)
 		}
 	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun prevProjectItem() {
-	val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-	val currentDate = sdf.format(Date())
-	ProjectItem(project = Project(
-		id = 1,
-		title = "Title",
-		description = "Description",
-		price = 15000,
-		createdAt = currentDate,
-		creatorName = "Vanya Palamarenko"
-	))
 }

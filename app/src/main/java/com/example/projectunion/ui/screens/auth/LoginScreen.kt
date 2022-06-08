@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.projectunion.R
-import com.example.projectunion.navigation.ProjectNavRoute
+import com.example.projectunion.navigation.MAIN_ROUTE
+import com.example.projectunion.navigation.MainNavRoute
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -135,11 +136,26 @@ fun LoginScreen(navController: NavController) {
 				modifier = Modifier
 					.padding(top = 10.dp)
 					.clickable {
-						navController.navigate(ProjectNavRoute.Register.route)
+						navController.navigate(MainNavRoute.Register.route)
 					},
 				style = TextStyle(
 					fontSize = 16.sp,
 					color = Color.Blue
+				)
+			)
+
+			Text(
+				text="На главную",
+				modifier = Modifier
+					.padding(top = 10.dp)
+					.clickable {
+						navController.navigate(MAIN_ROUTE) {
+							popUpTo(MAIN_ROUTE)
+						}
+					},
+				style = TextStyle(
+					fontSize = 18.sp,
+					color = Color.Gray
 				)
 			)
 		}

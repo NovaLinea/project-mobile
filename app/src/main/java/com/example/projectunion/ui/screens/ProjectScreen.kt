@@ -13,11 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.projectunion.navigation.ProjectNavRoute
+import androidx.navigation.NavHostController
+import com.example.projectunion.navigation.MAIN_ROUTE
 
 @Composable
-fun ProjectScreen(navController: NavController, projectID: Int) {
+fun ProjectScreen(
+	projectID: Int,
+	navController: NavHostController
+) {
 	Scaffold(
 		topBar = {
 			TopAppBar(
@@ -32,9 +35,7 @@ fun ProjectScreen(navController: NavController, projectID: Int) {
 						imageVector = Icons.Default.ArrowBack,
 						contentDescription = "Array back icon",
 						modifier = Modifier.clickable {
-							navController.navigate(
-								route = ProjectNavRoute.Main.route
-							)
+							navController.navigate(MAIN_ROUTE)
 						}
 					)
 					Icon(

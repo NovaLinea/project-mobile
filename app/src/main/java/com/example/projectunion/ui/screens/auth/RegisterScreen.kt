@@ -3,7 +3,11 @@ package com.example.projectunion.ui.screens.auth
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,17 +16,26 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.projectunion.R
-import com.example.projectunion.navigation.ProjectNavRoute
+import com.example.projectunion.navigation.MAIN_ROUTE
 
 @Composable
 fun RegisterScreen(navController: NavController) {
 	var name by remember { mutableStateOf("") }
 	var email by remember { mutableStateOf("") }
 	var password by remember { mutableStateOf("") }
+	var passwordVisibility by remember { mutableStateOf(false) }
+	val iconVisibility = if (passwordVisibility)
+		Icons.Default.Visibility
+	else
+		Icons.Default.VisibilityOff
+	val maxCharName = 30
 
 	Scaffold {
 		Column(
@@ -47,7 +60,10 @@ fun RegisterScreen(navController: NavController) {
 					.height(65.dp)
 					.padding(horizontal = 40.dp, vertical = 5.dp),
 				value = name,
-				onValueChange = {value -> name = value},
+				onValueChange = {
+					if (it.length < maxCharName)
+						name = it
+				},
 				placeholder = { Text(stringResource(id = R.string.name_field)) },
 				singleLine = true,
 				textStyle = TextStyle(fontSize = 16.sp),
@@ -93,6 +109,18 @@ fun RegisterScreen(navController: NavController) {
 				value = password,
 				onValueChange = {value -> password = value},
 				placeholder = { Text(stringResource(id = R.string.password_field)) },
+				trailingIcon = {
+					IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+						Icon(
+							imageVector = iconVisibility,
+							contentDescription = "Visibility icon"
+						)
+					}
+				},
+				keyboardOptions = KeyboardOptions(
+					keyboardType = KeyboardType.Password
+				),
+				visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
 				singleLine = true,
 				textStyle = TextStyle(fontSize = 16.sp),
 				shape = RoundedCornerShape(10.dp),
@@ -134,11 +162,26 @@ fun RegisterScreen(navController: NavController) {
 				modifier = Modifier
 					.padding(top = 10.dp)
 					.clickable {
-						navController.navigate(ProjectNavRoute.Login.route)
+						navController.popBackStack()
 					},
 				style = TextStyle(
 					fontSize = 16.sp,
 					color = Color.Blue
+				)
+			)
+
+			Text(
+				text="На главную",
+				modifier = Modifier
+					.padding(top = 10.dp)
+					.clickable {
+						navController.navigate(MAIN_ROUTE) {
+							popUpTo(MAIN_ROUTE)
+						}
+					},
+				style = TextStyle(
+					fontSize = 18.sp,
+					color = Color.Gray
 				)
 			)
 		}
