@@ -77,8 +77,8 @@ fun TopBar(externalRouter: Router) {
 				Text(
 					text = stringResource(R.string.home_screen),
 					style = TextStyle(
-						fontWeight = FontWeight.Bold,
-						fontSize = 20.sp
+						fontWeight = FontWeight.W600,
+						fontSize = 18.sp
 					)
 				)
 			}
