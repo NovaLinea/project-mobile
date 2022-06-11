@@ -4,11 +4,12 @@ import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.repository.AuthRepository
 
 class LoginByEmail(
-	private val authRepository: AuthRepository
+	private val repository: AuthRepository
 ) {
 
-	fun execute(userData: UserLogin) : Boolean {
-		authRepository.loginByEmail(userData)
+	operator fun invoke(userData: UserLogin): Boolean {
+		UserRe
+		repository.loginByEmail(userData)
 		return true
 	}
 }

@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 			ProjectUnionTheme {
 				Surface(color = MaterialTheme.colors.background) {
 					//auth = Firebase.auth
-					
+
 					val navController = rememberNavController()
 					NavGraph(navController)
 				}

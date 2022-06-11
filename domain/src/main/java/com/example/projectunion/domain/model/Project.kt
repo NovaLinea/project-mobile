@@ -1,11 +1,8 @@
 package com.example.projectunion.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity
 data class Project (
-	@PrimaryKey val id: String? = null,
+	val id: String,
 	val title: String,
 	val description: String,
 	//val type: String,
