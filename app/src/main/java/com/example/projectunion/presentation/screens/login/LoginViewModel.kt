@@ -7,14 +7,9 @@ import com.example.projectunion.data.repository.AuthRepositoryImpl
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.use_case.LoginByEmailUseCase
 
-class LoginViewModel : ViewModel() {
-	private val authRepository by lazy(LazyThreadSafetyMode.NONE) {
-		AuthRepositoryImpl()
-	}
-	private val loginByEmailUseCase by lazy(LazyThreadSafetyMode.NONE) {
-		LoginByEmailUseCase(authRepository)
-	}
-
+class LoginViewModel(
+	private val loginByEmailUseCase: LoginByEmailUseCase
+) : ViewModel() {
 	private val _state = MutableLiveData<LoginState>()
 	val state: LiveData<LoginState> = _state
 

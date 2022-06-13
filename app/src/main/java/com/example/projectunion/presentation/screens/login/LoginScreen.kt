@@ -25,17 +25,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
 import com.example.projectunion.presentation.navigation.MAIN_ROUTE
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.login.LoginViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun LoginScreen(
 	navController: NavController,
-	viewModel: LoginViewModel = viewModel()
+	viewModel: LoginViewModel = getViewModel<LoginViewModel>()
 ) {
 	val state = viewModel.state.value
 
