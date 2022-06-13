@@ -10,8 +10,6 @@ import com.example.projectunion.presentation.navigation.*
 import com.example.projectunion.presentation.ui.theme.ProjectUnionTheme
 
 class MainActivity : ComponentActivity() {
-	//private lateinit var auth: FirebaseAuth;
-	//private val db = Firebase.firestore
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -19,8 +17,6 @@ class MainActivity : ComponentActivity() {
 		setContent {
 			ProjectUnionTheme {
 				Surface(color = MaterialTheme.colors.background) {
-					//auth = Firebase.auth
-
 					val navController = rememberNavController()
 					NavGraph(navController)
 				}
