@@ -184,18 +184,7 @@ fun LoginScreen(
 				onClick = {
 					viewModel.loginByEmail(email, password)
 					Log.d("AppLog", "${state?.auth}")
-					/*auth.signInWithEmailAndPassword(email, password)
-						.addOnCompleteListener{
-							if (it.isSuccessful) {
-								Log.d("AppLog", "Login is successful")
-								if (auth.currentUser != null) {
-									navController.navigate(MAIN_ROUTE)
-								}
-							}
-							else {
-								Log.d("AppLog", "Login is not successful")
-							}
-						}*/
+					//navController.navigate(MAIN_ROUTE)
 				},
 				modifier = Modifier.padding(top = 7.dp),
 				colors = ButtonDefaults.buttonColors(
