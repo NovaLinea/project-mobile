@@ -1,9 +1,11 @@
 package com.example.projectunion.data.repository
 
+import com.example.projectunion.domain.model.Response.*
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.model.UserRegister
 import com.example.projectunion.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.flow
 
 class AuthRepositoryImpl(
 	private val auth: FirebaseAuth
@@ -13,12 +15,13 @@ class AuthRepositoryImpl(
 		return true
 	}
 
-	override fun loginByEmail(userData: UserLogin): Boolean {
+	override fun loginByEmail(userData: UserLogin) = flow {
 		try {
+			emit(Loading)
 			auth.signInWithEmailAndPassword(userData.email, userData.password)
-			return true
+			emit(Success(true))
 		} catch (e: Exception) {
-			return false
+			emit(Error(e.message ?: e.toString()))
 		}
 	}
 

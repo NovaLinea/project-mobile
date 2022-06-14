@@ -25,17 +25,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
 import com.example.projectunion.presentation.navigation.MAIN_ROUTE
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.login.LoginViewModel
-import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun LoginScreen(
 	navController: NavController,
-	viewModel: LoginViewModel = getViewModel<LoginViewModel>()
+	viewModel: LoginViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.value
 
@@ -183,7 +183,7 @@ fun LoginScreen(
 			Button(
 				onClick = {
 					viewModel.loginByEmail(email, password)
-					Log.d("AppLog", "${state?.auth}")
+					Log.d("AppLog", "$state")
 					//navController.navigate(MAIN_ROUTE)
 				},
 				modifier = Modifier.padding(top = 7.dp),

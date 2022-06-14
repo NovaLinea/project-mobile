@@ -1,11 +1,20 @@
 package com.example.projectunion.di
 
+import com.example.projectunion.domain.repository.AuthRepository
 import com.example.projectunion.domain.use_case.LoginByEmailUseCase
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-val domainModule = module {
+@Module
+@InstallIn(ViewModelComponent::class)
+class DomainModule {
 
-	factory<LoginByEmailUseCase> {
-		LoginByEmailUseCase(repository = get())
+	@Provides
+	fun provideLoginByEmailUseCase(authRepository: AuthRepository): LoginByEmailUseCase {
+		return LoginByEmailUseCase(repository = authRepository)
 	}
 }
