@@ -3,6 +3,8 @@ package com.example.projectunion.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
+import com.example.projectunion.common.Constants.MAIN_ROUTE
+import com.example.projectunion.common.Constants.ROOT_ROUTE
 
 @Composable
 fun NavGraph(

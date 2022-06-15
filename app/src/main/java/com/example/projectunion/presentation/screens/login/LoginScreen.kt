@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.screens.register
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.layout.*
@@ -29,12 +28,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
+import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.domain.model.Response.*
-import com.example.projectunion.presentation.navigation.MAIN_ROUTE
+import com.example.projectunion.presentation.components.ProgressBar
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.login.LoginViewModel
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun LoginScreen(
 	navController: NavController,
@@ -42,15 +42,6 @@ fun LoginScreen(
 ) {
 	val email by viewModel.email.collectAsState()
 	val password by viewModel.password.collectAsState()
-
-	when(val response = viewModel.state.value) {
-		is Loading -> Log.d("AppLog", "Loading")
-		is Success -> {
-			Log.d("AppLog", "Success ${response.data}")
-			//navController.navigate(MAIN_ROUTE)
-		}
-		is Error -> Log.d("AppLog", "Error ${response.message}")
-	}
 
 	var passwordVisibility by remember { mutableStateOf(false) }
 	val iconVisibility = if (passwordVisibility)
@@ -73,6 +64,19 @@ fun LoginScreen(
 			password.length >= minCharPassword
 		else
 			false
+	}
+
+	when (val response = viewModel.state.value) {
+		is Loading -> Log.d(Constants.TAG, "Loading")
+		is Success -> {
+			if (response.data) {
+				navController.navigate(MAIN_ROUTE)
+			}
+			else {
+				Log.d(Constants.TAG, "Error login")
+			}
+	}
+		is Error -> Log.d(Constants.TAG, "Error ${response.message}")
 	}
 
 	Scaffold {
@@ -202,22 +206,31 @@ fun LoginScreen(
 					contentColor = Color.White
 				),
 				shape = RoundedCornerShape(10.dp),
-				enabled = isEmailValid && isPasswordValid
+				enabled = isEmailValid && isPasswordValid && viewModel.state.value != Loading
 			) {
-				Text( 
-					text="Войти",
-					modifier = Modifier
-						.padding(horizontal = 5.dp, vertical = 3.dp),
-					style = TextStyle(
-						fontSize = 16.sp,
-						fontWeight = FontWeight.Bold
+				if (viewModel.state.value == Loading) {
+					CircularProgressIndicator(
+						modifier = Modifier
+							.size(30.dp),
+						color = Color.White
 					)
-				)
+				}
+				else {
+					Text(
+						text = Constants.LOGIN,
+						modifier = Modifier
+							.padding(horizontal = 5.dp, vertical = 3.dp),
+						style = TextStyle(
+							fontSize = 16.sp,
+							fontWeight = FontWeight.Bold
+						)
+					)
+				}
 			}
 
 			TextButton(onClick = { navController.navigate(MainNavRoute.Register.route) }) {
 				Text(
-					text="Зарегестрироваться",
+					text=Constants.REGISTER,
 					modifier = Modifier.padding(top = 10.dp),
 					style = TextStyle(
 						fontSize = 16.sp,

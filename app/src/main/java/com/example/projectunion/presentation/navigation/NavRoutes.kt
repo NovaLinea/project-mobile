@@ -3,15 +3,10 @@ package com.example.projectunion.presentation.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
 
 
-const val ARGUMENT_PROJECT_KEY = "projectID"
-const val ROOT_ROUTE = "root_route"
-const val MAIN_ROUTE = "main_route"
-const val AUTHENTICATION_ROUTE = "authentication_route"
-
-
-sealed class MainNavRoute(val route: String, title: String) {
+sealed class MainNavRoute(val route: String, val title: String) {
 	object Main: MainNavRoute("main_screen", "Главная")
 	object Login: MainNavRoute("login_screen", "Вход")
 	object Register: MainNavRoute("register_screen", "Регистрация")
@@ -24,7 +19,7 @@ sealed class MainNavRoute(val route: String, title: String) {
 	object Favorites: MainNavRoute("favorites_screen", "Избранное")
 }
 
-sealed class BottomNavRoute(val route: String, title: String, val icon: ImageVector) {
+sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
 	object Home: BottomNavRoute("home_screen", "Домашняя", Icons.Default.Home)
 	object Messages: BottomNavRoute("messages_screen", "Сообщения", Icons.Default.Message)
 }

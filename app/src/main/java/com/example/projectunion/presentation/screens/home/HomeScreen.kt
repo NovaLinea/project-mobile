@@ -20,24 +20,26 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.R
+import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.domain.model.Project
-import com.example.projectunion.presentation.navigation.AUTHENTICATION_ROUTE
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.Router
+import com.example.projectunion.presentation.screens.home.HomeViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 @Composable
 fun HomeScreen(
-	externalRouter: Router
+	externalRouter: Router,
+	viewModel: HomeViewModel = hiltViewModel()
 ) {
 	val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
 	val currentDate = sdf.format(Date())
 	val projects = listOf(
 		Project(
-			id = "id",
+			id = "0j1ew93kdgYJSZ9fXa4YSXrM6pn1",
 			title = "Title",
 			description = "Description",
 			price = 15000,
@@ -48,7 +50,7 @@ fun HomeScreen(
 
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
-		topBar = { TopBar(externalRouter) },
+		topBar = { TopBar(externalRouter, viewModel.isAuth) },
 		floatingActionButton = { FloatingButton(externalRouter) }
 	) {
 		LazyColumn(
@@ -64,7 +66,10 @@ fun HomeScreen(
 }
 
 @Composable
-fun TopBar(externalRouter: Router) {
+fun TopBar(
+	externalRouter: Router,
+	isAuth: Boolean
+) {
 	TopAppBar(
 		modifier = Modifier
 			.fillMaxWidth(),
@@ -86,7 +91,10 @@ fun TopBar(externalRouter: Router) {
 		navigationIcon = {
 			IconButton(
 				onClick = {
-					externalRouter.navigateTo(AUTHENTICATION_ROUTE)
+					if (isAuth)
+						externalRouter.navigateTo(MainNavRoute.Profile.route)
+					else
+						externalRouter.navigateTo(AUTHENTICATION_ROUTE)
 				}
 			) {
 				Icon(

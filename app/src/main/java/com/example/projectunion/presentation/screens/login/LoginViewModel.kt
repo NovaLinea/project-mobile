@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.screens.login
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
@@ -9,9 +8,7 @@ import com.example.projectunion.domain.model.Response.*
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.use_case.LoginByEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject

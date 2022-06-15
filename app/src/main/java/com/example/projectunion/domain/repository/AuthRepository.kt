@@ -9,6 +9,6 @@ interface AuthRepository {
 
 	fun authorized(): Boolean
 	suspend fun loginByEmail(userData: UserLogin): Flow<Response<Boolean>>
-	fun registerByEmail(userData: UserRegister): Boolean
+	fun registerByEmail(userData: UserRegister): Flow<Response<Boolean>>
 	fun logout()
 }

@@ -2,6 +2,8 @@ package com.example.projectunion.presentation.navigation
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
+import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.presentation.screens.*
 
 
@@ -23,7 +25,7 @@ fun NavGraphBuilder.mainNavGraph(
 			route = MainNavRoute.Project.route,
 			arguments = listOf(
 				navArgument(ARGUMENT_PROJECT_KEY) {
-					type = NavType.IntType
+					type = NavType.StringType
 				}
 			)
 		) {
@@ -34,7 +36,7 @@ fun NavGraphBuilder.mainNavGraph(
 		}
 
 		composable(MainNavRoute.Create.route) { CreateScreen() }
-		composable(MainNavRoute.Profile.route) { ProfileScreen() }
+		composable(MainNavRoute.Profile.route) { ProfileScreen(navController) }
 		composable(MainNavRoute.Settings.route) { SettingsScreen() }
 		composable(MainNavRoute.Search.route) { SearchScreen() }
 		composable(MainNavRoute.Favorites.route) { FavoritesScreen() }

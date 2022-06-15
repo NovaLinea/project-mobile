@@ -11,10 +11,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.projectunion.R
+import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.MAIN_ROUTE
+import com.example.projectunion.presentation.screens.profile.ProfileViewModel
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+	navController: NavController,
+	viewModel: ProfileViewModel = hiltViewModel()
+) {
 	Scaffold(
 		topBar = {
 			TopAppBar(
@@ -41,13 +49,21 @@ fun ProfileScreen() {
 			modifier = Modifier.fillMaxSize().padding(top = 170.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Text(
-				text = "Профиль",
-				style = TextStyle(
-					color = Color.Gray,
-					fontSize = 15.sp
+			TextButton(
+				onClick = {
+					viewModel.logout()
+					navController.navigate(MAIN_ROUTE)
+				}
+			) {
+				Text(
+					text= Constants.LOGOUT,
+					modifier = Modifier.padding(top = 10.dp),
+					style = TextStyle(
+						fontSize = 16.sp,
+						color = Color.Blue
+					)
 				)
-			)
+			}
 		}
 	}
 }

@@ -26,8 +26,14 @@ class AuthRepositoryImpl @Inject constructor(
 		}
 	}
 
-	override fun registerByEmail(userData: UserRegister): Boolean {
-		return true
+	override fun registerByEmail(userData: UserRegister) = flow<Response<Boolean>> {
+		try {
+			emit(Loading)
+			auth.createUserWithEmailAndPassword(userData.email, userData.password).await()
+			emit(Success(true))
+		} catch (e: Exception) {
+			emit(Error(e.message ?: e.toString()))
+		}
 	}
 
 	override fun logout() {

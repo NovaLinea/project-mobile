@@ -7,8 +7,5 @@ class RegisterByEmailUseCase(
 	private val repository: AuthRepository
 ) {
 
-	operator fun invoke(userData: UserRegister): Boolean {
-		repository.registerByEmail(userData)
-		return true
-	}
+	operator fun invoke(userData: UserRegister) = repository.registerByEmail(userData)
 }

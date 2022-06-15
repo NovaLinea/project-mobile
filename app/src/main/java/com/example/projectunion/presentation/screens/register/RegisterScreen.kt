@@ -1,5 +1,6 @@
 package com.example.projectunion.presentation.screens.register
 
+import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,17 +28,22 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
-import com.example.projectunion.presentation.navigation.MAIN_ROUTE
+import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.MAIN_ROUTE
+import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.screens.login.LoginViewModel
 
 @Composable
 fun RegisterScreen(
-	navController: NavController
+	navController: NavController,
+	viewModel: RegisterViewModel = hiltViewModel()
 ) {
-	var name by remember { mutableStateOf("") }
-	var email by remember { mutableStateOf("") }
-	var password by remember { mutableStateOf("") }
+	val name by viewModel.name.collectAsState()
+	val email by viewModel.email.collectAsState()
+	val password by viewModel.password.collectAsState()
 
 	var passwordVisibility by remember { mutableStateOf(false) }
 	val iconVisibility = if (passwordVisibility)
@@ -48,7 +54,6 @@ fun RegisterScreen(
 	val maxCharName = 30
 	val minCharPassword = 6
 	var focusManager = LocalFocusManager.current
-	var isLoading by remember { mutableStateOf(false) }
 
 	val isNameValid by derivedStateOf {
 		name.isNotEmpty()
@@ -66,6 +71,19 @@ fun RegisterScreen(
 			password.length >= minCharPassword
 		else
 			false
+	}
+
+	when (val response = viewModel.state.value) {
+		is Response.Loading -> Log.d(Constants.TAG, "Loading")
+		is Response.Success -> {
+			if (response.data) {
+				navController.navigate(MAIN_ROUTE)
+			}
+			else {
+				Log.d(Constants.TAG, "Error register")
+			}
+		}
+		is Response.Error -> Log.d(Constants.TAG, "Error ${response.message}")
 	}
 
 	Scaffold {
@@ -107,12 +125,14 @@ fun RegisterScreen(
 				value = name,
 				onValueChange = {
 					if (it.length < maxCharName)
-						name = it
+						viewModel.name.value = it
 				},
 				placeholder = { Text(stringResource(id = R.string.name_field)) },
 				trailingIcon = {
 					if (name.isNotBlank()) {
-						IconButton(onClick = { name = "" }) {
+						IconButton(
+							onClick = { viewModel.name.value = "" }
+						) {
 							Icon(
 								imageVector = Icons.Default.Clear,
 								contentDescription = "Clear icon"
@@ -149,11 +169,13 @@ fun RegisterScreen(
 					.height(68.dp)
 					.padding(horizontal = 40.dp, vertical = 5.dp),
 				value = email,
-				onValueChange = {value -> email = value},
+				onValueChange = {value -> viewModel.email.value = value},
 				placeholder = { Text(stringResource(id = R.string.email_field)) },
 				trailingIcon = {
 					if (email.isNotBlank()) {
-						IconButton(onClick = { email = "" }) {
+						IconButton(
+							onClick = { viewModel.email.value = "" }
+						) {
 							Icon(
 								imageVector = Icons.Default.Clear,
 								contentDescription = "Clear icon"
@@ -192,7 +214,7 @@ fun RegisterScreen(
 					.height(68.dp)
 					.padding(horizontal = 40.dp, vertical = 5.dp),
 				value = password,
-				onValueChange = {value -> password = value},
+				onValueChange = {value -> viewModel.password.value = value},
 				placeholder = { Text(stringResource(id = R.string.password_field)) },
 				trailingIcon = {
 					IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
@@ -229,34 +251,7 @@ fun RegisterScreen(
 
 			Button(
 				onClick = {
-					/*isLoading = true
-
-					auth.createUserWithEmailAndPassword(email, password)
-						.addOnCompleteListener{
-							if (it.isSuccessful) {
-								auth.currentUser?.let { data ->
-									val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-									val currentDate = sdf.format(Date())
-									val user = hashMapOf(
-										"name" to name,
-										"email" to email,
-										"description" to "",
-										"createdAt" to currentDate
-									)
-
-									db.collection("users").document(data.uid).set(user)
-										.addOnSuccessListener {
-											Log.d("AppLog", "DocumentSnapshot added with ID: ${data.uid}")
-										}
-										.addOnFailureListener {
-											Log.w("AppLog", "Error adding document")
-										}
-								}
-							}
-							else {
-								Log.d("AppLog", "Register is not successful")
-							}
-						}*/
+					viewModel.registerByEmail()
 				},
 				modifier = Modifier.padding(top = 7.dp),
 				colors = ButtonDefaults.buttonColors(
@@ -264,17 +259,26 @@ fun RegisterScreen(
 					contentColor = Color.White
 				),
 				shape = RoundedCornerShape(10.dp),
-				enabled = isNameValid && isEmailValid && isPasswordValid,
+				enabled = isNameValid && isEmailValid && isPasswordValid && viewModel.state.value != Response.Loading,
 			) {
-				Text(
-					text="Зарегестрироваться",
-					modifier = Modifier
-						.padding(horizontal = 5.dp, vertical = 3.dp),
-					style = TextStyle(
-						fontSize = 16.sp,
-						fontWeight = FontWeight.Bold
+				if (viewModel.state.value == Response.Loading) {
+					CircularProgressIndicator(
+						modifier = Modifier
+							.size(30.dp),
+						color = Color.White
 					)
-				)
+				}
+				else {
+					Text(
+						text="Зарегестрироваться",
+						modifier = Modifier
+							.padding(horizontal = 5.dp, vertical = 3.dp),
+						style = TextStyle(
+							fontSize = 16.sp,
+							fontWeight = FontWeight.Bold
+						)
+					)
+				}
 			}
 
 			TextButton(onClick = { navController.popBackStack() }) {

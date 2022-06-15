@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.projectunion.presentation.navigation.MAIN_ROUTE
+import com.example.projectunion.common.Constants.MAIN_ROUTE
 
 @Composable
 fun ProjectScreen(
