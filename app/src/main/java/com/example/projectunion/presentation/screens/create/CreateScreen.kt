@@ -40,6 +40,6 @@ fun CreateScreen() {
 			}
 		},
 	) {
-		Text(text = "Create")
+
 	}
 }

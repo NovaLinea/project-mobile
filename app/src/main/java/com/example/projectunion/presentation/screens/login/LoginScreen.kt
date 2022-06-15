@@ -31,7 +31,6 @@ import com.example.projectunion.R
 import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.domain.model.Response.*
-import com.example.projectunion.presentation.components.ProgressBar
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.login.LoginViewModel
 
@@ -70,12 +69,14 @@ fun LoginScreen(
 		is Loading -> Log.d(Constants.TAG, "Loading")
 		is Success -> {
 			if (response.data) {
-				navController.navigate(MAIN_ROUTE)
+				LaunchedEffect(response.data) {
+					navController.navigate(MAIN_ROUTE)
+				}
 			}
 			else {
 				Log.d(Constants.TAG, "Error login")
 			}
-	}
+		}
 		is Error -> Log.d(Constants.TAG, "Error ${response.message}")
 	}
 
@@ -96,7 +97,7 @@ fun LoginScreen(
 
 		Column(
 			modifier = Modifier
-				.padding(top = 120.dp),
+				.padding(top = 100.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Text(
@@ -151,7 +152,7 @@ fun LoginScreen(
 					unfocusedIndicatorColor = Color.Transparent,
 					disabledIndicatorColor = Color.Transparent
 				),
-				isError = !isEmailValid
+				//isError = !isEmailValid
 			)
 
 			TextField(
@@ -193,7 +194,7 @@ fun LoginScreen(
 					unfocusedIndicatorColor = Color.Transparent,
 					disabledIndicatorColor = Color.Transparent
 				),
-				isError = !isPasswordValid
+				//isError = !isPasswordValid
 			)
 
 			Button(

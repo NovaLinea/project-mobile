@@ -16,7 +16,7 @@ class AuthRepositoryImpl @Inject constructor(
 
 	override fun authorized() = auth.currentUser != null
 
-	override suspend fun loginByEmail(userData: UserLogin) = flow<Response<Boolean>> {
+	override fun loginByEmail(userData: UserLogin) = flow<Response<Boolean>> {
 		try {
 			emit(Loading)
 			auth.signInWithEmailAndPassword(userData.email, userData.password).await()
@@ -36,8 +36,14 @@ class AuthRepositoryImpl @Inject constructor(
 		}
 	}
 
-	override fun logout() {
-		auth.signOut()
+	override fun logout() = flow<Response<Boolean>> {
+		try {
+			emit(Loading)
+			auth.signOut()
+			emit(Success(true))
+		} catch (e: Exception) {
+			emit(Error(e.message ?: e.toString()))
+		}
 	}
 
 }

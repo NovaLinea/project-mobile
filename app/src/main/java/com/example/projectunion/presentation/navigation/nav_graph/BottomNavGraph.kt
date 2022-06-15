@@ -4,8 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.projectunion.presentation.screens.HomeScreen
-import com.example.projectunion.presentation.screens.MessagesScreen
+import com.example.projectunion.presentation.screens.*
+import com.example.projectunion.presentation.screens.register.LoginScreen
+import com.example.projectunion.presentation.screens.register.RegisterScreen
 
 @Composable
 fun BottomNavGraph(
@@ -18,5 +19,6 @@ fun BottomNavGraph(
 	) {
 		composable(BottomNavRoute.Home.route) { HomeScreen(externalRouter) }
 		composable(BottomNavRoute.Messages.route) { MessagesScreen() }
+		composable(BottomNavRoute.Profile.route) { ProfileScreen(externalRouter) }
 	}
 }

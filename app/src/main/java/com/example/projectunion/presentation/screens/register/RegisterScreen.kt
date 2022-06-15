@@ -77,7 +77,9 @@ fun RegisterScreen(
 		is Response.Loading -> Log.d(Constants.TAG, "Loading")
 		is Response.Success -> {
 			if (response.data) {
-				navController.navigate(MAIN_ROUTE)
+				LaunchedEffect(response.data) {
+					navController.navigate(MAIN_ROUTE)
+				}
 			}
 			else {
 				Log.d(Constants.TAG, "Error register")
@@ -103,7 +105,7 @@ fun RegisterScreen(
 
 		Column(
 			modifier = Modifier
-				.padding(top = 120.dp),
+				.padding(top = 100.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Text(
@@ -204,7 +206,7 @@ fun RegisterScreen(
 					unfocusedIndicatorColor = Color.Transparent,
 					disabledIndicatorColor = Color.Transparent
 				),
-				isError = !isEmailValid
+				//isError = !isEmailValid
 			)
 
 			TextField(
@@ -246,7 +248,7 @@ fun RegisterScreen(
 					unfocusedIndicatorColor = Color.Transparent,
 					disabledIndicatorColor = Color.Transparent
 				),
-				isError = !isPasswordValid
+				//isError = !isPasswordValid
 			)
 
 			Button(

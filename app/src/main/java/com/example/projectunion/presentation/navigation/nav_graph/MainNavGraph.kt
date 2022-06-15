@@ -36,7 +36,6 @@ fun NavGraphBuilder.mainNavGraph(
 		}
 
 		composable(MainNavRoute.Create.route) { CreateScreen() }
-		composable(MainNavRoute.Profile.route) { ProfileScreen(navController) }
 		composable(MainNavRoute.Settings.route) { SettingsScreen() }
 		composable(MainNavRoute.Search.route) { SearchScreen() }
 		composable(MainNavRoute.Favorites.route) { FavoritesScreen() }

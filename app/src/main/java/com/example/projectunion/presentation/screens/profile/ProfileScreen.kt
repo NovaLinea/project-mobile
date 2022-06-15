@@ -1,8 +1,10 @@
 package com.example.projectunion.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,13 +18,30 @@ import androidx.navigation.NavController
 import com.example.projectunion.R
 import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.MAIN_ROUTE
+import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.profile.ProfileViewModel
 
 @Composable
 fun ProfileScreen(
-	navController: NavController,
+	externalRouter: Router,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
+	when (val response = viewModel.state.value) {
+		is Response.Loading -> Log.d(Constants.TAG, "Loading")
+		is Response.Success -> {
+			if (response.data) {
+				LaunchedEffect(response.data) {
+					externalRouter.navigateTo(MAIN_ROUTE)
+				}
+			}
+			else {
+				Log.d(Constants.TAG, "Error logout")
+			}
+		}
+		is Response.Error -> Log.d(Constants.TAG, "Error ${response.message}")
+	}
+
 	Scaffold(
 		topBar = {
 			TopAppBar(
@@ -52,7 +71,6 @@ fun ProfileScreen(
 			TextButton(
 				onClick = {
 					viewModel.logout()
-					navController.navigate(MAIN_ROUTE)
 				}
 			) {
 				Text(

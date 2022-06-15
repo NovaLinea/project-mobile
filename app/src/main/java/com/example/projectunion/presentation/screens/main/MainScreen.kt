@@ -7,20 +7,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
+import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.presentation.navigation.BottomNavGraph
 import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.Router
+import com.example.projectunion.presentation.screens.main.MainViewModel
 
 @Composable
-fun MainScreen(externalRouter: Router) {
+fun MainScreen(
+	externalRouter: Router,
+	viewModel: MainViewModel = hiltViewModel()
+) {
 	val navController = rememberNavController()
 
 	Scaffold(
-		bottomBar = {BottomBar(navController)}
+		bottomBar = {BottomBar(navController, externalRouter, viewModel.isAuth)}
 	) {
 		innerPadding ->
 			Box(
@@ -32,10 +38,15 @@ fun MainScreen(externalRouter: Router) {
 }
 
 @Composable
-fun BottomBar(navController: NavController) {
+fun BottomBar(
+	navController: NavController,
+	externalRouter: Router,
+	isAuth: Boolean
+) {
 	val screens = listOf(
 		BottomNavRoute.Home,
-		BottomNavRoute.Messages
+		BottomNavRoute.Messages,
+		BottomNavRoute.Profile
 	)
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -50,7 +61,9 @@ fun BottomBar(navController: NavController) {
 			AddItem(
 				screen = screen,
 				currentDestination = currentDestination,
-				navController = navController
+				navController = navController,
+				externalRouter = externalRouter,
+				isAuth = isAuth
 			)
 		}
 	}
@@ -60,7 +73,9 @@ fun BottomBar(navController: NavController) {
 fun RowScope.AddItem(
 	screen: BottomNavRoute,
 	currentDestination: NavDestination?,
-	navController: NavController
+	navController: NavController,
+	externalRouter: Router,
+	isAuth: Boolean
 ) {
 	BottomNavigationItem(
 		icon = {
@@ -70,7 +85,10 @@ fun RowScope.AddItem(
 			it.route == screen.route
 		} == true,
 		onClick = {
-			navController.navigate(screen.route)
+			if (!isAuth && screen.route != BottomNavRoute.Home.route)
+				externalRouter.navigateTo(AUTHENTICATION_ROUTE)
+			else
+				navController.navigate(screen.route)
 		}
 	)
 }

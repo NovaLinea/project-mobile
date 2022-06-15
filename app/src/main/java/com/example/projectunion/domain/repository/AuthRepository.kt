@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
 
 	fun authorized(): Boolean
-	suspend fun loginByEmail(userData: UserLogin): Flow<Response<Boolean>>
+	fun loginByEmail(userData: UserLogin): Flow<Response<Boolean>>
 	fun registerByEmail(userData: UserRegister): Flow<Response<Boolean>>
-	fun logout()
+	fun logout(): Flow<Response<Boolean>>
 }

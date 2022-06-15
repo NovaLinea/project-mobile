@@ -7,9 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.R
-import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
+import com.example.projectunion.common.Constants
 import com.example.projectunion.domain.model.Project
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.Router
@@ -50,8 +47,8 @@ fun HomeScreen(
 
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
-		topBar = { TopBar(externalRouter, viewModel.isAuth) },
-		floatingActionButton = { FloatingButton(externalRouter) }
+		topBar = { TopBar(externalRouter) },
+		floatingActionButton = { FloatingButton(externalRouter, viewModel.isAuth) }
 	) {
 		LazyColumn(
 			modifier = Modifier
@@ -67,8 +64,7 @@ fun HomeScreen(
 
 @Composable
 fun TopBar(
-	externalRouter: Router,
-	isAuth: Boolean
+	externalRouter: Router
 ) {
 	TopAppBar(
 		modifier = Modifier
@@ -88,7 +84,7 @@ fun TopBar(
 				)
 			}
 		},
-		navigationIcon = {
+		/*navigationIcon = {
 			IconButton(
 				onClick = {
 					if (isAuth)
@@ -127,17 +123,23 @@ fun TopBar(
 					tint = Color.Black
 				)
 			}
-		},
+		},*/
 		backgroundColor = Color.White,
 		elevation = 1.dp
 	)
 }
 
 @Composable
-fun FloatingButton(externalRouter: Router) {
+fun FloatingButton(
+	externalRouter: Router,
+	isAuth: Boolean
+) {
 	FloatingActionButton(
 		onClick = {
-			externalRouter.navigateTo(MainNavRoute.Create.route)
+			if (!isAuth)
+				externalRouter.navigateTo(Constants.AUTHENTICATION_ROUTE)
+			else
+				externalRouter.navigateTo(MainNavRoute.Create.route)
 		},
 		backgroundColor = colorResource(id = R.color.app_blue),
 		contentColor = Color.White

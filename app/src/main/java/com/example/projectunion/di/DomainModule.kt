@@ -2,6 +2,7 @@ package com.example.projectunion.di
 
 import com.example.projectunion.domain.repository.AuthRepository
 import com.example.projectunion.domain.use_case.LoginByEmailUseCase
+import com.example.projectunion.domain.use_case.LogoutUseCase
 import com.example.projectunion.domain.use_case.RegisterByEmailUseCase
 import dagger.Module
 import dagger.Provides
@@ -22,5 +23,10 @@ class DomainModule {
 	@Provides
 	fun provideRegisterByEmailUseCase(authRepository: AuthRepository): RegisterByEmailUseCase {
 		return RegisterByEmailUseCase(repository = authRepository)
+	}
+
+	@Provides
+	fun provideLogoutUseCase(authRepository: AuthRepository): LogoutUseCase {
+		return LogoutUseCase(repository = authRepository)
 	}
 }

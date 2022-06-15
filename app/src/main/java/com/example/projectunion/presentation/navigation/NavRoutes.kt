@@ -12,7 +12,6 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Register: MainNavRoute("register_screen", "Регистрация")
 	object Project: MainNavRoute("project_screen/{$ARGUMENT_PROJECT_KEY}", "Проект")
 	object Create: MainNavRoute("create_screen", "Создать проект")
-	object Profile: MainNavRoute("profile_screen", "Профиль")
 	object Settings: MainNavRoute("settings_screen", "Настройки")
 	object Search: MainNavRoute("search_screen", "Поиск")
 	object Notifications: MainNavRoute("notifications_screen", "Уведомления")
@@ -22,4 +21,6 @@ sealed class MainNavRoute(val route: String, val title: String) {
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
 	object Home: BottomNavRoute("home_screen", "Домашняя", Icons.Default.Home)
 	object Messages: BottomNavRoute("messages_screen", "Сообщения", Icons.Default.Message)
+	object Profile: BottomNavRoute("profile_screen", "Профиль", Icons.Default.Person)
+
 }
