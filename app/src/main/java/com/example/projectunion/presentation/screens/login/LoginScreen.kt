@@ -1,5 +1,6 @@
 package com.example.projectunion.presentation.screens.register
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.layout.*
@@ -28,19 +29,28 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
+import com.example.projectunion.domain.model.Response.*
 import com.example.projectunion.presentation.navigation.MAIN_ROUTE
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.login.LoginViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun LoginScreen(
 	navController: NavController,
 	viewModel: LoginViewModel = hiltViewModel()
 ) {
-	val state = viewModel.state.value
+	val email by viewModel.email.collectAsState()
+	val password by viewModel.password.collectAsState()
 
-	var email by remember { mutableStateOf("") }
-	var password by remember { mutableStateOf("") }
+	when(val response = viewModel.state.value) {
+		is Loading -> Log.d("AppLog", "Loading")
+		is Success -> {
+			Log.d("AppLog", "Success ${response.data}")
+			//navController.navigate(MAIN_ROUTE)
+		}
+		is Error -> Log.d("AppLog", "Error ${response.message}")
+	}
 
 	var passwordVisibility by remember { mutableStateOf(false) }
 	val iconVisibility = if (passwordVisibility)
@@ -102,11 +112,13 @@ fun LoginScreen(
 					.height(68.dp)
 					.padding(horizontal = 40.dp, vertical = 5.dp),
 				value = email,
-				onValueChange = {value -> email = value},
+				onValueChange = {value -> viewModel.email.value = value},
 				placeholder = { Text(stringResource(id = R.string.email_field)) },
 				trailingIcon = {
 					if (email.isNotBlank()) {
-						IconButton(onClick = { email = "" }) {
+						IconButton(
+							onClick = { viewModel.email.value = "" }
+						) {
 							Icon(
 								imageVector = Icons.Default.Clear,
 								contentDescription = "Clear icon"
@@ -145,7 +157,7 @@ fun LoginScreen(
 					.height(68.dp)
 					.padding(horizontal = 40.dp, vertical = 5.dp),
 				value = password,
-				onValueChange = {value -> password = value},
+				onValueChange = {value -> viewModel.password.value = value},
 				placeholder = { Text(stringResource(id = R.string.password_field)) },
 				trailingIcon = {
 					IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
@@ -182,9 +194,7 @@ fun LoginScreen(
 
 			Button(
 				onClick = {
-					viewModel.loginByEmail(email, password)
-					Log.d("AppLog", "$state")
-					//navController.navigate(MAIN_ROUTE)
+					viewModel.loginByEmail()
 				},
 				modifier = Modifier.padding(top = 7.dp),
 				colors = ButtonDefaults.buttonColors(
