@@ -1,7 +1,7 @@
 package com.example.projectunion.presentation.screens.profile
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectunion.domain.model.Response
@@ -16,13 +16,13 @@ class ProfileViewModel @Inject constructor(
 	private val logoutUseCase: LogoutUseCase
 ): ViewModel() {
 
-	private val _state = mutableStateOf<Response<Boolean>>(Response.Success(false))
-	val state: State<Response<Boolean>> get() = _state
+	private val _state = MutableLiveData<Response<Boolean>>(Response.Success(false))
+	val state: LiveData<Response<Boolean>> get() = _state
 
 	fun logout() {
 		viewModelScope.launch {
 			logoutUseCase().collect { response ->
-				_state.value = response
+				_state.postValue(response)
 			}
 		}
 	}

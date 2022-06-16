@@ -2,6 +2,8 @@ package com.example.projectunion.presentation.screens.register
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectunion.domain.model.Response
@@ -23,14 +25,14 @@ class RegisterViewModel @Inject constructor(
 	val email by lazy { EmailState() }
 	val password by lazy { PasswordState() }
 
-	private val _state = mutableStateOf<Response<Boolean>>(Response.Success(false))
-	val state: State<Response<Boolean>> get() = _state
+	private val _state = MutableLiveData<Response<Boolean>>()
+	val state: LiveData<Response<Boolean>> get() = _state
 
 	fun registerByEmail() {
 		viewModelScope.launch {
 			val user = UserRegister(name = name.text, email = email.text, password = password.text)
 			registerByEmailUseCase(user).collect { response ->
-				_state.value = response
+				_state.postValue(response)
 			}
 		}
 	}

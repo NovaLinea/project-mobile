@@ -19,6 +19,7 @@ object Constants {
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
 	const val INVALID_LOGIN = "Не верная почта или пароль"
+	const val INVALID_REGISTER = "Ошибка при регистрации"
 
 	// Placeholders
 	const val NAME_PLACEHOLDER = "Имя и фамилия"

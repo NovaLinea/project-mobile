@@ -1,5 +1,6 @@
 package com.example.projectunion.data.repository
 
+import com.example.projectunion.common.Constants.INVALID_REGISTER
 import com.example.projectunion.data.authentication.Authentication
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.domain.model.Response
@@ -30,11 +31,11 @@ class AuthRepositoryImpl @Inject constructor(
 							if (user.data != null)
 								firestoreDB.createUser(userData, user.data.uid).collect { emit(it) }
 							else
-								emit(Response.Success(false))
+								emit(Response.Error(INVALID_REGISTER))
 						}
 					}
 					is Response.Error -> emit(response)
-					else -> emit(Response.Success(false))
+					else -> emit(Response.Error(INVALID_REGISTER))
 				}
 			}
 		} catch (e: Exception) {
