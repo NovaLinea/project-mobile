@@ -1,5 +1,9 @@
 package com.example.projectunion.di
 
+import com.example.projectunion.data.authentication.Authentication
+import com.example.projectunion.data.authentication.AuthenticationImpl
+import com.example.projectunion.data.firestoreDB.FirestoreDB
+import com.example.projectunion.data.firestoreDB.FirestoreDBImpl
 import com.example.projectunion.data.repository.AuthRepositoryImpl
 import com.example.projectunion.data.repository.ProjectRepositoryImpl
 import com.example.projectunion.data.repository.UserRepositoryImpl
@@ -31,11 +35,27 @@ class DataModule {
 
 	@Provides
 	@Singleton
-	fun provideAuthRepository(
-		auth: FirebaseAuth,
+	fun provideAuthentication(
+		auth: FirebaseAuth
+	): Authentication {
+		return AuthenticationImpl(auth)
+	}
+
+	@Provides
+	@Singleton
+	fun provideFirestoreDB(
 		db: FirebaseFirestore
+	): FirestoreDB {
+		return FirestoreDBImpl(db)
+	}
+
+	@Provides
+	@Singleton
+	fun provideAuthRepository(
+		authentication: Authentication,
+		firestoreDB: FirestoreDB
 	): AuthRepository {
-		return AuthRepositoryImpl(auth, db)
+		return AuthRepositoryImpl(authentication, firestoreDB)
 	}
 
 	@Provides

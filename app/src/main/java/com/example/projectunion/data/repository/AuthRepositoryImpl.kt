@@ -1,66 +1,47 @@
 package com.example.projectunion.data.repository
 
-import com.example.projectunion.common.Constants.TIME_FORMAT
-import com.example.projectunion.common.Constants.USERS_COLLECTION
+import com.example.projectunion.data.authentication.Authentication
+import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.domain.model.Response.*
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.model.UserRegister
 import com.example.projectunion.domain.repository.AuthRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.tasks.await
-import java.util.*
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-	private val auth: FirebaseAuth,
-	private val db: FirebaseFirestore
+	private val authentication: Authentication,
+	private val firestoreDB: FirestoreDB
 ) : AuthRepository {
 
-	override fun authorized() = auth.currentUser != null
+	override fun authorized() = authentication.authorized()
 
-	override fun loginByEmail(userData: UserLogin) = flow<Response<Boolean>> {
-		try {
-			emit(Loading)
-			auth.signInWithEmailAndPassword(userData.email, userData.password).await()
-			emit(Success(true))
-		} catch (e: Exception) {
-			emit(Error(e.message ?: e.toString()))
-		}
-	}
+	override fun loginByEmail(userData: UserLogin) = authentication.loginByEmail(userData)
 
 	override fun registerByEmail(userData: UserRegister) = flow<Response<Boolean>> {
 		try {
-			emit(Loading)
-			auth.createUserWithEmailAndPassword(userData.email, userData.password).await()
+			emit(Response.Loading)
 
-			auth.currentUser?.let { data ->
-				val currentDate = TIME_FORMAT.format(Date())
-				val user = hashMapOf(
-					"name" to userData.name,
-					"email" to userData.email,
-					"description" to "",
-					"createdAt" to currentDate
-				)
-				db.collection("users").document(data.uid).set(user).await()
+			authentication.registerByEmail(userData).collect { response ->
+				when(response) {
+					is Response.Success -> {
+						response?.let { user ->
+							if (user.data != null)
+								firestoreDB.createUser(userData, user.data.uid).collect { emit(it) }
+							else
+								emit(Response.Success(false))
+						}
+					}
+					is Response.Error -> emit(response)
+					else -> emit(Response.Success(false))
+				}
 			}
-
-			emit(Success(true))
 		} catch (e: Exception) {
-			emit(Error(e.message ?: e.toString()))
+			emit(Response.Error(e.message ?: e.toString()))
 		}
 	}
 
-	override fun logout() = flow<Response<Boolean>> {
-		try {
-			emit(Loading)
-			auth.signOut()
-			emit(Success(true))
-		} catch (e: Exception) {
-			emit(Error(e.message ?: e.toString()))
-		}
-	}
+	override fun logout() = authentication.logout()
 
 }
