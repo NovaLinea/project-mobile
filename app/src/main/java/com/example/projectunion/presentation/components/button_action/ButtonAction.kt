@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.components.button_action
+package com.example.projectunion.presentation.components.button_action
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

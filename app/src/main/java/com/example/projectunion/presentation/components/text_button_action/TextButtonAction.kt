@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.components.text_button_action
+package com.example.projectunion.presentation.components.text_button_action
 
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton

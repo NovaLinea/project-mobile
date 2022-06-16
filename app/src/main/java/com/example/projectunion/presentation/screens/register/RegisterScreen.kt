@@ -14,14 +14,15 @@ import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.LOGIN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.REGISTER
+import com.example.projectunion.common.Constants.REGISTER_TITLE
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.screens.components.Email
-import com.example.projectunion.presentation.screens.components.Password
-import com.example.projectunion.presentation.screens.components.button_action.ButtonAction
-import com.example.projectunion.presentation.screens.components.close_button.CloseButton
-import com.example.projectunion.presentation.screens.components.name_field.Name
-import com.example.projectunion.presentation.screens.components.text_button_action.TextButtonAction
-import com.example.projectunion.presentation.screens.components.title.Title
+import com.example.projectunion.presentation.components.email_field.Email
+import com.example.projectunion.presentation.components.password_field.Password
+import com.example.projectunion.presentation.components.button_action.ButtonAction
+import com.example.projectunion.presentation.components.close_button.CloseButton
+import com.example.projectunion.presentation.components.name_field.Name
+import com.example.projectunion.presentation.components.text_button_action.TextButtonAction
+import com.example.projectunion.presentation.components.title.Title
 
 @Composable
 fun RegisterScreen(
@@ -46,9 +47,7 @@ fun RegisterScreen(
 	}
 
 	Scaffold {
-		Box(
-			modifier = Modifier.padding(5.dp)
-		) {
+		Box(modifier = Modifier.padding(5.dp)) {
 			CloseButton {
 				navController.navigate(MAIN_ROUTE)
 			}
@@ -59,7 +58,9 @@ fun RegisterScreen(
 				.padding(top = 100.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Title(Constants.REGISTER_TITLE)
+			Box(modifier = Modifier.padding(bottom = 25.dp)) {
+				Title(REGISTER_TITLE)
+			}
 
 			Column(
 				modifier = Modifier.padding(vertical = 5.dp)

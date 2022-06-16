@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserRegister
 import com.example.projectunion.domain.use_case.RegisterByEmailUseCase
-import com.example.projectunion.presentation.screens.components.email_field.EmailState
-import com.example.projectunion.presentation.screens.components.name_field.NameState
-import com.example.projectunion.presentation.screens.components.password_field.PasswordState
+import com.example.projectunion.presentation.components.email_field.EmailState
+import com.example.projectunion.presentation.components.name_field.NameState
+import com.example.projectunion.presentation.components.password_field.PasswordState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

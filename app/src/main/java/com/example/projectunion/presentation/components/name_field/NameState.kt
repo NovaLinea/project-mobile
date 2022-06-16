@@ -1,7 +1,7 @@
-package com.example.projectunion.presentation.screens.components.name_field
+package com.example.projectunion.presentation.components.name_field
 
 import com.example.projectunion.common.Constants.NAME_INVALID
-import com.example.projectunion.presentation.screens.components.TextFieldState
+import com.example.projectunion.presentation.components.TextFieldState
 
 class NameState: TextFieldState(
 	validator = ::nameValid,

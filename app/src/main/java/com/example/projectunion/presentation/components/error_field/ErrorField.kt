@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.components
+package com.example.projectunion.presentation.components.error_field
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme

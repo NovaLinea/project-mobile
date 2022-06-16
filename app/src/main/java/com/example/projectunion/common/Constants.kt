@@ -1,5 +1,7 @@
 package com.example.projectunion.common
 
+import java.text.SimpleDateFormat
+
 object Constants {
 
 	// Navigation
@@ -10,6 +12,7 @@ object Constants {
 
 	// App
 	const val TAG = "AppLog"
+	val TIME_FORMAT = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
 
 	// Errors
 	const val NAME_INVALID = "Имя и фамилия от 1 до 30 символов"
@@ -21,9 +24,16 @@ object Constants {
 	const val NAME_PLACEHOLDER = "Имя и фамилия"
 	const val EMAIL_PLACEHOLDER = "Почта"
 	const val PASSWORD_PLACEHOLDER = "Пароль"
+	const val SEARCH_PLACEHOLDER = "Поиск"
 
 	// Screens
-	const val MAIN = "Главная"
+	const val MAIN_SCREEN = "Главная"
+	const val MESSAGES_SCREEN = "Сообщения"
+	const val PROFILE_SCREEN = "Профиль"
+	const val NOTIFICATIONS_SCREEN = "Уведомления"
+	const val SEARCH_SCREEN = "Поиск"
+	const val CREATE_SCREEN = "Создание проекта"
+	const val SETTINGS_SCREEN = "Настройки"
 
 	// Buttons
 	const val LOGIN_TITLE = "Вход"
@@ -31,4 +41,8 @@ object Constants {
 	const val REGISTER_TITLE = "Регистрация"
 	const val REGISTER = "Зарегестрироваться"
 	const val LOGOUT = "Выйти"
+
+	// Firestore collections
+	const val USERS_COLLECTION = "users"
+	const val PROJECTS_COLLECTION = "projects"
 }

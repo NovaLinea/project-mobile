@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.components
+package com.example.projectunion.presentation.components.email_field
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
 import com.example.projectunion.common.Constants.EMAIL_PLACEHOLDER
+import com.example.projectunion.presentation.components.error_field.ErrorField
 
 @Composable
 fun Email(
@@ -33,7 +34,7 @@ fun Email(
 		modifier = Modifier
 			.fillMaxWidth()
 			.wrapContentHeight(align = Alignment.CenterVertically)
-			.height(68.dp),
+			.height(57.dp),
 		value = email,
 		onValueChange = { value -> onEmailChanged(value) },
 		placeholder = { Text(EMAIL_PLACEHOLDER) },
@@ -51,9 +52,9 @@ fun Email(
 		),
 		shape = RoundedCornerShape(10.dp),
 		colors = TextFieldDefaults.textFieldColors(
-			textColor = Color.Gray,
 			disabledTextColor = Color.Transparent,
 			backgroundColor = colorResource(id = R.color.app_background),
+			cursorColor = Color.Black,
 			focusedIndicatorColor = Color.Transparent,
 			unfocusedIndicatorColor = Color.Transparent,
 			disabledIndicatorColor = Color.Transparent

@@ -8,6 +8,8 @@ import com.example.projectunion.domain.repository.ProjectRepository
 import com.example.projectunion.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
@@ -25,8 +27,15 @@ class DataModule {
 
 	@Provides
 	@Singleton
-	fun provideAuthRepository(auth: FirebaseAuth): AuthRepository {
-		return AuthRepositoryImpl(auth)
+	fun provideFirestore() = Firebase.firestore
+
+	@Provides
+	@Singleton
+	fun provideAuthRepository(
+		auth: FirebaseAuth,
+		db: FirebaseFirestore
+	): AuthRepository {
+		return AuthRepositoryImpl(auth, db)
 	}
 
 	@Provides

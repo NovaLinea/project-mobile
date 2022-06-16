@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.components.close_button
+package com.example.projectunion.presentation.components.close_button
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
