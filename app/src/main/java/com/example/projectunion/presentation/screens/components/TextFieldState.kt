@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.auth.components
+package com.example.projectunion.presentation.screens.components
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue

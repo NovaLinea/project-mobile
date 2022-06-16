@@ -10,6 +10,9 @@ object Constants {
 
 	// App
 	const val TAG = "AppLog"
+
+	// Errors
+	const val NAME_INVALID = "Имя и фамилия от 1 до 30 символов"
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
 	const val INVALID_LOGIN = "Не верная почта или пароль"

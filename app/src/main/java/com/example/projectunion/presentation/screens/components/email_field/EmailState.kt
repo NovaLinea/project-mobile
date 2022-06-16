@@ -1,8 +1,8 @@
-package com.example.projectunion.presentation.screens.auth.components.email_field
+package com.example.projectunion.presentation.screens.components.email_field
 
 import android.util.Patterns
 import com.example.projectunion.common.Constants.EMAIL_INVALID
-import com.example.projectunion.presentation.screens.auth.components.TextFieldState
+import com.example.projectunion.presentation.screens.components.TextFieldState
 
 class EmailState: TextFieldState(
 	validator = ::emailValid,

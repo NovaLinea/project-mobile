@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserRegister
 import com.example.projectunion.domain.use_case.RegisterByEmailUseCase
+import com.example.projectunion.presentation.screens.components.email_field.EmailState
+import com.example.projectunion.presentation.screens.components.name_field.NameState
+import com.example.projectunion.presentation.screens.components.password_field.PasswordState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,16 +19,16 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
 	private val registerByEmailUseCase: RegisterByEmailUseCase
 ) : ViewModel() {
-	val name by lazy { MutableStateFlow<String>("") }
-	val email by lazy { MutableStateFlow<String>("") }
-	val password by lazy { MutableStateFlow<String>("") }
+	val name by lazy { NameState() }
+	val email by lazy { EmailState() }
+	val password by lazy { PasswordState() }
 
 	private val _state = mutableStateOf<Response<Boolean>>(Response.Success(false))
 	val state: State<Response<Boolean>> get() = _state
 
 	fun registerByEmail() {
 		viewModelScope.launch {
-			val user = UserRegister(name = name.value, email = email.value, password = password.value)
+			val user = UserRegister(name = name.text, email = email.text, password = password.text)
 			registerByEmailUseCase(user).collect { response ->
 				_state.value = response
 			}

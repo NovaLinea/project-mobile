@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.auth.components
+package com.example.projectunion.presentation.screens.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
