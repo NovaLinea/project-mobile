@@ -30,7 +30,7 @@ fun NavGraphBuilder.mainNavGraph(
 			)
 		) {
 			ProjectScreen(
-				projectID = it.arguments?.getInt(ARGUMENT_PROJECT_KEY) ?: -1,
+				projectID = it.arguments?.getString(ARGUMENT_PROJECT_KEY) as String,
 				navController
 			)
 		}

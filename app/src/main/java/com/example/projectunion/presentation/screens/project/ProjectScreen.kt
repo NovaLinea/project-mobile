@@ -18,7 +18,7 @@ import com.example.projectunion.common.Constants.MAIN_ROUTE
 
 @Composable
 fun ProjectScreen(
-	projectID: Int,
+	projectID: String,
 	navController: NavHostController
 ) {
 	Scaffold(

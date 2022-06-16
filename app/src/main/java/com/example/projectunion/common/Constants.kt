@@ -10,12 +10,22 @@ object Constants {
 
 	// App
 	const val TAG = "AppLog"
+	const val EMAIL_INVALID = "Неверная почта"
+	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
+	const val INVALID_LOGIN = "Не верная почта или пароль"
+
+	// Placeholders
+	const val NAME_PLACEHOLDER = "Имя и фамилия"
+	const val EMAIL_PLACEHOLDER = "Почта"
+	const val PASSWORD_PLACEHOLDER = "Пароль"
 
 	// Screens
 	const val MAIN = "Главная"
 
 	// Buttons
+	const val LOGIN_TITLE = "Вход"
 	const val LOGIN = "Войти"
+	const val REGISTER_TITLE = "Регистрация"
 	const val REGISTER = "Зарегестрироваться"
 	const val LOGOUT = "Выйти"
 }

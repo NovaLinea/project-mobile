@@ -5,8 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.projectunion.presentation.screens.*
-import com.example.projectunion.presentation.screens.register.LoginScreen
-import com.example.projectunion.presentation.screens.register.RegisterScreen
 
 @Composable
 fun BottomNavGraph(
