@@ -26,6 +26,7 @@ class AuthRepositoryImpl @Inject constructor(
 
 			authentication.registerByEmail(userData).collect { response ->
 				when(response) {
+					is Response.Loading -> emit(Response.Loading)
 					is Response.Success -> {
 						response?.let { user ->
 							if (user.data != null)
@@ -35,7 +36,6 @@ class AuthRepositoryImpl @Inject constructor(
 						}
 					}
 					is Response.Error -> emit(response)
-					else -> emit(Response.Error(INVALID_REGISTER))
 				}
 			}
 		} catch (e: Exception) {

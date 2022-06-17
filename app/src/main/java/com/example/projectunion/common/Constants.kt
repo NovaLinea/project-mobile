@@ -19,7 +19,12 @@ object Constants {
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
 	const val INVALID_LOGIN = "Не верная почта или пароль"
-	const val INVALID_REGISTER = "Ошибка при регистрации"
+	const val INVALID_REGISTER = "Эта почта уже используется"
+	const val ERROR_SERVER = "Ошибка на стороне сервера"
+
+	// Errors Firebase
+	const val USER_NOT_FOUND = "There is no user record corresponding to this identifier. The user may have been deleted."
+	const val EMAIL_IS_USED = "The email address is already in use by another account."
 
 	// Placeholders
 	const val NAME_PLACEHOLDER = "Имя и фамилия"

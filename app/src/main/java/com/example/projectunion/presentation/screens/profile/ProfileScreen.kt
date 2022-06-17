@@ -28,10 +28,7 @@ fun ProfileScreen(
 	externalRouter: Router,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
-	val state = viewModel.state.observeAsState(Response.Success(false)).value
-
-	//when (val state = viewModel.state.value) {
-	when(state) {
+	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
 		is Response.Loading -> Log.d(TAG, "Loading")
 		is Response.Success -> {
 			if (state.data) {
@@ -40,7 +37,7 @@ fun ProfileScreen(
 				}
 			}
 		}
-		is Response.Error -> Log.d(TAG, "Error ${state.message}")
+		is Response.Error -> Log.d(TAG, "${state.message}")
 	}
 
 	Scaffold(

@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.EMAIL_IS_USED
+import com.example.projectunion.common.Constants.ERROR_SERVER
 import com.example.projectunion.common.Constants.INVALID_REGISTER
 import com.example.projectunion.common.Constants.LOGIN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
@@ -33,8 +35,6 @@ fun RegisterScreen(
 	viewModel: RegisterViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(false)).value
-
-	//when (val state = viewModel.state.value) {
 	when(state) {
 		is Response.Loading -> Log.d(Constants.TAG, "Loading")
 		is Response.Success -> {
@@ -44,7 +44,7 @@ fun RegisterScreen(
 				}
 			}
 		}
-		is Response.Error -> Log.d(Constants.TAG, "Error ${state.message}")
+		is Response.Error -> Log.d(Constants.TAG, "${state.message}")
 	}
 
 	var focusManager = LocalFocusManager.current
@@ -104,8 +104,12 @@ fun RegisterScreen(
 				}
 			}
 
-			if (state is Response.Error)
-				ErrorField(error = INVALID_REGISTER)
+			if (state is Response.Error) {
+				if (state.message == EMAIL_IS_USED)
+					ErrorField(error = INVALID_REGISTER)
+				else
+					ErrorField(error = ERROR_SERVER)
+			}
 
 			ButtonAction(
 				REGISTER,
