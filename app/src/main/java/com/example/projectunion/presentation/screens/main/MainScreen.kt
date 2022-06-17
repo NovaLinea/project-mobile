@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens
+package com.example.projectunion.presentation.screens.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -13,10 +13,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
-import com.example.projectunion.presentation.navigation.BottomNavGraph
 import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.Router
-import com.example.projectunion.presentation.screens.main.MainViewModel
+import com.example.projectunion.presentation.navigation.nav_graph.BottomNavGraph
 
 @Composable
 fun MainScreen(

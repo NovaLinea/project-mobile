@@ -1,6 +1,8 @@
 package com.example.projectunion.di
 
 import com.example.projectunion.domain.repository.AuthRepository
+import com.example.projectunion.domain.repository.ProjectRepository
+import com.example.projectunion.domain.use_case.CreateProjectUseCase
 import com.example.projectunion.domain.use_case.LoginByEmailUseCase
 import com.example.projectunion.domain.use_case.LogoutUseCase
 import com.example.projectunion.domain.use_case.RegisterByEmailUseCase
@@ -28,5 +30,10 @@ class DomainModule {
 	@Provides
 	fun provideLogoutUseCase(authRepository: AuthRepository): LogoutUseCase {
 		return LogoutUseCase(repository = authRepository)
+	}
+
+	@Provides
+	fun provideCreateProjectUseCase(projectRepository: ProjectRepository): CreateProjectUseCase {
+		return CreateProjectUseCase(repository = projectRepository)
 	}
 }

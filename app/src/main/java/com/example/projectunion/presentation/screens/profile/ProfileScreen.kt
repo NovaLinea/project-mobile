@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens
+package com.example.projectunion.presentation.screens.profile
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -21,7 +21,6 @@ import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.navigation.Router
-import com.example.projectunion.presentation.screens.profile.ProfileViewModel
 
 @Composable
 fun ProfileScreen(

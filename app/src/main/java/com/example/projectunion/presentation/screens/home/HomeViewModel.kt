@@ -1,7 +1,7 @@
 package com.example.projectunion.presentation.screens.home
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectunion.domain.repository.AuthRepository
 import com.example.projectunion.domain.repository.ProjectRepository
@@ -15,8 +15,8 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
 	val isAuth get() = authRepository.authorized()
 
-	private val _state = mutableStateOf(HomeState())
-	val state: State<HomeState> get() = _state
+	private val _state = MutableLiveData<HomeState>()
+	val state: LiveData<HomeState> get() = _state
 
 	init {
 		getProjects()

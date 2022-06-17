@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens
+package com.example.projectunion.presentation.screens.notifications
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold

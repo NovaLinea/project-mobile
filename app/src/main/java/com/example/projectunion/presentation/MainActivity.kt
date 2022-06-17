@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.navigation.compose.rememberNavController
-import com.example.projectunion.presentation.navigation.*
+import com.example.projectunion.presentation.navigation.nav_graph.NavGraph
 import com.example.projectunion.presentation.ui.theme.ProjectUnionTheme
 import dagger.hilt.android.AndroidEntryPoint
 

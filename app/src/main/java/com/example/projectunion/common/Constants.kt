@@ -6,6 +6,7 @@ object Constants {
 
 	// Navigation
 	const val ARGUMENT_PROJECT_KEY = "projectID"
+	const val ARGUMENT_CREATE_KEY = "typeProject"
 	const val ROOT_ROUTE = "root_route"
 	const val MAIN_ROUTE = "main_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
@@ -47,6 +48,14 @@ object Constants {
 	const val REGISTER_TITLE = "Регистрация"
 	const val REGISTER = "Зарегестрироваться"
 	const val LOGOUT = "Выйти"
+
+	// Titles
+	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
+
+	// Types project
+	const val TYPE_PROJECT_SALE = "Для продажи"
+	const val TYPE_PROJECT_DONATE = "Сбор донатов"
+	const val TYPE_PROJECT_TEAM = "Набор команды"
 
 	// Firestore collections
 	const val USERS_COLLECTION = "users"

@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens
+package com.example.projectunion.presentation.screens.favorites
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*

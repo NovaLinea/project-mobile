@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.navigation
+package com.example.projectunion.presentation.navigation.nav_graph
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.*

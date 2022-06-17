@@ -3,6 +3,7 @@ package com.example.projectunion.presentation.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
 
 
@@ -11,7 +12,7 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Login: MainNavRoute("login_screen", "Вход")
 	object Register: MainNavRoute("register_screen", "Регистрация")
 	object Project: MainNavRoute("project_screen/{$ARGUMENT_PROJECT_KEY}", "Проект")
-	object Create: MainNavRoute("create_screen", "Создать проект")
+	object Create: MainNavRoute("create_screen/{$ARGUMENT_CREATE_KEY}", "Создать проект")
 	object Settings: MainNavRoute("settings_screen", "Настройки")
 	object Search: MainNavRoute("search_screen", "Поиск")
 	object Notifications: MainNavRoute("notifications_screen", "Уведомления")

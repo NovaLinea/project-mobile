@@ -4,6 +4,7 @@ import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.model.UserRegister
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await

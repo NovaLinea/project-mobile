@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens
+package com.example.projectunion.presentation.screens.messages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens
+package com.example.projectunion.presentation.screens.search
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
+import com.example.projectunion.presentation.screens.messages.Search
 
 @Composable
 fun SearchScreen() {

@@ -1,10 +1,11 @@
-package com.example.projectunion.presentation.navigation
+package com.example.projectunion.presentation.navigation.nav_graph
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
+import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.login.LoginScreen
 import com.example.projectunion.presentation.screens.register.RegisterScreen
 
