@@ -7,5 +7,5 @@ class CreateProjectUseCase(
     private val repository: ProjectRepository
 ) {
 
-    suspend operator fun invoke(projectData: Project) = repository.createProject(projectData)
+    operator fun invoke(projectData: Project) = repository.createProject(projectData)
 }

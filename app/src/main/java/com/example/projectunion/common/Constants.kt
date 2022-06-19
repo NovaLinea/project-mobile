@@ -32,6 +32,8 @@ object Constants {
 	const val EMAIL_PLACEHOLDER = "Почта"
 	const val PASSWORD_PLACEHOLDER = "Пароль"
 	const val SEARCH_PLACEHOLDER = "Поиск"
+	const val TITLE_PROJECT_PLACEHOLDER = "Название проекта"
+	const val DESCRIPTION_PROJECT_PLACEHOLDER = "Описание проекта"
 
 	// Screens
 	const val MAIN_SCREEN = "Главная"
@@ -48,6 +50,7 @@ object Constants {
 	const val REGISTER_TITLE = "Регистрация"
 	const val REGISTER = "Зарегестрироваться"
 	const val LOGOUT = "Выйти"
+	const val CREATE_PROJECT = "Создать проект"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"

@@ -2,7 +2,7 @@ package com.example.projectunion.domain.model
 
 
 data class Project (
-	val id: String,
+	val id: String?,
 	val title: String,
 	val description: String,
 	//val type: String,

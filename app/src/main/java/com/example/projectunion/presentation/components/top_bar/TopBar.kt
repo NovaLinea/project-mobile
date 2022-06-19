@@ -16,8 +16,7 @@ import com.example.projectunion.presentation.navigation.Router
 
 @Composable
 fun TopBar(
-    title: String,
-    externalRouter: Router
+    title: String
 ) {
     TopAppBar(
         modifier = Modifier
@@ -37,46 +36,6 @@ fun TopBar(
                 )
             }
         },
-        /*navigationIcon = {
-            IconButton(
-                onClick = {
-                    if (isAuth)
-                        externalRouter.navigateTo(MainNavRoute.Profile.route)
-                    else
-                        externalRouter.navigateTo(AUTHENTICATION_ROUTE)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Person icon",
-                    tint = Color.Black
-                )
-            }
-        },
-        actions = {
-            IconButton(
-                onClick = {
-                    externalRouter.navigateTo(MainNavRoute.Notifications.route)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = "Notifications icon",
-                    tint = Color.Black
-                )
-            }
-            IconButton(
-                onClick = {
-                    externalRouter.navigateTo(MainNavRoute.Search.route)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search icon",
-                    tint = Color.Black
-                )
-            }
-        },*/
         backgroundColor = Color.White,
         elevation = 1.dp
     )

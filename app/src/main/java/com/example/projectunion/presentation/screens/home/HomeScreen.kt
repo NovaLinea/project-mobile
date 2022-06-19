@@ -42,7 +42,7 @@ fun HomeScreen(
 
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
-		topBar = { TopBar(MAIN_SCREEN, externalRouter) },
+		topBar = { TopBar(MAIN_SCREEN) },
 		floatingActionButton = {
 			FloatingButton(
 				imageVector = Icons.Default.Create,
