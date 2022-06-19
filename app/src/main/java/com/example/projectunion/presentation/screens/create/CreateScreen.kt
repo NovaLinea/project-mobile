@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.screens.create
 
-import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -21,7 +20,7 @@ import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.PRICE_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.TITLE_PROJECT_PLACEHOLDER
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.navigation.nav_graph.BottomNavGraph
+import com.example.projectunion.presentation.screens.create.components.choice_photo.ChoicePhoto
 import com.example.projectunion.presentation.screens.create.components.create_bottom_bar.CreateBottomBar
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
@@ -48,8 +47,6 @@ fun CreateScreen(
 	}
 
 	val maxCharTitle = 120
-
-	var imageUri by remember { mutableStateOf<Uri?>(null) }
 
 	Scaffold(
 		topBar = { CreateTopBar(navController) },
@@ -118,6 +115,9 @@ fun CreateScreen(
 						},
 						textStyle = MaterialTheme.typography.body1
 					)
+
+					Spacer(modifier = Modifier.height(20.dp))
+					ChoicePhoto(viewModel.imageUri.value)
 				}
 			}
 	}
