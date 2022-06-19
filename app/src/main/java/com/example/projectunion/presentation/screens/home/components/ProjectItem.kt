@@ -24,7 +24,7 @@ fun ProjectItem(
             .fillMaxWidth()
             .padding(horizontal = 0.dp, vertical = 7.dp)
             .clickable {
-                externalRouter.navigateTo("project_screen/${project.id}")
+                externalRouter.navigateTo("project_screen/${project.uid}")
             },
         backgroundColor = Color.White,
         elevation = 0.dp
@@ -47,7 +47,7 @@ fun ProjectItem(
                     )
                 )
                 Text(
-                    text = project.createdAt,
+                    text = project.createdAt.toString(),
                     style = TextStyle(
                         color = Color.Gray,
                         fontSize = 14.sp

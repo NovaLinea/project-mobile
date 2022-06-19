@@ -1,16 +1,13 @@
-package com.example.projectunion.domain.model
+package com.example.projectunion.data.firestoreDB.model
 
 import java.util.*
 
-
-data class Project (
-	val uid: String?,
+data class ProjectCreate (
 	val title: String,
 	val description: String,
 	val type: String,
 	val price: Int,
 	//val paymentSystem: String,
-	//val progress: Float,
 	//val listStaff: List<String>,
 	val createdAt: Date,
 	val updatedAt: Date,
@@ -18,5 +15,4 @@ data class Project (
 	val views: Int,
 	//val creatorID: Int,
 	val creatorName: String,
-	//val creatorPhoto: String
 )

@@ -1,15 +1,15 @@
-package com.example.projectunion.presentation.components
+package com.example.projectunion.presentation.components.fields_state
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
-open class TextFieldState(
-	private val validator: (String) -> Boolean = { true },
+open class IntFieldState(
+	private val validator: (Int) -> Boolean = { true },
 	private val errorMessage: () -> String
 ) {
 
-	var text by mutableStateOf("")
+	var value by mutableStateOf(0)
 	var error by mutableStateOf<String?>(null)
 
 	fun validate() {
@@ -21,5 +21,5 @@ open class TextFieldState(
 		}
 	}
 
-	fun isValidText() = validator(text)
+	fun isValidText() = validator(value)
 }

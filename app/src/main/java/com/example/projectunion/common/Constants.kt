@@ -19,6 +19,7 @@ object Constants {
 	const val NAME_INVALID = "Имя и фамилия от 1 до 30 символов"
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
+	const val FIELD_INVALID = "Запись не верна"
 	const val INVALID_LOGIN = "Не верная почта или пароль"
 	const val INVALID_REGISTER = "Эта почта уже используется"
 	const val ERROR_SERVER = "Ошибка на стороне сервера"
@@ -34,6 +35,7 @@ object Constants {
 	const val SEARCH_PLACEHOLDER = "Поиск"
 	const val TITLE_PROJECT_PLACEHOLDER = "Название проекта"
 	const val DESCRIPTION_PROJECT_PLACEHOLDER = "Описание проекта"
+	const val PRICE_PROJECT_PLACEHOLDER = "Цена"
 
 	// Screens
 	const val MAIN_SCREEN = "Главная"
@@ -56,9 +58,12 @@ object Constants {
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
 
 	// Types project
-	const val TYPE_PROJECT_SALE = "Для продажи"
-	const val TYPE_PROJECT_DONATE = "Сбор донатов"
-	const val TYPE_PROJECT_TEAM = "Набор команды"
+	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"
+	const val TYPE_PROJECT_DONATE_TEXT = "Сбор донатов"
+	const val TYPE_PROJECT_TEAM_TEXT = "Набор команды"
+	const val TYPE_PROJECT_SALE = "sale"
+	const val TYPE_PROJECT_DONATE = "donate"
+	const val TYPE_PROJECT_TEAM = "team"
 
 	// Firestore collections
 	const val USERS_COLLECTION = "users"

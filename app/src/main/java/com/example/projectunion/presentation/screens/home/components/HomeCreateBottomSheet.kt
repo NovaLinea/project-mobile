@@ -20,8 +20,6 @@ import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.Constants
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.HomeScreen
-import com.example.projectunion.presentation.screens.home.components.TypeProjectItem
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -36,7 +34,6 @@ fun HomeCreateBottomSheet(
         sheetContent = {
             Column(
                 modifier = Modifier
-                    .navigationBarsWithImePadding()
                     .height(220.dp)
                     .fillMaxWidth()
                     .background(Color.White)
@@ -61,19 +58,23 @@ fun HomeCreateBottomSheet(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     TypeProjectItem(
-                        Constants.TYPE_PROJECT_SALE,
+                        Constants.TYPE_PROJECT_SALE_TEXT,
                         Icons.Default.AttachMoney,
                         onClick = { externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_SALE}") }
                     )
                     TypeProjectItem(
-                        Constants.TYPE_PROJECT_DONATE,
+                        Constants.TYPE_PROJECT_DONATE_TEXT,
                         Icons.Default.CreditCard,
-                        onClick = { externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_DONATE}") }
+                        onClick = {
+                            //externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_DONATE}")
+                        }
                     )
                     TypeProjectItem(
-                        Constants.TYPE_PROJECT_TEAM,
+                        Constants.TYPE_PROJECT_TEAM_TEXT,
                         Icons.Default.People,
-                        onClick = { externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_TEAM}") }
+                        onClick = {
+                            //externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_TEAM}")
+                        }
                     )
                 }
             }

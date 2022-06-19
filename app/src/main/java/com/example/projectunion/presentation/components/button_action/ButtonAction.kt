@@ -23,7 +23,6 @@ fun ButtonAction(
 ) {
 	Button(
 		onClick = { onClicked() },
-		modifier = Modifier.padding(top = 7.dp),
 		colors = ButtonDefaults.buttonColors(
 			backgroundColor = colorResource(id = R.color.app_blue),
 			contentColor = Color.White

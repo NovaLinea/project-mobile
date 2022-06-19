@@ -66,7 +66,9 @@ class DataModule {
 
 	@Provides
 	@Singleton
-	fun provideProjectRepository(): ProjectRepository {
-		return ProjectRepositoryImpl()
+	fun provideProjectRepository(
+		firestoreDB: FirestoreDB
+	): ProjectRepository {
+		return ProjectRepositoryImpl(firestoreDB)
 	}
 }

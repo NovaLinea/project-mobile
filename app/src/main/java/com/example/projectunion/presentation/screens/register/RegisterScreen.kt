@@ -57,63 +57,56 @@ fun RegisterScreen(
 		}
 
 		Column(
-			modifier = Modifier
-				.padding(top = 80.dp, start = 40.dp, end = 40.dp),
+			modifier = Modifier.padding(top = 80.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Box(modifier = Modifier.padding(bottom = 25.dp)) {
-				Title(REGISTER_TITLE)
+			Title(REGISTER_TITLE)
+			Spacer(modifier = Modifier.height(30.dp))
+
+			Name(
+				viewModel.name.text,
+				viewModel.name.error,
+				focusManager
+			) {
+				viewModel.name.text = it
+				viewModel.name.validate()
 			}
 
-			Column(
-				modifier = Modifier.padding(vertical = 5.dp)
+			Spacer(modifier = Modifier.height(10.dp))
+
+			Email(
+				viewModel.email.text,
+				viewModel.email.error,
+				focusManager
 			) {
-				Name(
-					viewModel.name.text,
-					viewModel.name.error,
-					focusManager
-				) {
-					viewModel.name.text = it
-					viewModel.name.validate()
-				}
+				viewModel.email.text = it
+				viewModel.email.validate()
 			}
 
-			Column(
-				modifier = Modifier.padding(vertical = 5.dp)
-			) {
-				Email(
-					viewModel.email.text,
-					viewModel.email.error,
-					focusManager
-				) {
-					viewModel.email.text = it
-					viewModel.email.validate()
-				}
-			}
+			Spacer(modifier = Modifier.height(10.dp))
 
-			Column(
-				modifier = Modifier.padding(vertical = 5.dp)
+			Password(
+				viewModel.password.text,
+				viewModel.password.error,
+				focusManager
 			) {
-				Password(
-					viewModel.password.text,
-					viewModel.password.error,
-					focusManager
-				) {
-					viewModel.password.text = it
-					viewModel.password.validate()
-				}
+				viewModel.password.text = it
+				viewModel.password.validate()
 			}
 
 			if (state is Response.Error) {
+				Spacer(modifier = Modifier.height(5.dp))
 				if (state.message == EMAIL_IS_USED)
 					ErrorField(error = INVALID_REGISTER)
 				else
 					ErrorField(error = ERROR_SERVER)
 			}
 
+			Spacer(modifier = Modifier.height(7.dp))
+
 			ButtonAction(
 				REGISTER,
-				enabled = viewModel.state.value != Response.Loading
+				enabled = state != Response.Loading
 						&& viewModel.name.isValidText()
 						&& viewModel.email.isValidText()
 						&& viewModel.password.isValidText()

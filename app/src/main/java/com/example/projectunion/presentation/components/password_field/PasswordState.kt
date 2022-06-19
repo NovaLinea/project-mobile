@@ -1,7 +1,7 @@
 package com.example.projectunion.presentation.components.password_field
 
 import com.example.projectunion.common.Constants.PASSWORD_INVALID
-import com.example.projectunion.presentation.components.TextFieldState
+import com.example.projectunion.presentation.components.fields_state.TextFieldState
 
 class PasswordState: TextFieldState(
 	validator = ::passwordValid,

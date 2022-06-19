@@ -1,11 +1,14 @@
 package com.example.projectunion.data.repository
 
+import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.domain.model.Project
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.ProjectRepository
 import kotlinx.coroutines.flow.flow
 
-class ProjectRepositoryImpl() : ProjectRepository {
+class ProjectRepositoryImpl(
+	private val firestoreDB: FirestoreDB
+) : ProjectRepository {
 	override fun getProjects() {
 		TODO("Not yet implemented")
 	}
@@ -14,9 +17,7 @@ class ProjectRepositoryImpl() : ProjectRepository {
 		TODO("Not yet implemented")
 	}
 
-	override fun createProject(project: Project) = flow<Response<Boolean>> {
-		TODO("Not yet implemented")
-	}
+	override fun createProject(project: Project) = firestoreDB.createProject(project)
 
 	override suspend fun deleteProject(project: Project) {
 		TODO("Not yet implemented")

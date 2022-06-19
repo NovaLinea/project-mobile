@@ -60,46 +60,43 @@ fun LoginScreen(
 				.padding(top = 80.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Box(modifier = Modifier.padding(bottom = 25.dp)) {
-				Title(LOGIN_TITLE)
+			Title(LOGIN_TITLE)
+			Spacer(modifier = Modifier.height(30.dp))
+
+			Email(
+				viewModel.email.text,
+				viewModel.email.error,
+				focusManager
+			) {
+				viewModel.email.text = it
+				viewModel.email.validate()
 			}
 
-			Column(
-				modifier = Modifier.padding(vertical = 5.dp)
-			) {
-				Email(
-					viewModel.email.text,
-					viewModel.email.error,
-					focusManager
-				) {
-					viewModel.email.text = it
-					viewModel.email.validate()
-				}
-			}
+			Spacer(modifier = Modifier.height(10.dp))
 
-			Column(
-				modifier = Modifier.padding(vertical = 5.dp)
+			Password(
+				viewModel.password.text,
+				viewModel.password.error,
+				focusManager
 			) {
-				Password(
-					viewModel.password.text,
-					viewModel.password.error,
-					focusManager
-				) {
-					viewModel.password.text = it
-					viewModel.password.validate()
-				}
+				viewModel.password.text = it
+				viewModel.password.validate()
 			}
 
 			if (state is Error) {
+				Spacer(modifier = Modifier.height(5.dp))
+
 				if (state.message == USER_NOT_FOUND)
 					ErrorField(error = INVALID_LOGIN)
 				else
 					ErrorField(error = ERROR_SERVER)
 			}
 
+			Spacer(modifier = Modifier.height(7.dp))
+
 			ButtonAction(
 				LOGIN,
-				enabled = viewModel.state.value != Loading
+				enabled = state != Loading
 						&& viewModel.email.isValidText()
 						&& viewModel.password.isValidText()
 			) {

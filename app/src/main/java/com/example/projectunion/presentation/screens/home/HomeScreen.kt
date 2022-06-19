@@ -27,19 +27,6 @@ fun HomeScreen(
 	onClickCreate: () -> Unit,
 	viewModel: HomeViewModel = hiltViewModel()
 ) {
-	val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-	val currentDate = sdf.format(Date())
-	val projects = listOf(
-		Project(
-			id = "0j1ew93kdgYJSZ9fXa4YSXrM6pn1",
-			title = "Title",
-			description = "Description",
-			price = 15000,
-			createdAt = currentDate,
-			creatorName = "Vanya Palamarenko"
-		)
-	)
-
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
 		topBar = { TopBar(MAIN_SCREEN) },
@@ -60,9 +47,9 @@ fun HomeScreen(
 				.background(colorResource(id = R.color.app_background))
 				.fillMaxSize()
 		) {
-			projects.map { item {
+			/*projects.map { item {
 				ProjectItem(it, externalRouter)
-			}}
+			}}*/
 		}
 	}
 }
