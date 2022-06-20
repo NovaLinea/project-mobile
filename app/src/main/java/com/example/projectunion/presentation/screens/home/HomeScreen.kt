@@ -19,6 +19,7 @@ import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.MAIN_SCREEN
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.floating_button.FloatingButton
+import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
 import com.example.projectunion.presentation.components.top_bar.TopBar
@@ -47,7 +48,7 @@ fun HomeScreen(
 		}
 	) {
 		when(state) {
-			is Response.Loading -> Log.d(TAG, "Loading")
+			is Response.Loading -> Loader()
 			is Response.Success -> {
 				LazyColumn(
 					modifier = Modifier

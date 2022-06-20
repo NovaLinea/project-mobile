@@ -14,38 +14,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
+import com.example.projectunion.common.Constants.MESSAGES_SCREEN
+import com.example.projectunion.presentation.components.top_bar.TopBar
 
 @Composable
 fun MessagesScreen() {
 	Scaffold(
-		topBar = {
-			TopAppBar(
-				backgroundColor = Color.White,
-				elevation = 0.dp
-			) {
-				Row(
-					modifier = Modifier.fillMaxWidth(),
-					horizontalArrangement = Arrangement.Center
-				) {
-					Text(
-						text = stringResource(id = R.string.messages_screen),
-						style = TextStyle(
-							color = Color.Black,
-							fontWeight = FontWeight.W600,
-							fontSize = 18.sp
-						)
-					)
-				}
-			}
-		},
+		topBar = { TopBar(MESSAGES_SCREEN) },
 	) {
 		Search()
 		Column(
-			modifier = Modifier.fillMaxSize().padding(top = 170.dp),
+			modifier = Modifier
+				.fillMaxSize()
+				.padding(top = 170.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Text(

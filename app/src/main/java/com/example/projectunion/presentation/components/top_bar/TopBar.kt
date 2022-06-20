@@ -2,6 +2,7 @@ package com.example.projectunion.presentation.components.top_bar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -29,10 +30,7 @@ fun TopBar(
             ) {
                 Text(
                     text = title,
-                    style = TextStyle(
-                        fontWeight = FontWeight.W600,
-                        fontSize = 18.sp
-                    )
+                    style = MaterialTheme.typography.h6
                 )
             }
         },
