@@ -15,18 +15,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 
 @Composable
 fun ChoicePhoto(
-	imageUri: Uri? = null
+	imageUri: MutableState<Uri?>
 ) {
-	var imageUri by remember { mutableStateOf<Uri?>(null) }
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.GetContent()
 	) { uri: Uri? ->
-		imageUri = uri
+		imageUri.value = uri
 	}
 
 	Card(
@@ -45,10 +45,11 @@ fun ChoicePhoto(
 				},
 			contentAlignment = Alignment.Center
 		) {
-			if (imageUri != null) {
+			if (imageUri.value != null) {
 				Image(
-					painter = rememberImagePainter(data = imageUri),
+					painter = rememberImagePainter(data = imageUri.value),
 					contentDescription = null,
+					contentScale = ContentScale.Crop,
 					modifier = Modifier.fillMaxSize()
 				)
 			}
@@ -56,8 +57,7 @@ fun ChoicePhoto(
 				Icon(
 					imageVector = Icons.Default.Add,
 					contentDescription = "App photo icon",
-					modifier = Modifier
-						.padding(15.dp),
+					modifier = Modifier.padding(15.dp),
 					tint = Color.DarkGray
 				)
 			}

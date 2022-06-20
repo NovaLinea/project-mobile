@@ -1,12 +1,7 @@
 package com.example.projectunion.presentation.screens.create
 
 import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,13 +22,7 @@ class CreateViewModel @Inject constructor(
     val title by lazy { CreateTextState() }
     val description by lazy { CreateTextState() }
     val price by lazy { CreateTextState() }
-
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        imageUri = uri
-    }
+    var imageUri = mutableStateOf<Uri?>(null)
 
     private val _state = MutableLiveData<Response<Boolean>>()
     val state: LiveData<Response<Boolean>> get() = _state
@@ -45,6 +34,7 @@ class CreateViewModel @Inject constructor(
                 uid = null,
                 title = title.text,
                 description = description.text,
+                photo = imageUri.value,
                 type = typeProject,
                 price = price.text.toInt(),
                 createdAt = dateNow,

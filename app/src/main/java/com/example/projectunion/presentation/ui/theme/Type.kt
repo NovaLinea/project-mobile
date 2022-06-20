@@ -15,7 +15,7 @@ val Typography = Typography(
 	h5 = TextStyle(
 		fontFamily = FontFamily.Default,
 		fontWeight = FontWeight.W600,
-		fontSize = 23.sp
+		fontSize = 22.sp
 	)
 	/*
     button = TextStyle(

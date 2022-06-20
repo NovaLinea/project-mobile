@@ -7,6 +7,8 @@ import com.example.projectunion.data.firestoreDB.FirestoreDBImpl
 import com.example.projectunion.data.repository.AuthRepositoryImpl
 import com.example.projectunion.data.repository.ProjectRepositoryImpl
 import com.example.projectunion.data.repository.UserRepositoryImpl
+import com.example.projectunion.data.storage.Storage
+import com.example.projectunion.data.storage.StorageImpl
 import com.example.projectunion.domain.repository.AuthRepository
 import com.example.projectunion.domain.repository.ProjectRepository
 import com.example.projectunion.domain.repository.UserRepository
@@ -16,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +39,7 @@ class DataModule {
 
 	@Provides
 	@Singleton
-	fun provideStorage() = FirebaseStorage.getInstance()
+	fun provideStorageReference() = FirebaseStorage.getInstance().reference
 
 	@Provides
 	@Singleton
@@ -52,6 +55,14 @@ class DataModule {
 		db: FirebaseFirestore
 	): FirestoreDB {
 		return FirestoreDBImpl(db)
+	}
+
+	@Provides
+	@Singleton
+	fun provideStorage(
+		storageRef: StorageReference
+	): Storage {
+		return StorageImpl(storageRef)
 	}
 
 	@Provides
@@ -72,8 +83,9 @@ class DataModule {
 	@Provides
 	@Singleton
 	fun provideProjectRepository(
-		firestoreDB: FirestoreDB
+		firestoreDB: FirestoreDB,
+		storageDB: Storage
 	): ProjectRepository {
-		return ProjectRepositoryImpl(firestoreDB)
+		return ProjectRepositoryImpl(firestoreDB, storageDB)
 	}
 }

@@ -68,4 +68,8 @@ object Constants {
 	// Firestore collections
 	const val USERS_COLLECTION = "users"
 	const val PROJECTS_COLLECTION = "projects"
+
+	// Firebase storage path
+	const val IMAGES_PROJECTS = "images/projects"
+	const val IMAGES_USERS = "images/users"
 }

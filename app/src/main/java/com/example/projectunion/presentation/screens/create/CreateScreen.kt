@@ -6,11 +6,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -98,10 +95,7 @@ fun CreateScreen(
 							}
 						},
 						isPlaceholderVisible = viewModel.price.text.isEmpty(),
-						textStyle = TextStyle(
-							fontSize = 18.sp,
-							color = Color.Black
-						)
+						textStyle = MaterialTheme.typography.body1
 					)
 
 					Spacer(modifier = Modifier.height(15.dp))
@@ -117,7 +111,7 @@ fun CreateScreen(
 					)
 
 					Spacer(modifier = Modifier.height(20.dp))
-					ChoicePhoto(viewModel.imageUri.value)
+					ChoicePhoto(viewModel.imageUri)
 				}
 			}
 	}
