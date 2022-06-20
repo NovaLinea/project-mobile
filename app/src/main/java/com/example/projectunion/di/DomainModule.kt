@@ -2,10 +2,7 @@ package com.example.projectunion.di
 
 import com.example.projectunion.domain.repository.AuthRepository
 import com.example.projectunion.domain.repository.ProjectRepository
-import com.example.projectunion.domain.use_case.CreateProjectUseCase
-import com.example.projectunion.domain.use_case.LoginByEmailUseCase
-import com.example.projectunion.domain.use_case.LogoutUseCase
-import com.example.projectunion.domain.use_case.RegisterByEmailUseCase
+import com.example.projectunion.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +13,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ViewModelComponent::class)
 class DomainModule {
+
+	@Provides
+	fun provideCheckAuthorizedUseCase(authRepository: AuthRepository): CheckAuthorizedUseCase {
+		return CheckAuthorizedUseCase(repository = authRepository)
+	}
 
 	@Provides
 	fun provideLoginByEmailUseCase(authRepository: AuthRepository): LoginByEmailUseCase {
@@ -30,6 +32,11 @@ class DomainModule {
 	@Provides
 	fun provideLogoutUseCase(authRepository: AuthRepository): LogoutUseCase {
 		return LogoutUseCase(repository = authRepository)
+	}
+
+	@Provides
+	fun provideGetUserUseCase(authRepository: AuthRepository): GetUserUseCase {
+		return GetUserUseCase(repository = authRepository)
 	}
 
 	@Provides

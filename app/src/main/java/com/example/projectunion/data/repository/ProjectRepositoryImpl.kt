@@ -27,10 +27,10 @@ class ProjectRepositoryImpl(
 				when(response) {
 					is Response.Loading -> emit(Response.Loading)
 					is Response.Success -> {
-						if (project.photo != null)
-							storageDB.addPhotoProject(project.photo, "uid").collect { emit(it) }
+						if (project.images.isNotEmpty())
+							storageDB.addPhotoProject(project.images, response.data).collect { emit(it) }
 						else
-							emit(response)
+							emit(Response.Success(true))
 					}
 					is Response.Error -> emit(response)
 				}

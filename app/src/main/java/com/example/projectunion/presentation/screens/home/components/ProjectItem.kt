@@ -40,7 +40,7 @@ fun ProjectItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = project.creatorName,
+                    text = "Creator name",
                     style = TextStyle(
                         color = Color.Gray,
                         fontSize = 14.sp

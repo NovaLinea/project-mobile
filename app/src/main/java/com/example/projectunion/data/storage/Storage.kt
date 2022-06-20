@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface Storage{
 
-	fun addPhotoProject(imageUri: Uri, uid: String): Flow<Response<Boolean>>
+	fun addPhotoProject(images: List<Uri>, uid: String): Flow<Response<Boolean>>
 }

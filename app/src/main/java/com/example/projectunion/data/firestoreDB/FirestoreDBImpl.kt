@@ -35,7 +35,7 @@ class FirestoreDBImpl(
 		}
 	}
 
-	override fun createProject(projectData: Project) = flow<Response<Boolean>> {
+	override fun createProject(projectData: Project) = flow<Response<String>> {
 		try {
 			emit(Response.Loading)
 			val project = ProjectCreate(
@@ -47,10 +47,10 @@ class FirestoreDBImpl(
 				updatedAt = projectData.updatedAt,
 				likes = projectData.likes,
 				views = projectData.views,
-				creatorName = projectData.creatorName
+				creatorID = projectData.creatorID
 			)
-			db.collection(PROJECTS_COLLECTION).add(project).await()
-			emit(Response.Success(true))
+			val projectID = db.collection(PROJECTS_COLLECTION).add(project).await().id
+			emit(Response.Success(projectID))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

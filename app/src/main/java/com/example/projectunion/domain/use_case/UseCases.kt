@@ -6,7 +6,7 @@ data class UseCases(
 	val registerByEmail: RegisterByEmailUseCase,
 
 	// User
-	val checkAuth: CheckAuthUseCase,
+	val checkAuth: CheckAuthorizedUseCase,
 
 	// Project
 	val getProjects: GetProjectsUseCase,

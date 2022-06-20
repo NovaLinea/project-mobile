@@ -1,31 +1,45 @@
 package com.example.projectunion.presentation.screens.create.components.create_bottom_bar
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import android.net.Uri
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.common.Constants
 import com.example.projectunion.presentation.components.button_action.ButtonAction
+import com.example.projectunion.presentation.screens.create.CreateViewModel
+import com.example.projectunion.presentation.screens.create.components.choice_image.ChoiceImage
+import com.example.projectunion.presentation.screens.create.components.images_project.ImagesProject
 
 @Composable
 fun CreateBottomBar(
+	images: MutableList<Uri>,
 	enabledCreate: Boolean,
 	onClickCreate: () -> Unit
 ) {
-	Row(
-		modifier = Modifier
-			.padding(10.dp)
-			.fillMaxWidth(),
-		horizontalArrangement = Arrangement.End
-	) {
-		ButtonAction(
-			title = Constants.CREATE_PROJECT,
-			enabled = enabledCreate
+	Column() {
+		ImagesProject(images)
+		Row(
+			modifier = Modifier
+				.padding(10.dp)
+				.fillMaxWidth(),
+			horizontalArrangement = Arrangement.SpaceBetween,
+			verticalAlignment = Alignment.CenterVertically
 		) {
-			onClickCreate()
+			ChoiceImage(images)
+
+			ButtonAction(
+				title = Constants.CREATE_PROJECT,
+				enabled = enabledCreate
+			) {
+				onClickCreate()
+			}
 		}
 	}
 }

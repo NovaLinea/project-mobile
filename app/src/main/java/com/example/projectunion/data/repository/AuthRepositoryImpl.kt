@@ -7,6 +7,8 @@ import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.model.UserRegister
 import com.example.projectunion.domain.repository.AuthRepository
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -45,4 +47,5 @@ class AuthRepositoryImpl @Inject constructor(
 
 	override fun logout() = authentication.logout()
 
+	override fun getUserData() = authentication.getUserData()
 }

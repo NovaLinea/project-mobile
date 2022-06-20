@@ -11,12 +11,14 @@ class StorageImpl(
 	private val storage: StorageReference
 ): Storage {
 
-	override fun addPhotoProject(imageUri: Uri, uid: String) = flow<Response<Boolean>> {
+	override fun addPhotoProject(images: List<Uri>, uid: String) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)
 
-			val fileRef = storage.child("$IMAGES_PROJECTS/$uid")
-			fileRef.putFile(imageUri).await()
+			images.forEachIndexed { index, imageUri ->
+				val fileRef = storage.child("$IMAGES_PROJECTS/$uid/image_${index}")
+				fileRef.putFile(imageUri).await()
+			}
 
 			emit(Response.Success(true))
 		} catch (e: Exception) {

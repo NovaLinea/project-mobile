@@ -8,11 +8,11 @@ data class ProjectCreate (
 	val type: String,
 	val price: Int,
 	//val paymentSystem: String,
+	//val progress: Int,
 	//val listStaff: List<String>,
 	val createdAt: Date,
 	val updatedAt: Date,
 	val likes: Int,
 	val views: Int,
-	//val creatorID: Int,
-	val creatorName: String,
+	val creatorID: String
 )

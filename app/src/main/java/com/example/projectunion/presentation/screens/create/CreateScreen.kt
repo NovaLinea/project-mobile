@@ -6,18 +6,15 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.PRICE_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.TITLE_PROJECT_PLACEHOLDER
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.screens.create.components.choice_photo.ChoicePhoto
 import com.example.projectunion.presentation.screens.create.components.create_bottom_bar.CreateBottomBar
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
@@ -40,7 +37,7 @@ fun CreateScreen(
 				}
 			}
 		}
-		is Response.Error -> Log.d(Constants.TAG, "${state.message}")
+		is Response.Error -> Log.d(Constants.TAG, state.message)
 	}
 
 	val maxCharTitle = 120
@@ -49,6 +46,7 @@ fun CreateScreen(
 		topBar = { CreateTopBar(navController) },
 		bottomBar = {
 			CreateBottomBar(
+				images = viewModel.images,
 				enabledCreate = state != Response.Loading
 						&& viewModel.title.isValidText()
 						&& viewModel.description.isValidText()
@@ -109,16 +107,7 @@ fun CreateScreen(
 						},
 						textStyle = MaterialTheme.typography.body1
 					)
-
-					Spacer(modifier = Modifier.height(20.dp))
-					ChoicePhoto(viewModel.imageUri)
 				}
 			}
 	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun prevCreateScreen() {
-	CreateScreen("sale", rememberNavController())
 }
