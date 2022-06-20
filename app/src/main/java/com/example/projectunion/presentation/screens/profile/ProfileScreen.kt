@@ -36,7 +36,7 @@ fun ProfileScreen(
 				}
 			}
 		}
-		is Response.Error -> Log.d(TAG, "${state.message}")
+		is Response.Error -> Log.d(TAG, state.message)
 	}
 
 	Scaffold(

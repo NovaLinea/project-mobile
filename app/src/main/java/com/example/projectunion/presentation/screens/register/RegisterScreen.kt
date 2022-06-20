@@ -44,7 +44,7 @@ fun RegisterScreen(
 				}
 			}
 		}
-		is Response.Error -> Log.d(Constants.TAG, "${state.message}")
+		is Response.Error -> Log.d(Constants.TAG, state.message)
 	}
 
 	var focusManager = LocalFocusManager.current

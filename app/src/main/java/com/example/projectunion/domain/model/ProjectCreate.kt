@@ -1,6 +1,8 @@
-package com.example.projectunion.data.firestoreDB.model
+package com.example.projectunion.domain.model
 
+import android.net.Uri
 import java.util.*
+
 
 data class ProjectCreate (
 	val title: String,

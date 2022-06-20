@@ -1,8 +1,9 @@
 package com.example.projectunion.data.repository
 
+import android.net.Uri
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.storage.Storage
-import com.example.projectunion.domain.model.Project
+import com.example.projectunion.domain.model.ProjectCreate
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.ProjectRepository
 import kotlinx.coroutines.flow.flow
@@ -12,23 +13,24 @@ class ProjectRepositoryImpl(
 	private val storageDB: Storage
 ) : ProjectRepository {
 
-	override fun getProjects() {
+	override fun getProjects() = firestoreDB.getProjects()
+
+	override fun getProjectById(id: String): ProjectCreate? {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getProjectById(id: String): Project? {
-		TODO("Not yet implemented")
-	}
-
-	override fun createProject(project: Project) = flow<Response<Boolean>> {
+	override fun createProject(
+		project: ProjectCreate,
+		images: MutableList<Uri>
+	) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)
 			firestoreDB.createProject(project).collect { response ->
 				when(response) {
 					is Response.Loading -> emit(Response.Loading)
 					is Response.Success -> {
-						if (project.images.isNotEmpty())
-							storageDB.addPhotoProject(project.images, response.data).collect { emit(it) }
+						if (images.isNotEmpty())
+							storageDB.addPhotoProject(images, response.data).collect { emit(it) }
 						else
 							emit(Response.Success(true))
 					}
@@ -40,7 +42,7 @@ class ProjectRepositoryImpl(
 		}
 	}
 
-	override suspend fun deleteProject(project: Project) {
+	override fun deleteProject(project: ProjectCreate) {
 		TODO("Not yet implemented")
 	}
 }

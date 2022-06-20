@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.projectunion.domain.model.Project
+import com.example.projectunion.domain.model.ProjectCreate
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CreateProjectUseCase
 import com.example.projectunion.domain.use_case.GetUserUseCase
@@ -43,11 +43,10 @@ class CreateViewModel @Inject constructor(
 
         viewModelScope.launch {
             val dateNow = Date()
-            val project = Project(
-                uid = null,
+
+            val project = ProjectCreate(
                 title = title.text,
                 description = description.text,
-                images = images,
                 type = typeProject,
                 price = price.text.toInt(),
                 createdAt = dateNow,
@@ -56,7 +55,7 @@ class CreateViewModel @Inject constructor(
                 views = 0,
                 creatorID = creatorID.value
             )
-            createProjectUseCase(project).collect { response ->
+            createProjectUseCase(project, images).collect { response ->
                 _state.postValue(response)
             }
         }

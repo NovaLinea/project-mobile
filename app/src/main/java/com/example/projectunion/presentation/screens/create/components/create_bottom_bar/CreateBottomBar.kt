@@ -2,18 +2,12 @@ package com.example.projectunion.presentation.screens.create.components.create_b
 
 import android.net.Uri
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.common.Constants
 import com.example.projectunion.presentation.components.button_action.ButtonAction
-import com.example.projectunion.presentation.screens.create.CreateViewModel
 import com.example.projectunion.presentation.screens.create.components.choice_image.ChoiceImage
 import com.example.projectunion.presentation.screens.create.components.images_project.ImagesProject
 

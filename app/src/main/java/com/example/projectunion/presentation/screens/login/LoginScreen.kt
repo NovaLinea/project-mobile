@@ -43,7 +43,7 @@ fun LoginScreen(
 				}
 			}
 		}
-		is Error -> Log.d(Constants.TAG, "${state.message}")
+		is Error -> Log.d(Constants.TAG, state.message)
 	}
 
 	var focusManager = LocalFocusManager.current

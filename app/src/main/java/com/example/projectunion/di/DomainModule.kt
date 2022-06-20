@@ -7,13 +7,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
 class DomainModule {
 
+	// Auth
 	@Provides
 	fun provideCheckAuthorizedUseCase(authRepository: AuthRepository): CheckAuthorizedUseCase {
 		return CheckAuthorizedUseCase(repository = authRepository)
@@ -39,8 +38,16 @@ class DomainModule {
 		return GetUserUseCase(repository = authRepository)
 	}
 
+	// Project
 	@Provides
 	fun provideCreateProjectUseCase(projectRepository: ProjectRepository): CreateProjectUseCase {
 		return CreateProjectUseCase(repository = projectRepository)
 	}
+
+	@Provides
+	fun provideGetProjectsUseCase(projectRepository: ProjectRepository): GetProjectsUseCase {
+		return GetProjectsUseCase(repository = projectRepository)
+	}
+
+	// User
 }
