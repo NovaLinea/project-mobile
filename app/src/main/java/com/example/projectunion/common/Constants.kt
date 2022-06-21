@@ -7,6 +7,7 @@ object Constants {
 	// Navigation
 	const val ARGUMENT_PROJECT_KEY = "projectID"
 	const val ARGUMENT_CREATE_KEY = "typeProject"
+	const val ARGUMENT_PROFILE_KEY = "userID"
 	const val ROOT_ROUTE = "root_route"
 	const val MAIN_ROUTE = "main_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
@@ -88,6 +89,7 @@ object Constants {
 
 	// Fields firestore
 	const val IMAGES_PROJECT_FIELD = "images"
+	const val CREATEDAT_FIELD = "createdAt"
 
 	// Other
 	const val TAG = "AppLog"

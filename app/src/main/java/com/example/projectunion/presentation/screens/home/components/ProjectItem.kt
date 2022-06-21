@@ -10,8 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.projectunion.common.Constants.PROFILE_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.PROJECT_SCREEN_ROUTE
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.presentation.navigation.Router
@@ -43,31 +45,60 @@ fun ProjectItem(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = "Creator name",
-                        style = TextStyle(
-                            color = Color.Gray,
-                            fontSize = 14.sp
+                    Row(
+                        modifier = Modifier
+                            .clickable {
+                                //externalRouter.navigateTo("${PROFILE_SCREEN_ROUTE}/${project.creatorID}")
+                            },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        project.creatorPhoto?.let { photo ->
+                            Box(
+                                modifier = Modifier
+                                    .height(25.dp)
+                                    .width(25.dp),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                ImagePainter(
+                                    imageUrl = photo,
+                                    shape = 10f
+                                    //isCircle = true
+                                ) {}
+                            }
+                        }
+
+                        Text(
+                            text = project.creatorName.toString(),
+                            modifier = Modifier.padding(start = 10.dp),
+                            style = TextStyle(
+                                color = Color.DarkGray,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.W500
+                            )
                         )
-                    )
+                    }
+
                     Text(
-                        text = project.createdAt.toString(),
+                        //text = project.createdAt.toString(),
+                        text = "time",
                         style = TextStyle(
-                            color = Color.Gray,
-                            fontSize = 14.sp
+                            color = Color.DarkGray,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.W500
                         )
                     )
                 }
 
                 Column(
-                    modifier = Modifier.clickable {
-                        externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
-                    },
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .clickable {
+                            externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
+                        },
                 ) {
                     project.title?.let {
                         Text(
                             text = it,
-                            modifier = Modifier.padding(top = 10.dp),
                             style = MaterialTheme.typography.h6
                         )
                     }
@@ -97,9 +128,16 @@ fun ProjectItem(
                 }
             }
 
-            project.images?.let {
-                ImageProject(project.images[0]) {
-                    externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
+            project.images?.let { images ->
+                Box(
+                    modifier = Modifier
+                        .height(250.dp)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    ImagePainter(imageUrl = images[0]) {
+                        externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
+                    }
                 }
             }
         }

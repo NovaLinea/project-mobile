@@ -20,7 +20,7 @@ fun Loader() {
 		contentAlignment = Alignment.Center
 	) {
 		CircularProgressIndicator(
-			color = Color.Black
+			color = Color.Gray
 		)
 	}
 }

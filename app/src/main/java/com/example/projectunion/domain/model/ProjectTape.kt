@@ -14,5 +14,7 @@ data class ProjectTape (
 	val createdAt: Date? = null,
 	val likes: Int? = null,
 	val views: Int? = null,
-	val creatorID: String? = null
+	val creatorID: String? = null,
+	var creatorName: String? = null,
+	var creatorPhoto: String? = null
 )

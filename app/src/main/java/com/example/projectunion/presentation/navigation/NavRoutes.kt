@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
 import com.example.projectunion.common.Constants.CREATE_SCREEN
 import com.example.projectunion.common.Constants.CREATE_SCREEN_ROUTE
@@ -46,6 +47,6 @@ sealed class MainNavRoute(val route: String, val title: String) {
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
 	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, Icons.Default.Home)
 	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, Icons.Default.Message)
-	object Profile: BottomNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN, Icons.Default.Person)
+	object Profile: BottomNavRoute("$PROFILE_SCREEN_ROUTE/{$ARGUMENT_PROFILE_KEY}", PROFILE_SCREEN, Icons.Default.Person)
 
 }

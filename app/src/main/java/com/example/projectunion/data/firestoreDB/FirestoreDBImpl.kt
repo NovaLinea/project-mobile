@@ -1,5 +1,6 @@
 package com.example.projectunion.data.firestoreDB
 
+import com.example.projectunion.common.Constants.CREATEDAT_FIELD
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
 import com.example.projectunion.common.Constants.USERS_COLLECTION
@@ -59,10 +60,19 @@ class FirestoreDBImpl(
 		try {
 			emit(Response.Loading)
 			val projects = db.collection(PROJECTS_COLLECTION)
-				.orderBy("createdAt", Query.Direction.DESCENDING)
+				.orderBy(CREATEDAT_FIELD, Query.Direction.DESCENDING)
 				.get().await().map { document ->
-					var project = document.toObject(ProjectTape::class.java)
+					val project = document.toObject(ProjectTape::class.java)
 					project.id = document.id
+
+					if (project.creatorID != null) {
+						val creator = db.collection(USERS_COLLECTION)
+							.document(project.creatorID).get().await()
+							.toObject(UserProfile::class.java)
+						project.creatorName = creator?.name.toString()
+						project.creatorPhoto = creator?.photo.toString()
+					}
+
 					project
 			}
 			emit(Response.Success(projects))

@@ -23,6 +23,7 @@ import com.example.projectunion.presentation.navigation.Router
 
 @Composable
 fun ProfileScreen(
+	userID: String,
 	externalRouter: Router,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
@@ -39,7 +40,7 @@ fun ProfileScreen(
 	}
 
 	Scaffold(
-		topBar = { TopBar(PROFILE_SCREEN) },
+		topBar = { TopBar(userID) },
 	) {
 		Column(
 			modifier = Modifier
@@ -53,7 +54,7 @@ fun ProfileScreen(
 				}
 			) {
 				Text(
-					text= LOGOUT,
+					text = LOGOUT,
 					modifier = Modifier.padding(top = 10.dp),
 					style = TextStyle(
 						fontSize = 16.sp,

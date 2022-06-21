@@ -1,16 +1,14 @@
 package com.example.projectunion.presentation.screens.create.components.images_project
 
 import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import com.example.projectunion.presentation.screens.home.components.ImagePainter
 
 @Composable
 fun ImagesProject(images: MutableList<Uri>) {
@@ -29,12 +27,10 @@ fun ImagesProject(images: MutableList<Uri>) {
 				elevation = 5.dp,
 				shape = RoundedCornerShape(10.dp)
 			) {
-				Image(
-					painter = rememberImagePainter(data = imageUri),
-					contentDescription = null,
-					contentScale = ContentScale.Crop,
-					modifier = Modifier.fillMaxSize()
-				)
+				ImagePainter(
+					imageUrl = imageUri,
+					shape = 10f
+				) {}
 			}
 		}
 	}

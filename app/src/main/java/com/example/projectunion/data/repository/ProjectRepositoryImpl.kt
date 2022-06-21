@@ -1,8 +1,6 @@
 package com.example.projectunion.data.repository
 
 import android.net.Uri
-import android.util.Log
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.domain.model.ProjectCreate

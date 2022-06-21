@@ -2,8 +2,11 @@ package com.example.projectunion.presentation.navigation.nav_graph
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
 import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.components.HomeCreateBottomSheet
@@ -21,6 +24,18 @@ fun BottomNavGraph(
 	) {
 		composable(BottomNavRoute.Home.route) { HomeCreateBottomSheet(externalRouter) }
 		composable(BottomNavRoute.Messages.route) { MessagesScreen() }
-		composable(BottomNavRoute.Profile.route) { ProfileScreen(externalRouter) }
+		composable(
+			route = BottomNavRoute.Profile.route,
+			arguments = listOf(
+				navArgument(ARGUMENT_PROFILE_KEY) {
+					type = NavType.StringType
+				}
+			)
+		) {
+			ProfileScreen(
+				userID = it.arguments?.getString(ARGUMENT_PROFILE_KEY) as String,
+				externalRouter = externalRouter
+			)
+		}
 	}
 }

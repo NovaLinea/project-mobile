@@ -16,6 +16,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
+import com.example.projectunion.common.Constants.PROFILE_SCREEN_ROUTE
 import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.navigation.nav_graph.BottomNavGraph
@@ -98,7 +99,11 @@ fun RowScope.AddItem(
 			if (!isAuth && screen.route != BottomNavRoute.Home.route)
 				externalRouter.navigateTo(AUTHENTICATION_ROUTE)
 			else
-				navController.navigate(screen.route)
+				if (screen.route == PROFILE_SCREEN_ROUTE) {
+					navController.navigate("${PROFILE_SCREEN_ROUTE}/{id}")
+				}
+				else
+					navController.navigate(screen.route)
 		}
 	)
 }
