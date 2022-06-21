@@ -1,15 +1,11 @@
 package com.example.projectunion.data.firestoreDB
 
-import android.util.Log
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
-import com.example.projectunion.common.Constants.TIME_FORMAT
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
 import com.example.projectunion.common.Constants.USERS_COLLECTION
 import com.example.projectunion.domain.model.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.util.*
@@ -28,7 +24,9 @@ class FirestoreDBImpl(
 				"name" to userData.name,
 				"email" to userData.email,
 				"description" to "",
-				"createdAt" to TIME_FORMAT.format(Date())
+				"photo" to null,
+				//"createdAt" to TIME_FORMAT.format(Date())
+				"createdAt" to Date()
 			)
 			db.collection(USERS_COLLECTION).document(uid).set(user).await()
 			emit(Response.Success(true))

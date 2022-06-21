@@ -18,7 +18,7 @@ import com.example.projectunion.common.Constants.INVALID_REGISTER
 import com.example.projectunion.common.Constants.LOGIN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.REGISTER
-import com.example.projectunion.common.Constants.REGISTER_TITLE
+import com.example.projectunion.common.Constants.REGISTER_SCREEN
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.email_field.Email
 import com.example.projectunion.presentation.components.password_field.Password
@@ -60,7 +60,7 @@ fun RegisterScreen(
 			modifier = Modifier.padding(top = 80.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Title(REGISTER_TITLE)
+			Title(REGISTER_SCREEN)
 			Spacer(modifier = Modifier.height(30.dp))
 
 			Name(

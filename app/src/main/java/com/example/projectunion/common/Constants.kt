@@ -11,10 +11,6 @@ object Constants {
 	const val MAIN_ROUTE = "main_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
 
-	// App
-	const val TAG = "AppLog"
-	val TIME_FORMAT = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-
 	// Errors
 	const val NAME_INVALID = "Имя и фамилия от 1 до 30 символов"
 	const val EMAIL_INVALID = "Неверная почта"
@@ -39,17 +35,34 @@ object Constants {
 
 	// Screens
 	const val MAIN_SCREEN = "Главная"
+	const val LOGIN_SCREEN = "Вход"
+	const val REGISTER_SCREEN = "Регистрация"
+	const val PROJECT_SCREEN = "Проект"
 	const val MESSAGES_SCREEN = "Сообщения"
 	const val PROFILE_SCREEN = "Профиль"
 	const val NOTIFICATIONS_SCREEN = "Уведомления"
 	const val SEARCH_SCREEN = "Поиск"
 	const val CREATE_SCREEN = "Создание проекта"
 	const val SETTINGS_SCREEN = "Настройки"
+	const val FAVORITES_SCREEN = "Избранное"
+	const val HOME_SCREEN = "Домашняя"
+
+	// Screens routes
+	const val MAIN_SCREEN_ROUTE = "main_screen"
+	const val LOGIN_SCREEN_ROUTE = "login_screen"
+	const val REGISTER_SCREEN_ROUTE = "register_screen"
+	const val PROJECT_SCREEN_ROUTE = "project_screen"
+	const val CREATE_SCREEN_ROUTE = "create_screen"
+	const val HOME_SCREEN_ROUTE = "home_screen"
+	const val MESSAGES_SCREEN_ROUTE = "messages_screen"
+	const val PROFILE_SCREEN_ROUTE = "profile_screen"
+	const val NOTIFICATIONS_SCREEN_ROUTE = "notifications_screen"
+	const val SEARCH_SCREEN_ROUTE = "search_screen"
+	const val SETTINGS_SCREEN_ROUTE = "settings_screen"
+	const val FAVORITES_SCREEN_ROUTE = "favorites_screen"
 
 	// Buttons
-	const val LOGIN_TITLE = "Вход"
 	const val LOGIN = "Войти"
-	const val REGISTER_TITLE = "Регистрация"
 	const val REGISTER = "Зарегестрироваться"
 	const val LOGOUT = "Выйти"
 	const val CREATE_PROJECT = "Создать проект"
@@ -70,9 +83,13 @@ object Constants {
 	const val PROJECTS_COLLECTION = "projects"
 
 	// Firebase storage path
-	const val IMAGES_PROJECTS = "images/projects"
-	const val IMAGES_USERS = "images/users"
+	const val PATH_IMAGES_PROJECTS = "images/projects"
+	const val PATH_IMAGES_USERS = "images/users"
 
-	// Fields
+	// Fields firestore
 	const val IMAGES_PROJECT_FIELD = "images"
+
+	// Other
+	const val TAG = "AppLog"
+	val TIME_FORMAT = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
 }

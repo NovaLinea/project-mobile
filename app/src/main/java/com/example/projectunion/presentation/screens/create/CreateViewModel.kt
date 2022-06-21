@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.projectunion.domain.model.ProjectCreate
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CreateProjectUseCase
-import com.example.projectunion.domain.use_case.GetUserUseCase
+import com.example.projectunion.domain.use_case.GetAuthCurrentUserUseCase
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,9 +18,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateViewModel @Inject constructor(
-    private val getUserUseCase: GetUserUseCase,
+    private val getAuthCurrentUserUseCase: GetAuthCurrentUserUseCase,
     private val createProjectUseCase: CreateProjectUseCase
 ): ViewModel() {
+
     val title by lazy { CreateTextState() }
     val description by lazy { CreateTextState() }
     val price by lazy { CreateTextState() }
@@ -32,13 +33,7 @@ class CreateViewModel @Inject constructor(
     fun createProject(typeProject: String) {
         var creatorID = mutableStateOf("")
         viewModelScope.launch {
-            getUserUseCase().collect { response ->
-                if (response is Response.Success) {
-                    if (response.data != null) {
-                        creatorID.value = response.data.uid
-                    }
-                }
-            }
+            creatorID.value = getAuthCurrentUserUseCase()?.uid.toString()
         }
 
         viewModelScope.launch {

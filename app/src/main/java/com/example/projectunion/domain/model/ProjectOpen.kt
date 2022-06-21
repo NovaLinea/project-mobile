@@ -3,7 +3,7 @@ package com.example.projectunion.domain.model
 import java.util.*
 
 data class ProjectOpen (
-	val uid: String,
+	val id: String,
 	val title: String,
 	val description: String,
 	val type: String,

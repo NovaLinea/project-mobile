@@ -2,9 +2,9 @@ package com.example.projectunion.domain.use_case
 
 import com.example.projectunion.domain.repository.AuthRepository
 
-class GetUserUseCase(
+class GetAuthCurrentUserUseCase(
 	private val repository: AuthRepository
 ) {
 
-	operator fun invoke() = repository.getUserData()
+	operator fun invoke() = repository.getAuthCurrentUser()
 }

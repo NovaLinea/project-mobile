@@ -17,7 +17,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.CREATE_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.TITLE_TYPE_PROJECT
+import com.example.projectunion.common.Constants.TYPE_PROJECT_DONATE_TEXT
+import com.example.projectunion.common.Constants.TYPE_PROJECT_SALE
+import com.example.projectunion.common.Constants.TYPE_PROJECT_SALE_TEXT
+import com.example.projectunion.common.Constants.TYPE_PROJECT_TEAM_TEXT
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.HomeScreen
 import kotlinx.coroutines.launch
@@ -45,7 +50,7 @@ fun HomeCreateBottomSheet(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = Constants.TITLE_TYPE_PROJECT,
+                        text = TITLE_TYPE_PROJECT,
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
@@ -58,19 +63,19 @@ fun HomeCreateBottomSheet(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     TypeProjectItem(
-                        Constants.TYPE_PROJECT_SALE_TEXT,
+                        TYPE_PROJECT_SALE_TEXT,
                         Icons.Default.AttachMoney,
-                        onClick = { externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_SALE}") }
+                        onClick = { externalRouter.navigateTo("$CREATE_SCREEN_ROUTE/${TYPE_PROJECT_SALE}") }
                     )
                     TypeProjectItem(
-                        Constants.TYPE_PROJECT_DONATE_TEXT,
+                        TYPE_PROJECT_DONATE_TEXT,
                         Icons.Default.CreditCard,
                         onClick = {
-                            //externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_DONATE}")
+                            //externalRouter.navigateTo("${CREATE_SCREEN_ROUTE}/${Constants.TYPE_PROJECT_DONATE}")
                         }
                     )
                     TypeProjectItem(
-                        Constants.TYPE_PROJECT_TEAM_TEXT,
+                        TYPE_PROJECT_TEAM_TEXT,
                         Icons.Default.People,
                         onClick = {
                             //externalRouter.navigateTo("create_screen/${Constants.TYPE_PROJECT_TEAM}")

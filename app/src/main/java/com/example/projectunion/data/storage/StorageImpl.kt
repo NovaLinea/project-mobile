@@ -1,9 +1,7 @@
 package com.example.projectunion.data.storage
 
 import android.net.Uri
-import android.util.Log
-import com.example.projectunion.common.Constants.IMAGES_PROJECTS
-import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.PATH_IMAGES_PROJECTS
 import com.example.projectunion.domain.model.Response
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.flow.flow
@@ -19,7 +17,7 @@ class StorageImpl(
 			var imagesUrl = mutableListOf<String>()
 
 			images.forEachIndexed { index, imageUri ->
-				val fileRef = storage.child("$IMAGES_PROJECTS/$uid/image_${index}")
+				val fileRef = storage.child("$PATH_IMAGES_PROJECTS/$uid/image_${index}")
 				fileRef.putFile(imageUri).await()
 				val url = fileRef.downloadUrl.await()
 				imagesUrl.add(index, url.toString())

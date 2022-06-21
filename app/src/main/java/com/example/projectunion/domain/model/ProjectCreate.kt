@@ -2,7 +2,6 @@ package com.example.projectunion.domain.model
 
 import java.util.*
 
-
 data class ProjectCreate (
 	val title: String,
 	val description: String,

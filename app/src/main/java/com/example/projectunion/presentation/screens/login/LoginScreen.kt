@@ -15,7 +15,7 @@ import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ERROR_SERVER
 import com.example.projectunion.common.Constants.INVALID_LOGIN
 import com.example.projectunion.common.Constants.LOGIN
-import com.example.projectunion.common.Constants.LOGIN_TITLE
+import com.example.projectunion.common.Constants.LOGIN_SCREEN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.USER_NOT_FOUND
 import com.example.projectunion.domain.model.Response.*
@@ -60,7 +60,7 @@ fun LoginScreen(
 				.padding(top = 80.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Title(LOGIN_TITLE)
+			Title(LOGIN_SCREEN)
 			Spacer(modifier = Modifier.height(30.dp))
 
 			Email(

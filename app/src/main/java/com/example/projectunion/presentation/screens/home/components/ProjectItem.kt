@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.screens.home.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -10,12 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import com.example.projectunion.common.Constants.PROJECT_SCREEN_ROUTE
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.presentation.navigation.Router
 
@@ -64,7 +61,7 @@ fun ProjectItem(
 
                 Column(
                     modifier = Modifier.clickable {
-                        externalRouter.navigateTo("project_screen/${project.id}")
+                        externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
                     },
                 ) {
                     project.title?.let {
@@ -94,11 +91,7 @@ fun ProjectItem(
                     ) {
                         Text(
                             text = "${project.price}₽",
-                            style = TextStyle(
-                                color = Color.Black,
-                                fontWeight = FontWeight.W500,
-                                fontSize = 20.sp
-                            )
+                            style = MaterialTheme.typography.h6
                         )
                     }
                 }
@@ -106,7 +99,7 @@ fun ProjectItem(
 
             project.images?.let {
                 ImageProject(project.images[0]) {
-                    externalRouter.navigateTo("project_screen/${project.id}")
+                    externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
                 }
             }
         }

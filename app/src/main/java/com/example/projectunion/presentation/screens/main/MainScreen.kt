@@ -1,11 +1,14 @@
 package com.example.projectunion.presentation.screens.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -52,7 +55,15 @@ fun BottomBar(
 	val currentDestination = navBackStackEntry?.destination
 
 	BottomNavigation(
-		modifier = Modifier.height(50.dp),
+		modifier = Modifier
+			.height(50.dp)
+			/*.graphicsLayer {
+				shape = RoundedCornerShape(
+					topStart = 20.dp,
+					topEnd = 20.dp
+				)
+				clip = true
+			}*/,
 		backgroundColor = Color.White,
 		elevation = 5.dp
 	) {

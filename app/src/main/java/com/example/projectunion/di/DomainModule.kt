@@ -34,8 +34,8 @@ class DomainModule {
 	}
 
 	@Provides
-	fun provideGetUserUseCase(authRepository: AuthRepository): GetUserUseCase {
-		return GetUserUseCase(repository = authRepository)
+	fun provideGetAuthCurrentUserUseCase(authRepository: AuthRepository): GetAuthCurrentUserUseCase {
+		return GetAuthCurrentUserUseCase(repository = authRepository)
 	}
 
 	// Project

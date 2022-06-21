@@ -47,12 +47,6 @@ class AuthenticationImpl(
 		}
 	}
 
-	override fun getUserData() = flow<Response<FirebaseUser?>> {
-		try {
-			emit(Response.Success(auth.currentUser))
-		} catch (e: Exception) {
-			emit(Response.Error(e.message ?: e.toString()))
-		}
-	}
+	override fun getAuthCurrentUser() = auth.currentUser
 
 }

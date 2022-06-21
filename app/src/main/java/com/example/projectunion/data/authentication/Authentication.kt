@@ -12,5 +12,5 @@ interface Authentication {
 	fun loginByEmail(userData: UserLogin): Flow<Response<Boolean>>
 	fun registerByEmail(userData: UserRegister): Flow<Response<FirebaseUser?>>
 	fun logout(): Flow<Response<Boolean>>
-	fun getUserData(): Flow<Response<FirebaseUser?>>
+	fun getAuthCurrentUser(): FirebaseUser?
 }
