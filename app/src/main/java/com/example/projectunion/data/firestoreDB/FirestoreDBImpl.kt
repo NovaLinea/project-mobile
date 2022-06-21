@@ -1,13 +1,15 @@
 package com.example.projectunion.data.firestoreDB
 
 import android.util.Log
+import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
 import com.example.projectunion.common.Constants.TIME_FORMAT
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USERS_COLLECTION
 import com.example.projectunion.domain.model.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.util.*
@@ -40,6 +42,16 @@ class FirestoreDBImpl(
 			emit(Response.Loading)
 			val projectID = db.collection(PROJECTS_COLLECTION).add(projectData).await().id
 			emit(Response.Success(projectID))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun uploadUrlImagesProject(images: MutableList<String>, id: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+			db.collection(PROJECTS_COLLECTION).document(id).update(IMAGES_PROJECT_FIELD, images).await()
+			emit(Response.Success(true))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

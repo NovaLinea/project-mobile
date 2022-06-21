@@ -1,11 +1,13 @@
 package com.example.projectunion.domain.model
 
+import android.net.Uri
 import java.util.*
 
 data class ProjectTape (
 	var id: String? = null,
 	val title: String? = null,
 	val description: String? = null,
+	val images: List<String>? = null,
 	val type: String? = null,
 	val price: Int? = null,
 	//val progress: Int,

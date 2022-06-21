@@ -1,6 +1,8 @@
 package com.example.projectunion.data.repository
 
 import android.net.Uri
+import android.util.Log
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.domain.model.ProjectCreate
@@ -30,7 +32,16 @@ class ProjectRepositoryImpl(
 					is Response.Loading -> emit(Response.Loading)
 					is Response.Success -> {
 						if (images.isNotEmpty())
-							storageDB.addPhotoProject(images, response.data).collect { emit(it) }
+							storageDB.addImagesProject(images, response.data).collect { respImg ->
+								when(respImg) {
+									is Response.Success ->
+										firestoreDB.uploadUrlImagesProject(respImg.data, response.data).collect {
+											emit(it)
+										}
+									is Response.Error -> emit(respImg)
+									is Response.Loading -> emit(respImg)
+								}
+							}
 						else
 							emit(Response.Success(true))
 					}

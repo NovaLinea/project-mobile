@@ -72,4 +72,7 @@ object Constants {
 	// Firebase storage path
 	const val IMAGES_PROJECTS = "images/projects"
 	const val IMAGES_USERS = "images/users"
+
+	// Fields
+	const val IMAGES_PROJECT_FIELD = "images"
 }
