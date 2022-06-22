@@ -22,7 +22,7 @@ object Constants {
 	const val ERROR_SERVER = "Ошибка на стороне сервера"
 
 	// Errors Firebase
-	const val USER_NOT_FOUND = "There is no user record corresponding to this identifier. The user may have been deleted."
+	const val USER_NOT_FOUND = "The password is invalid or the user does not have a password."
 	const val EMAIL_IS_USED = "The email address is already in use by another account."
 
 	// Placeholders

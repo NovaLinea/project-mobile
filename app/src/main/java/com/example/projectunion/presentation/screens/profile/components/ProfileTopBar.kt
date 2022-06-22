@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.profile.components.profile_top_bar
+package com.example.projectunion.presentation.screens.profile.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

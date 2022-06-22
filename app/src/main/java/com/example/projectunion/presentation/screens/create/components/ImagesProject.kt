@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.create.components.images_project
+package com.example.projectunion.presentation.screens.create.components
 
 import android.net.Uri
 import androidx.compose.foundation.layout.*

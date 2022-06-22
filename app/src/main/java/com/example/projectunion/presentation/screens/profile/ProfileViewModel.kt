@@ -8,6 +8,7 @@ import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
 import com.example.projectunion.domain.use_case.GetUserByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

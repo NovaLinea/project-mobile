@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
-import com.example.projectunion.presentation.screens.profile.components.profile_top_bar.ProfileTopBar
+import com.example.projectunion.presentation.screens.profile.components.ProfileTopBar
 
 @Composable
 fun ProfileScreen(

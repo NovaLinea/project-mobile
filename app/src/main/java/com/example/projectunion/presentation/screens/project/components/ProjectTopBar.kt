@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.project.components.project_top_bar
+package com.example.projectunion.presentation.screens.project.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

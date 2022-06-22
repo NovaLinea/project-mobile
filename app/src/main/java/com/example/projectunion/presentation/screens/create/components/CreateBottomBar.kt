@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.create.components.create_bottom_bar
+package com.example.projectunion.presentation.screens.create.components
 
 import android.net.Uri
 import androidx.compose.foundation.layout.*
@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.projectunion.common.Constants
 import com.example.projectunion.presentation.components.button_action.ButtonAction
-import com.example.projectunion.presentation.screens.create.components.choice_image.ChoiceImage
-import com.example.projectunion.presentation.screens.create.components.images_project.ImagesProject
+import com.example.projectunion.presentation.screens.create.components.ChoiceImage
+import com.example.projectunion.presentation.screens.create.components.ImagesProject
 
 @Composable
 fun CreateBottomBar(

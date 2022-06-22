@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.create.components.choice_image
+package com.example.projectunion.presentation.screens.create.components
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

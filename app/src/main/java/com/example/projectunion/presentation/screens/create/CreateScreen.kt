@@ -15,10 +15,10 @@ import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.PRICE_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.TITLE_PROJECT_PLACEHOLDER
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.screens.create.components.create_bottom_bar.CreateBottomBar
+import com.example.projectunion.presentation.screens.create.components.CreateBottomBar
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
-import com.example.projectunion.presentation.screens.create.components.create_top_bar.CreateTopBar
+import com.example.projectunion.presentation.screens.create.components.CreateTopBar
 
 
 @Composable

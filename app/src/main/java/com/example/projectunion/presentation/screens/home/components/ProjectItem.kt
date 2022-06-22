@@ -69,7 +69,9 @@ fun ProjectItem(
                                     imageUrl = photo,
                                     shape = 10f
                                     //isCircle = true
-                                ) {}
+                                ) {
+                                    externalRouter.navigateTo("${PROFILE_SCREEN_ROUTE}/${project.creatorID}")
+                                }
                             }
                         }
 

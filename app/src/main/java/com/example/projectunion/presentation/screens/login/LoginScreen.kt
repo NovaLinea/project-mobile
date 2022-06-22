@@ -7,17 +7,17 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ERROR_SERVER
 import com.example.projectunion.common.Constants.INVALID_LOGIN
 import com.example.projectunion.common.Constants.LOGIN
 import com.example.projectunion.common.Constants.LOGIN_SCREEN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
+import com.example.projectunion.common.Constants.REGISTER
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USER_NOT_FOUND
 import com.example.projectunion.domain.model.Response.*
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -36,7 +36,7 @@ fun LoginScreen(
 ) {
 	val state = viewModel.state.observeAsState(Success(false)).value
 	when(state) {
-		is Loading -> Log.d(Constants.TAG, "Loading")
+		is Loading -> Log.d(TAG, "Loading")
 		is Success -> {
 			if (state.data) {
 				LaunchedEffect(state.data) {
@@ -44,7 +44,7 @@ fun LoginScreen(
 				}
 			}
 		}
-		is Error -> Log.d(Constants.TAG, state.message)
+		is Error -> Log.d(TAG, state.message)
 	}
 
 	var focusManager = LocalFocusManager.current
@@ -104,7 +104,7 @@ fun LoginScreen(
 				viewModel.loginByEmail()
 			}
 
-			TextButtonAction(title = Constants.REGISTER) {
+			TextButtonAction(title = REGISTER) {
 				navController.navigate(MainNavRoute.Register.route)
 			}
 		}
