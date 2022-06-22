@@ -36,6 +36,18 @@ class FirestoreDBImpl(
 		}
 	}
 
+	override fun getUserById(id: String) = flow<Response<UserProfile?>> {
+		try {
+			emit(Response.Loading)
+			val user = db.collection(USERS_COLLECTION)
+				.document(id).get().await()
+				.toObject(UserProfile::class.java)
+			emit(Response.Success(user))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
 	override fun createProject(projectData: ProjectCreate) = flow<Response<String>> {
 		try {
 			emit(Response.Loading)

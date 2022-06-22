@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface FirestoreDB{
 
 	fun createUser(userData: UserRegister, uid: String): Flow<Response<Boolean>>
+	fun getUserById(id: String): Flow<Response<UserProfile?>>
 
 	fun createProject(projectData: ProjectCreate): Flow<Response<String>>
 	fun uploadUrlImagesProject(images: MutableList<String>, id: String): Flow<Response<Boolean>>
-
 	fun getProjects(): Flow<Response<List<ProjectTape>>>
 }

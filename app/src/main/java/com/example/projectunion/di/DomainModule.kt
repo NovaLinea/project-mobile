@@ -2,6 +2,7 @@ package com.example.projectunion.di
 
 import com.example.projectunion.domain.repository.AuthRepository
 import com.example.projectunion.domain.repository.ProjectRepository
+import com.example.projectunion.domain.repository.UserRepository
 import com.example.projectunion.domain.use_case.*
 import dagger.Module
 import dagger.Provides
@@ -50,4 +51,8 @@ class DomainModule {
 	}
 
 	// User
+	@Provides
+	fun provideGetUserByIdUseCase(userRepository: UserRepository): GetUserByIdUseCase {
+		return GetUserByIdUseCase(repository = userRepository)
+	}
 }

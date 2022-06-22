@@ -76,8 +76,11 @@ class DataModule {
 
 	@Provides
 	@Singleton
-	fun provideUserRepository(): UserRepository {
-		return UserRepositoryImpl()
+	fun provideUserRepository(
+		firestoreDB: FirestoreDB,
+		storageDB: Storage
+	): UserRepository {
+		return UserRepositoryImpl(firestoreDB, storageDB)
 	}
 
 	@Provides

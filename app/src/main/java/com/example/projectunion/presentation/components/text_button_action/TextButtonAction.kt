@@ -10,14 +10,15 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun TextButtonAction(
 	title: String,
-	onClicked: () -> Unit
+	color: Color = Color.Blue,
+	onClick: () -> Unit
 ) {
-	TextButton(onClick = { onClicked() }) {
+	TextButton(onClick = { onClick() }) {
 		Text(
 			text = title,
 			style = TextStyle(
 				fontSize = 16.sp,
-				color = Color.Blue
+				color = color
 			)
 		)
 	}

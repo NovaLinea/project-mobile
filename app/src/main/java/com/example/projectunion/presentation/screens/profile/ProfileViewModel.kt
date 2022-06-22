@@ -5,23 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.domain.use_case.LogoutUseCase
+import com.example.projectunion.domain.model.UserProfile
+import com.example.projectunion.domain.use_case.GetUserByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-	private val logoutUseCase: LogoutUseCase
+	private val getUserByIdUseCase: GetUserByIdUseCase
 ): ViewModel() {
 
-	private val _state = MutableLiveData<Response<Boolean>>(Response.Success(false))
-	val state: LiveData<Response<Boolean>> get() = _state
+	private val _state = MutableLiveData<Response<UserProfile?>>()
+	val state: LiveData<Response<UserProfile?>> get() = _state
 
-	fun logout() {
+	init {
+		getProfileData()
+	}
+
+	private fun getProfileData() {
 		viewModelScope.launch {
-			logoutUseCase().collect { response ->
+			getUserByIdUseCase("id").collect { response ->
 				_state.postValue(response)
 			}
 		}

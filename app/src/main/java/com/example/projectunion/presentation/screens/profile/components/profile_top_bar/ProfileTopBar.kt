@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.create.components.create_top_bar
+package com.example.projectunion.presentation.screens.profile.components.profile_top_bar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.projectunion.common.Constants.CREATE_SCREEN
+import com.example.projectunion.common.Constants.PROFILE_SCREEN
 
 @Composable
-fun CreateTopBar(
+fun ProfileTopBar(
 	navController: NavController
 ) {
 	TopAppBar(
@@ -22,7 +22,7 @@ fun CreateTopBar(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = CREATE_SCREEN,
+					text = PROFILE_SCREEN,
 					style = MaterialTheme.typography.h6
 				)
 			}

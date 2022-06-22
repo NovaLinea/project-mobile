@@ -12,15 +12,16 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun ChoiceImage(images: MutableList<Uri>) {
+	val maxImagesProject = 3
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.GetContent()
 	) { uri: Uri? ->
-		uri?.let { images.add(0, it) }
+		uri?.let { images.add(images.size, it) }
 	}
 
 	IconButton(
 		onClick = {
-			if (images.size < 3)
+			if (images.size < maxImagesProject)
 				launcher.launch("image/*")
 		}
 	) {
