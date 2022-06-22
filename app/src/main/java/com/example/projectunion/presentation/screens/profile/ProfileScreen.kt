@@ -13,6 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.LOGOUT
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.PROFILE_SCREEN
@@ -24,7 +25,7 @@ import com.example.projectunion.presentation.navigation.Router
 @Composable
 fun ProfileScreen(
 	userID: String,
-	externalRouter: Router,
+	navController: NavController,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
 	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
@@ -32,7 +33,7 @@ fun ProfileScreen(
 		is Response.Success -> {
 			if (state.data) {
 				LaunchedEffect(state.data) {
-					externalRouter.navigateTo(MAIN_ROUTE)
+					navController.navigate(MAIN_ROUTE)
 				}
 			}
 		}

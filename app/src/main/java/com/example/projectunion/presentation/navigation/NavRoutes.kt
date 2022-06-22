@@ -3,6 +3,8 @@ package com.example.projectunion.presentation.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
+import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
@@ -42,11 +44,11 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Search: MainNavRoute(SEARCH_SCREEN_ROUTE, SEARCH_SCREEN)
 	object Notifications: MainNavRoute(NOTIFICATIONS_SCREEN_ROUTE, NOTIFICATIONS_SCREEN)
 	object Favorites: MainNavRoute(FAVORITES_SCREEN_ROUTE, FAVORITES_SCREEN)
+	object Profile: MainNavRoute("$PROFILE_SCREEN_ROUTE/{$ARGUMENT_PROFILE_KEY}", PROFILE_SCREEN)
 }
 
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
 	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, Icons.Default.Home)
 	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, Icons.Default.Message)
-	object Profile: BottomNavRoute("$PROFILE_SCREEN_ROUTE/{$ARGUMENT_PROFILE_KEY}", PROFILE_SCREEN, Icons.Default.Person)
-
+	object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, Icons.Default.Menu)
 }

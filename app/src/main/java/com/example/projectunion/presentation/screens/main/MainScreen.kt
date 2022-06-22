@@ -1,14 +1,11 @@
 package com.example.projectunion.presentation.screens.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -16,7 +13,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
-import com.example.projectunion.common.Constants.PROFILE_SCREEN_ROUTE
 import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.navigation.nav_graph.BottomNavGraph
@@ -49,7 +45,7 @@ fun BottomBar(
 	val screens = listOf(
 		BottomNavRoute.Home,
 		BottomNavRoute.Messages,
-		BottomNavRoute.Profile
+		BottomNavRoute.Additionally
 	)
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -99,11 +95,7 @@ fun RowScope.AddItem(
 			if (!isAuth && screen.route != BottomNavRoute.Home.route)
 				externalRouter.navigateTo(AUTHENTICATION_ROUTE)
 			else
-				if (screen.route == PROFILE_SCREEN_ROUTE) {
-					navController.navigate("${PROFILE_SCREEN_ROUTE}/{id}")
-				}
-				else
-					navController.navigate(screen.route)
+				navController.navigate(screen.route)
 		}
 	)
 }

@@ -47,6 +47,7 @@ object Constants {
 	const val SETTINGS_SCREEN = "Настройки"
 	const val FAVORITES_SCREEN = "Избранное"
 	const val HOME_SCREEN = "Домашняя"
+	const val ADDITIONALLY_SCREEN = "Дополнительно"
 
 	// Screens routes
 	const val MAIN_SCREEN_ROUTE = "main_screen"
@@ -61,6 +62,7 @@ object Constants {
 	const val SEARCH_SCREEN_ROUTE = "search_screen"
 	const val SETTINGS_SCREEN_ROUTE = "settings_screen"
 	const val FAVORITES_SCREEN_ROUTE = "favorites_screen"
+	const val ADDITIONALLY_SCREEN_ROUTE = "additionally_screen"
 
 	// Buttons
 	const val LOGIN = "Войти"

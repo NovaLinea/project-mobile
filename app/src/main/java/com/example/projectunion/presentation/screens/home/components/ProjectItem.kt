@@ -24,9 +24,14 @@ fun ProjectItem(
 	externalRouter: Router
 ) {
     val maxCharDescription = 350
-    //val today = Date()
-    //val countTime = Period.between(today)
-    //Log.d(TAG, today.toString())
+
+    /*val calendar = Calendar.getInstance()
+    val format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val start = "2019-05-24 14:16:00"
+    val end = "2019-05-27 16:19:45"
+    val mStart = LocalDateTime.parse(TIME_FORMAT.format(Date()))
+    val countTime = ChronoUnit.HOURS.between()
+    Log.d(TAG, calendar.get(Calendar.YEAR).toString())*/
 
     Card(
         modifier = Modifier
@@ -43,12 +48,13 @@ fun ProjectItem(
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(
                         modifier = Modifier
                             .clickable {
-                                //externalRouter.navigateTo("${PROFILE_SCREEN_ROUTE}/${project.creatorID}")
+                                externalRouter.navigateTo("${PROFILE_SCREEN_ROUTE}/${project.creatorID}")
                             },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -79,7 +85,6 @@ fun ProjectItem(
                     }
 
                     Text(
-                        //text = project.createdAt.toString(),
                         text = "time",
                         style = TextStyle(
                             color = Color.DarkGray,

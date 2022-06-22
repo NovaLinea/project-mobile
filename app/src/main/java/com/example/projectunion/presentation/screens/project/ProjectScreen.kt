@@ -35,7 +35,7 @@ fun ProjectScreen(
 						imageVector = Icons.Default.ArrowBack,
 						contentDescription = "Array back icon",
 						modifier = Modifier.clickable {
-							navController.navigate(MAIN_ROUTE)
+							navController.popBackStack()
 						}
 					)
 					Icon(

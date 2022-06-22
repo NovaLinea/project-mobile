@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
 import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.Router
+import com.example.projectunion.presentation.screens.additionally.AdditionallyScreen
 import com.example.projectunion.presentation.screens.home.components.HomeCreateBottomSheet
 import com.example.projectunion.presentation.screens.messages.MessagesScreen
 import com.example.projectunion.presentation.screens.profile.ProfileScreen
@@ -24,18 +25,6 @@ fun BottomNavGraph(
 	) {
 		composable(BottomNavRoute.Home.route) { HomeCreateBottomSheet(externalRouter) }
 		composable(BottomNavRoute.Messages.route) { MessagesScreen() }
-		composable(
-			route = BottomNavRoute.Profile.route,
-			arguments = listOf(
-				navArgument(ARGUMENT_PROFILE_KEY) {
-					type = NavType.StringType
-				}
-			)
-		) {
-			ProfileScreen(
-				userID = it.arguments?.getString(ARGUMENT_PROFILE_KEY) as String,
-				externalRouter = externalRouter
-			)
-		}
+		composable(BottomNavRoute.Additionally.route) { AdditionallyScreen() }
 	}
 }

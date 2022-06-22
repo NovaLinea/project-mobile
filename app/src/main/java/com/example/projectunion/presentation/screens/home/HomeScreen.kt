@@ -34,7 +34,7 @@ fun HomeScreen(
 
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
-		topBar = { TopBar(MAIN_SCREEN, 2) },
+		topBar = { TopBar(MAIN_SCREEN, 1) },
 		floatingActionButton = {
 			FloatingButton(
 				imageVector = Icons.Default.Create,
