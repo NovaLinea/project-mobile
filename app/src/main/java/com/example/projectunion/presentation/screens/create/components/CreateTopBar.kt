@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.CREATE_SCREEN
+import com.example.projectunion.presentation.components.icon_button.IconButtonAction
 
 @Composable
 fun CreateTopBar(
@@ -28,18 +29,10 @@ fun CreateTopBar(
 			}
 		},
 		navigationIcon = {
-		   IconButton(
-			   onClick = {
-				   navController.popBackStack()
-			   }
-		   ) {
-			   Icon(
-				   imageVector = Icons.Default.ArrowBack,
-				   contentDescription = null,
-				   tint = Color.Black
-			   )
-		   }
-	   },
+			IconButtonAction(Icons.Default.ArrowBack) {
+				navController.popBackStack()
+			}
+	   	},
 		backgroundColor = Color.White,
 		elevation = 0.dp
 	)

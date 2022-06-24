@@ -70,7 +70,6 @@ fun ProjectItem(
                                 ImagePainter(
                                     imageUrl = photo,
                                     shape = 10f
-                                    //isCircle = true
                                 ) {
                                     externalRouter.navigateTo(
                                         MainNavRoute.Profile.route + "?$ARGUMENT_PROFILE_KEY=${project.creatorID}"
@@ -99,10 +98,9 @@ fun ProjectItem(
                         )
                     )
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
                 Column(
                     modifier = Modifier
-                        .padding(top = 10.dp)
                         .clickable {
                             externalRouter.navigateTo(
                                 MainNavRoute.Project.route + "?$ARGUMENT_PROJECT_KEY=${project.id}"
@@ -118,10 +116,10 @@ fun ProjectItem(
                             lineHeight = 25.sp
                         )
                     }
+                    Spacer(modifier = Modifier.height(5.dp))
                     project.description?.let {
                         Text(
                             text = it,
-                            modifier = Modifier.padding(top = 5.dp),
                             maxLines = 10,
                             style = MaterialTheme.typography.body1,
                             overflow = TextOverflow.Ellipsis,

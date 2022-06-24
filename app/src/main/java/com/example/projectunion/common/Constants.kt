@@ -70,6 +70,7 @@ object Constants {
 	const val REGISTER = "Зарегестрироваться"
 	const val LOGOUT = "Выйти"
 	const val CREATE_PROJECT = "Создать проект"
+	const val BUY_PROJECT = "Купить"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
