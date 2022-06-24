@@ -16,6 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.R
 import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.MAIN_SCREEN
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.floating_button.FloatingButton
@@ -40,7 +41,7 @@ fun HomeScreen(
 				imageVector = Icons.Default.Create,
 				onClick = {
 					if (!viewModel.isAuth)
-						externalRouter.navigateTo(Constants.AUTHENTICATION_ROUTE)
+						externalRouter.navigateTo(AUTHENTICATION_ROUTE)
 					else
 						onClickCreate()
 				}

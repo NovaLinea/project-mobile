@@ -14,9 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projectunion.common.Constants.PROFILE_SCREEN_ROUTE
-import com.example.projectunion.common.Constants.PROJECT_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
 import com.example.projectunion.domain.model.ProjectTape
+import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.Router
 
 @Composable
@@ -53,7 +54,9 @@ fun ProjectItem(
                     Row(
                         modifier = Modifier
                             .clickable {
-                                externalRouter.navigateTo("${PROFILE_SCREEN_ROUTE}/${project.creatorID}")
+                                externalRouter.navigateTo(
+                                    MainNavRoute.Profile.route + "?$ARGUMENT_PROFILE_KEY=${project.creatorID}"
+                                )
                             },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -69,7 +72,9 @@ fun ProjectItem(
                                     shape = 10f
                                     //isCircle = true
                                 ) {
-                                    externalRouter.navigateTo("${PROFILE_SCREEN_ROUTE}/${project.creatorID}")
+                                    externalRouter.navigateTo(
+                                        MainNavRoute.Profile.route + "?$ARGUMENT_PROFILE_KEY=${project.creatorID}"
+                                    )
                                 }
                             }
                         }
@@ -99,7 +104,9 @@ fun ProjectItem(
                     modifier = Modifier
                         .padding(top = 10.dp)
                         .clickable {
-                            externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
+                            externalRouter.navigateTo(
+                                MainNavRoute.Project.route + "?$ARGUMENT_PROJECT_KEY=${project.id}"
+                            )
                         },
                 ) {
                     project.title?.let {
@@ -145,7 +152,9 @@ fun ProjectItem(
                     contentAlignment = Alignment.Center,
                 ) {
                     ImagePainter(imageUrl = images[0]) {
-                        externalRouter.navigateTo("${PROJECT_SCREEN_ROUTE}/${project.id}")
+                        externalRouter.navigateTo(
+                            MainNavRoute.Project.route + "?$ARGUMENT_PROJECT_KEY=${project.id}"
+                        )
                     }
                 }
             }

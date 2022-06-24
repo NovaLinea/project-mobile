@@ -1,20 +1,17 @@
 package com.example.projectunion.presentation.screens.profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
 import com.example.projectunion.domain.use_case.GetUserByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-	private val getUserByIdUseCase: GetUserByIdUseCase
+	private val getUserByIdUseCase: GetUserByIdUseCase,
+	private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
 	private val _state = MutableLiveData<Response<UserProfile?>>()
@@ -25,9 +22,11 @@ class ProfileViewModel @Inject constructor(
 	}
 
 	private fun getProfileData() {
-		viewModelScope.launch {
-			getUserByIdUseCase("id").collect { response ->
-				_state.postValue(response)
+		savedStateHandle.get<String>("projectID")?.let { userID ->
+			viewModelScope.launch {
+				getUserByIdUseCase(userID).collect { response ->
+					_state.postValue(response)
+				}
 			}
 		}
 	}

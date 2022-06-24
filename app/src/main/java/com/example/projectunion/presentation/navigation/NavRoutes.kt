@@ -5,9 +5,6 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN_ROUTE
-import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
 import com.example.projectunion.common.Constants.CREATE_SCREEN
 import com.example.projectunion.common.Constants.CREATE_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.FAVORITES_SCREEN
@@ -38,13 +35,13 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Main: MainNavRoute(MAIN_SCREEN_ROUTE, MAIN_SCREEN)
 	object Login: MainNavRoute(LOGIN_SCREEN_ROUTE, LOGIN_SCREEN)
 	object Register: MainNavRoute(REGISTER_SCREEN_ROUTE, REGISTER_SCREEN)
-	object Project: MainNavRoute("$PROJECT_SCREEN_ROUTE/{$ARGUMENT_PROJECT_KEY}", PROJECT_SCREEN)
-	object Create: MainNavRoute("$CREATE_SCREEN_ROUTE/{$ARGUMENT_CREATE_KEY}", CREATE_SCREEN)
+	object Project: MainNavRoute(PROJECT_SCREEN_ROUTE, PROJECT_SCREEN)
+	object Create: MainNavRoute(CREATE_SCREEN_ROUTE, CREATE_SCREEN)
 	object Settings: MainNavRoute(SETTINGS_SCREEN_ROUTE, SETTINGS_SCREEN)
 	object Search: MainNavRoute(SEARCH_SCREEN_ROUTE, SEARCH_SCREEN)
 	object Notifications: MainNavRoute(NOTIFICATIONS_SCREEN_ROUTE, NOTIFICATIONS_SCREEN)
 	object Favorites: MainNavRoute(FAVORITES_SCREEN_ROUTE, FAVORITES_SCREEN)
-	object Profile: MainNavRoute("$PROFILE_SCREEN_ROUTE/{$ARGUMENT_PROFILE_KEY}", PROFILE_SCREEN)
+	object Profile: MainNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN)
 }
 
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {

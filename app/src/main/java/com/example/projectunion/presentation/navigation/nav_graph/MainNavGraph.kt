@@ -2,11 +2,10 @@ package com.example.projectunion.presentation.navigation.nav_graph
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
 import com.example.projectunion.common.Constants.MAIN_ROUTE
-import com.example.projectunion.presentation.navigation.BottomNavRoute
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.createRouter
 import com.example.projectunion.presentation.screens.create.CreateScreen
@@ -35,38 +34,44 @@ fun NavGraphBuilder.mainNavGraph(
 		}
 
 		composable(
-			route = MainNavRoute.Profile.route,
+			route = MainNavRoute.Profile.route
+					+ "?$ARGUMENT_PROFILE_KEY={$ARGUMENT_PROFILE_KEY}",
 			arguments = listOf(
-				navArgument(Constants.ARGUMENT_PROFILE_KEY) {
+				navArgument(
+					name = ARGUMENT_PROFILE_KEY
+				) {
 					type = NavType.StringType
+					defaultValue = "-1"
 				}
 			)
 		) {
-			ProfileScreen(
-				userID = it.arguments?.getString(Constants.ARGUMENT_PROFILE_KEY) as String,
-				navController = navController
-			)
+			ProfileScreen(navController = navController)
 		}
 
 		composable(
-			route = MainNavRoute.Project.route,
+			route = MainNavRoute.Project.route
+					+ "?$ARGUMENT_PROJECT_KEY={$ARGUMENT_PROJECT_KEY}",
 			arguments = listOf(
-				navArgument(ARGUMENT_PROJECT_KEY) {
+				navArgument(
+					name = ARGUMENT_PROJECT_KEY
+				) {
 					type = NavType.StringType
+					defaultValue = "-1"
 				}
 			)
 		) {
-			ProjectScreen(
-				projectID = it.arguments?.getString(ARGUMENT_PROJECT_KEY) as String,
-				navController
-			)
+			ProjectScreen(navController)
 		}
 
 		composable(
-			route = MainNavRoute.Create.route,
+			route = MainNavRoute.Create.route
+					+ "?$ARGUMENT_CREATE_KEY={$ARGUMENT_CREATE_KEY}",
 			arguments = listOf(
-				navArgument(ARGUMENT_CREATE_KEY) {
+				navArgument(
+					name = ARGUMENT_CREATE_KEY
+				) {
 					type = NavType.StringType
+					defaultValue = "sale"
 				}
 			)
 		) {

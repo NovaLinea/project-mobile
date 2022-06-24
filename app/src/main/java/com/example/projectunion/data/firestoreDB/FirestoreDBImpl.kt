@@ -68,6 +68,18 @@ class FirestoreDBImpl(
 		}
 	}
 
+	override fun getProjectById(id: String) = flow<Response<ProjectOpen?>> {
+		try {
+			emit(Response.Loading)
+			val project = db.collection(PROJECTS_COLLECTION)
+				.document(id).get().await()
+				.toObject(ProjectOpen::class.java)
+			emit(Response.Success(project))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
 	override fun getProjects() = flow<Response<List<ProjectTape>>> {
 		try {
 			emit(Response.Loading)

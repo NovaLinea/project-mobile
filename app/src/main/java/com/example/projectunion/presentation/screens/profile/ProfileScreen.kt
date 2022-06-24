@@ -13,7 +13,6 @@ import com.example.projectunion.presentation.screens.profile.components.ProfileT
 
 @Composable
 fun ProfileScreen(
-	userID: String,
 	navController: NavController,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {

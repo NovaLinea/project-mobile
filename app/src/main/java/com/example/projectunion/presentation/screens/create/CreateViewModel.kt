@@ -2,10 +2,9 @@ package com.example.projectunion.presentation.screens.create
 
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.domain.model.ProjectCreate
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CreateProjectUseCase
@@ -20,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateViewModel @Inject constructor(
     private val getAuthCurrentUserUseCase: GetAuthCurrentUserUseCase,
-    private val createProjectUseCase: CreateProjectUseCase
+    private val createProjectUseCase: CreateProjectUseCase,
+    private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
     val title by lazy { CreateTextState() }
@@ -31,28 +31,30 @@ class CreateViewModel @Inject constructor(
     private val _state = MutableLiveData<Response<Boolean>>()
     val state: LiveData<Response<Boolean>> get() = _state
 
-    fun createProject(typeProject: String) {
-        var creatorID = mutableStateOf("")
-        viewModelScope.launch {
-            creatorID.value = getAuthCurrentUserUseCase()?.uid.toString()
-        }
+    fun createProject() {
+        savedStateHandle.get<String>(ARGUMENT_CREATE_KEY)?.let { typeProject ->
+            var creatorID = mutableStateOf("")
+            viewModelScope.launch {
+                creatorID.value = getAuthCurrentUserUseCase()?.uid.toString()
+            }
 
-        viewModelScope.launch {
-            val dateNow = Date()
+            viewModelScope.launch {
+                val dateNow = Date()
 
-            val project = ProjectCreate(
-                title = title.text,
-                description = description.text,
-                type = typeProject,
-                price = price.text.toInt(),
-                createdAt = dateNow,
-                updatedAt = dateNow,
-                likes = 0,
-                views = 0,
-                creatorID = creatorID.value
-            )
-            createProjectUseCase(project, images).collect { response ->
-                _state.postValue(response)
+                val project = ProjectCreate(
+                    title = title.text,
+                    description = description.text,
+                    type = typeProject,
+                    price = price.text.toInt(),
+                    createdAt = dateNow,
+                    updatedAt = dateNow,
+                    likes = 0,
+                    views = 0,
+                    creatorID = creatorID.value
+                )
+                createProjectUseCase(project, images).collect { response ->
+                    _state.postValue(response)
+                }
             }
         }
     }

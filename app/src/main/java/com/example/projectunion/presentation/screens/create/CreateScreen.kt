@@ -9,10 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.PRICE_PROJECT_PLACEHOLDER
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_PROJECT_PLACEHOLDER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.screens.create.components.CreateBottomBar
@@ -29,7 +29,7 @@ fun CreateScreen(
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(false)).value
 	when(state) {
-		is Response.Loading -> Log.d(Constants.TAG, "Loading")
+		is Response.Loading -> Log.d(TAG, "Loading")
 		is Response.Success -> {
 			if (state.data) {
 				LaunchedEffect(state.data) {
@@ -37,7 +37,7 @@ fun CreateScreen(
 				}
 			}
 		}
-		is Response.Error -> Log.d(Constants.TAG, state.message)
+		is Response.Error -> Log.d(TAG, state.message)
 	}
 
 	val maxCharTitle = 120
@@ -52,7 +52,7 @@ fun CreateScreen(
 						&& viewModel.description.isValidText()
 						&& viewModel.price.isValidText(),
 				onClickCreate = {
-					viewModel.createProject(typeProject)
+					viewModel.createProject()
 				}
 			)
 		}
