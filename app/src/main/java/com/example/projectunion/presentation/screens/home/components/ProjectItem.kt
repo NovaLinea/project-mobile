@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.Constants.PROFILE_SCREEN_ROUTE
@@ -23,8 +24,6 @@ fun ProjectItem(
 	project: ProjectTape,
 	externalRouter: Router
 ) {
-    val maxCharDescription = 350
-
     /*val calendar = Calendar.getInstance()
     val format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     val start = "2019-05-24 14:16:00"
@@ -106,18 +105,21 @@ fun ProjectItem(
                     project.title?.let {
                         Text(
                             text = it,
-                            style = MaterialTheme.typography.h6
+                            style = MaterialTheme.typography.h6,
+                            overflow = TextOverflow.Ellipsis,
+                            letterSpacing= 0.2.sp,
+                            lineHeight = 25.sp
                         )
                     }
                     project.description?.let {
-                        var description = if (it.length > maxCharDescription)
-                            it.substring(0..maxCharDescription) + "..."
-                        else
-                            it
                         Text(
-                            text = description,
+                            text = it,
                             modifier = Modifier.padding(top = 5.dp),
-                            style = MaterialTheme.typography.body1
+                            maxLines = 10,
+                            style = MaterialTheme.typography.body1,
+                            overflow = TextOverflow.Ellipsis,
+                            letterSpacing= 0.2.sp,
+                            lineHeight = 25.sp
                         )
                     }
 

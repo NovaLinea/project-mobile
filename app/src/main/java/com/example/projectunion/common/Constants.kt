@@ -1,5 +1,6 @@
 package com.example.projectunion.common
 
+import com.example.projectunion.domain.model.UserProfile
 import java.text.SimpleDateFormat
 
 object Constants {
@@ -96,4 +97,5 @@ object Constants {
 	// Other
 	const val TAG = "AppLog"
 	val TIME_FORMAT = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+	var USER = UserProfile()
 }

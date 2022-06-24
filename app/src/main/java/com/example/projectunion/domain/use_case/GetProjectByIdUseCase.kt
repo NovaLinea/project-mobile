@@ -5,5 +5,6 @@ import com.example.projectunion.domain.repository.ProjectRepository
 class GetProjectByIdUseCase(
 	private val repository: ProjectRepository
 ) {
-	//operator fun invoke() = repository.getProjectById()
+
+	operator fun invoke(id: String) = repository.getProjectById(id)
 }

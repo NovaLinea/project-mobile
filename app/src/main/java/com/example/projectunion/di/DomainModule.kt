@@ -50,6 +50,11 @@ class DomainModule {
 		return GetProjectsUseCase(repository = projectRepository)
 	}
 
+	@Provides
+	fun provideGetProjectByIdUseCase(projectRepository: ProjectRepository): GetProjectByIdUseCase {
+		return GetProjectByIdUseCase(repository = projectRepository)
+	}
+
 	// User
 	@Provides
 	fun provideGetUserByIdUseCase(userRepository: UserRepository): GetUserByIdUseCase {
