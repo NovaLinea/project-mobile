@@ -19,9 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.common.Constants.TITLE_TYPE_PROJECT
+import com.example.projectunion.common.Constants.TYPE_PROJECT_DONATE
 import com.example.projectunion.common.Constants.TYPE_PROJECT_DONATE_TEXT
 import com.example.projectunion.common.Constants.TYPE_PROJECT_SALE
 import com.example.projectunion.common.Constants.TYPE_PROJECT_SALE_TEXT
+import com.example.projectunion.common.Constants.TYPE_PROJECT_TEAM
 import com.example.projectunion.common.Constants.TYPE_PROJECT_TEAM_TEXT
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.Router
@@ -76,14 +78,18 @@ fun HomeCreateBottomSheet(
                         TYPE_PROJECT_DONATE_TEXT,
                         Icons.Default.CreditCard,
                         onClick = {
-
+                            /*externalRouter.navigateTo(
+                                MainNavRoute.Create.route + "?${ARGUMENT_CREATE_KEY}=${TYPE_PROJECT_DONATE}"
+                            )*/
                         }
                     )
                     TypeProjectItem(
                         TYPE_PROJECT_TEAM_TEXT,
                         Icons.Default.People,
                         onClick = {
-
+                            /*externalRouter.navigateTo(
+                                MainNavRoute.Create.route + "?${ARGUMENT_CREATE_KEY}=${TYPE_PROJECT_TEAM}"
+                            )*/
                         }
                     )
                 }

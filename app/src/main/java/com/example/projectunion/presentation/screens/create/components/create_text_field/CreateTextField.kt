@@ -24,8 +24,7 @@ fun CreateTextField(
 			value = value,
 			onValueChange = { value -> onValueChange(value) },
 			singleLine = false,
-			modifier = Modifier
-				.fillMaxWidth(),
+			modifier = Modifier.fillMaxWidth(),
 			textStyle = textStyle
 		)
 

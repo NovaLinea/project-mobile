@@ -5,8 +5,8 @@ import java.util.*
 data class ProjectCreate (
 	val title: String,
 	val description: String,
-	val type: String,
 	val images: List<String>? = null,
+	val type: String,
 	val price: Int,
 	//val paymentSystem: String,
 	//val progress: Int,

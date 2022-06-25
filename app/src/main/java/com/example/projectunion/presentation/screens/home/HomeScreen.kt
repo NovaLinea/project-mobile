@@ -13,9 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.R
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.MAIN_SCREEN
 import com.example.projectunion.domain.model.Response
@@ -58,6 +58,7 @@ fun HomeScreen(
 				) {
 					items(state.data) { project ->
 						ProjectItem(project, externalRouter)
+						Spacer(modifier = Modifier.height(20.dp))
 					}
 				}
 			}

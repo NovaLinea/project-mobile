@@ -4,7 +4,8 @@ import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.createRouter
@@ -25,9 +26,11 @@ fun NavGraphBuilder.mainNavGraph(
 		startDestination = MainNavRoute.Main.route,
 		route = MAIN_ROUTE
 	) {
-		composable(MainNavRoute.Main.route) {
+		composable(
+			route = MainNavRoute.Main.route
+		) {
 			MainScreen(
-				createRouter { route ->
+				externalRouter = createRouter { route ->
 					navController.navigate(route)
 				}
 			)
@@ -50,17 +53,29 @@ fun NavGraphBuilder.mainNavGraph(
 
 		composable(
 			route = MainNavRoute.Project.route
-					+ "?$ARGUMENT_PROJECT_KEY={$ARGUMENT_PROJECT_KEY}",
+					+ "?$ARGUMENT_PROJECT_ID_KEY={$ARGUMENT_PROJECT_ID_KEY}"
+					+ "&$ARGUMENT_PROJECT_PRICE_KEY={$ARGUMENT_PROJECT_PRICE_KEY}",
 			arguments = listOf(
 				navArgument(
-					name = ARGUMENT_PROJECT_KEY
+					name = ARGUMENT_PROJECT_ID_KEY
 				) {
 					type = NavType.StringType
 					defaultValue = "-1"
+				},
+				navArgument(
+					name = ARGUMENT_PROJECT_PRICE_KEY
+				) {
+					type = NavType.IntType
+					defaultValue = -1
 				}
 			)
 		) {
-			ProjectScreen(navController)
+			it.arguments?.let { it1 ->
+				ProjectScreen(
+					price = it1.getInt(ARGUMENT_PROJECT_PRICE_KEY),
+					navController = navController
+				)
+			}
 		}
 
 		composable(
@@ -81,9 +96,9 @@ fun NavGraphBuilder.mainNavGraph(
 			)
 		}
 
-		composable(MainNavRoute.Settings.route) { SettingsScreen() }
-		composable(MainNavRoute.Search.route) { SearchScreen() }
-		composable(MainNavRoute.Favorites.route) { FavoritesScreen() }
-		composable(MainNavRoute.Notifications.route) { NotificationsScreen() }
+		composable(route = MainNavRoute.Settings.route) { SettingsScreen() }
+		composable(route = MainNavRoute.Search.route) { SearchScreen() }
+		composable(route = MainNavRoute.Favorites.route) { FavoritesScreen() }
+		composable(route = MainNavRoute.Notifications.route) { NotificationsScreen() }
 	}
 }

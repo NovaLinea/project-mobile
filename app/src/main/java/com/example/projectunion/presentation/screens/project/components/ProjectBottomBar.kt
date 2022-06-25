@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.screens.project.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.MaterialTheme
@@ -20,7 +19,7 @@ fun ProjectBottomBar(
 ) {
 	BottomNavigation(
 		backgroundColor = Color.White,
-		elevation = 5.dp
+		elevation = 7.dp
 	) {
 		Row(
 			modifier = Modifier

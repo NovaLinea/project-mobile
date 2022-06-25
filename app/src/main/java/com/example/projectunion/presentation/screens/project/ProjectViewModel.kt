@@ -1,7 +1,7 @@
 package com.example.projectunion.presentation.screens.project
 
 import androidx.lifecycle.*
-import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.domain.model.ProjectOpen
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.GetProjectByIdUseCase
@@ -23,7 +23,7 @@ class ProjectViewModel @Inject constructor(
     }
 
     private fun getProjectById() {
-        savedStateHandle.get<String>(ARGUMENT_PROJECT_KEY)?.let { projectID ->
+        savedStateHandle.get<String>(ARGUMENT_PROJECT_ID_KEY)?.let { projectID ->
             if (projectID != "-1") {
                 viewModelScope.launch {
                     getProjectByIdUseCase(projectID).collect { response ->

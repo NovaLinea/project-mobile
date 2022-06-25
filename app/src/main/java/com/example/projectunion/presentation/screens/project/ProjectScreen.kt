@@ -8,20 +8,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
-import com.example.projectunion.presentation.navigation.nav_graph.BottomNavGraph
 import com.example.projectunion.presentation.screens.project.components.ProjectBottomBar
 import com.example.projectunion.presentation.screens.project.components.ProjectInformation
 import com.example.projectunion.presentation.screens.project.components.ProjectTopBar
 
 @Composable
 fun ProjectScreen(
-	navController: NavHostController,
+	price: Int,
+	navController: NavController,
 	viewModel: ProjectViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(null)).value
@@ -30,10 +30,11 @@ fun ProjectScreen(
 		topBar = { ProjectTopBar(navController) },
 		bottomBar = {
 			ProjectBottomBar(
-				projectPrice = "15000"
-			) {
+				projectPrice = "$price",
+				onClickBuy = {
 
-			}
+				}
+			)
 		}
 	) {
 		innerPadding ->
@@ -45,16 +46,24 @@ fun ProjectScreen(
 					is Response.Success -> {
 						if (state.data != null) {
 							ProjectInformation(
-								project = state.data
-							) {
-								navController.navigate(
-									MainNavRoute.Profile.route + "?${ARGUMENT_PROFILE_KEY}=${state.data.creatorID}"
-								)
-							}
+								project = state.data,
+								onClickCreator = {
+									state.data.creatorID?.let { openProfile(navController, it) }
+								}
+							)
 						}
 					}
 					is Response.Error -> Log.d(TAG, state.message)
 				}
 			}
 	}
+}
+
+fun openProfile(
+	navController: NavController,
+	id: String
+) {
+	navController.navigate(
+		MainNavRoute.Profile.route + "?${ARGUMENT_PROFILE_KEY}=${id}"
+	)
 }

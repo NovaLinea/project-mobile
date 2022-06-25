@@ -4,6 +4,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -23,7 +24,7 @@ fun ProjectTopBar(
 			}
 		},
 		actions = {
-			IconButtonAction(Icons.Default.Bookmark) {
+			IconButtonAction(Icons.Default.BookmarkBorder) {
 
 			}
 			IconButtonAction(Icons.Default.MoreVert) {

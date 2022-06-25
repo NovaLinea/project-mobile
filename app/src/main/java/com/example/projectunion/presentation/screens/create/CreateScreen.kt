@@ -41,6 +41,7 @@ fun CreateScreen(
 	}
 
 	val maxCharTitle = 120
+	val maxCharDescription = 10000
 
 	Scaffold(
 		topBar = { CreateTopBar(navController) },
@@ -70,8 +71,10 @@ fun CreateScreen(
 						placeholder = TITLE_PROJECT_PLACEHOLDER,
 						isPlaceholderVisible = viewModel.title.text.isEmpty(),
 						onValueChange = {
-							if (viewModel.title.text.length < maxCharTitle)
+							if (it.length < maxCharTitle)
 								viewModel.title.text = it
+							else
+								viewModel.title.text = it.substring(0, maxCharTitle)
 						},
 						textStyle = MaterialTheme.typography.h5
 					)
@@ -103,7 +106,10 @@ fun CreateScreen(
 						placeholder = DESCRIPTION_PROJECT_PLACEHOLDER,
 						isPlaceholderVisible = viewModel.description.text.isEmpty(),
 						onValueChange = {
-							viewModel.description.text = it
+							if (it.length < maxCharDescription)
+								viewModel.description.text = it
+							else
+								viewModel.description.text = it.substring(0, maxCharDescription)
 						},
 						textStyle = MaterialTheme.typography.body1
 					)

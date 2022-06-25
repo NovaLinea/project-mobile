@@ -6,7 +6,8 @@ import java.text.SimpleDateFormat
 object Constants {
 
 	// Navigation
-	const val ARGUMENT_PROJECT_KEY = "projectID"
+	const val ARGUMENT_PROJECT_ID_KEY = "projectID"
+	const val ARGUMENT_PROJECT_PRICE_KEY = "projectPrice"
 	const val ARGUMENT_CREATE_KEY = "typeProject"
 	const val ARGUMENT_PROFILE_KEY = "userID"
 	const val ROOT_ROUTE = "root_route"
