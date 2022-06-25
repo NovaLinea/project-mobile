@@ -16,7 +16,7 @@ val Typography = Typography(
 	body2 = TextStyle(
 		fontFamily = FontFamily.Default,
 		fontWeight = FontWeight.Normal,
-		fontSize = 18.sp,
+		fontSize = 16.sp,
 		color = Color.DarkGray
 	),
 	h5 = TextStyle(
@@ -28,17 +28,21 @@ val Typography = Typography(
 		fontFamily = FontFamily.Default,
 		fontWeight = FontWeight.W600,
 		fontSize = 20.sp
-	)
-	/*
+	),
+	caption = TextStyle(
+		fontFamily = FontFamily.Default,
+		fontWeight = FontWeight.Normal,
+		fontSize = 13.sp,
+		color = Color.DarkGray
+	),
+	subtitle1 = TextStyle(
+		fontFamily = FontFamily.Default,
+		fontWeight = FontWeight.W600,
+		fontSize = 17.sp
+	),
     button = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
     ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
 )

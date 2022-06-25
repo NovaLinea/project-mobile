@@ -72,6 +72,12 @@ object Constants {
 	const val LOGOUT = "Выйти"
 	const val CREATE_PROJECT = "Создать проект"
 	const val BUY_PROJECT = "Купить"
+	const val COUNT_PROJECTS = "Проектов"
+	const val COUNT_FOLLOWS = "Подписчиков"
+	const val COUNT_FOLLOWINGS = "Подписок"
+	const val EDIT_PROFILE = "Редактировать"
+	const val SUBSCRIBE_USER = "Подписаться"
+	const val UNSUBSCRIBE_USER = "Отписаться"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"

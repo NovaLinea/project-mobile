@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
 		window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
 		setContent {
-			ProjectUnionTheme {
+			ProjectUnionTheme(darkTheme = false) {
 				Surface(color = MaterialTheme.colors.background) {
 					val navController = rememberNavController()
 					NavGraph(navController)

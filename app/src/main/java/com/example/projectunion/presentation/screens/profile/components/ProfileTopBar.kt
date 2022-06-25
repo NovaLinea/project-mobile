@@ -18,16 +18,7 @@ fun ProfileTopBar(
 	navController: NavController
 ) {
 	TopAppBar(
-		title = {
-			Box(
-				modifier = Modifier.fillMaxWidth()
-			) {
-				Text(
-					text = PROFILE_SCREEN,
-					style = MaterialTheme.typography.h6
-				)
-			}
-		},
+		title = {},
 		navigationIcon = {
 			IconButtonAction(Icons.Default.ArrowBack) {
 				navController.popBackStack()

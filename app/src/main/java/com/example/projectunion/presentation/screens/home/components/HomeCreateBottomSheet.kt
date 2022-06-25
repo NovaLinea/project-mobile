@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.People
 import androidx.compose.runtime.Composable
@@ -17,6 +18,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.common.Constants.TITLE_TYPE_PROJECT
 import com.example.projectunion.common.Constants.TYPE_PROJECT_DONATE
@@ -25,15 +28,17 @@ import com.example.projectunion.common.Constants.TYPE_PROJECT_SALE
 import com.example.projectunion.common.Constants.TYPE_PROJECT_SALE_TEXT
 import com.example.projectunion.common.Constants.TYPE_PROJECT_TEAM
 import com.example.projectunion.common.Constants.TYPE_PROJECT_TEAM_TEXT
+import com.example.projectunion.presentation.components.floating_button.FloatingButton
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.HomeScreen
+import com.example.projectunion.presentation.screens.home.HomeViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeCreateBottomSheet(
-    externalRouter: Router,
+    externalRouter: Router
 ) {
     val coroutineScope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)

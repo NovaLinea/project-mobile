@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
 import com.example.projectunion.presentation.components.top_bar.TopBar
+import com.example.projectunion.presentation.screens.home.components.HomeCreateBottomSheet
 
 @Composable
 fun HomeScreen(
@@ -58,7 +60,6 @@ fun HomeScreen(
 				) {
 					items(state.data) { project ->
 						ProjectItem(project, externalRouter)
-						Spacer(modifier = Modifier.height(20.dp))
 					}
 				}
 			}

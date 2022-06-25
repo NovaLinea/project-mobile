@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.projectunion.common.Constants.BUY_PROJECT
-import com.example.projectunion.presentation.components.button_action.ButtonAction
+import com.example.projectunion.presentation.components.button_action.ButtonActionText
 
 @Composable
 fun ProjectBottomBar(
@@ -33,7 +33,7 @@ fun ProjectBottomBar(
 				style = MaterialTheme.typography.h6
 			)
 
-			ButtonAction(
+			ButtonActionText(
 				title = BUY_PROJECT,
 				enabled = true
 			) {

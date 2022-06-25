@@ -22,7 +22,7 @@ import com.example.projectunion.common.Constants.REGISTER_SCREEN
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.email_field.Email
 import com.example.projectunion.presentation.components.password_field.Password
-import com.example.projectunion.presentation.components.button_action.ButtonAction
+import com.example.projectunion.presentation.components.button_action.ButtonActionText
 import com.example.projectunion.presentation.components.close_button.CloseButton
 import com.example.projectunion.presentation.components.error_field.ErrorField
 import com.example.projectunion.presentation.components.name_field.Name
@@ -104,7 +104,7 @@ fun RegisterScreen(
 
 			Spacer(modifier = Modifier.height(7.dp))
 
-			ButtonAction(
+			ButtonActionText(
 				REGISTER,
 				enabled = state != Response.Loading
 						&& viewModel.name.isValidText()
