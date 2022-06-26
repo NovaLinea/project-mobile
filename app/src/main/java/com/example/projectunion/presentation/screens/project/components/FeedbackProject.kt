@@ -1,6 +1,7 @@
 package com.example.projectunion.presentation.screens.project.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -48,11 +49,12 @@ fun FeedbackProject(
 		Row(
 			verticalAlignment = Alignment.CenterVertically,
 		) {
-			IconButtonAction(
-				icon = Icons.Default.RemoveRedEye,
-				onClick = {}
+			Icon(
+				imageVector = Icons.Default.RemoveRedEye,
+				contentDescription = null
 			)
 			Text(
+				modifier = Modifier.padding(start = 5.dp),
 				text = "$views",
 				style = MaterialTheme.typography.body1
 			)

@@ -79,7 +79,7 @@ class FirestoreDBImpl(
 				if (project.creatorID != null) {
 					val creator = db.collection(USERS_COLLECTION)
 						.document(project.creatorID).get().await()
-						.toObject(UserProfile::class.java)
+						.toObject(ProjectCreator::class.java)
 					project.creatorName = creator?.name.toString()
 					project.creatorPhoto = creator?.photo.toString()
 				}
@@ -103,7 +103,7 @@ class FirestoreDBImpl(
 					if (project.creatorID != null) {
 						val creator = db.collection(USERS_COLLECTION)
 							.document(project.creatorID).get().await()
-							.toObject(UserProfile::class.java)
+							.toObject(ProjectCreator::class.java)
 						project.creatorName = creator?.name.toString()
 						project.creatorPhoto = creator?.photo.toString()
 					}
@@ -119,21 +119,23 @@ class FirestoreDBImpl(
 	override fun getProjectsUser(id: String) = flow<Response<List<ProjectTape>>> {
 		try {
 			emit(Response.Loading)
-			val projects = db.collection(PROJECTS_COLLECTION)
+			val projects = mutableListOf<ProjectTape>()
+			db.collection(PROJECTS_COLLECTION)
 				.orderBy(CREATED_AT_FIELD, Query.Direction.DESCENDING)
-				.get().await().map { document ->
+				.get().await().forEach { document ->
 					val project = document.toObject(ProjectTape::class.java)
-					project.id = document.id
 
-					if (project.creatorID != null) {
+					if (project.creatorID == id) {
+						project.id = document.id
+
 						val creator = db.collection(USERS_COLLECTION)
-							.document(project.creatorID).get().await()
-							.toObject(UserProfile::class.java)
+							.document(id).get().await()
+							.toObject(ProjectCreator::class.java)
 						project.creatorName = creator?.name.toString()
 						project.creatorPhoto = creator?.photo.toString()
-					}
 
-					project
+						projects.add(projects.size, project)
+					}
 				}
 			emit(Response.Success(projects))
 		} catch (e: Exception) {
