@@ -60,6 +60,11 @@ class DomainModule {
 		return GetProjectByIdUseCase(repository = projectRepository)
 	}
 
+	@Provides
+	fun provideIncrementViewUseCase(projectRepository: ProjectRepository): IncrementViewUseCase {
+		return IncrementViewUseCase(repository = projectRepository)
+	}
+
 	// User
 	@Provides
 	fun provideGetUserByIdUseCase(userRepository: UserRepository): GetUserByIdUseCase {

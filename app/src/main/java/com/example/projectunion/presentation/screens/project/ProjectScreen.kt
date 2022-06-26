@@ -24,7 +24,7 @@ fun ProjectScreen(
 	navController: NavController,
 	viewModel: ProjectViewModel = hiltViewModel()
 ) {
-	val state = viewModel.state.observeAsState(Response.Success(null)).value
+	val state = viewModel.stateProject.observeAsState(Response.Success(null)).value
 
 	Scaffold(
 		topBar = { ProjectTopBar(navController) },

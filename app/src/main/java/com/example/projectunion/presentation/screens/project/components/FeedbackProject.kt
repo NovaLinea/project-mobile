@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BookmarkBorder
-import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,9 +45,17 @@ fun FeedbackProject(
 			}
 		}
 
-		Text(
-			text = "$views просмотров",
-			style = MaterialTheme.typography.body1
-		)
+		Row(
+			verticalAlignment = Alignment.CenterVertically,
+		) {
+			IconButtonAction(
+				icon = Icons.Default.RemoveRedEye,
+				onClick = {}
+			)
+			Text(
+				text = "$views",
+				style = MaterialTheme.typography.body1
+			)
+		}
 	}
 }

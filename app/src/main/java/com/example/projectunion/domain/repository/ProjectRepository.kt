@@ -14,4 +14,5 @@ interface ProjectRepository {
 	fun getProjectById(id: String): Flow<Response<ProjectOpen?>>
 	fun createProject(project: ProjectCreate, images: MutableList<Uri>): Flow<Response<Boolean>>
 	fun deleteProject(project: ProjectCreate)
+	fun incrementView(id: String): Flow<Response<Boolean>>
 }

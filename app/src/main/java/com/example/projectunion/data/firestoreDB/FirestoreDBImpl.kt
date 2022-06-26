@@ -4,9 +4,12 @@ import com.example.projectunion.common.Constants.CREATED_AT_FIELD
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
 import com.example.projectunion.common.Constants.USERS_COLLECTION
+import com.example.projectunion.common.Constants.VIEWS_PROJECT_FIELD
 import com.example.projectunion.domain.model.*
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.util.*
@@ -133,6 +136,16 @@ class FirestoreDBImpl(
 					project
 				}
 			emit(Response.Success(projects))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun incrementView(id: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+			db.collection(PROJECTS_COLLECTION).document(id).update(VIEWS_PROJECT_FIELD, FieldValue.increment(1))
+			emit(Response.Success(true))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

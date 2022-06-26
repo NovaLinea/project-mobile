@@ -56,4 +56,6 @@ class ProjectRepositoryImpl(
 	override fun deleteProject(project: ProjectCreate) {
 		TODO("Not yet implemented")
 	}
+
+	override fun incrementView(id: String) = firestoreDB.incrementView(id)
 }

@@ -13,4 +13,5 @@ interface FirestoreDB{
 	fun getProjectById(id: String): Flow<Response<ProjectOpen?>>
 	fun getProjects(): Flow<Response<List<ProjectTape>>>
 	fun getProjectsUser(id: String): Flow<Response<List<ProjectTape>>>
+	fun incrementView(id: String): Flow<Response<Boolean>>
 }
