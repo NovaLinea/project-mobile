@@ -19,6 +19,7 @@ fun ProfileInformation(
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		AvatarUser(photo = user.photo)
+
 		MainDataUser(
 			name = user.name,
 			description = user.description

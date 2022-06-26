@@ -105,6 +105,7 @@ object Constants {
 	const val CREATOR_ID_PROJECT_FIELD = "creatorID"
 	const val CREATED_AT_FIELD = "createdAt"
 	const val VIEWS_PROJECT_FIELD = "views"
+	const val PHOTO_USER_FIELD = "photo"
 
 	// Other
 	const val TAG = "AppLog"

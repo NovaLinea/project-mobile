@@ -2,6 +2,7 @@ package com.example.projectunion.data.firestoreDB
 
 import com.example.projectunion.common.Constants.CREATED_AT_FIELD
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
+import com.example.projectunion.common.Constants.PHOTO_USER_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
 import com.example.projectunion.common.Constants.USERS_COLLECTION
 import com.example.projectunion.common.Constants.VIEWS_PROJECT_FIELD
@@ -9,7 +10,6 @@ import com.example.projectunion.domain.model.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.util.*
@@ -17,6 +17,8 @@ import java.util.*
 class FirestoreDBImpl(
 	private val db: FirebaseFirestore
 ): FirestoreDB {
+
+	// User
 
 	override fun createUser(
 		userData: UserRegister,
@@ -47,6 +49,19 @@ class FirestoreDBImpl(
 			emit(Response.Error(e.message ?: e.toString()))
 		}
 	}
+
+	override fun uploadPhotoUser(photo: String, id: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+			db.collection(USERS_COLLECTION).document(id).update(PHOTO_USER_FIELD, photo).await()
+			emit(Response.Success(true))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+
+	// Project
 
 	override fun createProject(projectData: ProjectCreate) = flow<Response<String>> {
 		try {

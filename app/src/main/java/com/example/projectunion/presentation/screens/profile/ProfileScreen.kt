@@ -96,6 +96,10 @@ fun ProfileScreen(
 	}
 }
 
+fun changePhoto() {
+
+}
+
 fun openProject(
 	navController: NavController,
 	project: ProjectTape

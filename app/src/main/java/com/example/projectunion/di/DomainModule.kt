@@ -70,4 +70,9 @@ class DomainModule {
 	fun provideGetUserByIdUseCase(userRepository: UserRepository): GetUserByIdUseCase {
 		return GetUserByIdUseCase(repository = userRepository)
 	}
+
+	@Provides
+	fun provideUploadPhotoUserUseCase(userRepository: UserRepository): UploadPhotoUserUseCase {
+		return UploadPhotoUserUseCase(repository = userRepository)
+	}
 }
