@@ -47,7 +47,12 @@ fun Password(
 			.height(57.dp),
 		value = password,
 		onValueChange = { value -> onPasswordChanged(value) },
-		placeholder = { Text(PASSWORD_PLACEHOLDER) },
+		placeholder = {
+			Text(
+				text = PASSWORD_PLACEHOLDER,
+				style = MaterialTheme.typography.subtitle1
+			)
+		},
 		trailingIcon = {
 			IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
 				Icon(
@@ -65,10 +70,7 @@ fun Password(
 		),
 		visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
 		singleLine = true,
-		textStyle = TextStyle(
-			fontSize = 18.sp,
-			color = Color.Black
-		),
+		textStyle = MaterialTheme.typography.subtitle1,
 		shape = RoundedCornerShape(10.dp),
 		colors = TextFieldDefaults.textFieldColors(
 			disabledTextColor = Color.Transparent,

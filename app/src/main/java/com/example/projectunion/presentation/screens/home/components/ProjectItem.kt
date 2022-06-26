@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.screens.home.components
 
-import android.os.Parcelable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -11,20 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.presentation.components.project_item_information.BodyProject
 import com.example.projectunion.presentation.components.project_item_information.HeaderProject
-import com.example.projectunion.presentation.navigation.MainNavRoute
-import com.example.projectunion.presentation.navigation.Router
-import kotlinx.android.parcel.Parcelize
 
 @Composable
 fun ProjectItem(
 	project: ProjectTape,
-	externalRouter: Router
+    openProfile: (String) -> Unit,
+    openProject: () -> Unit
 ) {
     /*val calendar = Calendar.getInstance()
     val format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -51,7 +45,9 @@ fun ProjectItem(
                     creatorName = project.creatorName,
                     creatorPhoto = project.creatorPhoto,
                     onClickCreator = {
-                        project.creatorID?.let { openProfile(externalRouter, it) }
+                        project.creatorID?.let { creatorID ->
+                            openProfile(creatorID)
+                        }
                     },
                     time = project.createdAt
                 )
@@ -61,7 +57,7 @@ fun ProjectItem(
                 Column(
                     modifier = Modifier
                         .clickable {
-                            openProject(externalRouter, project)
+                            openProject()
                         },
                 ) {
                     BodyProject(
@@ -94,36 +90,11 @@ fun ProjectItem(
                     ImagePainter(
                         imageUrl = images[0],
                         onClick = {
-                            openProject(externalRouter, project)
+                            openProject()
                         }
                     )
                 }
             }
         }
     }
-}
-
-@Parcelize
-data class ProjectData(
-    val id: String
-): Parcelable
-
-fun openProject(
-    externalRouter: Router,
-    project: ProjectTape
-) {
-    externalRouter.navigateTo(
-        MainNavRoute.Project.route
-                + "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
-                + "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
-    )
-}
-
-fun openProfile(
-    externalRouter: Router,
-    id: String
-) {
-    externalRouter.navigateTo(
-        MainNavRoute.Profile.route + "?$ARGUMENT_PROFILE_KEY=${id}"
-    )
 }

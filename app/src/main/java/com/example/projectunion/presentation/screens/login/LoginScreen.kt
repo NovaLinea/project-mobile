@@ -11,8 +11,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ERROR_SERVER
-import com.example.projectunion.common.Constants.INVALID_LOGIN
+import com.example.projectunion.common.Constants.INVALID_USER
+import com.example.projectunion.common.Constants.INVALID_LOGIN_PASSWORD
+import com.example.projectunion.common.Constants.INVALID_PASSWORD
 import com.example.projectunion.common.Constants.LOGIN
 import com.example.projectunion.common.Constants.LOGIN_SCREEN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
@@ -87,13 +90,14 @@ fun LoginScreen(
 			if (state is Error) {
 				Spacer(modifier = Modifier.height(5.dp))
 
-				if (state.message == USER_NOT_FOUND)
-					ErrorField(error = INVALID_LOGIN)
-				else
-					ErrorField(error = ERROR_SERVER)
+				when(state.message) {
+					USER_NOT_FOUND -> ErrorField(error = INVALID_USER)
+					INVALID_LOGIN_PASSWORD -> ErrorField(error = INVALID_PASSWORD)
+					else -> ErrorField(error = ERROR_SERVER)
+				}
 			}
 
-			Spacer(modifier = Modifier.height(7.dp))
+			Spacer(modifier = Modifier.height(10.dp))
 
 			ButtonActionText(
 				LOGIN,

@@ -19,12 +19,14 @@ object Constants {
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
 	const val FIELD_INVALID = "Запись не верна"
-	const val INVALID_LOGIN = "Не верная почта или пароль"
+	const val INVALID_USER = "Нет такого пользователя"
+	const val INVALID_PASSWORD = "Пароль не верный"
 	const val INVALID_REGISTER = "Эта почта уже используется"
 	const val ERROR_SERVER = "Ошибка на стороне сервера"
 
 	// Errors Firebase
-	const val USER_NOT_FOUND = "The password is invalid or the user does not have a password."
+	const val INVALID_LOGIN_PASSWORD = "The password is invalid or the user does not have a password."
+	const val USER_NOT_FOUND = "There is no user record corresponding to this identifier. The user may have been deleted."
 	const val EMAIL_IS_USED = "The email address is already in use by another account."
 
 	// Placeholders
@@ -100,7 +102,8 @@ object Constants {
 
 	// Fields firestore
 	const val IMAGES_PROJECT_FIELD = "images"
-	const val CREATEDAT_FIELD = "createdAt"
+	const val CREATOR_ID_PROJECT_FIELD = "creatorID"
+	const val CREATED_AT_FIELD = "createdAt"
 
 	// Other
 	const val TAG = "AppLog"

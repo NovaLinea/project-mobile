@@ -4,8 +4,10 @@ import android.net.Uri
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.domain.model.ProjectCreate
+import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.ProjectRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class ProjectRepositoryImpl(
@@ -14,6 +16,8 @@ class ProjectRepositoryImpl(
 ) : ProjectRepository {
 
 	override fun getProjects() = firestoreDB.getProjects()
+
+	override fun getProjectsUser(id: String) = firestoreDB.getProjectsUser(id)
 
 	override fun getProjectById(id: String) = firestoreDB.getProjectById(id)
 

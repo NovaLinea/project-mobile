@@ -1,6 +1,6 @@
 package com.example.projectunion.data.firestoreDB
 
-import com.example.projectunion.common.Constants.CREATEDAT_FIELD
+import com.example.projectunion.common.Constants.CREATED_AT_FIELD
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
 import com.example.projectunion.common.Constants.USERS_COLLECTION
@@ -21,13 +21,10 @@ class FirestoreDBImpl(
 	) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)
-			val user = hashMapOf(
-				"name" to userData.name,
-				"email" to userData.email,
-				"description" to "",
-				"photo" to null,
-				//"createdAt" to TIME_FORMAT.format(Date())
-				"createdAt" to Date()
+			val user = UserProfile(
+				name = userData.name,
+				email = userData.email,
+				createdAt = Date()
 			)
 			db.collection(USERS_COLLECTION).document(uid).set(user).await()
 			emit(Response.Success(true))
@@ -95,7 +92,7 @@ class FirestoreDBImpl(
 		try {
 			emit(Response.Loading)
 			val projects = db.collection(PROJECTS_COLLECTION)
-				.orderBy(CREATEDAT_FIELD, Query.Direction.DESCENDING)
+				.orderBy(CREATED_AT_FIELD, Query.Direction.DESCENDING)
 				.get().await().map { document ->
 					val project = document.toObject(ProjectTape::class.java)
 					project.id = document.id
@@ -110,6 +107,31 @@ class FirestoreDBImpl(
 
 					project
 			}
+			emit(Response.Success(projects))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun getProjectsUser(id: String) = flow<Response<List<ProjectTape>>> {
+		try {
+			emit(Response.Loading)
+			val projects = db.collection(PROJECTS_COLLECTION)
+				.orderBy(CREATED_AT_FIELD, Query.Direction.DESCENDING)
+				.get().await().map { document ->
+					val project = document.toObject(ProjectTape::class.java)
+					project.id = document.id
+
+					if (project.creatorID != null) {
+						val creator = db.collection(USERS_COLLECTION)
+							.document(project.creatorID).get().await()
+							.toObject(UserProfile::class.java)
+						project.creatorName = creator?.name.toString()
+						project.creatorPhoto = creator?.photo.toString()
+					}
+
+					project
+				}
 			emit(Response.Success(projects))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))

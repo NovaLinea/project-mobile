@@ -37,7 +37,12 @@ fun Email(
 			.height(57.dp),
 		value = email,
 		onValueChange = { value -> onEmailChanged(value) },
-		placeholder = { Text(EMAIL_PLACEHOLDER) },
+		placeholder = {
+			Text(
+				text = EMAIL_PLACEHOLDER,
+				style = MaterialTheme.typography.subtitle1
+			)
+		},
 		keyboardOptions = KeyboardOptions(
 			keyboardType = KeyboardType.Email,
 			imeAction = ImeAction.Next
@@ -46,10 +51,7 @@ fun Email(
 			onNext = { focusManager.moveFocus(FocusDirection.Down) }
 		),
 		singleLine = true,
-		textStyle = TextStyle(
-			fontSize = 18.sp,
-			color = Color.Black
-		),
+		textStyle = MaterialTheme.typography.subtitle1,
 		shape = RoundedCornerShape(10.dp),
 		colors = TextFieldDefaults.textFieldColors(
 			disabledTextColor = Color.Transparent,

@@ -36,7 +36,12 @@ fun Name(
 			.height(57.dp),
 		value = name,
 		onValueChange = { value -> onNameChanged(value) },
-		placeholder = { Text(NAME_PLACEHOLDER) },
+		placeholder = {
+			Text(
+				text = NAME_PLACEHOLDER,
+				style = MaterialTheme.typography.subtitle1
+			)
+		},
 		keyboardOptions = KeyboardOptions(
 			imeAction = ImeAction.Next
 		),
@@ -44,10 +49,7 @@ fun Name(
 			onNext = { focusManager.moveFocus(FocusDirection.Down) }
 		),
 		singleLine = true,
-		textStyle = TextStyle(
-			fontSize = 18.sp,
-			color = Color.Black
-		),
+		textStyle = MaterialTheme.typography.subtitle1,
 		shape = RoundedCornerShape(10.dp),
 		colors = TextFieldDefaults.textFieldColors(
 			disabledTextColor = Color.Transparent,

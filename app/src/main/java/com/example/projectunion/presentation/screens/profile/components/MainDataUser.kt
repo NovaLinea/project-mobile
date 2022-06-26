@@ -17,6 +17,7 @@ fun MainDataUser(
 	description: String?
 ) {
 	name?.let { name ->
+		Spacer(modifier = Modifier.height(5.dp))
 		Text(
 			text = name,
 			style = MaterialTheme.typography.h6

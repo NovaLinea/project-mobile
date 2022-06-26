@@ -11,21 +11,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.R
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.MAIN_SCREEN
+import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.floating_button.FloatingButton
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
 import com.example.projectunion.presentation.components.top_bar.TopBar
-import com.example.projectunion.presentation.screens.home.components.HomeCreateBottomSheet
+import com.example.projectunion.presentation.navigation.MainNavRoute
 
 @Composable
 fun HomeScreen(
@@ -59,11 +61,45 @@ fun HomeScreen(
 						.fillMaxSize()
 				) {
 					items(state.data) { project ->
-						ProjectItem(project, externalRouter)
+						ProjectItem(
+							project = project,
+							openProfile = { creatorID ->
+								openProfile(
+									externalRouter = externalRouter,
+									id = creatorID
+								)
+							},
+							openProject = {
+								openProject(
+									externalRouter = externalRouter,
+									project = project
+								)
+							}
+						)
 					}
 				}
 			}
 			is Response.Error -> Log.d(TAG, state.message)
 		}
 	}
+}
+
+fun openProfile(
+	externalRouter: Router,
+	id: String
+) {
+	externalRouter.navigateTo(
+		MainNavRoute.Profile.route + "?$ARGUMENT_PROFILE_KEY=${id}"
+	)
+}
+
+fun openProject(
+	externalRouter: Router,
+	project: ProjectTape
+) {
+	externalRouter.navigateTo(
+		MainNavRoute.Project.route
+				+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
+				+ "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
+	)
 }
