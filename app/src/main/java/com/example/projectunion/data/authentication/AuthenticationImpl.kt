@@ -48,5 +48,4 @@ class AuthenticationImpl(
 	}
 
 	override fun getAuthCurrentUser() = auth.currentUser
-
 }

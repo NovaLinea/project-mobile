@@ -9,9 +9,6 @@ sealed class AdditionallyModel(val title: String, val icon: ImageVector, val scr
     object Favorites: AdditionallyModel("Избранное", Icons.Default.Bookmark,
         Constants.FAVORITES_SCREEN_ROUTE
     )
-    object Subscribes: AdditionallyModel("Подписки", Icons.Default.List,
-        Constants.FAVORITES_SCREEN_ROUTE
-    )
     object Settings: AdditionallyModel("Настройки", Icons.Default.Settings,
         Constants.SETTINGS_SCREEN_ROUTE
     )

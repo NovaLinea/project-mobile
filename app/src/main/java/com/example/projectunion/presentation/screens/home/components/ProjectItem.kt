@@ -34,7 +34,7 @@ fun ProjectItem(
             .fillMaxWidth()
             .padding(vertical = 10.dp),
         backgroundColor = Color.White,
-        elevation = 1.dp
+        elevation = 0.dp
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()

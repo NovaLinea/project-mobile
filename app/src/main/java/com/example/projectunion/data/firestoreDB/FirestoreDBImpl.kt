@@ -44,6 +44,9 @@ class FirestoreDBImpl(
 			val user = db.collection(USERS_COLLECTION)
 				.document(id).get().await()
 				.toObject(UserProfile::class.java)
+			user?.let {
+				it.id = id
+			}
 			emit(Response.Success(user))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
