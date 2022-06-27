@@ -91,6 +91,6 @@ fun openProfile(
 	id: String
 ) {
 	externalRouter.navigateTo(
-		MainNavRoute.Profile.route + "?${Constants.ARGUMENT_PROFILE_KEY}=${id}"
+		MainNavRoute.Profile.route + "?${Constants.ARGUMENT_PROFILE_ID_KEY}=${id}"
 	)
 }

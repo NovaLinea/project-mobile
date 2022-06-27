@@ -9,7 +9,9 @@ object Constants {
 	const val ARGUMENT_PROJECT_ID_KEY = "projectID"
 	const val ARGUMENT_PROJECT_PRICE_KEY = "projectPrice"
 	const val ARGUMENT_CREATE_KEY = "typeProject"
-	const val ARGUMENT_PROFILE_KEY = "userID"
+	const val ARGUMENT_PROFILE_ID_KEY = "userID"
+	const val ARGUMENT_PROFILE_NAME_KEY = "name"
+	const val ARGUMENT_PROFILE_DESCRIPTION_KEY = "description"
 	const val ROOT_ROUTE = "root_route"
 	const val MAIN_ROUTE = "main_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
@@ -37,6 +39,7 @@ object Constants {
 	const val TITLE_PROJECT_PLACEHOLDER = "Название проекта"
 	const val DESCRIPTION_PROJECT_PLACEHOLDER = "Описание проекта"
 	const val PRICE_PROJECT_PLACEHOLDER = "Цена"
+	const val DESCRIPTION_PROFILE = "О себе"
 
 	// Screens
 	const val MAIN_SCREEN = "Главная"
@@ -52,6 +55,7 @@ object Constants {
 	const val FAVORITES_SCREEN = "Избранное"
 	const val HOME_SCREEN = "Домашняя"
 	const val ADDITIONALLY_SCREEN = "Еще"
+	const val EDIT_PROFILE_SCREEN = "Редактирование"
 
 	// Screens routes
 	const val MAIN_SCREEN_ROUTE = "main_screen"
@@ -67,6 +71,7 @@ object Constants {
 	const val SETTINGS_SCREEN_ROUTE = "settings_screen"
 	const val FAVORITES_SCREEN_ROUTE = "favorites_screen"
 	const val ADDITIONALLY_SCREEN_ROUTE = "additionally_screen"
+	const val EDIT_PROFILE_SCREEN_ROUTE = "edit_profile_screen"
 
 	// Buttons
 	const val LOGIN = "Войти"

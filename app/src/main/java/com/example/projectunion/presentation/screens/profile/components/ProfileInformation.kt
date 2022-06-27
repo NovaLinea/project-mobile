@@ -9,8 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_DESCRIPTION_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_NAME_KEY
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
+import com.example.projectunion.presentation.navigation.MainNavRoute
 
 @Composable
 fun ProfileInformation(
@@ -51,7 +56,19 @@ fun ProfileInformation(
 		user.id?.let { id ->
 			ActionsUser(
 				id = id,
-				navController = navController
+				onClick = {
+					if (USER.id == id) {
+						navController.navigate(
+							MainNavRoute.EditProfile.route
+									+ "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
+									+ "&${ARGUMENT_PROFILE_NAME_KEY}=${user.name}"
+									+ "&${ARGUMENT_PROFILE_DESCRIPTION_KEY}=${user.description}"
+						)
+					}
+					else {
+
+					}
+				}
 			)
 		}
 

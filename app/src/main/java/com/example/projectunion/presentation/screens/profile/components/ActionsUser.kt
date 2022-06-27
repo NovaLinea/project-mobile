@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.EDIT_PROFILE
 import com.example.projectunion.common.Constants.USER
@@ -17,7 +16,7 @@ import com.example.projectunion.presentation.components.button_action.ButtonActi
 @Composable
 fun ActionsUser(
 	id: String,
-	navController: NavController
+	onClick: () -> Unit
 ) {
 	Row(
 		modifier = Modifier
@@ -29,13 +28,13 @@ fun ActionsUser(
 		if (USER.id == id) {
 			ButtonActionText(
 				title = EDIT_PROFILE,
-				onClicked = {}
+				onClicked = { onClick() }
 			)
 		}
 		else {
 			ButtonActionText(
 				title = Constants.SUBSCRIBE_USER,
-				onClicked = {}
+				onClicked = { onClick() }
 			)
 			Box(
 				modifier = Modifier.padding(start = 5.dp)

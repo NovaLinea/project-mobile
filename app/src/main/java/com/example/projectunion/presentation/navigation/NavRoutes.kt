@@ -7,6 +7,8 @@ import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.CREATE_SCREEN
 import com.example.projectunion.common.Constants.CREATE_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.EDIT_PROFILE_SCREEN
+import com.example.projectunion.common.Constants.EDIT_PROFILE_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.FAVORITES_SCREEN
 import com.example.projectunion.common.Constants.FAVORITES_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.HOME_SCREEN
@@ -42,6 +44,7 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Notifications: MainNavRoute(NOTIFICATIONS_SCREEN_ROUTE, NOTIFICATIONS_SCREEN)
 	object Favorites: MainNavRoute(FAVORITES_SCREEN_ROUTE, FAVORITES_SCREEN)
 	object Profile: MainNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN)
+	object EditProfile: MainNavRoute(EDIT_PROFILE_SCREEN_ROUTE, EDIT_PROFILE_SCREEN)
 }
 
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
