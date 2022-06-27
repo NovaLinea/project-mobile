@@ -27,11 +27,14 @@ fun ProfileInformation(
 			.background(Color.White),
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
-		AvatarUser(
-			photo = photoProfile,
-			statePhoto = statePhoto,
-			onChangePhoto = onChangePhoto
-		)
+		user.id?.let { id ->
+			AvatarUser(
+				id = id,
+				photo = photoProfile,
+				statePhoto = statePhoto,
+				onChangePhoto = onChangePhoto
+			)
+		}
 
 		MainDataUser(
 			name = user.name,
@@ -45,9 +48,12 @@ fun ProfileInformation(
 			followings = user.followings.size)
 
 		Spacer(modifier = Modifier.height(15.dp))
-		ActionsUser(
-			navController = navController
-		)
+		user.id?.let { id ->
+			ActionsUser(
+				id = id,
+				navController = navController
+			)
+		}
 
 		Spacer(modifier = Modifier.height(15.dp))
 	}

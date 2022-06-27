@@ -16,12 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.components.loader.Loader
 
 @Composable
 fun AvatarUser(
+	id: String,
 	photo: String?,
 	statePhoto: Response<String?>,
 	onChangePhoto: (Uri) -> Unit
@@ -46,7 +48,8 @@ fun AvatarUser(
 				imageUrl = photo,
 				isCircle = true,
 				onClick = {
-					launcher.launch("image/*")
+					if (USER.id == id)
+						launcher.launch("image/*")
 				}
 			)
 		}
@@ -56,7 +59,8 @@ fun AvatarUser(
 					.fillMaxSize()
 					.background(Color.LightGray)
 					.clickable {
-						launcher.launch("image/*")
+						if (USER.id == id)
+							launcher.launch("image/*")
 					},
 				contentAlignment = Alignment.Center
 			) {

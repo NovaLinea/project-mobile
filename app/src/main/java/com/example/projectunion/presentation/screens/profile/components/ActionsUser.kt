@@ -9,11 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.EDIT_PROFILE
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.presentation.components.button_action.ButtonActionIcon
 import com.example.projectunion.presentation.components.button_action.ButtonActionText
 
 @Composable
-fun ActionsUser(navController: NavController) {
+fun ActionsUser(
+	id: String,
+	navController: NavController
+) {
 	Row(
 		modifier = Modifier
 			.fillMaxWidth()
@@ -21,21 +26,25 @@ fun ActionsUser(navController: NavController) {
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.Center
 	) {
-		/*ButtonAction(
-			title = EDIT_PROFILE,
-			onClicked = {}
-		)*/
-		ButtonActionText(
-			title = Constants.SUBSCRIBE_USER,
-			onClicked = {}
-		)
-		Box(
-			modifier = Modifier.padding(start = 5.dp)
-		) {
-			ButtonActionIcon(
-				icon = Icons.Default.Message,
+		if (USER.id == id) {
+			ButtonActionText(
+				title = EDIT_PROFILE,
 				onClicked = {}
 			)
+		}
+		else {
+			ButtonActionText(
+				title = Constants.SUBSCRIBE_USER,
+				onClicked = {}
+			)
+			Box(
+				modifier = Modifier.padding(start = 5.dp)
+			) {
+				ButtonActionIcon(
+					icon = Icons.Default.Message,
+					onClicked = {}
+				)
+			}
 		}
 	}
 }
