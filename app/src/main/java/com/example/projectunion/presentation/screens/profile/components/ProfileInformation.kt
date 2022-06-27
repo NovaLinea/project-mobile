@@ -1,10 +1,12 @@
 package com.example.projectunion.presentation.screens.profile.components
 
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.projectunion.domain.model.Response
@@ -20,7 +22,9 @@ fun ProfileInformation(
 	onChangePhoto: (Uri) -> Unit,
 ) {
 	Column(
-		modifier = Modifier.fillMaxWidth(),
+		modifier = Modifier
+			.fillMaxWidth()
+			.background(Color.White),
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		AvatarUser(
@@ -44,5 +48,7 @@ fun ProfileInformation(
 		ActionsUser(
 			navController = navController
 		)
+
+		Spacer(modifier = Modifier.height(15.dp))
 	}
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projectunion.presentation.screens.home.components.ImagePainter
+import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import java.util.*
 
 @Composable

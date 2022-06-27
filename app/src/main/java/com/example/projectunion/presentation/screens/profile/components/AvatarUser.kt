@@ -3,6 +3,7 @@ package com.example.projectunion.presentation.screens.profile.components
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.components.loader.Loader
-import com.example.projectunion.presentation.screens.home.components.ImagePainter
 
 @Composable
 fun AvatarUser(
@@ -31,15 +32,15 @@ fun AvatarUser(
 		uri?.let { onChangePhoto(it) }
 	}
 
-	Box(
+	Card(
 		modifier = Modifier
 			.width(70.dp)
 			.height(70.dp),
-		contentAlignment = Alignment.Center
+		shape = CircleShape,
+		elevation = 0.dp,
 	) {
-		if (statePhoto is Response.Loading) {
+		if (statePhoto is Response.Loading)
 			Loader()
-		}
 		else if (photo != null) {
 			ImagePainter(
 				imageUrl = photo,
@@ -50,15 +51,14 @@ fun AvatarUser(
 			)
 		}
 		else {
-			Card(
+			Box(
 				modifier = Modifier
 					.fillMaxSize()
+					.background(Color.LightGray)
 					.clickable {
 						launcher.launch("image/*")
 					},
-				shape = CircleShape,
-				elevation = 0.dp,
-				backgroundColor = Color.LightGray
+				contentAlignment = Alignment.Center
 			) {
 				Icon(
 					modifier = Modifier.padding(15.dp),

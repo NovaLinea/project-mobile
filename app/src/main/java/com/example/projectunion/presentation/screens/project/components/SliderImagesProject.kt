@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.projectunion.presentation.screens.home.components.ImagePainter
+import com.example.projectunion.presentation.components.image_painter.ImagePainter
 
 @Composable
 fun SliderImagesProject(

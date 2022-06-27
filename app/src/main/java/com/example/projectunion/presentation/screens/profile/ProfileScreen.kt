@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -36,67 +39,72 @@ fun ProfileScreen(
 	val stateProjects = viewModel.stateProjects.observeAsState(Response.Success(emptyList())).value
 	val statePhoto = viewModel.statePhoto.observeAsState(Response.Success(null)).value
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
-	var countProjects = 0
 
+	var countProjects = 0
 	if (stateProjects is Response.Success)
 		countProjects = stateProjects.data.size
+	if (stateProjects is Response.Error)
+		Log.d(TAG, stateProjects.message)
+
+	val listState = rememberLazyListState()
 
 	Scaffold(
 		topBar = { ProfileTopBar(navController) },
 	) {
-		Column(
+		LazyColumn(
+			state = listState,
 			modifier = Modifier
 				.fillMaxSize()
-				//.verticalScroll(rememberScrollState())
+				.background(colorResource(id = R.color.app_background))
 		) {
-			when(stateProfile) {
-				is Response.Loading -> Loader()
-				is Response.Success -> {
-					stateProfile.data?.let { user ->
-						ProfileInformation(
-							user = user,
-							photoProfile = photoProfile,
-							statePhoto = statePhoto,
-							countProjects = countProjects,
-							navController = navController
-						) { uri ->
-							viewModel.updatePhoto(uri)
-						}
-					}
-				}
-				is Response.Error -> Log.d(TAG, stateProfile.message)
-			}
-
-			Spacer(modifier = Modifier.height(20.dp))
-			
-			when(stateProjects) {
-				is Response.Loading -> Loader()
-				is Response.Success -> {
-					LazyColumn(
-						modifier = Modifier
-							.background(colorResource(id = R.color.app_background))
-							.fillMaxSize()
-					) {
-						items(stateProjects.data) { project ->
-							ProjectItem(
-								project = project,
-								openProfile = { creatorID ->
-									openProfile(
-										navController = navController,
-										id = creatorID
-									)
-								},
-								openProject = {
-									openProject(
-										navController = navController,
-										project = project
-									)
+			item() {
+				when(stateProfile) {
+					is Response.Loading -> Loader()
+					is Response.Success -> {
+						stateProfile.data?.let { user ->
+							ProfileInformation(
+								user = user,
+								photoProfile = photoProfile,
+								statePhoto = statePhoto,
+								countProjects = countProjects,
+								navController = navController,
+								onChangePhoto = { uri ->
+									viewModel.updatePhoto(uri)
 								}
 							)
 						}
 					}
+					is Response.Error -> Log.d(TAG, stateProfile.message)
 				}
-				is Response.Error -> Log.d(TAG, stateProjects.message)
+			}
+			item() {
+				Spacer(modifier = Modifier.height(5.dp))
+			}
+
+			if (stateProjects is Response.Loading) {
+				item() {
+					Spacer(modifier = Modifier.height(20.dp))
+					Loader()
+				}
+			}
+			if (stateProjects is Response.Success) {
+				items(stateProjects.data) { project ->
+					ProjectItem(
+						project = project,
+						openProfile = { creatorID ->
+							openProfile(
+								navController = navController,
+								id = creatorID
+							)
+						},
+						openProject = {
+							openProject(
+								navController = navController,
+								project = project
+							)
+						}
+					)
+				}
 			}
 		}
 	}

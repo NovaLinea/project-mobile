@@ -2,6 +2,8 @@ package com.example.projectunion.presentation.screens.create
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -65,6 +67,7 @@ fun CreateScreen(
 				Column(
 					modifier = Modifier
 						.padding(horizontal = 15.dp, vertical = 10.dp)
+						.verticalScroll(rememberScrollState())
 				) {
 					CreateTextField(
 						value = viewModel.title.text,

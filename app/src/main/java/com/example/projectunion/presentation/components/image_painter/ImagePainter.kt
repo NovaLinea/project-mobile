@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.screens.home.components
+package com.example.projectunion.presentation.components.image_painter
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

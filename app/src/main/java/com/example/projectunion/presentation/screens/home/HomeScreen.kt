@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -36,6 +37,7 @@ fun HomeScreen(
 	viewModel: HomeViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(emptyList())).value
+	val listState = rememberLazyListState()
 
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
@@ -56,6 +58,7 @@ fun HomeScreen(
 			is Response.Loading -> Loader()
 			is Response.Success -> {
 				LazyColumn(
+					state = listState,
 					modifier = Modifier
 						.background(colorResource(id = R.color.app_background))
 						.fillMaxSize()

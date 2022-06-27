@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.projectunion.domain.model.ProjectTape
+import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.components.project_item_information.BodyProject
 import com.example.projectunion.presentation.components.project_item_information.HeaderProject
 
