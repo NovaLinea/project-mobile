@@ -14,7 +14,7 @@ class UserRepositoryImpl(
 
 	override fun getUserById(id: String) = firestoreDB.getUserById(id)
 
-	override fun uploadPhotoUser(photo: Uri, id: String) = flow<Response<Boolean>> {
+	override fun uploadPhotoUser(photo: Uri, id: String) = flow<Response<String>> {
 		try {
 			storageDB.addPhotoUser(photo, id).collect { response ->
 				when(response) {

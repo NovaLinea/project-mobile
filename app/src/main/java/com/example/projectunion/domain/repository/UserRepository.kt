@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface UserRepository {
 
 	fun getUserById(id: String): Flow<Response<UserProfile?>>
-	fun uploadPhotoUser(photo: Uri, id: String): Flow<Response<Boolean>>
+	fun uploadPhotoUser(photo: Uri, id: String): Flow<Response<String>>
 }

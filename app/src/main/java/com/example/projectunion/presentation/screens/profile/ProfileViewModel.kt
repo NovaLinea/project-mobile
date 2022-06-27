@@ -1,8 +1,10 @@
 package com.example.projectunion.presentation.screens.profile
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_KEY
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
@@ -27,10 +29,11 @@ class ProfileViewModel @Inject constructor(
 	private val _stateProjects = MutableLiveData<Response<List<ProjectTape>>>()
 	val stateProjects: LiveData<Response<List<ProjectTape>>> get() = _stateProjects
 
-	private val _statePhoto = MutableLiveData<Response<Boolean>>()
-	val statePhoto: LiveData<Response<Boolean>> get() = _statePhoto
+	private val _statePhoto = MutableLiveData<Response<String>>()
+	val statePhoto: LiveData<Response<String>> get() = _statePhoto
 
-	val photoUri = MutableLiveData<Uri?>()
+	private val _photoProfile = MutableLiveData<String?>()
+	val photoProfile: LiveData<String?> get() = _photoProfile
 
 	init {
 		savedStateHandle.get<String>(ARGUMENT_PROFILE_KEY)?.let { userID ->
@@ -44,6 +47,9 @@ class ProfileViewModel @Inject constructor(
 	private fun getProfileData(userID: String) {
 		viewModelScope.launch {
 			getUserByIdUseCase(userID).collect { response ->
+				if (response is Response.Success)
+					_photoProfile.postValue(response.data?.photo)
+
 				_stateProfile.postValue(response)
 			}
 		}
@@ -57,13 +63,14 @@ class ProfileViewModel @Inject constructor(
 		}
 	}
 
-	fun updatePhoto() {
+	fun updatePhoto(photoUri: Uri) {
 		savedStateHandle.get<String>(ARGUMENT_PROFILE_KEY)?.let { userID ->
 			if (userID != "-1") {
 				viewModelScope.launch {
-					photoUri.value?.let { photo ->
-						uploadPhotoUserUseCase(photo, userID).collect { response ->
-							_statePhoto.postValue(response)
+					uploadPhotoUserUseCase(photoUri, userID).collect { response ->
+						_statePhoto.postValue(response)
+						if (response is Response.Success) {
+							_photoProfile.postValue(response.data)
 						}
 					}
 				}

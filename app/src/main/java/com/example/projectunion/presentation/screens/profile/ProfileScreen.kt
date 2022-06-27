@@ -34,6 +34,8 @@ fun ProfileScreen(
 ) {
 	val stateProfile = viewModel.stateProfile.observeAsState(Response.Success(null)).value
 	val stateProjects = viewModel.stateProjects.observeAsState(Response.Success(emptyList())).value
+	val statePhoto = viewModel.statePhoto.observeAsState(Response.Success(null)).value
+	val photoProfile = viewModel.photoProfile.observeAsState(null).value
 	var countProjects = 0
 
 	if (stateProjects is Response.Success)
@@ -53,9 +55,13 @@ fun ProfileScreen(
 					stateProfile.data?.let { user ->
 						ProfileInformation(
 							user = user,
+							photoProfile = photoProfile,
+							statePhoto = statePhoto,
 							countProjects = countProjects,
 							navController = navController
-						)
+						) { uri ->
+							viewModel.updatePhoto(uri)
+						}
 					}
 				}
 				is Response.Error -> Log.d(TAG, stateProfile.message)
@@ -94,10 +100,6 @@ fun ProfileScreen(
 			}
 		}
 	}
-}
-
-fun changePhoto() {
-
 }
 
 fun openProject(

@@ -50,11 +50,11 @@ class FirestoreDBImpl(
 		}
 	}
 
-	override fun uploadPhotoUser(photo: String, id: String) = flow<Response<Boolean>> {
+	override fun uploadPhotoUser(photo: String, id: String) = flow<Response<String>> {
 		try {
 			emit(Response.Loading)
 			db.collection(USERS_COLLECTION).document(id).update(PHOTO_USER_FIELD, photo).await()
-			emit(Response.Success(true))
+			emit(Response.Success(photo))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

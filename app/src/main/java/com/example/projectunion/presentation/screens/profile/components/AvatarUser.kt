@@ -15,17 +15,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.MutableLiveData
+import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.screens.home.components.ImagePainter
 
 @Composable
-fun AvatarUser(photo: String?) {
-	/*val photoUri = MutableLiveData<Uri?>(null)
+fun AvatarUser(
+	photo: String?,
+	statePhoto: Response<String?>,
+	onChangePhoto: (Uri) -> Unit
+) {
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.GetContent()
 	) { uri: Uri? ->
-		uri?.let { photoUri.value = it }
-	}*/
+		uri?.let { onChangePhoto(it) }
+	}
 
 	Box(
 		modifier = Modifier
@@ -33,21 +37,15 @@ fun AvatarUser(photo: String?) {
 			.height(70.dp),
 		contentAlignment = Alignment.Center
 	) {
-//		if (photoUri.value != null) {
-//			ImagePainter(
-//				imageUrl = photoUri.value!!,
-//				isCircle = true,
-//				onClick = {
-//					//launcher.launch("image/*")
-//				}
-//			)
-//		}
-		if (photo != null) {
+		if (statePhoto is Response.Loading) {
+			Loader()
+		}
+		else if (photo != null) {
 			ImagePainter(
 				imageUrl = photo,
 				isCircle = true,
 				onClick = {
-					//launcher.launch("image/*")
+					launcher.launch("image/*")
 				}
 			)
 		}
@@ -56,7 +54,7 @@ fun AvatarUser(photo: String?) {
 				modifier = Modifier
 					.fillMaxSize()
 					.clickable {
-						//launcher.launch("image/*")
+						launcher.launch("image/*")
 					},
 				shape = CircleShape,
 				elevation = 0.dp,
