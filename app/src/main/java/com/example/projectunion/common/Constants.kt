@@ -85,6 +85,7 @@ object Constants {
 	const val EDIT_PROFILE = "Редактировать"
 	const val SUBSCRIBE_USER = "Подписаться"
 	const val UNSUBSCRIBE_USER = "Отписаться"
+	const val TO_WRITE_USER = "Написать"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
@@ -111,6 +112,8 @@ object Constants {
 	const val CREATED_AT_FIELD = "createdAt"
 	const val VIEWS_PROJECT_FIELD = "views"
 	const val PHOTO_USER_FIELD = "photo"
+	const val NAME_USER_FIELD = "name"
+	const val DESCRIPTION_USER_FIELD = "description"
 
 	// Other
 	const val TAG = "AppLog"

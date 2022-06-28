@@ -126,8 +126,7 @@ fun NavGraphBuilder.mainNavGraph(
 			)
 		) {
 			EditProfileScreen(
-				name = it.arguments?.getString(ARGUMENT_PROFILE_NAME_KEY) as String,
-				description = it.arguments?.getString(ARGUMENT_PROFILE_DESCRIPTION_KEY) as String,
+				id = it.arguments?.getString(ARGUMENT_PROFILE_ID_KEY) as String,
 				navController = navController
 			)
 		}

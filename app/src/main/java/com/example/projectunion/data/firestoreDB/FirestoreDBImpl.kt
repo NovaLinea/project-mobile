@@ -1,7 +1,9 @@
 package com.example.projectunion.data.firestoreDB
 
 import com.example.projectunion.common.Constants.CREATED_AT_FIELD
+import com.example.projectunion.common.Constants.DESCRIPTION_USER_FIELD
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
+import com.example.projectunion.common.Constants.NAME_USER_FIELD
 import com.example.projectunion.common.Constants.PHOTO_USER_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
 import com.example.projectunion.common.Constants.USERS_COLLECTION
@@ -58,6 +60,19 @@ class FirestoreDBImpl(
 			emit(Response.Loading)
 			db.collection(USERS_COLLECTION).document(id).update(PHOTO_USER_FIELD, photo).await()
 			emit(Response.Success(photo))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun editProfile(user: UserEdit) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+			db.collection(USERS_COLLECTION).document(user.id).update(
+				NAME_USER_FIELD, user.name,
+				DESCRIPTION_USER_FIELD, user.description
+			).await()
+			emit(Response.Success(true))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

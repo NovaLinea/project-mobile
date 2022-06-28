@@ -15,7 +15,7 @@ import com.example.projectunion.presentation.components.icon_button.IconButtonAc
 
 @Composable
 fun EditProfileTopBar(
-	navController: NavController,
+	onClickBack: () -> Unit,
 	onClickSave: () -> Unit
 ) {
 	TopAppBar(
@@ -27,7 +27,7 @@ fun EditProfileTopBar(
 		},
 		navigationIcon = {
 			IconButtonAction(Icons.Default.ArrowBack) {
-				navController.popBackStack()
+				onClickBack()
 			}
 		},
 		actions = {

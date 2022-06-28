@@ -9,6 +9,7 @@ interface FirestoreDB{
 	fun createUser(userData: UserRegister, uid: String): Flow<Response<Boolean>>
 	fun getUserById(id: String): Flow<Response<UserProfile?>>
 	fun uploadPhotoUser(photo: String, id: String): Flow<Response<String>>
+	fun editProfile(user: UserEdit): Flow<Response<Boolean>>
 
 	// Project
 	fun createProject(projectData: ProjectCreate): Flow<Response<String>>

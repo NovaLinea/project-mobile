@@ -3,7 +3,7 @@ package com.example.projectunion.presentation.screens.create.components.create_t
 import com.example.projectunion.common.Constants.FIELD_INVALID
 import com.example.projectunion.presentation.components.fields_state.TextFieldState
 
-class CreateTextState(): TextFieldState(
+class CreateState(): TextFieldState(
 	validator = ::textValid,
 	errorMessage = ::textErrorMessage
 ) {

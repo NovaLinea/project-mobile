@@ -4,6 +4,7 @@ import android.net.Uri
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.domain.model.UserEdit
 import com.example.projectunion.domain.repository.UserRepository
 import kotlinx.coroutines.flow.flow
 
@@ -30,4 +31,6 @@ class UserRepositoryImpl(
 			emit(Response.Error(e.message ?: e.toString()))
 		}
 	}
+
+	override fun editProfile(user: UserEdit) = firestoreDB.editProfile(user)
 }

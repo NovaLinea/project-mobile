@@ -75,4 +75,9 @@ class DomainModule {
 	fun provideUploadPhotoUserUseCase(userRepository: UserRepository): UploadPhotoUserUseCase {
 		return UploadPhotoUserUseCase(repository = userRepository)
 	}
+
+	@Provides
+	fun provideEditProfileUseCase(userRepository: UserRepository): EditProfileUseCase {
+		return EditProfileUseCase(repository = userRepository)
+	}
 }

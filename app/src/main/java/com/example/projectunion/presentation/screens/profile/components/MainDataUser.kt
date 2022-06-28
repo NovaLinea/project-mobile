@@ -24,7 +24,7 @@ fun MainDataUser(
 		)
 	}
 
-	description?.let { description ->
+	if (description != null && description.isNotEmpty()) {
 		Spacer(modifier = Modifier.height(5.dp))
 		Text(
 			text = description,

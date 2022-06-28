@@ -3,13 +3,12 @@ package com.example.projectunion.presentation.screens.create
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
 import com.example.projectunion.domain.model.ProjectCreate
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CreateProjectUseCase
 import com.example.projectunion.domain.use_case.GetAuthCurrentUserUseCase
-import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextState
+import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,9 +22,9 @@ class CreateViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    val title by lazy { CreateTextState() }
-    val description by lazy { CreateTextState() }
-    val price by lazy { CreateTextState() }
+    val title by lazy { CreateState() }
+    val description by lazy { CreateState() }
+    val price by lazy { CreateState() }
     var images = mutableListOf<Uri>()
 
     private val _state = MutableLiveData<Response<Boolean>>()
