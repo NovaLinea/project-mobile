@@ -58,21 +58,20 @@ fun ProfileInformation(
 			ActionsUser(
 				id = id,
 				onClick = {
-					if (USER.id == id) {
-						if (user.description == null) {
+					when(USER.id) {
+						id -> {
 							navController.popBackStack()
-							openEditProfile(id, user.name, "", navController)
+							navController.navigate(
+								MainNavRoute.EditProfile.route
+										+ "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
+										+ "&${ARGUMENT_PROFILE_NAME_KEY}=${user.name}"
+										+ "&${ARGUMENT_PROFILE_DESCRIPTION_KEY}=${user.description}"
+							)
 						}
-						else {
-							navController.popBackStack()
-							openEditProfile(id, user.name, user.description, navController)
+						null -> navController.navigate(AUTHENTICATION_ROUTE)
+						else -> {
+							// open chat
 						}
-					}
-					else if (USER.id == null) {
-						navController.navigate(AUTHENTICATION_ROUTE)
-					}
-					else {
-						// open messages
 					}
 				}
 			)
@@ -80,18 +79,4 @@ fun ProfileInformation(
 
 		Spacer(modifier = Modifier.height(15.dp))
 	}
-}
-
-fun openEditProfile(
-	id: String,
-	name: String?,
-	description: String?,
-	navController: NavController
-) {
-	navController.navigate(
-		MainNavRoute.EditProfile.route
-				+ "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
-				+ "&${ARGUMENT_PROFILE_NAME_KEY}=${name}"
-				+ "&${ARGUMENT_PROFILE_DESCRIPTION_KEY}=${description}"
-	)
 }

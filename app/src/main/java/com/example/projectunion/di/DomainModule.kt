@@ -1,6 +1,7 @@
 package com.example.projectunion.di
 
 import com.example.projectunion.domain.repository.AuthRepository
+import com.example.projectunion.domain.repository.MessageRepository
 import com.example.projectunion.domain.repository.ProjectRepository
 import com.example.projectunion.domain.repository.UserRepository
 import com.example.projectunion.domain.use_case.*
@@ -79,5 +80,11 @@ class DomainModule {
 	@Provides
 	fun provideEditProfileUseCase(userRepository: UserRepository): EditProfileUseCase {
 		return EditProfileUseCase(repository = userRepository)
+	}
+
+	// Message
+	@Provides
+	fun provideSendMessageUseCase(messageRepository: MessageRepository): SendMessageUseCase {
+		return SendMessageUseCase(repository = messageRepository)
 	}
 }

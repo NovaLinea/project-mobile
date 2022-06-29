@@ -4,16 +4,22 @@ import com.example.projectunion.data.authentication.Authentication
 import com.example.projectunion.data.authentication.AuthenticationImpl
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.firestoreDB.FirestoreDBImpl
+import com.example.projectunion.data.realtimeDB.RealtimeDB
+import com.example.projectunion.data.realtimeDB.RealtimeDBImpl
 import com.example.projectunion.data.repository.AuthRepositoryImpl
+import com.example.projectunion.data.repository.MessageRepositoryImpl
 import com.example.projectunion.data.repository.ProjectRepositoryImpl
 import com.example.projectunion.data.repository.UserRepositoryImpl
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.data.storage.StorageImpl
 import com.example.projectunion.domain.repository.AuthRepository
+import com.example.projectunion.domain.repository.MessageRepository
 import com.example.projectunion.domain.repository.ProjectRepository
 import com.example.projectunion.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -39,7 +45,12 @@ class DataModule {
 
 	@Provides
 	@Singleton
+	fun provideRealtime() = Firebase.database
+
+	@Provides
+	@Singleton
 	fun provideStorageReference() = FirebaseStorage.getInstance().reference
+
 
 	@Provides
 	@Singleton
@@ -59,11 +70,20 @@ class DataModule {
 
 	@Provides
 	@Singleton
+	fun provideRealtimeDB(
+		db: FirebaseDatabase
+	): RealtimeDB {
+		return RealtimeDBImpl(db)
+	}
+
+	@Provides
+	@Singleton
 	fun provideStorage(
 		storageRef: StorageReference
 	): Storage {
 		return StorageImpl(storageRef)
 	}
+
 
 	@Provides
 	@Singleton
@@ -90,5 +110,14 @@ class DataModule {
 		storageDB: Storage
 	): ProjectRepository {
 		return ProjectRepositoryImpl(firestoreDB, storageDB)
+	}
+
+	@Provides
+	@Singleton
+	fun provideMessageRepository(
+		realtimeDB: RealtimeDB,
+		storageDB: Storage
+	): MessageRepository {
+		return MessageRepositoryImpl(realtimeDB, storageDB)
 	}
 }

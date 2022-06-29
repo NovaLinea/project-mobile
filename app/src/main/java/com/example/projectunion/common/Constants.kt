@@ -123,6 +123,14 @@ object Constants {
 	const val NAME_USER_FIELD = "name"
 	const val DESCRIPTION_USER_FIELD = "description"
 
+	// Nodes realtime database
+	const val NODE_MESSAGES = "messages"
+
+	// Fields realtime database
+	const val TEXT_MESSAGE_FIELD = "text"
+	const val FROM_MESSAGE_FIELD = "from"
+	const val TIMESTAMP_MESSAGE_FIELD = "timestamp"
+
 	// Other
 	const val TAG = "AppLog"
 	val TIME_FORMAT = SimpleDateFormat("dd/M/yyyy hh:mm:ss")

@@ -134,7 +134,7 @@ fun NavGraphBuilder.mainNavGraph(
 			)
 		}
 
-		composable(route = MainNavRoute.Chat.route) { ChatScreen() }
+		composable(route = MainNavRoute.Chat.route) { ChatScreen(navController = navController) }
 		composable(route = MainNavRoute.Settings.route) { SettingsScreen() }
 		composable(route = MainNavRoute.Search.route) { SearchScreen() }
 		composable(route = MainNavRoute.Favorites.route) { FavoritesScreen() }

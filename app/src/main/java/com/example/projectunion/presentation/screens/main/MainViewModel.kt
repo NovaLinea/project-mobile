@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.domain.model.UserProfile
 import com.example.projectunion.domain.use_case.CheckAuthorizedUseCase
 import com.example.projectunion.domain.use_case.GetAuthCurrentUserUseCase
 import com.example.projectunion.domain.use_case.GetUserByIdUseCase
@@ -38,5 +39,7 @@ class MainViewModel @Inject constructor(
 				}
 			}
 		}
+		else
+			USER = UserProfile()
 	}
 }
