@@ -3,14 +3,13 @@ package com.example.projectunion.presentation.screens.create
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
-import com.example.projectunion.common.Constants.ARGUMENT_CREATE_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
 import com.example.projectunion.domain.model.ProjectCreate
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CreateProjectUseCase
 import com.example.projectunion.domain.use_case.GetAuthCurrentUserUseCase
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -31,7 +30,7 @@ class CreateViewModel @Inject constructor(
     val state: LiveData<Response<Boolean>> get() = _state
 
     fun createProject() {
-        savedStateHandle.get<String>(ARGUMENT_CREATE_KEY)?.let { typeProject ->
+        savedStateHandle.get<String>(ARGUMENT_PROJECT_TYPE_KEY)?.let { typeProject ->
             var creatorID = mutableStateOf("")
             viewModelScope.launch {
                 creatorID.value = getAuthCurrentUserUseCase()?.uid.toString()

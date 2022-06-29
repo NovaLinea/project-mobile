@@ -123,6 +123,6 @@ fun openProfile(
 	id: String
 ) {
 	navController.navigate(
-		MainNavRoute.Profile.route + "?${Constants.ARGUMENT_PROFILE_ID_KEY}=${id}"
+		MainNavRoute.Profile.route + "?${Constants.ARGUMENT_USER_ID_KEY}=${id}"
 	)
 }

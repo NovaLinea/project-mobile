@@ -8,10 +8,11 @@ object Constants {
 	// Navigation
 	const val ARGUMENT_PROJECT_ID_KEY = "projectID"
 	const val ARGUMENT_PROJECT_PRICE_KEY = "projectPrice"
-	const val ARGUMENT_CREATE_KEY = "typeProject"
-	const val ARGUMENT_PROFILE_ID_KEY = "userID"
-	const val ARGUMENT_PROFILE_NAME_KEY = "name"
-	const val ARGUMENT_PROFILE_DESCRIPTION_KEY = "description"
+	const val ARGUMENT_PROJECT_TYPE_KEY = "typeProject"
+	const val ARGUMENT_USER_ID_KEY = "userID"
+	const val ARGUMENT_USER_NAME_KEY = "userName"
+	const val ARGUMENT_USER_PHOTO_KEY = "userPhoto"
+	const val ARGUMENT_PROFILE_DESCRIPTION_KEY = "userDescription"
 	const val ROOT_ROUTE = "root_route"
 	const val MAIN_ROUTE = "main_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
@@ -129,6 +130,7 @@ object Constants {
 	// Fields realtime database
 	const val TEXT_MESSAGE_FIELD = "text"
 	const val FROM_MESSAGE_FIELD = "from"
+	const val TYPE_MESSAGE_FIELD = "type"
 	const val TIMESTAMP_MESSAGE_FIELD = "timestamp"
 
 	// Other

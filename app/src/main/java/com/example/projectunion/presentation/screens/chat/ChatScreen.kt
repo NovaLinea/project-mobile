@@ -1,31 +1,47 @@
 package com.example.projectunion.presentation.screens.chat
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.projectunion.R
 import com.example.projectunion.common.Constants.MESSAGE_FIELD
+import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.screens.chat.components.ChatTopBar
 import com.example.projectunion.presentation.screens.chat.components.MessageField
 import com.example.projectunion.presentation.screens.chat.components.MessageItem
 
 @Composable
 fun ChatScreen(
+	userName: String,
+	userPhoto: String,
 	navController: NavController,
 	viewModel: ChatViewModel = hiltViewModel()
 ) {
+
+	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
+		is Response.Loading -> Log.d(TAG, "Loading")
+		is Response.Success -> {
+			if (state.data) {
+				Log.d(TAG, "Success send message")
+			}
+		}
+		is Response.Error -> Log.d(TAG, state.message)
+	}
+
 	Scaffold(
 		topBar = {
 			ChatTopBar(
+				title = userName,
 				onClickBack = { navController.popBackStack() }
 			)
 		},
@@ -45,8 +61,7 @@ fun ChatScreen(
 		}
 	) { innerPadding ->
 		Box(
-			modifier = Modifier
-				.padding(innerPadding)
+			modifier = Modifier.padding(innerPadding)
 		) {
 			LazyColumn(
 				modifier = Modifier
@@ -61,32 +76,8 @@ fun ChatScreen(
 						locationArrangement = Arrangement.Start
 					)
 					Spacer(modifier = Modifier.height(10.dp))
-					MessageItem(
-						message = "Hi! How are you?",
-						time = "21:51",
-						locationArrangement = Arrangement.End
-					)
-					Spacer(modifier = Modifier.height(10.dp))
-					MessageItem(
-						message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non libero in mi vehicula facilisis. Sed faucibus nisl eget orci dapibus euismod. Curabitur quis tellus sollicitudin nunc luctus fermentum. Aenean iaculis turpis vel dictum malesuada. Praesent nisi ligula, scelerisque in ex ut, malesuada efficitur ante.",
-						time = "21:54",
-						locationArrangement = Arrangement.End
-					)
-
-					Spacer(modifier = Modifier.height(10.dp))
-					MessageItem(
-						message = "Lorem ipsum dolor sit amet",
-						time = "21:57",
-						locationArrangement = Arrangement.Start
-					)
 				}
 			}
 		}
 	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun prevChatScreen() {
-	ChatScreen(rememberNavController())
 }

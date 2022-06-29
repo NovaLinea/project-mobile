@@ -22,9 +22,9 @@ fun MessagesScreen(
 	Scaffold(
 		topBar = { TopBar(MESSAGES_SCREEN) },
 	) {
-		ButtonActionText(title = "Open chat") {
+		/*ButtonActionText(title = "Open chat") {
 			externalRouter.navigateTo(MainNavRoute.Chat.route)
-		}
+		}*/
 		Column(
 			modifier = Modifier.fillMaxSize(),
 			horizontalAlignment = Alignment.CenterHorizontally

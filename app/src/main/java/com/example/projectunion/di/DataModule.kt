@@ -18,6 +18,7 @@ import com.example.projectunion.domain.repository.ProjectRepository
 import com.example.projectunion.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,7 +46,7 @@ class DataModule {
 
 	@Provides
 	@Singleton
-	fun provideRealtime() = Firebase.database
+	fun provideRealtime() = Firebase.database.reference
 
 	@Provides
 	@Singleton
@@ -71,7 +72,7 @@ class DataModule {
 	@Provides
 	@Singleton
 	fun provideRealtimeDB(
-		db: FirebaseDatabase
+		db: DatabaseReference
 	): RealtimeDB {
 		return RealtimeDBImpl(db)
 	}

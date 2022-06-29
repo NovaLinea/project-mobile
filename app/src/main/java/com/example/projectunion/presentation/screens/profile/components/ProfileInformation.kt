@@ -10,8 +10,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_DESCRIPTION_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_NAME_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_NAME_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_PHOTO_KEY
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
@@ -63,14 +64,19 @@ fun ProfileInformation(
 							navController.popBackStack()
 							navController.navigate(
 								MainNavRoute.EditProfile.route
-										+ "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
-										+ "&${ARGUMENT_PROFILE_NAME_KEY}=${user.name}"
+										+ "?${ARGUMENT_USER_ID_KEY}=${id}"
+										+ "&${ARGUMENT_USER_NAME_KEY}=${user.name}"
 										+ "&${ARGUMENT_PROFILE_DESCRIPTION_KEY}=${user.description}"
 							)
 						}
 						null -> navController.navigate(AUTHENTICATION_ROUTE)
 						else -> {
-							// open chat
+							navController.navigate(
+								MainNavRoute.Chat.route
+										+ "?${ARGUMENT_USER_ID_KEY}=${id}"
+										+ "&${ARGUMENT_USER_NAME_KEY}=${user.name}"
+										+ "&${ARGUMENT_USER_PHOTO_KEY}=${user.photo}"
+							)
 						}
 					}
 				}

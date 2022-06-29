@@ -47,7 +47,7 @@ fun RegisterScreen(
 		is Response.Error -> Log.d(TAG, state.message)
 	}
 
-	var focusManager = LocalFocusManager.current
+	val focusManager = LocalFocusManager.current
 
 	Scaffold {
 		Box(modifier = Modifier.padding(5.dp)) {

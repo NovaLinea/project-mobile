@@ -13,12 +13,13 @@ import com.example.projectunion.presentation.components.icon_button.IconButtonAc
 
 @Composable
 fun ChatTopBar(
+	title: String,
 	onClickBack: () -> Unit
 ) {
 	TopAppBar(
 		title = {
 			Text(
-				text = "Чат",
+				text = title,
 				style = MaterialTheme.typography.h6
 			)
 		},

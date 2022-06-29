@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.LOGOUT
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.TAG
@@ -94,6 +94,6 @@ fun openProfile(
 	id: String
 ) {
 	externalRouter.navigateTo(
-		MainNavRoute.Profile.route + "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
+		MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
 	)
 }

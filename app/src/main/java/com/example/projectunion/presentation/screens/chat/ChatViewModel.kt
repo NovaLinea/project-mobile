@@ -1,6 +1,8 @@
 package com.example.projectunion.presentation.screens.chat
 
 import androidx.lifecycle.*
+import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.MessageSend
 import com.example.projectunion.domain.model.Response
@@ -22,11 +24,17 @@ class ChatViewModel @Inject constructor(
 	val state: LiveData<Response<Boolean>> get() = _state
 
 	fun sendMessage() {
-		viewModelScope.launch {
-			val messageSend = MessageSend(message = message.text, from = "USER.id!!")
-			sendMessageUseCase(messageSend).collect { response ->
-				_state.postValue(response)
-				message.text = ""
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
+			if (userID != "-1") {
+				viewModelScope.launch {
+					USER.id?.let { id ->
+						val messageSend = MessageSend(message = message.text, from = id, to = userID, type = "text")
+						sendMessageUseCase(messageSend).collect { response ->
+							_state.postValue(response)
+							message.text = ""
+						}
+					}
+				}
 			}
 		}
 	}

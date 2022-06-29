@@ -2,7 +2,7 @@ package com.example.projectunion.presentation.screens.profile
 
 import android.net.Uri
 import androidx.lifecycle.*
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
@@ -34,7 +34,7 @@ class ProfileViewModel @Inject constructor(
 	val photoProfile: LiveData<String?> get() = _photoProfile
 
 	init {
-		savedStateHandle.get<String>(ARGUMENT_PROFILE_ID_KEY)?.let { userID ->
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
 			if (userID != "-1") {
 				getProfileData(userID)
 				getProjects(userID)
@@ -62,7 +62,7 @@ class ProfileViewModel @Inject constructor(
 	}
 
 	fun updatePhoto(photoUri: Uri) {
-		savedStateHandle.get<String>(ARGUMENT_PROFILE_ID_KEY)?.let { userID ->
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
 			if (userID != "-1") {
 				viewModelScope.launch {
 					uploadPhotoUserUseCase(photoUri, userID).collect { response ->

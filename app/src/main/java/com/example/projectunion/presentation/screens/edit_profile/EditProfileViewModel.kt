@@ -3,8 +3,8 @@ package com.example.projectunion.presentation.screens.edit_profile
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_DESCRIPTION_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_NAME_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserEdit
 import com.example.projectunion.domain.use_case.EditProfileUseCase
@@ -26,7 +26,7 @@ class EditProfileViewModel @Inject constructor(
     val state: LiveData<Response<Boolean>> get() = _state
 
     init {
-        savedStateHandle.get<String>(ARGUMENT_PROFILE_NAME_KEY)?.let {
+        savedStateHandle.get<String>(ARGUMENT_USER_NAME_KEY)?.let {
             name.text = it
         }
         savedStateHandle.get<String>(ARGUMENT_PROFILE_DESCRIPTION_KEY)?.let {
@@ -35,7 +35,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun editProfile() {
-        savedStateHandle.get<String>(ARGUMENT_PROFILE_ID_KEY)?.let { id ->
+        savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { id ->
             if (id != "-1") {
                 viewModelScope.launch {
                     val user = UserEdit(id = id, name = name.text, description = description.value)

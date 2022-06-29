@@ -9,7 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
@@ -64,6 +64,6 @@ fun openProfile(
 	id: String
 ) {
 	navController.navigate(
-		MainNavRoute.Profile.route + "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
+		MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
 	)
 }
