@@ -12,11 +12,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.projectunion.common.asTime
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun MessageItem(
 	message: String,
-	time: String,
+	time: Any,
 	locationArrangement: Arrangement.Horizontal
 ) {
 	Row(
@@ -47,9 +50,8 @@ fun MessageItem(
 				)
 
 				Text(
-					modifier = Modifier
-						.padding(top = 2.dp),
-					text = time,
+					modifier = Modifier.padding(top = 2.dp),
+					text = time.toString().asTime(),
 					style = TextStyle(
 						color = Color.Black,
 						fontWeight = FontWeight.Normal,

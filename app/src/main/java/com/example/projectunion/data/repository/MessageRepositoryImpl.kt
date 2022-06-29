@@ -1,16 +1,13 @@
 package com.example.projectunion.data.repository
 
-import android.util.Log
-import com.example.projectunion.common.Constants
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.realtimeDB.RealtimeDB
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.domain.model.Chat
+import com.example.projectunion.domain.model.MessageGet
 import com.example.projectunion.domain.model.MessageSend
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.MessageRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 
 class MessageRepositoryImpl(
@@ -20,6 +17,8 @@ class MessageRepositoryImpl(
 ) : MessageRepository {
 
 	override fun sendMessage(message: MessageSend) = realtimeDB.sendMessage(message)
+
+	override fun getMessages(id: String) = realtimeDB.getMessages(id)
 
 	override fun getChats(id: String) = flow<Response<List<Chat>>> {
 		try {

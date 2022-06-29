@@ -7,6 +7,7 @@ import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_FIELD
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ServerValue
@@ -26,7 +27,7 @@ class RealtimeDBImpl(
 			val messageKey = db.child(refFromUser).push().key
 
 			val mapMessage = hashMapOf<String, Any>()
-			mapMessage[TEXT_MESSAGE_FIELD] = message.message
+			mapMessage[TEXT_MESSAGE_FIELD] = message.text
 			mapMessage[FROM_MESSAGE_FIELD] = message.from
 			mapMessage[TYPE_MESSAGE_FIELD] = message.type
 			mapMessage[TIMESTAMP_MESSAGE_FIELD] = ServerValue.TIMESTAMP
@@ -37,6 +38,31 @@ class RealtimeDBImpl(
 
 			db.updateChildren(mapDialog).await()
 			emit(Response.Success(true))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun getMessages(id: String) = flow<Response<List<MessageGet>>> {
+		try {
+			emit(Response.Loading)
+			val listMessages = mutableListOf<MessageGet>()
+
+			val messages = db.child("$NODE_MESSAGES/${USER.id}/$id").get().await()
+			messages.children.map { data ->
+				data.children.map {
+					val message = it.getValue(MessageGet::class.java)
+					Log.d(TAG, message.toString())
+					Log.d(TAG, it.value.toString())
+				}
+				Log.d(TAG, data.key.toString())
+				/*val message = MessageGet(
+					id = data.key.toString(),
+					text = data.value.toString()
+				)*/
+			}
+
+			emit(Response.Success(emptyList()))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

@@ -155,6 +155,7 @@ fun NavGraphBuilder.mainNavGraph(
 			)
 		) {
 			ChatScreen(
+				userId = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
 				userName = it.arguments?.getString(ARGUMENT_USER_NAME_KEY) as String,
 				navController = navController
 			)

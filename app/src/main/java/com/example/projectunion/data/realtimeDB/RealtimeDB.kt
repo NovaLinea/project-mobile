@@ -7,5 +7,6 @@ interface RealtimeDB{
 
 	// Message
 	fun sendMessage(message: MessageSend): Flow<Response<Boolean>>
+	fun getMessages(id: String): Flow<Response<List<MessageGet>>>
 	fun getChats(id: String): Flow<Response<List<Chat>>>
 }

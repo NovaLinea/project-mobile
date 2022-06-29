@@ -1,8 +1,9 @@
 package com.example.projectunion.domain.model
 
-data class MessageSend(
+data class MessageGet(
+	val id: String = "",
 	val text: String = "",
 	val from: String = "",
-	val to: String = "",
-	val type: String = ""
+	val type: String = "",
+	val timestamp: Any = ""
 )
