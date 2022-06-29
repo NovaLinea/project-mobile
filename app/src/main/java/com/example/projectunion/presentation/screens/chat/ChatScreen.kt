@@ -26,7 +26,7 @@ fun ChatScreen(
 	navController: NavController,
 	viewModel: ChatViewModel = hiltViewModel()
 ) {
-	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
+	when(val state = viewModel.stateSend.observeAsState(Response.Success(false)).value) {
 		is Response.Loading -> Log.d(TAG, "Loading")
 		is Response.Success -> {
 			if (state.data) {

@@ -20,8 +20,8 @@ class ChatViewModel @Inject constructor(
 
 	val message by lazy { MessageState() }
 
-	private val _state = MutableLiveData<Response<Boolean>>()
-	val state: LiveData<Response<Boolean>> get() = _state
+	private val _stateSend = MutableLiveData<Response<Boolean>>()
+	val stateSend: LiveData<Response<Boolean>> get() = _stateSend
 
 	fun sendMessage() {
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { toID ->
@@ -34,7 +34,7 @@ class ChatViewModel @Inject constructor(
 						type = TYPE_MESSAGE_TEXT
 					)
 					sendMessageUseCase(messageSend).collect { response ->
-						_state.postValue(response)
+						_stateSend.postValue(response)
 						message.text = ""
 					}
 				}

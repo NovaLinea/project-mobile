@@ -1,7 +1,9 @@
 package com.example.projectunion.data.realtimeDB
 
+import android.util.Log
 import com.example.projectunion.common.Constants.FROM_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.NODE_MESSAGES
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_FIELD
@@ -46,7 +48,7 @@ class RealtimeDBImpl(
 			val listChats = mutableListOf<Chat>()
 
 			val chats = db.child("$NODE_MESSAGES/$id").get().await()
-			chats.children.forEach { data ->
+			chats.children.map { data ->
 				val chat = Chat(
 					userId = data.key.toString()
 				)

@@ -117,8 +117,9 @@ class DataModule {
 	@Singleton
 	fun provideMessageRepository(
 		realtimeDB: RealtimeDB,
+		firestoreDB: FirestoreDB,
 		storageDB: Storage
 	): MessageRepository {
-		return MessageRepositoryImpl(realtimeDB, storageDB)
+		return MessageRepositoryImpl(realtimeDB, firestoreDB, storageDB)
 	}
 }

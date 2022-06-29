@@ -25,7 +25,7 @@ class AuthRepositoryImpl @Inject constructor(
 
 			authentication.registerByEmail(userData).collect { response ->
 				when(response) {
-					is Response.Loading -> emit(Response.Loading)
+					is Response.Loading -> emit(response)
 					is Response.Success -> {
 						response?.let { user ->
 							if (user.data != null)

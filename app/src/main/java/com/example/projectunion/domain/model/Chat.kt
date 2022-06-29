@@ -2,7 +2,7 @@ package com.example.projectunion.domain.model
 
 data class Chat(
 	val userId: String = "",
-	val userName: String = "",
-	val userPhoto: String = "",
+	var userName: String = "",
+	var userPhoto: String? = null,
 	val lastMessage: String = ""
 )
