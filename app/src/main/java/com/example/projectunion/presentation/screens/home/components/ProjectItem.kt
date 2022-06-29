@@ -21,14 +21,6 @@ fun ProjectItem(
     openProfile: (String) -> Unit,
     openProject: () -> Unit
 ) {
-    /*val calendar = Calendar.getInstance()
-    val format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    val start = "2019-05-24 14:16:00"
-    val end = "2019-05-27 16:19:45"
-    val mStart = LocalDateTime.parse(TIME_FORMAT.format(Date()))
-    val countTime = ChronoUnit.HOURS.between()
-    Log.d(TAG, calendar.get(Calendar.YEAR).toString())*/
-
     Card(
         modifier = Modifier
             .fillMaxWidth()

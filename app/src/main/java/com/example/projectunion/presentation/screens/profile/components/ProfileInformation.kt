@@ -1,6 +1,7 @@
 package com.example.projectunion.presentation.screens.profile.components
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_PHOTO_KEY
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
@@ -75,7 +77,6 @@ fun ProfileInformation(
 								MainNavRoute.Chat.route
 										+ "?${ARGUMENT_USER_ID_KEY}=${id}"
 										+ "&${ARGUMENT_USER_NAME_KEY}=${user.name}"
-										+ "&${ARGUMENT_USER_PHOTO_KEY}=${user.photo}"
 							)
 						}
 					}

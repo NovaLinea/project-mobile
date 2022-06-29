@@ -87,4 +87,9 @@ class DomainModule {
 	fun provideSendMessageUseCase(messageRepository: MessageRepository): SendMessageUseCase {
 		return SendMessageUseCase(repository = messageRepository)
 	}
+
+	@Provides
+	fun provideGetChatsUseCase(messageRepository: MessageRepository): GetChatsUseCase {
+		return GetChatsUseCase(repository = messageRepository)
+	}
 }

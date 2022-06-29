@@ -107,6 +107,9 @@ object Constants {
 	const val TYPE_PROJECT_DONATE = "donate"
 	const val TYPE_PROJECT_TEAM = "team"
 
+	// Types messages
+	const val TYPE_MESSAGE_TEXT = "text"
+
 	// Firestore collections
 	const val USERS_COLLECTION = "users"
 	const val PROJECTS_COLLECTION = "projects"

@@ -23,11 +23,9 @@ import com.example.projectunion.presentation.screens.chat.components.MessageItem
 @Composable
 fun ChatScreen(
 	userName: String,
-	userPhoto: String,
 	navController: NavController,
 	viewModel: ChatViewModel = hiltViewModel()
 ) {
-
 	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
 		is Response.Loading -> Log.d(TAG, "Loading")
 		is Response.Success -> {
@@ -42,7 +40,8 @@ fun ChatScreen(
 		topBar = {
 			ChatTopBar(
 				title = userName,
-				onClickBack = { navController.popBackStack() }
+				onClickBack = { navController.popBackStack() },
+				onClickUser = {}
 			)
 		},
 		bottomBar = {

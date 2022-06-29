@@ -11,4 +11,5 @@ class MessageRepositoryImpl(
 ) : MessageRepository {
 
 	override fun sendMessage(message: MessageSend) = realtimeDB.sendMessage(message)
+	override fun getChats(id: String) = realtimeDB.getChats(id)
 }

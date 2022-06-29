@@ -138,8 +138,7 @@ fun NavGraphBuilder.mainNavGraph(
 		composable(
 			route = MainNavRoute.Chat.route
 					+ "?$ARGUMENT_USER_ID_KEY={$ARGUMENT_USER_ID_KEY}"
-					+ "&$ARGUMENT_USER_NAME_KEY={$ARGUMENT_USER_NAME_KEY}"
-					+ "&$ARGUMENT_USER_PHOTO_KEY={$ARGUMENT_USER_PHOTO_KEY}",
+					+ "&$ARGUMENT_USER_NAME_KEY={$ARGUMENT_USER_NAME_KEY}",
 			arguments = listOf(
 				navArgument(
 					name = ARGUMENT_USER_ID_KEY
@@ -153,17 +152,10 @@ fun NavGraphBuilder.mainNavGraph(
 					type = NavType.StringType
 					defaultValue = "-1"
 				},
-				navArgument(
-					name = ARGUMENT_USER_PHOTO_KEY
-				) {
-					type = NavType.StringType
-					defaultValue = "-1"
-				}
 			)
 		) {
 			ChatScreen(
 				userName = it.arguments?.getString(ARGUMENT_USER_NAME_KEY) as String,
-				userPhoto = it.arguments?.getString(ARGUMENT_USER_PHOTO_KEY) as String,
 				navController = navController
 			)
 		}
