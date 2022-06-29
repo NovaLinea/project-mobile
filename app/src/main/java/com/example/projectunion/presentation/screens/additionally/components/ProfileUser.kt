@@ -70,7 +70,7 @@ fun ProfileUser(
                 Text(
                     text = name,
                     modifier = Modifier.padding(start = 20.dp),
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.subtitle2
                 )
             }
         }

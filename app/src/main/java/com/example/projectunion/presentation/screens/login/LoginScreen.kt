@@ -55,7 +55,7 @@ fun LoginScreen(
 	Scaffold {
 		Box(modifier = Modifier.padding(5.dp)) {
 			CloseButton {
-				navController.navigate(MAIN_ROUTE)
+				navController.popBackStack()
 			}
 		}
 

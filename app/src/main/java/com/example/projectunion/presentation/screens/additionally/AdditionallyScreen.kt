@@ -11,13 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
+import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
 import com.example.projectunion.common.Constants.LOGOUT
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.domain.model.UserProfile
+import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.components.text_button_action.TextButtonAction
 import com.example.projectunion.presentation.components.top_bar.TopBar
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -32,11 +34,12 @@ fun AdditionallyScreen(
 	viewModel: AdditionallyViewModel = hiltViewModel(),
 ) {
 	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
-		is Response.Loading -> Log.d(TAG, "Loading")
+		is Response.Loading -> Loader()
 		is Response.Success -> {
 			if (state.data) {
 				LaunchedEffect(state.data) {
 					externalRouter.navigateTo(MAIN_ROUTE)
+					USER = UserProfile()
 				}
 			}
 		}
@@ -44,7 +47,7 @@ fun AdditionallyScreen(
 	}
 
 	val items = listOf(
-		AdditionallyModel.Favorites,
+		//AdditionallyModel.Favorites,
 		//AdditionallyModel.Settings,
 		//AdditionallyModel.Notifications,
 		AdditionallyModel.Theme,
@@ -91,6 +94,6 @@ fun openProfile(
 	id: String
 ) {
 	externalRouter.navigateTo(
-		MainNavRoute.Profile.route + "?${Constants.ARGUMENT_PROFILE_ID_KEY}=${id}"
+		MainNavRoute.Profile.route + "?${ARGUMENT_PROFILE_ID_KEY}=${id}"
 	)
 }

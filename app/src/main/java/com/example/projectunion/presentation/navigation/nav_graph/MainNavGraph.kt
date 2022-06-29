@@ -11,6 +11,8 @@ import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.createRouter
+import com.example.projectunion.presentation.screens.about_app.AboutAppScreen
+import com.example.projectunion.presentation.screens.chat.ChatScreen
 import com.example.projectunion.presentation.screens.create.CreateScreen
 import com.example.projectunion.presentation.screens.edit_profile.EditProfileScreen
 import com.example.projectunion.presentation.screens.favorites.FavoritesScreen
@@ -20,6 +22,7 @@ import com.example.projectunion.presentation.screens.profile.ProfileScreen
 import com.example.projectunion.presentation.screens.project.ProjectScreen
 import com.example.projectunion.presentation.screens.search.SearchScreen
 import com.example.projectunion.presentation.screens.settings.SettingsScreen
+import com.example.projectunion.presentation.screens.themes.ThemesScreen
 
 
 fun NavGraphBuilder.mainNavGraph(
@@ -131,9 +134,12 @@ fun NavGraphBuilder.mainNavGraph(
 			)
 		}
 
+		composable(route = MainNavRoute.Chat.route) { ChatScreen() }
 		composable(route = MainNavRoute.Settings.route) { SettingsScreen() }
 		composable(route = MainNavRoute.Search.route) { SearchScreen() }
 		composable(route = MainNavRoute.Favorites.route) { FavoritesScreen() }
 		composable(route = MainNavRoute.Notifications.route) { NotificationsScreen() }
+		composable(route = MainNavRoute.Themes.route) { ThemesScreen() }
+		composable(route = MainNavRoute.AboutApp.route) { AboutAppScreen() }
 	}
 }

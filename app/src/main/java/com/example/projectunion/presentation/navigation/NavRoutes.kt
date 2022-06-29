@@ -3,8 +3,12 @@ package com.example.projectunion.presentation.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.projectunion.common.Constants.ABOUT_APP_SCREEN
+import com.example.projectunion.common.Constants.ABOUT_APP_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.CHAT_SCREEN
+import com.example.projectunion.common.Constants.CHAT_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.CREATE_SCREEN
 import com.example.projectunion.common.Constants.CREATE_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.EDIT_PROFILE_SCREEN
@@ -31,6 +35,8 @@ import com.example.projectunion.common.Constants.SEARCH_SCREEN
 import com.example.projectunion.common.Constants.SEARCH_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.THEMES_SCREEN
+import com.example.projectunion.common.Constants.THEMES_SCREEN_ROUTE
 
 
 sealed class MainNavRoute(val route: String, val title: String) {
@@ -45,6 +51,9 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Favorites: MainNavRoute(FAVORITES_SCREEN_ROUTE, FAVORITES_SCREEN)
 	object Profile: MainNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN)
 	object EditProfile: MainNavRoute(EDIT_PROFILE_SCREEN_ROUTE, EDIT_PROFILE_SCREEN)
+	object Themes: MainNavRoute(THEMES_SCREEN_ROUTE, THEMES_SCREEN)
+	object AboutApp: MainNavRoute(ABOUT_APP_SCREEN_ROUTE, ABOUT_APP_SCREEN)
+	object Chat: MainNavRoute(CHAT_SCREEN_ROUTE, CHAT_SCREEN)
 }
 
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {

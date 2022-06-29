@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun IconButtonAction(
 	icon: ImageVector,
+	tint: Color = Color.Black,
 	onClick: () -> Unit
 ) {
 	IconButton(
@@ -21,7 +22,7 @@ fun IconButtonAction(
 		Icon(
 			imageVector = icon,
 			contentDescription = null,
-			tint = Color.Black
+			tint = tint
 		)
 	}
 }

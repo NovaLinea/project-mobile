@@ -3,6 +3,7 @@ package com.example.projectunion.presentation.screens.additionally.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
@@ -31,7 +32,7 @@ fun AdditionallyItem(
     ) {
         Row(
             modifier = Modifier
-                .padding(vertical = 15.dp, horizontal = 20.dp),
+                .padding(vertical = 12.dp, horizontal = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -43,17 +44,13 @@ fun AdditionallyItem(
             Text(
                 text = title,
                 modifier = Modifier.padding(start = 15.dp),
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.W500
-                )
+                style = MaterialTheme.typography.body1
             )
         }
 
         Box(
             modifier = Modifier
-                .padding(vertical = 15.dp, horizontal = 20.dp)
+                .padding(vertical = 12.dp, horizontal = 20.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowRight,

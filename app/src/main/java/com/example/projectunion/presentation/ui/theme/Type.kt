@@ -40,6 +40,11 @@ val Typography = Typography(
 		fontWeight = FontWeight.W600,
 		fontSize = 17.sp
 	),
+	subtitle2 = TextStyle(
+		fontFamily = FontFamily.Default,
+		fontWeight = FontWeight.W500,
+		fontSize = 18.sp
+	),
     button = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,

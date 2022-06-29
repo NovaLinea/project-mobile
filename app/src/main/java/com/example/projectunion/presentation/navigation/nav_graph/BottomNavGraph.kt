@@ -21,7 +21,7 @@ fun BottomNavGraph(
 		startDestination = BottomNavRoute.Home.route
 	) {
 		composable(BottomNavRoute.Home.route) { HomeCreateBottomSheet(externalRouter) }
-		composable(BottomNavRoute.Messages.route) { MessagesScreen() }
+		composable(BottomNavRoute.Messages.route) { MessagesScreen(externalRouter) }
 		composable(BottomNavRoute.Additionally.route) { AdditionallyScreen(externalRouter) }
 	}
 }

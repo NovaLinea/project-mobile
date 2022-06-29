@@ -11,7 +11,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
-import com.example.projectunion.presentation.screens.messages.Search
 
 @Composable
 fun SearchScreen() {
@@ -37,6 +36,6 @@ fun SearchScreen() {
 			}
 		},
 	) {
-		Search()
+
 	}
 }

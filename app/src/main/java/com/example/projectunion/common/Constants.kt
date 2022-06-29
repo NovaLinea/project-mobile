@@ -40,6 +40,7 @@ object Constants {
 	const val DESCRIPTION_PROJECT_PLACEHOLDER = "Описание проекта"
 	const val PRICE_PROJECT_PLACEHOLDER = "Цена"
 	const val DESCRIPTION_PROFILE = "О себе"
+	const val MESSAGE_FIELD = "Сообщение"
 
 	// Screens
 	const val MAIN_SCREEN = "Главная"
@@ -56,6 +57,9 @@ object Constants {
 	const val HOME_SCREEN = "Домашняя"
 	const val ADDITIONALLY_SCREEN = "Еще"
 	const val EDIT_PROFILE_SCREEN = "Редактирование"
+	const val ABOUT_APP_SCREEN = "О приложении"
+	const val THEMES_SCREEN = "Настройка темы"
+	const val CHAT_SCREEN = "Чат"
 
 	// Screens routes
 	const val MAIN_SCREEN_ROUTE = "main_screen"
@@ -72,6 +76,9 @@ object Constants {
 	const val FAVORITES_SCREEN_ROUTE = "favorites_screen"
 	const val ADDITIONALLY_SCREEN_ROUTE = "additionally_screen"
 	const val EDIT_PROFILE_SCREEN_ROUTE = "edit_profile_screen"
+	const val ABOUT_APP_SCREEN_ROUTE = "about_app_screen"
+	const val THEMES_SCREEN_ROUTE = "themes_screen"
+	const val CHAT_SCREEN_ROUTE = "chat_screen"
 
 	// Buttons
 	const val LOGIN = "Войти"
@@ -89,6 +96,7 @@ object Constants {
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
+	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
 
 	// Types project
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"

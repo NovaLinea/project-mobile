@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_DESCRIPTION_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_NAME_KEY
+import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
@@ -67,8 +68,11 @@ fun ProfileInformation(
 							openEditProfile(id, user.name, user.description, navController)
 						}
 					}
+					else if (USER.id == null) {
+						navController.navigate(AUTHENTICATION_ROUTE)
+					}
 					else {
-
+						// open messages
 					}
 				}
 			)

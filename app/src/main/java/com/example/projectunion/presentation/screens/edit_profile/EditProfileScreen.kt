@@ -74,7 +74,11 @@ fun EditProfileScreen(
 					else
 						viewModel.name.text = it.substring(0, maxCharName)
 				},
-				singleLine = true
+				singleLine = true,
+				onSave = {
+					if (viewModel.name.text.isNotEmpty())
+						viewModel.editProfile()
+				}
 			)
 
 			Spacer(modifier = Modifier.height(15.dp))
@@ -89,7 +93,11 @@ fun EditProfileScreen(
 					else
 						viewModel.description.value = it.substring(0, maxCharDescription)
 				},
-				singleLine = false
+				singleLine = false,
+				onSave = {
+					if (viewModel.name.text.isNotEmpty())
+						viewModel.editProfile()
+				}
 			)
 		}
 	}
