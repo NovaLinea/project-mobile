@@ -9,14 +9,63 @@ import com.example.projectunion.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.*
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ServerValue
+import com.google.firebase.database.*
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class RealtimeDBImpl(
 	private val db: DatabaseReference
 ): RealtimeDB {
+
+	override fun getChats(id: String) = flow<Response<List<Chat>>> {
+		try {
+			emit(Response.Loading)
+			val listChats = mutableListOf<Chat>()
+
+			val chats = db.child("$NODE_MESSAGES/$id").get().await()
+			chats.children.map { chat ->
+				val lastMessageData = chat.children.last().getValue(MessageGet::class.java)
+				val chatItem = Chat(
+					userId = chat.key.toString(),
+					lastMessage = lastMessageData!!.text,
+					timestamp = lastMessageData.timestamp
+				)
+				listChats.add(chatItem)
+			}
+
+			emit(Response.Success(listChats))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun getMessages(id: String) = flow<Response<List<MessageGet>>> {
+		try {
+			emit(Response.Loading)
+			val messages = mutableListOf<MessageGet>()
+
+			db.child("$NODE_MESSAGES/${USER.id}/$id")
+				.addValueEventListener(object: ValueEventListener {
+					override fun onDataChange(snapshot: DataSnapshot) {
+						messages.clear()
+
+						snapshot.children.map { data ->
+							val message = data.getValue(MessageGet::class.java)
+							message!!.id =  data.key.toString()
+							messages.add(message)
+							Log.d(TAG, message.toString())
+						}
+					}
+
+					override fun onCancelled(error: DatabaseError) {}
+				}
+				)
+			Log.d(TAG, messages.toString())
+			emit(Response.Success(messages))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
 
 	override fun sendMessage(message: MessageSend) = flow<Response<Boolean>> {
 		try {
@@ -38,53 +87,6 @@ class RealtimeDBImpl(
 
 			db.updateChildren(mapDialog).await()
 			emit(Response.Success(true))
-		} catch (e: Exception) {
-			emit(Response.Error(e.message ?: e.toString()))
-		}
-	}
-
-	override fun getMessages(id: String) = flow<Response<List<MessageGet>>> {
-		try {
-			emit(Response.Loading)
-			val listMessages = mutableListOf<MessageGet>()
-
-			val messages = db.child("$NODE_MESSAGES/${USER.id}/$id").get().await()
-			messages.children.map { data ->
-				data.children.map {
-					val message = it.getValue(MessageGet::class.java)
-					Log.d(TAG, message.toString())
-					Log.d(TAG, it.value.toString())
-				}
-				Log.d(TAG, data.key.toString())
-				/*val message = MessageGet(
-					id = data.key.toString(),
-					text = data.value.toString()
-				)*/
-			}
-
-			emit(Response.Success(emptyList()))
-		} catch (e: Exception) {
-			emit(Response.Error(e.message ?: e.toString()))
-		}
-	}
-
-	override fun getChats(id: String) = flow<Response<List<Chat>>> {
-		try {
-			emit(Response.Loading)
-			val listChats = mutableListOf<Chat>()
-
-			val chats = db.child("$NODE_MESSAGES/$id").get().await()
-			chats.children.map { data ->
-				val chat = Chat(
-					userId = data.key.toString()
-				)
-				data.children.map {
-					Log.d(TAG, it.toString())
-				}
-				listChats.add(chat)
-			}
-
-			emit(Response.Success(listChats))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

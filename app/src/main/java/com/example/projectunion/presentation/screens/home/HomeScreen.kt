@@ -56,6 +56,7 @@ fun HomeScreen(
 	) {
 		when(state) {
 			is Response.Loading -> Loader()
+			is Response.Error -> Log.d(TAG, state.message)
 			is Response.Success -> {
 				LazyColumn(
 					state = listState,
@@ -83,7 +84,6 @@ fun HomeScreen(
 					}
 				}
 			}
-			is Response.Error -> Log.d(TAG, state.message)
 		}
 	}
 }

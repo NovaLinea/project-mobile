@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -16,7 +18,10 @@ import com.example.projectunion.R
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.TITLE_NO_MESSAGES
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.chat.components.ChatTopBar
 import com.example.projectunion.presentation.screens.chat.components.MessageField
@@ -30,14 +35,7 @@ fun ChatScreen(
 	viewModel: ChatViewModel = hiltViewModel()
 ) {
 	val statePhoto = viewModel.statePhoto.observeAsState(null).value
-
-	when(val state = viewModel.stateGet.observeAsState(Response.Success(false)).value) {
-		is Response.Loading -> Log.d(TAG, "Loading")
-		is Response.Success -> {
-			Log.d(TAG, "Success get messages")
-		}
-		is Response.Error -> Log.d(TAG, state.message)
-	}
+	val stateGet = viewModel.stateGet.observeAsState(Response.Success(emptyList())).value
 
 	when(val state = viewModel.stateSend.observeAsState(Response.Success(false)).value) {
 		is Response.Loading -> Log.d(TAG, "Loading")
@@ -80,19 +78,48 @@ fun ChatScreen(
 		Box(
 			modifier = Modifier.padding(innerPadding)
 		) {
-			LazyColumn(
-				modifier = Modifier
-					.fillMaxSize()
-					.background(colorResource(id = R.color.app_background))
-			) {
-				item() {
-					Spacer(modifier = Modifier.height(10.dp))
-					MessageItem(
-						message = "Hello",
-						time = 1656530759224,
-						locationArrangement = Arrangement.Start
-					)
-					Spacer(modifier = Modifier.height(10.dp))
+			when(stateGet) {
+				is Response.Loading -> Loader()
+				is Response.Error -> Log.d(TAG, stateGet.message)
+				is Response.Success -> {
+					if (stateGet.data.isNotEmpty()) {
+						LazyColumn(
+							modifier = Modifier
+								.fillMaxSize()
+								.background(colorResource(id = R.color.app_background))
+						) {
+							item() {
+								Spacer(modifier = Modifier.height(10.dp))
+							}
+
+							items(stateGet.data) { message ->
+								var location = Arrangement.Start
+								if (USER.id == message.from)
+									location = Arrangement.End
+
+								MessageItem(
+									message = message.text,
+									time = message.timestamp,
+									locationArrangement = location
+								)
+								Spacer(modifier = Modifier.height(10.dp))
+							}
+						}
+					}
+					else {
+						Column(
+							modifier = Modifier
+								.fillMaxSize()
+								.background(colorResource(id = R.color.app_background)),
+							horizontalAlignment = Alignment.CenterHorizontally
+						) {
+							Text(
+								modifier = Modifier.padding(top = 170.dp),
+								text = TITLE_NO_MESSAGES,
+								style = MaterialTheme.typography.body2
+							)
+						}
+					}
 				}
 			}
 		}

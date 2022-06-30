@@ -12,6 +12,7 @@ import com.example.projectunion.domain.use_case.GetUserByIdUseCase
 import com.example.projectunion.domain.use_case.SendMessageUseCase
 import com.example.projectunion.presentation.screens.chat.components.MessageState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,32 +36,30 @@ class ChatViewModel @Inject constructor(
 	val stateSend: LiveData<Response<Boolean>> get() = _stateSend
 
 	init {
-		getDataUser()
-		getMessages()
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
+			getDataUser(userId)
+			getMessages(userId)
+		}
 	}
 
-	private fun getDataUser() {
-		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
-			viewModelScope.launch {
-				getUserByIdUseCase(userId).collect { response ->
-					when(response) {
-						is Response.Loading -> Log.d(TAG, "Loading data user")
-						is Response.Error -> Log.d(TAG, response.message)
-						is Response.Success -> {
-							_statePhoto.postValue(response.data?.photo)
-						}
+	private fun getDataUser(userId: String) {
+		viewModelScope.launch {
+			getUserByIdUseCase(userId).collect { response ->
+				when(response) {
+					is Response.Loading -> Log.d(TAG, "Loading data user")
+					is Response.Error -> Log.d(TAG, response.message)
+					is Response.Success -> {
+						_statePhoto.postValue(response.data?.photo)
 					}
 				}
 			}
 		}
 	}
 
-	private fun getMessages() {
-		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
-			viewModelScope.launch {
-				getMessagesUseCase(userId).collect { response ->
-					_stateGet.postValue(response)
-				}
+	private fun getMessages(userId: String) {
+		viewModelScope.launch {
+			getMessagesUseCase(userId).collect { response ->
+				_stateGet.postValue(response)
 			}
 		}
 	}

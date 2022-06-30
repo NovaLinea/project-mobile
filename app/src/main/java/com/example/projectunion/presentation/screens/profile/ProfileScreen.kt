@@ -58,6 +58,7 @@ fun ProfileScreen(
 			item() {
 				when(stateProfile) {
 					is Response.Loading -> Loader()
+					is Response.Error -> Log.d(TAG, stateProfile.message)
 					is Response.Success -> {
 						stateProfile.data?.let { user ->
 							ProfileInformation(
@@ -72,7 +73,6 @@ fun ProfileScreen(
 							)
 						}
 					}
-					is Response.Error -> Log.d(TAG, stateProfile.message)
 				}
 			}
 			item() {

@@ -53,7 +53,7 @@ fun MessageItem(
 					modifier = Modifier.padding(top = 2.dp),
 					text = time.toString().asTime(),
 					style = TextStyle(
-						color = Color.Black,
+						color = Color.DarkGray,
 						fontWeight = FontWeight.Normal,
 						fontSize = 13.sp
 					)

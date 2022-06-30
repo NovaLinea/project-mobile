@@ -99,6 +99,7 @@ object Constants {
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
 	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
 	const val TITLE_NO_PROJECTS = "Пока нет проектов"
+	const val TITLE_NO_MESSAGES = "Пока нет сообщений"
 
 	// Types project
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"

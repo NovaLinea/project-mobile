@@ -47,7 +47,9 @@ fun MessagesScreen(
 						items(state.data) { chat ->
 							ChatItem(
 								userName = chat.userName,
-								userPhoto = chat.userPhoto
+								userPhoto = chat.userPhoto,
+								lastMessage = chat.lastMessage,
+								timestamp = chat.timestamp
 							) {
 								externalRouter.navigateTo(
 									MainNavRoute.Chat.route
@@ -55,14 +57,14 @@ fun MessagesScreen(
 											+ "&${Constants.ARGUMENT_USER_NAME_KEY}=${chat.userName}"
 								)
 							}
-							Box(
+							Row(
 								modifier = Modifier.fillMaxWidth(),
-								contentAlignment = Alignment.Center
+								horizontalArrangement = Arrangement.End
 							) {
 								Spacer(
 									modifier = Modifier
 										.height(1.dp)
-										.fillMaxWidth(0.85f)
+										.fillMaxWidth(0.8f)
 										.background(Color.LightGray)
 								)
 							}

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -17,12 +18,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.projectunion.common.asTime
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 
 @Composable
 fun ChatItem(
 	userName: String,
 	userPhoto: String?,
+	lastMessage: String?,
+	timestamp: Any,
 	onOpenChat: () -> Unit
 ) {
 	Row(
@@ -66,17 +70,45 @@ fun ChatItem(
 				}
 			}
 			Column(
-				modifier = Modifier.padding(start = 12.dp),
-				verticalArrangement = Arrangement.Top
+				modifier = Modifier.padding(start = 12.dp, top = 5.dp),
+				verticalArrangement = Arrangement.SpaceBetween
 			) {
-				Text(
-					text = userName,
-					style = TextStyle(
-						color = Color.Black,
-						fontSize = 17.sp,
-						fontWeight = FontWeight.W500
+				Row(
+					modifier = Modifier
+						.padding(end = 10.dp)
+						.fillMaxWidth(),
+					verticalAlignment = Alignment.CenterVertically,
+					horizontalArrangement = Arrangement.SpaceBetween
+				) {
+					Text(
+						text = userName,
+						style = TextStyle(
+							color = Color.Black,
+							fontSize = 17.sp,
+							fontWeight = FontWeight.W600
+						)
 					)
-				)
+
+					Text(
+						text = timestamp.toString().asTime(),
+						style = TextStyle(
+							color = Color.DarkGray,
+							fontWeight = FontWeight.Normal,
+							fontSize = 13.sp
+						)
+					)
+				}
+
+				if (lastMessage != null) {
+					Text(
+						text = lastMessage,
+						style = TextStyle(
+							color = Color.DarkGray,
+							fontWeight = FontWeight.Normal,
+							fontSize = 15.sp
+						)
+					)
+				}
 			}
 		}
 	}
