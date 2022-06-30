@@ -17,7 +17,6 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.domain.model.UserChat
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.chat.components.ChatTopBar
 import com.example.projectunion.presentation.screens.chat.components.MessageField

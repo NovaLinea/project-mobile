@@ -88,16 +88,16 @@ fun ProfileScreen(
 				items(stateProjects.data) { project ->
 					ProjectItem(
 						project = project,
-						openProfile = { creatorID ->
-							openProfile(
-								navController = navController,
-								id = creatorID
+						openProfile = {
+							navController.navigate(
+								MainNavRoute.Profile.route + "?${Constants.ARGUMENT_USER_ID_KEY}=${project.creatorID}"
 							)
 						},
 						openProject = {
-							openProject(
-								navController = navController,
-								project = project
+							navController.navigate(
+								MainNavRoute.Project.route
+										+ "?${Constants.ARGUMENT_PROJECT_ID_KEY}=${project.id}"
+										+ "&${Constants.ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
 							)
 						}
 					)
@@ -105,24 +105,4 @@ fun ProfileScreen(
 			}
 		}
 	}
-}
-
-fun openProject(
-	navController: NavController,
-	project: ProjectTape
-) {
-	navController.navigate(
-		MainNavRoute.Project.route
-				+ "?${Constants.ARGUMENT_PROJECT_ID_KEY}=${project.id}"
-				+ "&${Constants.ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
-	)
-}
-
-fun openProfile(
-	navController: NavController,
-	id: String
-) {
-	navController.navigate(
-		MainNavRoute.Profile.route + "?${Constants.ARGUMENT_USER_ID_KEY}=${id}"
-	)
 }

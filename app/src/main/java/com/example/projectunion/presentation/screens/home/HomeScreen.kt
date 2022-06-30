@@ -66,16 +66,17 @@ fun HomeScreen(
 					items(state.data) { project ->
 						ProjectItem(
 							project = project,
-							openProfile = { creatorID ->
-								openProfile(
-									externalRouter = externalRouter,
-									id = creatorID
+							openProfile = {
+								externalRouter.navigateTo(
+									MainNavRoute.Profile.route + "?$ARGUMENT_USER_ID_KEY=${project.creatorID.toString()}"
 								)
 							},
 							openProject = {
-								openProject(
-									externalRouter = externalRouter,
-									project = project
+								externalRouter.navigateTo(
+									MainNavRoute.Project.route
+											+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
+											+ "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
+											+ "&$ARGUMENT_USER_ID_KEY}=${project.creatorID.toString()}"
 								)
 							}
 						)
@@ -85,24 +86,4 @@ fun HomeScreen(
 			is Response.Error -> Log.d(TAG, state.message)
 		}
 	}
-}
-
-fun openProfile(
-	externalRouter: Router,
-	id: String
-) {
-	externalRouter.navigateTo(
-		MainNavRoute.Profile.route + "?$ARGUMENT_USER_ID_KEY=${id}"
-	)
-}
-
-fun openProject(
-	externalRouter: Router,
-	project: ProjectTape
-) {
-	externalRouter.navigateTo(
-		MainNavRoute.Project.route
-				+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
-				+ "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
-	)
 }

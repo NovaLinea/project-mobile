@@ -119,13 +119,21 @@ object Constants {
 	const val PATH_IMAGES_USERS = "images/users"
 
 	// Fields firestore
+	const val TITLE_PROJECT_FIELD = "title"
+	const val DESCRIPTION_FIELD = "description"
 	const val IMAGES_PROJECT_FIELD = "images"
+	const val TYPE_PROJECT_FIELD = "type"
+	const val PRICE_PROJECT_FIELD = "price"
+	const val VIEWS_PROJECT_FIELD = "views"
+	const val LIKES_PROJECT_FIELD = "likes"
 	const val CREATOR_ID_PROJECT_FIELD = "creatorID"
 	const val CREATED_AT_FIELD = "createdAt"
-	const val VIEWS_PROJECT_FIELD = "views"
-	const val PHOTO_USER_FIELD = "photo"
+	const val UPDATED_AT_FIELD = "updatedAt"
+
 	const val NAME_USER_FIELD = "name"
+	const val PHOTO_USER_FIELD = "photo"
 	const val DESCRIPTION_USER_FIELD = "description"
+	const val EMAIL_USER_FIELD = "email"
 
 	// Nodes realtime database
 	const val NODE_MESSAGES = "messages"

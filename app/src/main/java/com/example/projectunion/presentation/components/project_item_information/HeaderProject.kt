@@ -1,5 +1,6 @@
 package com.example.projectunion.presentation.components.project_item_information
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -11,15 +12,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
-import java.util.*
 
 @Composable
 fun HeaderProject(
 	creatorName: String?,
 	creatorPhoto: String?,
 	onClickCreator: () -> Unit,
-	time: Date?
+	time: Any
 ) {
 	Row(
 		modifier = Modifier.fillMaxWidth(),

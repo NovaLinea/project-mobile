@@ -1,11 +1,21 @@
 package com.example.projectunion.data.firestoreDB
 
+import android.util.Log
 import com.example.projectunion.common.Constants.CREATED_AT_FIELD
+import com.example.projectunion.common.Constants.CREATOR_ID_PROJECT_FIELD
+import com.example.projectunion.common.Constants.DESCRIPTION_FIELD
 import com.example.projectunion.common.Constants.DESCRIPTION_USER_FIELD
+import com.example.projectunion.common.Constants.EMAIL_USER_FIELD
 import com.example.projectunion.common.Constants.IMAGES_PROJECT_FIELD
+import com.example.projectunion.common.Constants.LIKES_PROJECT_FIELD
 import com.example.projectunion.common.Constants.NAME_USER_FIELD
 import com.example.projectunion.common.Constants.PHOTO_USER_FIELD
+import com.example.projectunion.common.Constants.PRICE_PROJECT_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
+import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.TITLE_PROJECT_FIELD
+import com.example.projectunion.common.Constants.TYPE_PROJECT_FIELD
+import com.example.projectunion.common.Constants.UPDATED_AT_FIELD
 import com.example.projectunion.common.Constants.USERS_COLLECTION
 import com.example.projectunion.common.Constants.VIEWS_PROJECT_FIELD
 import com.example.projectunion.domain.model.*
@@ -14,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import java.util.*
+import java.sql.Timestamp
 
 class FirestoreDBImpl(
 	private val db: FirebaseFirestore
@@ -28,12 +38,13 @@ class FirestoreDBImpl(
 	) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)
-			val user = UserProfile(
-				name = userData.name,
-				email = userData.email,
-				createdAt = Date()
-			)
-			db.collection(USERS_COLLECTION).document(uid).set(user).await()
+
+			val mapUser = hashMapOf<String, Any>()
+			mapUser[NAME_USER_FIELD] = userData.name
+			mapUser[EMAIL_USER_FIELD] = userData.email
+			mapUser[CREATED_AT_FIELD] = FieldValue.serverTimestamp()
+
+			db.collection(USERS_COLLECTION).document(uid).set(mapUser).await()
 			emit(Response.Success(true))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
@@ -84,7 +95,19 @@ class FirestoreDBImpl(
 	override fun createProject(projectData: ProjectCreate) = flow<Response<String>> {
 		try {
 			emit(Response.Loading)
-			val projectID = db.collection(PROJECTS_COLLECTION).add(projectData).await().id
+
+			val mapProject = hashMapOf<String, Any>()
+			mapProject[TITLE_PROJECT_FIELD] = projectData.title
+			mapProject[DESCRIPTION_FIELD] = projectData.description
+			mapProject[TYPE_PROJECT_FIELD] = projectData.type
+			mapProject[PRICE_PROJECT_FIELD] = projectData.price
+			mapProject[VIEWS_PROJECT_FIELD] = 0
+			mapProject[LIKES_PROJECT_FIELD] = 0
+			mapProject[CREATOR_ID_PROJECT_FIELD] = projectData.creatorID
+			mapProject[CREATED_AT_FIELD] = FieldValue.serverTimestamp()
+			mapProject[UPDATED_AT_FIELD] = FieldValue.serverTimestamp()
+
+			val projectID = db.collection(PROJECTS_COLLECTION).add(mapProject).await().id
 			emit(Response.Success(projectID))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
@@ -128,7 +151,7 @@ class FirestoreDBImpl(
 		try {
 			emit(Response.Loading)
 			val projects = db.collection(PROJECTS_COLLECTION)
-				.orderBy(CREATED_AT_FIELD, Query.Direction.DESCENDING)
+				.orderBy(VIEWS_PROJECT_FIELD, Query.Direction.DESCENDING)
 				.get().await().map { document ->
 					val project = document.toObject(ProjectTape::class.java)
 					project.id = document.id

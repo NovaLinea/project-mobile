@@ -22,9 +22,9 @@ fun FeedbackProject(
 			.padding(start = 5.dp, top = 10.dp, end = 15.dp, bottom = 10.dp)
 			.fillMaxWidth(),
 		verticalAlignment = Alignment.CenterVertically,
-		horizontalArrangement = Arrangement.SpaceBetween
+		horizontalArrangement = Arrangement.End
 	) {
-		Row(
+		/*Row(
 			verticalAlignment = Alignment.CenterVertically,
 		) {
 			IconButtonAction(
@@ -44,7 +44,7 @@ fun FeedbackProject(
 					onClick = {}
 				)
 			}
-		}
+		}*/
 
 		Row(
 			verticalAlignment = Alignment.CenterVertically,

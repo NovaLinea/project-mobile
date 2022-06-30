@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
 		getProjects()
 	}
 
-	fun getProjects() {
+	private fun getProjects() {
 		viewModelScope.launch {
 			getProjectsUseCase().collect { response ->
 				_state.postValue(response)

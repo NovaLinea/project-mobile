@@ -37,17 +37,11 @@ class CreateViewModel @Inject constructor(
             }
 
             viewModelScope.launch {
-                val dateNow = Date()
-
                 val project = ProjectCreate(
                     title = title.text,
                     description = description.text,
                     type = typeProject,
                     price = price.text.toInt(),
-                    createdAt = dateNow,
-                    updatedAt = dateNow,
-                    likes = 0,
-                    views = 0,
                     creatorID = creatorID.value
                 )
                 createProjectUseCase(project, images).collect { response ->

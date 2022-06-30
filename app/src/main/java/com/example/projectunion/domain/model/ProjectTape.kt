@@ -1,7 +1,5 @@
 package com.example.projectunion.domain.model
 
-import java.util.*
-
 data class ProjectTape (
 	var id: String? = null,
 	val title: String? = null,
@@ -11,7 +9,7 @@ data class ProjectTape (
 	val price: Int? = null,
 	//val progress: Int,
 	//val listStaff: List<String>,
-	val createdAt: Date? = null,
+	val createdAt: Any = "",
 	val likes: Int? = null,
 	val views: Int? = null,
 	val creatorID: String? = null,

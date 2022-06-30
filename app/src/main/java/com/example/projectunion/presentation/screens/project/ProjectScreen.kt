@@ -24,7 +24,15 @@ fun ProjectScreen(
 	navController: NavController,
 	viewModel: ProjectViewModel = hiltViewModel()
 ) {
-	val state = viewModel.stateProject.observeAsState(Response.Success(null)).value
+	val stateProject = viewModel.stateProject.observeAsState(Response.Success(null)).value
+
+	when(val stateSend = viewModel.stateSend.observeAsState(Response.Success(false)).value) {
+		is Response.Loading -> Log.d(TAG, "Loading")
+		is Response.Error -> Log.d(TAG, stateSend.message)
+		is Response.Success -> {
+			Log.d(TAG, "Success send message about buy project")
+		}
+	}
 
 	Scaffold(
 		topBar = { ProjectTopBar(navController) },
@@ -32,7 +40,7 @@ fun ProjectScreen(
 			ProjectBottomBar(
 				projectPrice = "$price",
 				onClickBuy = {
-
+					viewModel.sendMessage()
 				}
 			)
 		}
@@ -41,29 +49,22 @@ fun ProjectScreen(
 			Box(
 				modifier = Modifier.padding(innerPadding)
 			) {
-				when(state) {
+				when(stateProject) {
 					is Response.Loading -> Loader()
 					is Response.Success -> {
-						if (state.data != null) {
+						if (stateProject.data != null) {
 							ProjectInformation(
-								project = state.data,
+								project = stateProject.data,
 								onClickCreator = {
-									state.data.creatorID?.let { openProfile(navController, it) }
+									navController.navigate(
+										MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${stateProject.data.creatorID.toString()}"
+									)
 								}
 							)
 						}
 					}
-					is Response.Error -> Log.d(TAG, state.message)
+					is Response.Error -> Log.d(TAG, stateProject.message)
 				}
 			}
 	}
-}
-
-fun openProfile(
-	navController: NavController,
-	id: String
-) {
-	navController.navigate(
-		MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
-	)
 }

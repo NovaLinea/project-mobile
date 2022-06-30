@@ -18,7 +18,7 @@ import com.example.projectunion.presentation.components.project_item_information
 @Composable
 fun ProjectItem(
 	project: ProjectTape,
-    openProfile: (String) -> Unit,
+    openProfile: () -> Unit,
     openProject: () -> Unit
 ) {
     Card(
@@ -37,21 +37,14 @@ fun ProjectItem(
                 HeaderProject(
                     creatorName = project.creatorName,
                     creatorPhoto = project.creatorPhoto,
-                    onClickCreator = {
-                        project.creatorID?.let { creatorID ->
-                            openProfile(creatorID)
-                        }
-                    },
+                    onClickCreator = { openProfile() },
                     time = project.createdAt
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Column(
-                    modifier = Modifier
-                        .clickable {
-                            openProject()
-                        },
+                    modifier = Modifier.clickable { openProject() },
                 ) {
                     BodyProject(
                         title = project.title,
@@ -82,9 +75,7 @@ fun ProjectItem(
                 ) {
                     ImagePainter(
                         imageUrl = images[0],
-                        onClick = {
-                            openProject()
-                        }
+                        onClick = { openProject() }
                     )
                 }
             }
