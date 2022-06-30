@@ -75,8 +75,8 @@ fun HomeScreen(
 								externalRouter.navigateTo(
 									MainNavRoute.Project.route
 											+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
+											+ "&$ARGUMENT_USER_ID_KEY=${project.creatorID}"
 											+ "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
-											+ "&$ARGUMENT_USER_ID_KEY}=${project.creatorID.toString()}"
 								)
 							}
 						)

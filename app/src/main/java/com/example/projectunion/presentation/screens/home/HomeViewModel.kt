@@ -9,7 +9,6 @@ import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CheckAuthorizedUseCase
 import com.example.projectunion.domain.use_case.GetProjectsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,6 +17,7 @@ class HomeViewModel @Inject constructor(
 	private val checkAuthorizedUseCase: CheckAuthorizedUseCase,
 	private val getProjectsUseCase: GetProjectsUseCase
 ): ViewModel() {
+
 	val isAuth get() = checkAuthorizedUseCase()
 
 	private val _state = MutableLiveData<Response<List<ProjectTape>>>()

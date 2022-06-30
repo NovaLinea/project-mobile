@@ -2,24 +2,25 @@ package com.example.projectunion.presentation.screens.profile
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
-import com.example.projectunion.common.Constants
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.TAG
-import com.example.projectunion.domain.model.ProjectTape
+import com.example.projectunion.common.Constants.TITLE_NO_PROJECTS
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -85,22 +86,38 @@ fun ProfileScreen(
 				}
 			}
 			if (stateProjects is Response.Success) {
-				items(stateProjects.data) { project ->
-					ProjectItem(
-						project = project,
-						openProfile = {
-							navController.navigate(
-								MainNavRoute.Profile.route + "?${Constants.ARGUMENT_USER_ID_KEY}=${project.creatorID}"
-							)
-						},
-						openProject = {
-							navController.navigate(
-								MainNavRoute.Project.route
-										+ "?${Constants.ARGUMENT_PROJECT_ID_KEY}=${project.id}"
-										+ "&${Constants.ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
+				if (stateProjects.data.isEmpty()) {
+					item() {
+						Column(
+							modifier = Modifier.fillMaxSize(),
+							horizontalAlignment = Alignment.CenterHorizontally
+						) {
+							Text(
+								modifier = Modifier.padding(top = 50.dp),
+								text = TITLE_NO_PROJECTS,
+								style = MaterialTheme.typography.body2
 							)
 						}
-					)
+					}
+				}
+				else {
+					items(stateProjects.data) { project ->
+						ProjectItem(
+							project = project,
+							openProfile = {
+								navController.navigate(
+									MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${project.creatorID}"
+								)
+							},
+							openProject = {
+								navController.navigate(
+									MainNavRoute.Project.route
+											+ "?${ARGUMENT_PROJECT_ID_KEY}=${project.id}"
+											+ "&${ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
+								)
+							}
+						)
+					}
 				}
 			}
 		}

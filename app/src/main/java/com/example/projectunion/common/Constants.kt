@@ -1,18 +1,18 @@
 package com.example.projectunion.common
 
 import com.example.projectunion.domain.model.UserProfile
-import java.text.SimpleDateFormat
 
 object Constants {
 
-	// Navigation
-	const val ARGUMENT_PROJECT_ID_KEY = "projectID"
+	// Arguments navigation
+	const val ARGUMENT_PROJECT_ID_KEY = "projectId"
 	const val ARGUMENT_PROJECT_PRICE_KEY = "projectPrice"
 	const val ARGUMENT_PROJECT_TYPE_KEY = "typeProject"
-	const val ARGUMENT_USER_ID_KEY = "userID"
+	const val ARGUMENT_USER_ID_KEY = "userId"
 	const val ARGUMENT_USER_NAME_KEY = "userName"
-	const val ARGUMENT_USER_PHOTO_KEY = "userPhoto"
-	const val ARGUMENT_PROFILE_DESCRIPTION_KEY = "userDescription"
+	const val ARGUMENT_USER_DESCRIPTION_KEY = "userDescription"
+
+	// Navigation main routes
 	const val ROOT_ROUTE = "root_route"
 	const val MAIN_ROUTE = "main_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
@@ -98,6 +98,7 @@ object Constants {
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
 	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
+	const val TITLE_NO_PROJECTS = "Пока нет проектов"
 
 	// Types project
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"
@@ -109,6 +110,9 @@ object Constants {
 
 	// Types messages
 	const val TYPE_MESSAGE_TEXT = "text"
+
+	// Standard messages
+	const val BUY_PROJECT_MESSAGE = "Покупка проекта"
 
 	// Firestore collections
 	const val USERS_COLLECTION = "users"
@@ -146,6 +150,5 @@ object Constants {
 
 	// Other
 	const val TAG = "AppLog"
-	val TIME_FORMAT = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
 	var USER = UserProfile()
 }

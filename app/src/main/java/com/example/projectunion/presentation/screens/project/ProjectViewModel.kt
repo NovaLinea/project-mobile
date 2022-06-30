@@ -2,9 +2,11 @@ package com.example.projectunion.presentation.screens.project
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.BUY_PROJECT_MESSAGE
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.MessageSend
 import com.example.projectunion.domain.model.ProjectOpen
@@ -56,14 +58,14 @@ class ProjectViewModel @Inject constructor(
     }
 
     fun sendMessage() {
-        savedStateHandle.get<String>(Constants.ARGUMENT_USER_ID_KEY)?.let { toID ->
+        savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { toID ->
             viewModelScope.launch {
                 USER.id?.let { fromID ->
                     val messageSend = MessageSend(
-                        text = "Покупка проекта",
+                        text = BUY_PROJECT_MESSAGE,
                         from = fromID,
                         to = toID,
-                        type = Constants.TYPE_MESSAGE_TEXT
+                        type = TYPE_MESSAGE_TEXT
                     )
                     sendMessageUseCase(messageSend).collect { response ->
                         _stateSend.postValue(response)

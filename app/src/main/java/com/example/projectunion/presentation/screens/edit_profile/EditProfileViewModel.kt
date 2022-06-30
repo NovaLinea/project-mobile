@@ -2,7 +2,7 @@ package com.example.projectunion.presentation.screens.edit_profile
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_DESCRIPTION_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_DESCRIPTION_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.projectunion.domain.model.Response
@@ -29,7 +29,7 @@ class EditProfileViewModel @Inject constructor(
         savedStateHandle.get<String>(ARGUMENT_USER_NAME_KEY)?.let {
             name.text = it
         }
-        savedStateHandle.get<String>(ARGUMENT_PROFILE_DESCRIPTION_KEY)?.let {
+        savedStateHandle.get<String>(ARGUMENT_USER_DESCRIPTION_KEY)?.let {
             description.value = it
         }
     }

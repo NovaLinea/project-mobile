@@ -1,7 +1,6 @@
 package com.example.projectunion.domain.model
 
 data class ProjectOpen (
-	val id: String? = null,
 	val title: String? = null,
 	val description: String? = null,
 	val images: List<String>? = null,

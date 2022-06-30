@@ -4,12 +4,11 @@ import android.util.Log
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_PROFILE_DESCRIPTION_KEY
+import com.example.projectunion.common.Constants.ARGUMENT_USER_DESCRIPTION_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
-import com.example.projectunion.common.Constants.ARGUMENT_USER_PHOTO_KEY
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -63,11 +62,17 @@ fun NavGraphBuilder.mainNavGraph(
 		composable(
 			route = MainNavRoute.Project.route
 					+ "?$ARGUMENT_PROJECT_ID_KEY={$ARGUMENT_PROJECT_ID_KEY}"
-					+ "&$ARGUMENT_PROJECT_PRICE_KEY={$ARGUMENT_PROJECT_PRICE_KEY}"
-					+ "&$ARGUMENT_USER_ID_KEY={$ARGUMENT_USER_ID_KEY}",
+					+ "&$ARGUMENT_USER_ID_KEY={$ARGUMENT_USER_ID_KEY}"
+					+ "&$ARGUMENT_PROJECT_PRICE_KEY={$ARGUMENT_PROJECT_PRICE_KEY}",
 			arguments = listOf(
 				navArgument(
 					name = ARGUMENT_PROJECT_ID_KEY
+				) {
+					type = NavType.StringType
+					defaultValue = "-1"
+				},
+				navArgument(
+					name = ARGUMENT_USER_ID_KEY
 				) {
 					type = NavType.StringType
 					defaultValue = "-1"
@@ -77,12 +82,6 @@ fun NavGraphBuilder.mainNavGraph(
 				) {
 					type = NavType.IntType
 					defaultValue = -1
-				},
-				navArgument(
-					name = ARGUMENT_USER_ID_KEY
-				) {
-					type = NavType.StringType
-					defaultValue = "-1"
 				}
 			)
 		) {
@@ -116,7 +115,7 @@ fun NavGraphBuilder.mainNavGraph(
 			route = MainNavRoute.EditProfile.route
 					+ "?$ARGUMENT_USER_ID_KEY={$ARGUMENT_USER_ID_KEY}"
 					+ "&$ARGUMENT_USER_NAME_KEY={$ARGUMENT_USER_NAME_KEY}"
-					+ "&$ARGUMENT_PROFILE_DESCRIPTION_KEY={$ARGUMENT_PROFILE_DESCRIPTION_KEY}",
+					+ "&$ARGUMENT_USER_DESCRIPTION_KEY={$ARGUMENT_USER_DESCRIPTION_KEY}",
 			arguments = listOf(
 				navArgument(
 					name = ARGUMENT_USER_ID_KEY
@@ -131,7 +130,7 @@ fun NavGraphBuilder.mainNavGraph(
 					defaultValue = "-1"
 				},
 				navArgument(
-					name = ARGUMENT_PROFILE_DESCRIPTION_KEY
+					name = ARGUMENT_USER_DESCRIPTION_KEY
 				) {
 					type = NavType.StringType
 					defaultValue = "-1"

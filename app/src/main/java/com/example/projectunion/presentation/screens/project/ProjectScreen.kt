@@ -30,7 +30,8 @@ fun ProjectScreen(
 		is Response.Loading -> Log.d(TAG, "Loading")
 		is Response.Error -> Log.d(TAG, stateSend.message)
 		is Response.Success -> {
-			Log.d(TAG, "Success send message about buy project")
+			if (stateSend.data)
+				Log.d(TAG, "Success send message about buy project")
 		}
 	}
 
@@ -54,13 +55,13 @@ fun ProjectScreen(
 					is Response.Success -> {
 						if (stateProject.data != null) {
 							ProjectInformation(
-								project = stateProject.data,
-								onClickCreator = {
-									navController.navigate(
-										MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${stateProject.data.creatorID.toString()}"
-									)
-								}
-							)
+								project = stateProject.data
+							) {
+								navController.navigate(
+									MainNavRoute.Profile.route
+											+ "?${ARGUMENT_USER_ID_KEY}=${stateProject.data.creatorID.toString()}"
+								)
+							}
 						}
 					}
 					is Response.Error -> Log.d(TAG, stateProject.message)
