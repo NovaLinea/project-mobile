@@ -17,6 +17,7 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.domain.model.UserChat
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.chat.components.ChatTopBar
 import com.example.projectunion.presentation.screens.chat.components.MessageField
@@ -29,6 +30,7 @@ fun ChatScreen(
 	navController: NavController,
 	viewModel: ChatViewModel = hiltViewModel()
 ) {
+	val statePhoto = viewModel.statePhoto.observeAsState(null).value
 
 	when(val state = viewModel.stateGet.observeAsState(Response.Success(false)).value) {
 		is Response.Loading -> Log.d(TAG, "Loading")
@@ -52,6 +54,7 @@ fun ChatScreen(
 		topBar = {
 			ChatTopBar(
 				title = userName,
+				photo = statePhoto,
 				onClickBack = { navController.popBackStack() },
 				onClickUser = {
 					navController.navigate(

@@ -8,6 +8,7 @@ import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.ProjectRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 
 class ProjectRepositoryImpl(

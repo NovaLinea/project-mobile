@@ -3,6 +3,7 @@ package com.example.projectunion.presentation.screens.profile
 import android.net.Uri
 import androidx.lifecycle.*
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
@@ -35,10 +36,8 @@ class ProfileViewModel @Inject constructor(
 
 	init {
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
-			if (userID != "-1") {
-				getProfileData(userID)
-				getProjects(userID)
-			}
+			getProfileData(userID)
+			getProjects(userID)
 		}
 	}
 
@@ -63,13 +62,12 @@ class ProfileViewModel @Inject constructor(
 
 	fun updatePhoto(photoUri: Uri) {
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
-			if (userID != "-1") {
-				viewModelScope.launch {
-					uploadPhotoUserUseCase(photoUri, userID).collect { response ->
-						_statePhoto.postValue(response)
-						if (response is Response.Success) {
-							_photoProfile.postValue(response.data)
-						}
+			viewModelScope.launch {
+				uploadPhotoUserUseCase(photoUri, userID).collect { response ->
+					_statePhoto.postValue(response)
+					if (response is Response.Success) {
+						_photoProfile.postValue(response.data)
+						USER.photo = response.data
 					}
 				}
 			}

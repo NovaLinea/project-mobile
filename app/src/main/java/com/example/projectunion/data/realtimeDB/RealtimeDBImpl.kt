@@ -78,6 +78,9 @@ class RealtimeDBImpl(
 				val chat = Chat(
 					userId = data.key.toString()
 				)
+				data.children.map {
+					Log.d(TAG, it.toString())
+				}
 				listChats.add(chat)
 			}
 

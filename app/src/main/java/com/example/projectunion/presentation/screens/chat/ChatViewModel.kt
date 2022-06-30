@@ -1,13 +1,14 @@
 package com.example.projectunion.presentation.screens.chat
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.projectunion.common.Constants.USER
-import com.example.projectunion.domain.model.MessageGet
-import com.example.projectunion.domain.model.MessageSend
-import com.example.projectunion.domain.model.Response
+import com.example.projectunion.domain.model.*
 import com.example.projectunion.domain.use_case.GetMessagesUseCase
+import com.example.projectunion.domain.use_case.GetUserByIdUseCase
 import com.example.projectunion.domain.use_case.SendMessageUseCase
 import com.example.projectunion.presentation.screens.chat.components.MessageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,12 +17,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
+	private val getUserByIdUseCase: GetUserByIdUseCase,
 	private val getMessagesUseCase: GetMessagesUseCase,
 	private val sendMessageUseCase: SendMessageUseCase,
 	private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
 	val message by lazy { MessageState() }
+
+	private val _statePhoto = MutableLiveData<String?>()
+	val statePhoto: LiveData<String?> get() = _statePhoto
 
 	private val _stateGet = MutableLiveData<Response<List<MessageGet>>>()
 	val stateGet: LiveData<Response<List<MessageGet>>> get() = _stateGet
@@ -30,7 +35,34 @@ class ChatViewModel @Inject constructor(
 	val stateSend: LiveData<Response<Boolean>> get() = _stateSend
 
 	init {
+		getDataUser()
 		getMessages()
+	}
+
+	private fun getDataUser() {
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
+			viewModelScope.launch {
+				getUserByIdUseCase(userId).collect { response ->
+					when(response) {
+						is Response.Loading -> Log.d(TAG, "Loading data user")
+						is Response.Error -> Log.d(TAG, response.message)
+						is Response.Success -> {
+							_statePhoto.postValue(response.data?.photo)
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private fun getMessages() {
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
+			viewModelScope.launch {
+				getMessagesUseCase(userId).collect { response ->
+					_stateGet.postValue(response)
+				}
+			}
+		}
 	}
 
 	fun sendMessage() {
@@ -47,16 +79,6 @@ class ChatViewModel @Inject constructor(
 						_stateSend.postValue(response)
 						message.text = ""
 					}
-				}
-			}
-		}
-	}
-
-	private fun getMessages() {
-		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
-			viewModelScope.launch {
-				getMessagesUseCase(userId).collect { response ->
-					_stateGet.postValue(response)
 				}
 			}
 		}
