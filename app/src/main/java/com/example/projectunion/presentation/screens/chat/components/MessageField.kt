@@ -38,15 +38,15 @@ fun MessageField(
 			BasicTextField(
 				value = value,
 				onValueChange = { value -> onValueChange(value) },
-				singleLine = true,
+				singleLine = false,
 				modifier = Modifier.fillMaxWidth(),
 				textStyle = MaterialTheme.typography.body1,
 				keyboardOptions = KeyboardOptions(
-					imeAction = ImeAction.Done
+					imeAction = ImeAction.None
 				),
-				keyboardActions = KeyboardActions(
-					onDone = { onSend() }
-				),
+				//keyboardActions = KeyboardActions(
+				//	onDone = { onSend() }
+				//),
 			)
 
 			if (isPlaceholderVisible) {

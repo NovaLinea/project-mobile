@@ -1,13 +1,17 @@
 package com.example.projectunion.presentation.screens.chat
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -26,7 +30,9 @@ import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.chat.components.ChatTopBar
 import com.example.projectunion.presentation.screens.chat.components.MessageField
 import com.example.projectunion.presentation.screens.chat.components.MessageItem
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ChatScreen(
 	userId: String,
@@ -46,6 +52,9 @@ fun ChatScreen(
 		}
 		is Response.Error -> Log.d(TAG, state.message)
 	}
+
+	val listState = rememberLazyListState()
+	val scope = rememberCoroutineScope()
 
 	Scaffold(
 		topBar = {
@@ -69,8 +78,9 @@ fun ChatScreen(
 				placeholder = MESSAGE_FIELD,
 				isPlaceholderVisible = viewModel.message.text.isEmpty(),
 				onSend = {
-					if (viewModel.message.text.isNotEmpty())
+					if (viewModel.message.text.isNotEmpty()) {
 						viewModel.sendMessage()
+					}
 				}
 			)
 		}
@@ -83,16 +93,23 @@ fun ChatScreen(
 				is Response.Error -> Log.d(TAG, stateGet.message)
 				is Response.Success -> {
 					if (stateGet.data.isNotEmpty()) {
+						scope.launch {
+							listState.animateScrollToItem(stateGet.data.size)
+						}
 						LazyColumn(
+							state = listState,
 							modifier = Modifier
 								.fillMaxSize()
-								.background(colorResource(id = R.color.app_background))
+								.background(colorResource(id = R.color.app_background)),
+							contentPadding = PaddingValues(all = 10.dp),
+							verticalArrangement = Arrangement.spacedBy(10.dp)
 						) {
-							item() {
-								Spacer(modifier = Modifier.height(10.dp))
-							}
-
-							items(stateGet.data) { message ->
+							items(
+								items = stateGet.data,
+								key = { message ->
+									message.id
+								}
+							) { message ->
 								var location = Arrangement.Start
 								if (USER.id == message.from)
 									location = Arrangement.End
@@ -102,7 +119,6 @@ fun ChatScreen(
 									time = message.timestamp,
 									locationArrangement = location
 								)
-								Spacer(modifier = Modifier.height(10.dp))
 							}
 						}
 					}

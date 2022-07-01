@@ -13,6 +13,7 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.DESCRIPTION_PROFILE
 import com.example.projectunion.common.Constants.NAME_PLACEHOLDER
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -29,6 +30,7 @@ fun EditProfileScreen(
 		is Response.Loading -> Loader()
 		is Response.Success -> {
 			if (state.data) {
+				USER.name = viewModel.name.text
 				LaunchedEffect(state.data) {
 					navController.popBackStack()
 					openProfile(

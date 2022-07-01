@@ -1,6 +1,7 @@
 package com.example.projectunion.data.repository
 
 import android.util.Log
+import androidx.compose.runtime.rememberCoroutineScope
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.realtimeDB.RealtimeDB
@@ -10,9 +11,13 @@ import com.example.projectunion.domain.model.MessageGet
 import com.example.projectunion.domain.model.MessageSend
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.MessageRepository
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class MessageRepositoryImpl(
 	private val realtimeDB: RealtimeDB,
@@ -20,18 +25,16 @@ class MessageRepositoryImpl(
 	private val storageDB: Storage
 ) : MessageRepository {
 
+	@OptIn(DelicateCoroutinesApi::class)
 	override fun getChats(setListChats: (List<Chat>) -> Unit) = flow<Response<List<Chat>>> {
 		try {
 			emit(Response.Loading)
 
 			realtimeDB.getChats(
 				setListChats = { listChats ->
-					setListChats(listChats)
-					//getChatsDetail(listChats)
-					/*listChats.forEachIndexed { index, chat ->
-						val response = firestoreDB.getDetailChatById(chat.userId)
-						Log.d(TAG, response.toString())
-					}*/
+					GlobalScope.launch(Dispatchers.IO) {
+						getChatsDetail(listChats, setListChats)
+					}
 				}
 			).collect { response ->
 				emit(response)
@@ -41,40 +44,23 @@ class MessageRepositoryImpl(
 		}
 	}
 
-	private suspend fun List<Chat>.asDetail(): List<Chat> {
-		this.forEachIndexed { index, chat ->
-			firestoreDB.getUserById(chat.userId).collect { response ->
-				if (response is Response.Success) {
-					this[index].userName = response.data?.name.toString()
-					if (response.data?.photo != null)
-						this[index].userPhoto = response.data.photo
-				}
-			}
-		}
-		return this
-	}
-
-	private fun getChatsDetail(
+	private suspend fun getChatsDetail(
 		listChats: List<Chat>,
 		setListChats: (List<Chat>) -> Unit
-	) = flow<Response<List<Chat>>> {
-		Log.d(TAG, listChats.toString())
+	) {
 		listChats.forEachIndexed { index, chat ->
 			firestoreDB.getUserById(chat.userId).collect { response ->
 				when(response) {
+					is Response.Loading -> Log.d(TAG, "Loader")
+					is Response.Error -> Log.d(TAG, response.message)
 					is Response.Success -> {
-						Log.d(TAG, response.toString())
 						listChats[index].userName = response.data?.name.toString()
-						if (response.data?.photo != null)
-							listChats[index].userPhoto = response.data.photo
-						Log.d(TAG, listChats.toString())
-						setListChats(listChats)
+						listChats[index].userPhoto = response.data?.photo.toString()
 					}
-					is Response.Error -> emit(response)
-					is Response.Loading -> emit(response)
 				}
 			}
 		}
+		setListChats(listChats)
 	}
 
 	override fun getMessages(id: String, setListMessages: (List<MessageGet?>) -> Unit) = realtimeDB.getMessages(id, setListMessages)

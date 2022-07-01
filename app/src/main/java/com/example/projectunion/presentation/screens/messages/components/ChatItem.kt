@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.asTime
@@ -70,13 +71,13 @@ fun ChatItem(
 				}
 			}
 			Column(
-				modifier = Modifier.padding(start = 12.dp, top = 4.dp),
+				modifier = Modifier
+					.padding(start = 12.dp, top = 4.dp, end = 10.dp)
+					.fillMaxWidth(),
 				verticalArrangement = Arrangement.SpaceBetween
 			) {
 				Row(
-					modifier = Modifier
-						.padding(end = 10.dp)
-						.fillMaxWidth(),
+					modifier = Modifier.fillMaxWidth(),
 					verticalAlignment = Alignment.CenterVertically,
 					horizontalArrangement = Arrangement.SpaceBetween
 				) {
@@ -102,6 +103,9 @@ fun ChatItem(
 				if (lastMessage != null) {
 					Text(
 						text = lastMessage,
+						modifier = Modifier.fillMaxWidth(),
+						maxLines = 1,
+						overflow = TextOverflow.Ellipsis,
 						style = TextStyle(
 							color = Color.DarkGray,
 							fontWeight = FontWeight.Normal,

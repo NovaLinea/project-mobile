@@ -41,7 +41,7 @@ fun MessagesScreen(
 			is Response.Success -> {
 				if (state.data.isNotEmpty()) {
 					LazyColumn(
-						state = rememberLazyListState(state.data.size),
+						state = listState,
 						modifier = Modifier.fillMaxSize()
 					) {
 						items(state.data) { chat ->

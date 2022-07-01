@@ -36,12 +36,10 @@ class EditProfileViewModel @Inject constructor(
 
     fun editProfile() {
         savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { id ->
-            if (id != "-1") {
-                viewModelScope.launch {
-                    val user = UserEdit(id = id, name = name.text, description = description.value)
-                    editProfileUseCase(user).collect { response ->
-                        _state.postValue(response)
-                    }
+            viewModelScope.launch {
+                val user = UserEdit(id = id, name = name.text, description = description.value)
+                editProfileUseCase(user).collect { response ->
+                    _state.postValue(response)
                 }
             }
         }

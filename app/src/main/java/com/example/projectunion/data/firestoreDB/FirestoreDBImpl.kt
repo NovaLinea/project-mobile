@@ -30,26 +30,6 @@ class FirestoreDBImpl(
 	private val db: FirebaseFirestore
 ): FirestoreDB {
 
-	override fun getDetailChatById(id: String): Response<UserProfile?> {
-		try {
-			var user: UserProfile? = null
-			db.collection(USERS_COLLECTION).document(id).get()
-				.addOnSuccessListener { result ->
-					user = result.toObject(UserProfile::class.java)
-				}
-				.addOnFailureListener { exception ->
-					Log.w(TAG, "Error getting documents.", exception)
-				}
-			//.toObject(UserProfile::class.java)
-			/*user?.let {
-				it.id = id
-			}*/
-			return Response.Success(user)
-		} catch (e: Exception) {
-			return Response.Error(e.message ?: e.toString())
-		}
-	}
-
 	// User
 	override fun createUser(
 		userData: UserRegister,

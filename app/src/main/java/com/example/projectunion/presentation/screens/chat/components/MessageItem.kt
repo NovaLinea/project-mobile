@@ -23,9 +23,7 @@ fun MessageItem(
 	locationArrangement: Arrangement.Horizontal
 ) {
 	Row(
-		modifier = Modifier
-			.padding(horizontal = 10.dp)
-			.fillMaxWidth(),
+		modifier = Modifier.fillMaxWidth(),
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = locationArrangement
 	) {
