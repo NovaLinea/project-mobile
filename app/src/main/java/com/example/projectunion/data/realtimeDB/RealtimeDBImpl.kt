@@ -6,8 +6,10 @@ import com.example.projectunion.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.USER
+import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.domain.model.*
 import com.google.firebase.database.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
@@ -15,23 +17,29 @@ class RealtimeDBImpl(
 	private val db: DatabaseReference
 ): RealtimeDB {
 
-	override fun getChats(id: String) = flow<Response<List<Chat>>> {
+	override fun getChats(
+		setListChats: (List<Chat>) -> Unit
+	): Flow<Response<List<Chat>>> = flow<Response<List<Chat>>> {
 		try {
 			emit(Response.Loading)
-			val listChats = mutableListOf<Chat>()
 
-			val chats = db.child("$NODE_MESSAGES/$id").get().await()
-			chats.children.map { chat ->
-				val lastMessageData = chat.children.last().getValue(MessageGet::class.java)
-				val chatItem = Chat(
-					userId = chat.key.toString(),
-					lastMessage = lastMessageData!!.text,
-					timestamp = lastMessageData.timestamp
-				)
-				listChats.add(chatItem)
-			}
+			db.child("$NODE_MESSAGES/${USER.id}")
+				.addValueEventListener(object: ValueEventListener {
+					override fun onDataChange(snapshot: DataSnapshot) {
+						val chats = snapshot.children.map { chat ->
+							val lastMessage = chat.children.last().getValue(MessageGet::class.java)
+							val chatItem = Chat(
+								userId = chat.key.toString(),
+								lastMessage = lastMessage!!.text,
+								timestamp = lastMessage.timestamp
+							)
+							chatItem
+						}
+						setListChats(chats)
+					}
 
-			emit(Response.Success(listChats))
+					override fun onCancelled(error: DatabaseError) {}
+				})
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

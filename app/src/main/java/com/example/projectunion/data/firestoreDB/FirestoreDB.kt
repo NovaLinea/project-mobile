@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface FirestoreDB{
 
+	fun getDetailChatById(id: String): Response<UserProfile?>
+
 	// User
 	fun createUser(userData: UserRegister, uid: String): Flow<Response<Boolean>>
 	fun getUserById(id: String): Flow<Response<UserProfile?>>

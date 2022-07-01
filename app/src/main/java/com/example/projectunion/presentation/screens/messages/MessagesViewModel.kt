@@ -23,11 +23,17 @@ class MessagesViewModel @Inject constructor(
 
 	private fun getChats() {
 		viewModelScope.launch {
-			USER.id?.let { id ->
-				getChatsUseCase(id).collect { response ->
-					_state.postValue(response)
+			getChatsUseCase(
+				setListChats = { listChats ->
+					setListChats(listChats)
 				}
+			).collect { response ->
+				_state.postValue(response)
 			}
 		}
+	}
+
+	private fun setListChats(listChats: List<Chat>) {
+		_state.postValue(Response.Success(listChats as MutableList<Chat>))
 	}
 }

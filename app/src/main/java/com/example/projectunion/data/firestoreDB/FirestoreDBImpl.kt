@@ -22,16 +22,35 @@ import com.example.projectunion.domain.model.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import java.sql.Timestamp
 
 class FirestoreDBImpl(
 	private val db: FirebaseFirestore
 ): FirestoreDB {
 
-	// User
+	override fun getDetailChatById(id: String): Response<UserProfile?> {
+		try {
+			var user: UserProfile? = null
+			db.collection(USERS_COLLECTION).document(id).get()
+				.addOnSuccessListener { result ->
+					user = result.toObject(UserProfile::class.java)
+				}
+				.addOnFailureListener { exception ->
+					Log.w(TAG, "Error getting documents.", exception)
+				}
+			//.toObject(UserProfile::class.java)
+			/*user?.let {
+				it.id = id
+			}*/
+			return Response.Success(user)
+		} catch (e: Exception) {
+			return Response.Error(e.message ?: e.toString())
+		}
+	}
 
+	// User
 	override fun createUser(
 		userData: UserRegister,
 		uid: String
@@ -91,7 +110,6 @@ class FirestoreDBImpl(
 
 
 	// Project
-
 	override fun createProject(projectData: ProjectCreate) = flow<Response<String>> {
 		try {
 			emit(Response.Loading)

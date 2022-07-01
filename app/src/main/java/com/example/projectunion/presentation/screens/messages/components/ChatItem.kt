@@ -70,7 +70,7 @@ fun ChatItem(
 				}
 			}
 			Column(
-				modifier = Modifier.padding(start = 12.dp, top = 5.dp),
+				modifier = Modifier.padding(start = 12.dp, top = 4.dp),
 				verticalArrangement = Arrangement.SpaceBetween
 			) {
 				Row(
