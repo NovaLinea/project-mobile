@@ -12,7 +12,6 @@ import com.example.projectunion.domain.use_case.GetUserByIdUseCase
 import com.example.projectunion.domain.use_case.SendMessageUseCase
 import com.example.projectunion.presentation.screens.chat.components.MessageState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -58,10 +57,19 @@ class ChatViewModel @Inject constructor(
 
 	private fun getMessages(userId: String) {
 		viewModelScope.launch {
-			getMessagesUseCase(userId).collect { response ->
+			getMessagesUseCase(
+				id = userId,
+				setListMessages = { listMessages ->
+					setListMessages(listMessages)
+				}
+			).collect { response ->
 				_stateGet.postValue(response)
 			}
 		}
+	}
+
+	private fun setListMessages(listMessages: List<MessageGet?>) {
+		_stateGet.postValue(Response.Success(listMessages as MutableList<MessageGet>))
 	}
 
 	fun sendMessage() {

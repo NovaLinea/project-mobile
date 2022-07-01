@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface MessageRepository {
 
 	fun sendMessage(message: MessageSend): Flow<Response<Boolean>>
-	fun getMessages(id: String): Flow<Response<List<MessageGet>>>
+	fun getMessages(id: String, setListMessages: (List<MessageGet?>) -> Unit): Flow<Response<List<MessageGet>>>
 	fun getChats(id: String): Flow<Response<List<Chat>>>
 }

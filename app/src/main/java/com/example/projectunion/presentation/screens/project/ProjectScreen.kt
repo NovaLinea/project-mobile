@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -41,7 +43,10 @@ fun ProjectScreen(
 			ProjectBottomBar(
 				projectPrice = "$price",
 				onClickBuy = {
-					viewModel.sendMessage()
+					if (USER.id != null)
+						viewModel.sendMessage()
+					else
+						navController.navigate(AUTHENTICATION_ROUTE)
 				}
 			)
 		}

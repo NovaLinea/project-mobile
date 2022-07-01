@@ -1,9 +1,7 @@
 package com.example.projectunion.data.realtimeDB
 
-import android.util.Log
 import com.example.projectunion.common.Constants.FROM_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.NODE_MESSAGES
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_FIELD
@@ -39,29 +37,28 @@ class RealtimeDBImpl(
 		}
 	}
 
-	override fun getMessages(id: String) = flow<Response<List<MessageGet>>> {
+	override fun getMessages(
+		id: String,
+		setListMessages: (List<MessageGet?>) -> Unit
+	) = flow<Response<List<MessageGet>>> {
 		try {
 			emit(Response.Loading)
-			val messages = mutableListOf<MessageGet>()
 
 			db.child("$NODE_MESSAGES/${USER.id}/$id")
 				.addValueEventListener(object: ValueEventListener {
 					override fun onDataChange(snapshot: DataSnapshot) {
-						messages.clear()
-
-						snapshot.children.map { data ->
+						val messages = snapshot.children.map { data ->
 							val message = data.getValue(MessageGet::class.java)
-							message!!.id =  data.key.toString()
-							messages.add(message)
-							Log.d(TAG, message.toString())
+							if (message != null) {
+								message.id =  data.key.toString()
+							}
+							message
 						}
+						setListMessages(messages)
 					}
 
 					override fun onCancelled(error: DatabaseError) {}
-				}
-				)
-			Log.d(TAG, messages.toString())
-			emit(Response.Success(messages))
+				})
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}

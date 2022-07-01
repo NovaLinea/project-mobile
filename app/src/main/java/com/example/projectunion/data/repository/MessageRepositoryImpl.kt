@@ -4,6 +4,7 @@ import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.realtimeDB.RealtimeDB
 import com.example.projectunion.data.storage.Storage
 import com.example.projectunion.domain.model.Chat
+import com.example.projectunion.domain.model.MessageGet
 import com.example.projectunion.domain.model.MessageSend
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.repository.MessageRepository
@@ -17,7 +18,7 @@ class MessageRepositoryImpl(
 
 	override fun sendMessage(message: MessageSend) = realtimeDB.sendMessage(message)
 
-	override fun getMessages(id: String) = realtimeDB.getMessages(id)
+	override fun getMessages(id: String, setListMessages: (List<MessageGet?>) -> Unit) = realtimeDB.getMessages(id, setListMessages)
 
 	override fun getChats(id: String) = flow<Response<List<Chat>>> {
 		try {
