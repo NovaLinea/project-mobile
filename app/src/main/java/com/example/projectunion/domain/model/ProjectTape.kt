@@ -10,7 +10,6 @@ data class ProjectTape (
 	//val progress: Int,
 	//val listStaff: List<String>,
 	val createdAt: Any = "",
-	val likes: Int? = null,
 	val views: Int? = null,
 	val creatorID: String? = null,
 	var creatorName: String? = null,

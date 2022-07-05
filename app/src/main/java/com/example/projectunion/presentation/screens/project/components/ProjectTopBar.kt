@@ -24,9 +24,9 @@ fun ProjectTopBar(
 			}
 		},
 		actions = {
-			IconButtonAction(Icons.Default.BookmarkBorder) {
+			/*IconButtonAction(Icons.Default.BookmarkBorder) {
 
-			}
+			}*/
 			IconButtonAction(Icons.Default.MoreVert) {
 
 			}

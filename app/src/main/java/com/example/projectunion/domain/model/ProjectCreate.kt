@@ -3,7 +3,6 @@ package com.example.projectunion.domain.model
 data class ProjectCreate (
 	val title: String,
 	val description: String,
-	val images: List<String>? = null,
 	val type: String,
 	val price: Int,
 	//val paymentSystem: String,

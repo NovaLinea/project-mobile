@@ -7,5 +7,9 @@ class GetMessagesUseCase(
 	private val repository: MessageRepository
 ) {
 
-	operator fun invoke(id: String, setListMessages: (List<MessageGet?>) -> Unit) = repository.getMessages(id, setListMessages)
+	operator fun invoke(
+		id: String,
+		setListMessages: (List<MessageGet?>) -> Unit,
+		addItemMessage: (MessageGet?) -> Unit
+	) = repository.getMessages(id, setListMessages, addItemMessage)
 }

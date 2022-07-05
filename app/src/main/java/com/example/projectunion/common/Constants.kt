@@ -151,5 +151,6 @@ object Constants {
 
 	// Other
 	const val TAG = "AppLog"
+	var countMessagesChat = 10
 	var USER = UserProfile()
 }

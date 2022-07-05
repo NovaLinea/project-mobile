@@ -1,7 +1,6 @@
 package com.example.projectunion.data.repository
 
 import android.util.Log
-import androidx.compose.runtime.rememberCoroutineScope
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.data.realtimeDB.RealtimeDB
@@ -14,8 +13,6 @@ import com.example.projectunion.domain.repository.MessageRepository
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
@@ -50,20 +47,19 @@ class MessageRepositoryImpl(
 	) {
 		listChats.forEachIndexed { index, chat ->
 			firestoreDB.getUserById(chat.userId).collect { response ->
-				when(response) {
-					is Response.Loading -> Log.d(TAG, "Loader")
-					is Response.Error -> Log.d(TAG, response.message)
-					is Response.Success -> {
-						listChats[index].userName = response.data?.name.toString()
-						listChats[index].userPhoto = response.data?.photo.toString()
-					}
+				if (response is Response.Success) {
+					listChats[index].userName = response.data?.name.toString()
+					listChats[index].userPhoto = response.data?.photo.toString()
 				}
 			}
 		}
 		setListChats(listChats)
 	}
 
-	override fun getMessages(id: String, setListMessages: (List<MessageGet?>) -> Unit) = realtimeDB.getMessages(id, setListMessages)
+	override fun getMessages(id: String,
+							 setListMessages: (List<MessageGet?>) -> Unit,
+							 addItemMessage: (MessageGet?) -> Unit
+	) = realtimeDB.getMessages(id, setListMessages, addItemMessage)
 
 	override fun sendMessage(message: MessageSend) = realtimeDB.sendMessage(message)
 }

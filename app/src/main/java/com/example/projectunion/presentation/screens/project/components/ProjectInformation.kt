@@ -44,7 +44,6 @@ fun ProjectInformation(
 		}
 
 		FeedbackProject(
-			likes = project.likes,
 			views = project.views
 		)
 	}

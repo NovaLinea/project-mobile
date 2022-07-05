@@ -1,6 +1,9 @@
 package com.example.projectunion.presentation.screens.messages
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.asTime
 import com.example.projectunion.domain.model.Chat
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.GetChatsUseCase
@@ -33,6 +36,8 @@ class MessagesViewModel @Inject constructor(
 	}
 
 	private fun setListChats(listChats: List<Chat>) {
+		//listChats.sortedByDescending { it.timestamp.toString().asTime() }
+		//Log.d(TAG, listChats.toString())
 		_state.postValue(Response.Success(listChats as MutableList<Chat>))
 	}
 }

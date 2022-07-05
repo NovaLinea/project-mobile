@@ -14,7 +14,6 @@ import com.example.projectunion.presentation.components.icon_button.IconButtonAc
 
 @Composable
 fun FeedbackProject(
-	likes: Int?,
 	views: Int?
 ) {
 	Row(

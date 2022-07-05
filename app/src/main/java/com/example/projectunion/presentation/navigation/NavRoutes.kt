@@ -59,5 +59,5 @@ sealed class MainNavRoute(val route: String, val title: String) {
 sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
 	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, Icons.Default.Home)
 	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, Icons.Default.Message)
-	object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, Icons.Default.Menu)
+	object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, Icons.Default.MoreHoriz)
 }

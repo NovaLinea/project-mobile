@@ -24,6 +24,7 @@ class ChatViewModel @Inject constructor(
 ): ViewModel() {
 
 	val message by lazy { MessageState() }
+	val messages = mutableListOf<MessageGet>()
 
 	private val _statePhoto = MutableLiveData<String?>()
 	val statePhoto: LiveData<String?> get() = _statePhoto
@@ -35,19 +36,17 @@ class ChatViewModel @Inject constructor(
 	val stateSend: LiveData<Response<Boolean>> get() = _stateSend
 
 	init {
-		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
-			getDataUser(userId)
-			getMessages(userId)
-		}
+		getDataUser()
+		getMessages()
 	}
 
-	private fun getDataUser(userId: String) {
-		viewModelScope.launch {
-			getUserByIdUseCase(userId).collect { response ->
-				when(response) {
-					is Response.Loading -> Log.d(TAG, "Loading data user")
-					is Response.Error -> Log.d(TAG, response.message)
-					is Response.Success -> {
+	private fun getDataUser() {
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
+			viewModelScope.launch {
+				getUserByIdUseCase(userId).collect { response ->
+					if (response is Response.Error)
+						Log.d(TAG, response.message)
+					else if (response is Response.Success) {
 						_statePhoto.postValue(response.data?.photo)
 					}
 				}
@@ -55,21 +54,33 @@ class ChatViewModel @Inject constructor(
 		}
 	}
 
-	private fun getMessages(userId: String) {
-		viewModelScope.launch {
-			getMessagesUseCase(
-				id = userId,
-				setListMessages = { listMessages ->
-					setListMessages(listMessages)
+	fun getMessages() {
+		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
+			viewModelScope.launch {
+				getMessagesUseCase(
+					id = userId,
+					setListMessages = { listMessages ->
+						setListMessages(listMessages)
+					},
+					addItemMessage = { itemMessage ->
+						addItemMessage(itemMessage)
+					}
+				).collect { response ->
+					_stateGet.postValue(response)
 				}
-			).collect { response ->
-				_stateGet.postValue(response)
 			}
 		}
 	}
 
 	private fun setListMessages(listMessages: List<MessageGet?>) {
 		_stateGet.postValue(Response.Success(listMessages as MutableList<MessageGet>))
+	}
+
+	private fun addItemMessage(itemMessage: MessageGet?) {
+		if (itemMessage != null) {
+			messages.add(itemMessage)
+		}
+		//_stateGet.postValue(Response.Success(messages))
 	}
 
 	fun sendMessage() {

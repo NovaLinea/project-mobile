@@ -24,6 +24,7 @@ import com.example.projectunion.common.Constants.MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_MESSAGES
 import com.example.projectunion.common.Constants.USER
+import com.example.projectunion.common.Constants.countMessagesChat
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -55,6 +56,7 @@ fun ChatScreen(
 
 	val listState = rememberLazyListState()
 	val scope = rememberCoroutineScope()
+	//var stateScrollToLastMessage = true
 
 	Scaffold(
 		topBar = {
@@ -80,6 +82,7 @@ fun ChatScreen(
 				onSend = {
 					if (viewModel.message.text.isNotEmpty()) {
 						viewModel.sendMessage()
+						//stateScrollToLastMessage = true
 					}
 				}
 			)
@@ -88,11 +91,66 @@ fun ChatScreen(
 		Box(
 			modifier = Modifier.padding(innerPadding)
 		) {
+			/*if (viewModel.messages.isNotEmpty()) {
+				scope.launch {
+					listState.animateScrollToItem(viewModel.messages.size)
+				}
+				LazyColumn(
+					state = listState,
+					modifier = Modifier
+						.fillMaxSize()
+						.background(colorResource(id = R.color.app_background)),
+					contentPadding = PaddingValues(all = 10.dp),
+					verticalArrangement = Arrangement.spacedBy(10.dp)
+				) {
+					Log.d(TAG, viewModel.messages.toString())
+					items(
+						items = viewModel.messages,
+						key = { message ->
+							message.id
+						}
+					) { message ->
+						var location = Arrangement.Start
+						if (USER.id == message.from)
+							location = Arrangement.End
+
+						MessageItem(
+							message = message.text,
+							time = message.timestamp,
+							locationArrangement = location
+						)
+					}
+				}
+			}
+			else {
+				Column(
+					modifier = Modifier
+						.fillMaxSize()
+						.background(colorResource(id = R.color.app_background)),
+					horizontalAlignment = Alignment.CenterHorizontally
+				) {
+					Text(
+						modifier = Modifier.padding(top = 170.dp),
+						text = TITLE_NO_MESSAGES,
+						style = MaterialTheme.typography.body2
+					)
+				}
+			}*/
 			when(stateGet) {
 				is Response.Loading -> Loader()
 				is Response.Error -> Log.d(TAG, stateGet.message)
 				is Response.Success -> {
 					if (stateGet.data.isNotEmpty()) {
+						/*if (listState.firstVisibleItemIndex < 3 && listState.firstVisibleItemIndex != 0) {
+							countMessagesChat += 10
+							viewModel.getMessages()
+						}
+						if (stateScrollToLastMessage) {
+							scope.launch {
+								listState.animateScrollToItem(stateGet.data.size)
+								stateScrollToLastMessage = false
+							}
+						}*/
 						scope.launch {
 							listState.animateScrollToItem(stateGet.data.size)
 						}

@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.Flow
 interface RealtimeDB{
 
 	fun getChats(setListChats: (List<Chat>) -> Unit): Flow<Response<List<Chat>>>
-	fun getMessages(id: String, setListMessages: (List<MessageGet?>) -> Unit): Flow<Response<List<MessageGet>>>
+	fun getMessages(id: String,
+					setListMessages: (List<MessageGet?>) -> Unit,
+					addItemMessage: (MessageGet?) -> Unit
+	): Flow<Response<List<MessageGet>>>
 	fun sendMessage(message: MessageSend): Flow<Response<Boolean>>
 }

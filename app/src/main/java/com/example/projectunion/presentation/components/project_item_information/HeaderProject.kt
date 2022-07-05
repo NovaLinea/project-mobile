@@ -59,13 +59,13 @@ fun HeaderProject(
 			}
 		}
 
-		Text(
+		/*Text(
 			text = "time",
 			style = TextStyle(
 				color = Color.DarkGray,
 				fontSize = 16.sp,
 				fontWeight = FontWeight.W500
 			)
-		)
+		)*/
 	}
 }

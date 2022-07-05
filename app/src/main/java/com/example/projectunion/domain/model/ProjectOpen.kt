@@ -10,7 +10,6 @@ data class ProjectOpen (
 	//val listStaff: List<String>,
 	val createdAt: Any = "",
 	val updatedAt: Any = "",
-	val likes: Int? = null,
 	val views: Int? = null,
 	val creatorID: String? = null,
 	var creatorName: String? = null,
