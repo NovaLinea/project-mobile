@@ -22,11 +22,12 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_PROJECTS
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.components.loader.Loader
+import com.example.projectunion.presentation.screens.home.components.ShimmerLoaderProjects
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
 import com.example.projectunion.presentation.screens.profile.components.ProfileInformation
 import com.example.projectunion.presentation.screens.profile.components.ProfileTopBar
+import com.example.projectunion.presentation.screens.profile.components.ShimmerLoaderProfile
 
 @Composable
 fun ProfileScreen(
@@ -57,7 +58,7 @@ fun ProfileScreen(
 		) {
 			item() {
 				when(stateProfile) {
-					is Response.Loading -> Loader()
+					is Response.Loading -> ShimmerLoaderProfile()
 					is Response.Error -> Log.d(TAG, stateProfile.message)
 					is Response.Success -> {
 						stateProfile.data?.let { user ->
@@ -80,9 +81,8 @@ fun ProfileScreen(
 			}
 
 			if (stateProjects is Response.Loading) {
-				item() {
-					Spacer(modifier = Modifier.height(20.dp))
-					Loader()
+				item {
+					ShimmerLoaderProjects()
 				}
 			}
 			if (stateProjects is Response.Success) {

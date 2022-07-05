@@ -19,11 +19,11 @@ import com.example.projectunion.common.Constants.MESSAGES_SCREEN
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_DIALOGS
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.components.top_bar.TopBar
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.messages.components.ChatItem
+import com.example.projectunion.presentation.screens.messages.components.ShimmerLoaderChats
 
 @Composable
 fun MessagesScreen(
@@ -37,7 +37,7 @@ fun MessagesScreen(
 		topBar = { TopBar(MESSAGES_SCREEN) },
 	) {
 		when(state) {
-			is Response.Loading -> Loader()
+			is Response.Loading -> ShimmerLoaderChats()
 			is Response.Success -> {
 				if (state.data.isNotEmpty()) {
 					LazyColumn(

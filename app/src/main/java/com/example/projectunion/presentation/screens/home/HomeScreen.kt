@@ -21,14 +21,13 @@ import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.MAIN_SCREEN
-import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.floating_button.FloatingButton
-import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
 import com.example.projectunion.presentation.components.top_bar.TopBar
 import com.example.projectunion.presentation.navigation.MainNavRoute
+import com.example.projectunion.presentation.screens.home.components.ShimmerLoaderProjects
 
 @Composable
 fun HomeScreen(
@@ -55,7 +54,7 @@ fun HomeScreen(
 		}
 	) {
 		when(state) {
-			is Response.Loading -> Loader()
+			is Response.Loading -> ShimmerLoaderProjects()
 			is Response.Error -> Log.d(TAG, state.message)
 			is Response.Success -> {
 				LazyColumn(
@@ -69,7 +68,8 @@ fun HomeScreen(
 							project = project,
 							openProfile = {
 								externalRouter.navigateTo(
-									MainNavRoute.Profile.route + "?$ARGUMENT_USER_ID_KEY=${project.creatorID.toString()}"
+									MainNavRoute.Profile.route
+											+ "?$ARGUMENT_USER_ID_KEY=${project.creatorID.toString()}"
 								)
 							},
 							openProject = {

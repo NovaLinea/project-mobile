@@ -14,11 +14,11 @@ import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
-import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.project.components.ProjectBottomBar
 import com.example.projectunion.presentation.screens.project.components.ProjectInformation
 import com.example.projectunion.presentation.screens.project.components.ProjectTopBar
+import com.example.projectunion.presentation.screens.project.components.ShimmerLoaderProject
 
 @Composable
 fun ProjectScreen(
@@ -56,7 +56,7 @@ fun ProjectScreen(
 				modifier = Modifier.padding(innerPadding)
 			) {
 				when(stateProject) {
-					is Response.Loading -> Loader()
+					is Response.Loading -> ShimmerLoaderProject()
 					is Response.Success -> {
 						if (stateProject.data != null) {
 							ProjectInformation(
