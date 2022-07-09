@@ -80,6 +80,7 @@ object Constants {
 	const val ABOUT_APP_SCREEN_ROUTE = "about_app_screen"
 	const val THEMES_SCREEN_ROUTE = "themes_screen"
 	const val CHAT_SCREEN_ROUTE = "chat_screen"
+	const val SPLASH_SCREEN_ROUTE = "splash_screen"
 
 	// Buttons
 	const val LOGIN = "Войти"
@@ -153,4 +154,5 @@ object Constants {
 	const val TAG = "AppLog"
 	var countMessagesChat = 10
 	var USER = UserProfile()
+	val NAME_APP = "С новой строки"
 }

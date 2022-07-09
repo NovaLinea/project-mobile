@@ -11,7 +11,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.projectunion.common.Constants
 import com.example.projectunion.common.Constants.ERROR_SERVER
 import com.example.projectunion.common.Constants.INVALID_USER
 import com.example.projectunion.common.Constants.INVALID_LOGIN_PASSWORD

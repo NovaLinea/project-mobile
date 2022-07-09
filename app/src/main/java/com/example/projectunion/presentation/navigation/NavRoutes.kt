@@ -35,6 +35,7 @@ import com.example.projectunion.common.Constants.SEARCH_SCREEN
 import com.example.projectunion.common.Constants.SEARCH_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.SPLASH_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.THEMES_SCREEN
 import com.example.projectunion.common.Constants.THEMES_SCREEN_ROUTE
 

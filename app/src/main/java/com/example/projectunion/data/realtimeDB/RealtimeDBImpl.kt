@@ -57,23 +57,6 @@ class RealtimeDBImpl(
 			emit(Response.Loading)
 
 			db.child("$NODE_MESSAGES/${USER.id}/$id")
-				//.limitToLast(countMessagesChat)
-				/*.addChildEventListener(object: ChildEventListener {
-
-					override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-						val message = snapshot.getValue(MessageGet::class.java)
-						if (message != null) {
-							message.id =  snapshot.key.toString()
-						}
-						addItemMessage(message)
-					}
-
-					override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-					override fun onChildRemoved(snapshot: DataSnapshot) {}
-					override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-					override fun onCancelled(error: DatabaseError) {}
-
-				})*/
 				.addValueEventListener(object: ValueEventListener {
 					override fun onDataChange(snapshot: DataSnapshot) {
 						val messages = snapshot.children.map { data ->

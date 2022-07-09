@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.navigation.nav_graph
 
-import android.util.Log
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
@@ -10,7 +9,6 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.MAIN_ROUTE
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.navigation.createRouter
 import com.example.projectunion.presentation.screens.about_app.AboutAppScreen
@@ -24,6 +22,7 @@ import com.example.projectunion.presentation.screens.profile.ProfileScreen
 import com.example.projectunion.presentation.screens.project.ProjectScreen
 import com.example.projectunion.presentation.screens.search.SearchScreen
 import com.example.projectunion.presentation.screens.settings.SettingsScreen
+import com.example.projectunion.presentation.screens.splash.SplashScreen
 import com.example.projectunion.presentation.screens.themes.ThemesScreen
 
 

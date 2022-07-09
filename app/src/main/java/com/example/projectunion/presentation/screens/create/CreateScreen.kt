@@ -22,7 +22,6 @@ import com.example.projectunion.presentation.screens.create.components.create_te
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
 import com.example.projectunion.presentation.screens.create.components.CreateTopBar
 
-
 @Composable
 fun CreateScreen(
 	typeProject: String,
