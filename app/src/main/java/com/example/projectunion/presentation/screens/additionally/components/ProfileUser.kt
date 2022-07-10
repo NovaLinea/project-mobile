@@ -47,7 +47,8 @@ fun ProfileUser(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color.LightGray),
+                            .background(Color.LightGray)
+                            .clickable { onClick() },
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -61,7 +62,7 @@ fun ProfileUser(
                     ImagePainter(
                         imageUrl = photo,
                         isCircle = true,
-                        onClick = {}
+                        onClick = { onClick() }
                     )
                 }
             }

@@ -2,6 +2,7 @@ package com.example.projectunion.presentation.screens.home.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -32,8 +33,9 @@ fun ProjectItem(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(
-                modifier = Modifier.padding(15.dp)
+                modifier = Modifier.padding(horizontal = 15.dp)
             ) {
+                Spacer(modifier = Modifier.height(15.dp))
                 HeaderProject(
                     creatorName = project.creatorName,
                     creatorPhoto = project.creatorPhoto,
@@ -51,22 +53,11 @@ fun ProjectItem(
                         description = project.description,
                         maxLines = 5
                     )
-
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 10.dp)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.BottomEnd
-                    ) {
-                        Text(
-                            text = "${project.price}₽",
-                            style = MaterialTheme.typography.h6
-                        )
-                    }
                 }
             }
 
             project.images?.let { images ->
+                Spacer(modifier = Modifier.height(15.dp))
                 Box(
                     modifier = Modifier
                         .height(250.dp)
@@ -78,6 +69,19 @@ fun ProjectItem(
                         onClick = { openProject() }
                     )
                 }
+            }
+
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 10.dp, horizontal = 15.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End
+            ) {
+                Text(
+                    text = "${project.price}₽",
+                    style = MaterialTheme.typography.h6
+                )
             }
         }
     }
