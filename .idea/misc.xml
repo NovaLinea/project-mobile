@@ -32,7 +32,11 @@
         <entry key="../../../../../../layout/compose-model-1657051420707.xml" value="0.33" />
         <entry key="../../../../../../layout/compose-model-1657375098805.xml" value="0.33" />
         <entry key="../../../../../../layout/compose-model-1657375392174.xml" value="1.0" />
-        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.1725" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.13" />
+        <entry key="app/src/main/res/drawable/ic_home_fill.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_home_outline.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_messages.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_more_horiz.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/ic_photo.xml" value="0.1215" />
       </map>
     </option>

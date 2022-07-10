@@ -6,11 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
 import com.example.projectunion.presentation.navigation.BottomNavRoute
@@ -65,12 +64,15 @@ fun BottomBar(
 		elevation = 5.dp
 	) {
 		screens.forEach { screen ->
+			val currentRoute = navBackStackEntry?.destination?.route;
+			val selected = currentRoute == screen.route
+
 			AddItem(
 				screen = screen,
-				currentDestination = currentDestination,
 				navController = navController,
 				externalRouter = externalRouter,
-				isAuth = isAuth
+				isAuth = isAuth,
+				selected = selected
 			)
 		}
 	}
@@ -79,18 +81,20 @@ fun BottomBar(
 @Composable
 fun RowScope.AddItem(
 	screen: BottomNavRoute,
-	currentDestination: NavDestination?,
 	navController: NavController,
 	externalRouter: Router,
-	isAuth: Boolean
+	isAuth: Boolean,
+	selected: Boolean
 ) {
 	BottomNavigationItem(
 		icon = {
-			Icon(imageVector = screen.icon, contentDescription = "Navigation icon")
+			Icon(
+				painter = if (selected) painterResource(id = screen.icon_selected) else painterResource(id = screen.icon_default),
+				contentDescription = null,
+				tint = if (selected) Color.Black else Color.DarkGray
+			)
 		},
-		selected = currentDestination?.hierarchy?.any {
-			it.route == screen.route
-		} == true,
+		selected = selected,
 		onClick = {
 			if (!isAuth && screen.route != BottomNavRoute.Home.route)
 				externalRouter.navigateTo(AUTHENTICATION_ROUTE)

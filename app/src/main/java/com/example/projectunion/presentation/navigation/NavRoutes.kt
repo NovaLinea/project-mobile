@@ -1,8 +1,6 @@
 package com.example.projectunion.presentation.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.projectunion.R
 import com.example.projectunion.common.Constants.ABOUT_APP_SCREEN
 import com.example.projectunion.common.Constants.ABOUT_APP_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
@@ -35,7 +33,6 @@ import com.example.projectunion.common.Constants.SEARCH_SCREEN
 import com.example.projectunion.common.Constants.SEARCH_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN_ROUTE
-import com.example.projectunion.common.Constants.SPLASH_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.THEMES_SCREEN
 import com.example.projectunion.common.Constants.THEMES_SCREEN_ROUTE
 
@@ -57,8 +54,8 @@ sealed class MainNavRoute(val route: String, val title: String) {
 	object Chat: MainNavRoute(CHAT_SCREEN_ROUTE, CHAT_SCREEN)
 }
 
-sealed class BottomNavRoute(val route: String, val title: String, val icon: ImageVector) {
-	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, Icons.Default.Home)
-	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, Icons.Default.Message)
-	object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, Icons.Default.MoreHoriz)
+sealed class BottomNavRoute(val route: String, val title: String, val icon_default: Int, val icon_selected: Int) {
+	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, R.drawable.ic_home_outline, R.drawable.ic_home_fill)
+	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, R.drawable.ic_messages_outline, R.drawable.ic_messages_fill)
+	object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, R.drawable.ic_more_horiz, R.drawable.ic_more_horiz)
 }

@@ -49,7 +49,7 @@ fun ProjectItem(
                     BodyProject(
                         title = project.title,
                         description = project.description,
-                        maxLines = 10
+                        maxLines = 5
                     )
 
                     Box(
