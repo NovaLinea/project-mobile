@@ -48,7 +48,7 @@ fun BottomBar(
 	)
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
-	val currentDestination = navBackStackEntry?.destination
+	val currentRoute = navBackStackEntry?.destination?.route
 
 	BottomNavigation(
 		modifier = Modifier
@@ -64,15 +64,12 @@ fun BottomBar(
 		elevation = 5.dp
 	) {
 		screens.forEach { screen ->
-			val currentRoute = navBackStackEntry?.destination?.route;
-			val selected = currentRoute == screen.route
-
 			AddItem(
 				screen = screen,
 				navController = navController,
 				externalRouter = externalRouter,
 				isAuth = isAuth,
-				selected = selected
+				selected = currentRoute == screen.route
 			)
 		}
 	}

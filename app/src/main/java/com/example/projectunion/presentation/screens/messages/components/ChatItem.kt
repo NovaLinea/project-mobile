@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.asTime
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
+import com.example.projectunion.presentation.ui.theme.Raleway
 
 @Composable
 fun ChatItem(
@@ -72,7 +73,7 @@ fun ChatItem(
 			}
 			Column(
 				modifier = Modifier
-					.padding(start = 12.dp, top = 4.dp, end = 10.dp)
+					.padding(start = 12.dp, top = 3.dp, end = 10.dp)
 					.fillMaxWidth(),
 				verticalArrangement = Arrangement.SpaceBetween
 			) {
@@ -85,6 +86,7 @@ fun ChatItem(
 						text = userName,
 						style = TextStyle(
 							color = Color.Black,
+							fontFamily = Raleway,
 							fontSize = 17.sp,
 							fontWeight = FontWeight.W600
 						)
@@ -94,7 +96,8 @@ fun ChatItem(
 						text = timestamp.toString().asTime(),
 						style = TextStyle(
 							color = Color.DarkGray,
-							fontWeight = FontWeight.Normal,
+							fontFamily = Raleway,
+							fontWeight = FontWeight.W400,
 							fontSize = 13.sp
 						)
 					)

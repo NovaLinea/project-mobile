@@ -22,7 +22,6 @@ import com.example.projectunion.presentation.screens.profile.ProfileScreen
 import com.example.projectunion.presentation.screens.project.ProjectScreen
 import com.example.projectunion.presentation.screens.search.SearchScreen
 import com.example.projectunion.presentation.screens.settings.SettingsScreen
-import com.example.projectunion.presentation.screens.splash.SplashScreen
 import com.example.projectunion.presentation.screens.themes.ThemesScreen
 
 

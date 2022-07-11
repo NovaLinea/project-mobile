@@ -8,7 +8,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
@@ -21,6 +24,7 @@ import com.example.projectunion.presentation.screens.create.components.CreateBot
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
 import com.example.projectunion.presentation.screens.create.components.CreateTopBar
+import com.example.projectunion.presentation.ui.theme.Raleway
 
 @Composable
 fun CreateScreen(
@@ -51,7 +55,6 @@ fun CreateScreen(
 				images = viewModel.images,
 				enabledCreate = state != Response.Loading
 						&& viewModel.title.isValidText()
-						&& viewModel.description.isValidText()
 						&& viewModel.price.isValidText(),
 				onClickCreate = {
 					viewModel.createProject()
@@ -78,7 +81,11 @@ fun CreateScreen(
 							else
 								viewModel.title.text = it.substring(0, maxCharTitle)
 						},
-						textStyle = MaterialTheme.typography.h5
+						textStyle = TextStyle(
+							fontFamily = Raleway,
+							fontWeight = FontWeight.W600,
+							fontSize = 22.sp
+						)
 					)
 
 					Spacer(modifier = Modifier.height(15.dp))
@@ -98,7 +105,11 @@ fun CreateScreen(
 							}
 						},
 						isPlaceholderVisible = viewModel.price.text.isEmpty(),
-						textStyle = MaterialTheme.typography.body1
+						textStyle = TextStyle(
+							fontFamily = Raleway,
+							fontWeight = FontWeight.W400,
+							fontSize = 16.sp
+						)
 					)
 
 					Spacer(modifier = Modifier.height(15.dp))
@@ -113,7 +124,11 @@ fun CreateScreen(
 							else
 								viewModel.description.text = it.substring(0, maxCharDescription)
 						},
-						textStyle = MaterialTheme.typography.body1
+						textStyle = TextStyle(
+							fontFamily = Raleway,
+							fontWeight = FontWeight.W400,
+							fontSize = 16.sp
+						)
 					)
 				}
 			}

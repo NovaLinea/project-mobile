@@ -1,6 +1,5 @@
 package com.example.projectunion.presentation.components.project_item_information
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -12,8 +11,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
+import com.example.projectunion.presentation.ui.theme.Raleway
 
 @Composable
 fun HeaderProject(
@@ -28,15 +27,14 @@ fun HeaderProject(
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Row(
-			modifier = Modifier
-				.clickable { onClickCreator() },
+			modifier = Modifier.clickable { onClickCreator() },
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			creatorPhoto?.let { photo ->
 				Box(
 					modifier = Modifier
-						.height(25.dp)
-						.width(25.dp),
+						.height(20.dp)
+						.width(20.dp),
 					contentAlignment = Alignment.Center,
 				) {
 					ImagePainter(
@@ -52,7 +50,8 @@ fun HeaderProject(
 					modifier = Modifier.padding(start = 10.dp),
 					style = TextStyle(
 						color = Color.DarkGray,
-						fontSize = 16.sp,
+						fontFamily = Raleway,
+						fontSize = 15.sp,
 						fontWeight = FontWeight.W500
 					)
 				)

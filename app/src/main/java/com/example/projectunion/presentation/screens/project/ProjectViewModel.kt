@@ -61,14 +61,19 @@ class ProjectViewModel @Inject constructor(
         savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { toID ->
             viewModelScope.launch {
                 USER.id?.let { fromID ->
-                    val messageSend = MessageSend(
-                        text = BUY_PROJECT_MESSAGE,
-                        from = fromID,
-                        to = toID,
-                        type = TYPE_MESSAGE_TEXT
-                    )
-                    sendMessageUseCase(messageSend).collect { response ->
-                        _stateSend.postValue(response)
+                    if (toID != fromID) {
+                        val messageSend = MessageSend(
+                            text = BUY_PROJECT_MESSAGE,
+                            from = fromID,
+                            to = toID,
+                            type = TYPE_MESSAGE_TEXT
+                        )
+                        sendMessageUseCase(messageSend).collect { response ->
+                            _stateSend.postValue(response)
+                        }
+                    }
+                    else {
+                        // Вы не можете купить свой проект
                     }
                 }
             }
