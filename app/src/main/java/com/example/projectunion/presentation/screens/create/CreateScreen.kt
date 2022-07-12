@@ -24,7 +24,7 @@ import com.example.projectunion.presentation.screens.create.components.CreateBot
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
 import com.example.projectunion.presentation.screens.create.components.CreateTopBar
-import com.example.projectunion.presentation.ui.theme.Raleway
+import com.example.projectunion.presentation.ui.theme.OpenSans
 
 @Composable
 fun CreateScreen(
@@ -82,7 +82,7 @@ fun CreateScreen(
 								viewModel.title.text = it.substring(0, maxCharTitle)
 						},
 						textStyle = TextStyle(
-							fontFamily = Raleway,
+							fontFamily = OpenSans,
 							fontWeight = FontWeight.W600,
 							fontSize = 22.sp
 						)
@@ -106,7 +106,7 @@ fun CreateScreen(
 						},
 						isPlaceholderVisible = viewModel.price.text.isEmpty(),
 						textStyle = TextStyle(
-							fontFamily = Raleway,
+							fontFamily = OpenSans,
 							fontWeight = FontWeight.W400,
 							fontSize = 16.sp
 						)
@@ -125,7 +125,7 @@ fun CreateScreen(
 								viewModel.description.text = it.substring(0, maxCharDescription)
 						},
 						textStyle = TextStyle(
-							fontFamily = Raleway,
+							fontFamily = OpenSans,
 							fontWeight = FontWeight.W400,
 							fontSize = 16.sp
 						)

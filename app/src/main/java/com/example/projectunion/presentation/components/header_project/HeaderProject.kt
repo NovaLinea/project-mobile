@@ -1,4 +1,4 @@
-package com.example.projectunion.presentation.components.project_item_information
+package com.example.projectunion.presentation.components.header_project
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
-import com.example.projectunion.presentation.ui.theme.Raleway
+import com.example.projectunion.presentation.ui.theme.*
 
 @Composable
 fun HeaderProject(
@@ -50,7 +50,7 @@ fun HeaderProject(
 					modifier = Modifier.padding(start = 10.dp),
 					style = TextStyle(
 						color = Color.DarkGray,
-						fontFamily = Raleway,
+						fontFamily = OpenSans,
 						fontSize = 15.sp,
 						fontWeight = FontWeight.W500
 					)

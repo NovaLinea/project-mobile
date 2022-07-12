@@ -7,8 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.projectunion.domain.model.ProjectOpen
-import com.example.projectunion.presentation.components.project_item_information.BodyProject
-import com.example.projectunion.presentation.components.project_item_information.HeaderProject
+import com.example.projectunion.presentation.components.header_project.HeaderProject
 
 @Composable
 fun ProjectInformation(

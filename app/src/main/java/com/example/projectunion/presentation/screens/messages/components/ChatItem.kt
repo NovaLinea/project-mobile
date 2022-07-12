@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -21,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.asTime
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
-import com.example.projectunion.presentation.ui.theme.Raleway
+import com.example.projectunion.presentation.ui.theme.OpenSans
 
 @Composable
 fun ChatItem(
@@ -86,7 +85,7 @@ fun ChatItem(
 						text = userName,
 						style = TextStyle(
 							color = Color.Black,
-							fontFamily = Raleway,
+							fontFamily = OpenSans,
 							fontSize = 17.sp,
 							fontWeight = FontWeight.W600
 						)
@@ -96,7 +95,7 @@ fun ChatItem(
 						text = timestamp.toString().asTime(),
 						style = TextStyle(
 							color = Color.DarkGray,
-							fontFamily = Raleway,
+							fontFamily = OpenSans,
 							fontWeight = FontWeight.W400,
 							fontSize = 13.sp
 						)

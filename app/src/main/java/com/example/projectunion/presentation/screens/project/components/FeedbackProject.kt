@@ -9,8 +9,13 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.projectunion.presentation.components.icon_button.IconButtonAction
+import com.example.projectunion.presentation.ui.theme.OpenSans
 
 @Composable
 fun FeedbackProject(
@@ -18,7 +23,7 @@ fun FeedbackProject(
 ) {
 	Row(
 		modifier = Modifier
-			.padding(start = 5.dp, top = 10.dp, end = 15.dp, bottom = 10.dp)
+			.padding(end = 15.dp, bottom = 15.dp)
 			.fillMaxWidth(),
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.End
@@ -50,12 +55,18 @@ fun FeedbackProject(
 		) {
 			Icon(
 				imageVector = Icons.Default.RemoveRedEye,
-				contentDescription = null
+				contentDescription = null,
+				tint = Color.DarkGray
 			)
 			Text(
 				modifier = Modifier.padding(start = 5.dp),
 				text = "$views",
-				style = MaterialTheme.typography.body1
+				style = TextStyle(
+					fontFamily = OpenSans,
+					fontWeight = FontWeight.W400,
+					fontSize = 16.sp
+				),
+				color = Color.DarkGray
 			)
 		}
 	}

@@ -8,6 +8,7 @@ import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CheckAuthorizedUseCase
 import com.example.projectunion.domain.use_case.GetProjectsUseCase
+import com.example.projectunion.presentation.components.search_field.SearchState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +23,8 @@ class HomeViewModel @Inject constructor(
 
 	private val _state = MutableLiveData<Response<List<ProjectTape>>>()
 	val state: LiveData<Response<List<ProjectTape>>> get() = _state
+
+	val search by lazy { SearchState() }
 
 	init {
 		getProjects()
