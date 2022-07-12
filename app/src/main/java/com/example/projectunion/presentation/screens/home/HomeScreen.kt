@@ -59,7 +59,7 @@ fun HomeScreen(
 		) {
 			Row(
 				modifier = Modifier
-					.padding(top = 15.dp, bottom = 5.dp, start = 12.dp, end = 12.dp)
+					.padding(top = 12.dp, bottom = 3.dp, start = 12.dp, end = 12.dp)
 					.fillMaxWidth()
 			) {
 				SearchField(

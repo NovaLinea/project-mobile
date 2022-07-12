@@ -25,7 +25,7 @@ fun BodyProject(
 				style = TextStyle(
 					fontFamily = OpenSans,
 					fontWeight = FontWeight.W600,
-					fontSize = 17.sp
+					fontSize = 18.sp
 				),
 				overflow = TextOverflow.Ellipsis,
 				letterSpacing = 0.2.sp,

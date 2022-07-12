@@ -57,7 +57,7 @@ fun SearchField(
 					color = Color.Black,
 					fontFamily = OpenSans,
 					fontSize = 16.sp,
-					fontWeight = FontWeight.W500
+					fontWeight = FontWeight.W400
 				),
 				decorationBox = { innerTextField ->
 					Row() {
@@ -68,7 +68,7 @@ fun SearchField(
 									color = Color.DarkGray,
 									fontFamily = OpenSans,
 									fontSize = 16.sp,
-									fontWeight = FontWeight.W500
+									fontWeight = FontWeight.W400
 								)
 							)
 						}

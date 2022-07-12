@@ -52,7 +52,7 @@ object Constants {
 	const val PROFILE_SCREEN = "Профиль"
 	const val NOTIFICATIONS_SCREEN = "Уведомления"
 	const val SEARCH_SCREEN = "Поиск"
-	const val CREATE_SCREEN = "Создание проекта"
+	const val CREATE_SCREEN = "Новый проект"
 	const val SETTINGS_SCREEN = "Настройки"
 	const val FAVORITES_SCREEN = "Избранное"
 	const val HOME_SCREEN = "Домашняя"

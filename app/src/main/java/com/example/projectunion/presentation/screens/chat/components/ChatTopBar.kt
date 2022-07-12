@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.projectunion.common.Constants
 import com.example.projectunion.presentation.components.icon_button.IconButtonAction
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 
@@ -27,7 +28,75 @@ fun ChatTopBar(
 	onClickBack: () -> Unit,
 	onClickUser: () -> Unit
 ) {
-	TopAppBar(
+	Box(
+		modifier = Modifier
+			.height(55.dp)
+			.fillMaxWidth()
+	) {
+		Box(
+			modifier = Modifier
+				.padding(start = 5.dp)
+				.fillMaxSize(),
+			contentAlignment = Alignment.CenterStart
+		) {
+			IconButtonAction(Icons.Default.ArrowBack) {
+				onClickBack()
+			}
+		}
+
+		Box(
+			modifier = Modifier.fillMaxSize(),
+			contentAlignment = Alignment.Center
+		) {
+			Text(
+				modifier = Modifier.padding(start = 10.dp),
+				text = title,
+				style = TextStyle(
+					color = Color.Black,
+					fontWeight = FontWeight.W500,
+					fontSize = 18.sp
+				)
+			)
+		}
+
+		Box(
+			modifier = Modifier
+				.padding(end = 15.dp)
+				.fillMaxSize(),
+			contentAlignment = Alignment.CenterEnd
+		) {
+			Card(
+				modifier = Modifier
+					.height(35.dp)
+					.width(35.dp),
+				shape = CircleShape,
+				elevation = 0.dp,
+			) {
+				if (photo == null) {
+					Box(
+						modifier = Modifier
+							.fillMaxSize()
+							.background(Color.LightGray),
+						contentAlignment = Alignment.Center
+					) {
+						Icon(
+							modifier = Modifier.padding(5.dp),
+							imageVector = Icons.Default.Person,
+							contentDescription = null
+						)
+					}
+				} else {
+					ImagePainter(
+						imageUrl = photo,
+						isCircle = true,
+						onClick = { onClickUser() }
+					)
+				}
+			}
+		}
+	}
+
+	/*TopAppBar(
 		title = {
 			Row(
 				modifier = Modifier.clickable {
@@ -64,29 +133,6 @@ fun ChatTopBar(
 						)
 					}
 				}
-
-				Text(
-					modifier = Modifier.padding(start = 10.dp),
-					text = title,
-					style = TextStyle(
-						color = Color.Black,
-						fontWeight = FontWeight.W500,
-						fontSize = 18.sp
-					)
-				)
-			}
 		},
-		navigationIcon = {
-			IconButtonAction(Icons.Default.ArrowBack) {
-				onClickBack()
-			}
-		},
-		actions = {
-			IconButtonAction(Icons.Default.MoreVert) {
-
-			}
-		},
-		backgroundColor = Color.White,
-		elevation = 0.dp
-	)
+	)*/
 }

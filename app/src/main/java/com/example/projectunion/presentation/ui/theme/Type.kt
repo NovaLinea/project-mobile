@@ -28,15 +28,10 @@ val Typography = Typography(
 		fontSize = 16.sp,
 		color = Color.DarkGray
 	),
-	h5 = TextStyle(
-		fontFamily = OpenSans,
-		fontWeight = FontWeight.W600,
-		fontSize = 22.sp
-	),
 	h6 = TextStyle(
 		fontFamily = OpenSans,
 		fontWeight = FontWeight.W600,
-		fontSize = 20.sp
+		fontSize = 19.sp
 	),
 	caption = TextStyle(
 		fontFamily = OpenSans,
@@ -56,7 +51,7 @@ val Typography = Typography(
 	),
     button = TextStyle(
         fontFamily = OpenSans,
-        fontWeight = FontWeight.W700,
+        fontWeight = FontWeight.W600,
         fontSize = 16.sp
     ),
 )

@@ -23,14 +23,14 @@ fun ProjectTopBar(
 				navController.popBackStack()
 			}
 		},
-		actions = {
-			/*IconButtonAction(Icons.Default.BookmarkBorder) {
+		/*actions = {
+			IconButtonAction(Icons.Default.BookmarkBorder) {
 
-			}*/
+			}
 			IconButtonAction(Icons.Default.MoreVert) {
 
 			}
-		},
+		},*/
 		backgroundColor = Color.White,
 		elevation = 0.dp
 	)

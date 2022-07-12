@@ -13,10 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
 import com.example.projectunion.common.Constants.TITLE_TYPE_PROJECT
 import com.example.projectunion.common.Constants.TYPE_PROJECT_DONATE_TEXT
@@ -52,11 +49,7 @@ fun HomeCreateBottomSheet(
                 ) {
                     Text(
                         text = TITLE_TYPE_PROJECT,
-                        style = TextStyle(
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        )
+                        style = MaterialTheme.typography.h6
                     )
                 }
 

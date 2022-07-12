@@ -68,7 +68,7 @@ fun CreateScreen(
 			) {
 				Column(
 					modifier = Modifier
-						.padding(horizontal = 15.dp, vertical = 10.dp)
+						.padding(horizontal = 15.dp, vertical = 5.dp)
 						.verticalScroll(rememberScrollState())
 				) {
 					CreateTextField(
@@ -81,11 +81,7 @@ fun CreateScreen(
 							else
 								viewModel.title.text = it.substring(0, maxCharTitle)
 						},
-						textStyle = TextStyle(
-							fontFamily = OpenSans,
-							fontWeight = FontWeight.W600,
-							fontSize = 22.sp
-						)
+						textStyle = MaterialTheme.typography.h6
 					)
 
 					Spacer(modifier = Modifier.height(15.dp))
@@ -104,11 +100,10 @@ fun CreateScreen(
 								}
 							}
 						},
-						isPlaceholderVisible = viewModel.price.text.isEmpty(),
 						textStyle = TextStyle(
 							fontFamily = OpenSans,
 							fontWeight = FontWeight.W400,
-							fontSize = 16.sp
+							fontSize = 17.sp
 						)
 					)
 

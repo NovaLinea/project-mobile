@@ -3,6 +3,7 @@ package com.example.projectunion.presentation.screens.project.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,11 +23,7 @@ fun BodyProject(
 		title?.let {
 			Text(
 				text = it,
-				style = TextStyle(
-					fontFamily = OpenSans,
-					fontWeight = FontWeight.W600,
-					fontSize = 19.sp
-				),
+				style = MaterialTheme.typography.h6,
 				overflow = TextOverflow.Ellipsis,
 				letterSpacing = 0.2.sp,
 				lineHeight = 25.sp
