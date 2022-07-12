@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.projectunion.domain.model.ProjectOpen
-import com.example.projectunion.presentation.components.header_project.HeaderProject
+import com.example.projectunion.presentation.components.creator_project.CreatorProject
 
 @Composable
 fun ProjectInformation(
@@ -22,11 +22,10 @@ fun ProjectInformation(
 		Column(
 			modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)
 		) {
-			HeaderProject(
+			CreatorProject(
 				creatorName = project.creatorName,
 				creatorPhoto = project.creatorPhoto,
-				onClickCreator = { onClickCreator() },
-				time = project.createdAt
+				onClickCreator = { onClickCreator() }
 			)
 
 			Spacer(modifier = Modifier.height(10.dp))

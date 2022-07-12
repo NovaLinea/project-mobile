@@ -16,8 +16,7 @@ import com.example.projectunion.presentation.ui.theme.*
 @Composable
 fun BodyProject(
 	title: String?,
-	description: String?,
-	price: Int?
+	description: String?
 ) {
 	Column() {
 		title?.let {
@@ -31,18 +30,6 @@ fun BodyProject(
 				overflow = TextOverflow.Ellipsis,
 				letterSpacing = 0.2.sp,
 				lineHeight = 25.sp
-			)
-		}
-
-		price?.let {
-			Spacer(modifier = Modifier.height(5.dp))
-			Text(
-				text = "$price ₽",
-				style = TextStyle(
-					fontFamily = OpenSans,
-					fontWeight = FontWeight.W400,
-					fontSize = 16.sp
-				)
 			)
 		}
 
