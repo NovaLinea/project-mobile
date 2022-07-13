@@ -54,7 +54,7 @@ fun ProfileScreen(
 			state = listState,
 			modifier = Modifier
 				.fillMaxSize()
-				.background(colorResource(id = R.color.app_background))
+				.background(colorResource(id = R.color.background_tape))
 		) {
 			item() {
 				when(stateProfile) {

@@ -2,13 +2,19 @@ package com.example.projectunion.presentation.screens.themes
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import com.example.projectunion.common.Constants.THEMES_SCREEN
-import com.example.projectunion.presentation.components.top_bar.TopBar
+import androidx.navigation.NavController
+import com.example.projectunion.presentation.screens.themes.components.ThemesTopBar
 
 @Composable
-fun ThemesScreen() {
+fun ThemesScreen(
+	navController: NavController
+) {
 	Scaffold(
-		topBar = { TopBar(title = THEMES_SCREEN) },
+		topBar = {
+			ThemesTopBar() {
+				navController.popBackStack()
+			}
+		},
 	) {
 
 	}

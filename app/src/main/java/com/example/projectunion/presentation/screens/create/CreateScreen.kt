@@ -49,7 +49,11 @@ fun CreateScreen(
 	val maxCharDescription = 10000
 
 	Scaffold(
-		topBar = { CreateTopBar(navController) },
+		topBar = {
+			CreateTopBar() {
+				navController.popBackStack()
+			}
+		 },
 		bottomBar = {
 			CreateBottomBar(
 				images = viewModel.images,

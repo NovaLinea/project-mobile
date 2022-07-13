@@ -171,7 +171,7 @@ fun NavGraphBuilder.mainNavGraph(
 		composable(route = MainNavRoute.Search.route) { SearchScreen() }
 		composable(route = MainNavRoute.Favorites.route) { FavoritesScreen() }
 		composable(route = MainNavRoute.Notifications.route) { NotificationsScreen() }
-		composable(route = MainNavRoute.Themes.route) { ThemesScreen() }
-		composable(route = MainNavRoute.AboutApp.route) { AboutAppScreen() }
+		composable(route = MainNavRoute.Themes.route) { ThemesScreen(navController) }
+		composable(route = MainNavRoute.AboutApp.route) { AboutAppScreen(navController) }
 	}
 }
