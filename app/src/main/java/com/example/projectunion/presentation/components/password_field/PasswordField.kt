@@ -17,6 +17,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
 import com.example.projectunion.common.Constants.PASSWORD_PLACEHOLDER
 import com.example.projectunion.presentation.components.error_field.ErrorField
+import com.example.projectunion.presentation.ui.theme.OpenSans
 
 @Composable
 fun Password(
@@ -50,14 +52,19 @@ fun Password(
 		placeholder = {
 			Text(
 				text = PASSWORD_PLACEHOLDER,
-				style = MaterialTheme.typography.subtitle1
+				style = TextStyle(
+					color = Color.DarkGray,
+					fontFamily = OpenSans,
+					fontSize = 17.sp,
+					fontWeight = FontWeight.W500
+				)
 			)
 		},
 		trailingIcon = {
 			IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
 				Icon(
 					imageVector = iconVisibility,
-					contentDescription = "Visibility icon"
+					contentDescription = null
 				)
 			}
 		},
@@ -70,7 +77,12 @@ fun Password(
 		),
 		visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
 		singleLine = true,
-		textStyle = MaterialTheme.typography.subtitle1,
+		textStyle = TextStyle(
+			color = Color.Black,
+			fontFamily = OpenSans,
+			fontSize = 17.sp,
+			fontWeight = FontWeight.W500
+		),
 		shape = RoundedCornerShape(10.dp),
 		colors = TextFieldDefaults.textFieldColors(
 			disabledTextColor = Color.Transparent,

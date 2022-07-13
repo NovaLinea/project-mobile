@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -83,12 +84,7 @@ fun ChatItem(
 				) {
 					Text(
 						text = userName,
-						style = TextStyle(
-							color = Color.Black,
-							fontFamily = OpenSans,
-							fontSize = 17.sp,
-							fontWeight = FontWeight.W600
-						)
+						style = MaterialTheme.typography.subtitle1
 					)
 
 					Text(
@@ -110,7 +106,7 @@ fun ChatItem(
 						overflow = TextOverflow.Ellipsis,
 						style = TextStyle(
 							color = Color.DarkGray,
-							fontWeight = FontWeight.Normal,
+							fontWeight = FontWeight.W400,
 							fontSize = 15.sp
 						)
 					)

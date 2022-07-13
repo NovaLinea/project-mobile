@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -32,7 +33,8 @@ fun MainDataUser(
 				.fillMaxWidth()
 				.padding(horizontal = 30.dp),
 			textAlign = TextAlign.Center,
-			style = MaterialTheme.typography.body2
+			style = MaterialTheme.typography.body2,
+			color = Color.DarkGray
 		)
 	}
 }

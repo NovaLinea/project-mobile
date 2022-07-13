@@ -25,13 +25,17 @@ val Typography = Typography(
 	body2 = TextStyle(
 		fontFamily = OpenSans,
 		fontWeight = FontWeight.W400,
-		fontSize = 16.sp,
-		color = Color.DarkGray
+		fontSize = 16.sp
 	),
 	h6 = TextStyle(
 		fontFamily = OpenSans,
 		fontWeight = FontWeight.W600,
 		fontSize = 19.sp
+	),
+	h3 = TextStyle(
+		fontFamily = OpenSans,
+		fontWeight = FontWeight.W600,
+		fontSize = 25.sp
 	),
 	caption = TextStyle(
 		fontFamily = OpenSans,

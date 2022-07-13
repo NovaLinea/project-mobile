@@ -7,12 +7,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ERROR_SERVER
@@ -33,7 +29,6 @@ import com.example.projectunion.presentation.components.button_action.ButtonActi
 import com.example.projectunion.presentation.components.close_button.CloseButton
 import com.example.projectunion.presentation.components.error_field.ErrorField
 import com.example.projectunion.presentation.components.text_button_action.TextButtonAction
-import com.example.projectunion.presentation.ui.theme.OpenSans
 
 @Composable
 fun LoginScreen(
@@ -69,12 +64,7 @@ fun LoginScreen(
 		) {
 			Text(
 				text = LOGIN_SCREEN,
-				style = TextStyle(
-					color = Color.Black,
-					fontFamily = OpenSans,
-					fontSize = 25.sp,
-					fontWeight = FontWeight.W600
-				)
+				style = MaterialTheme.typography.h3
 			)
 			Spacer(modifier = Modifier.height(30.dp))
 

@@ -7,12 +7,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projectunion.presentation.ui.theme.*
 
 @Composable
 fun BodyProject(
@@ -34,11 +31,7 @@ fun BodyProject(
 			Spacer(modifier = Modifier.height(3.dp))
 			Text(
 				text = description,
-				style = TextStyle(
-					fontFamily = OpenSans,
-					fontWeight = FontWeight.W400,
-					fontSize = 16.sp
-				),
+				style = MaterialTheme.typography.body2,
 				overflow = TextOverflow.Ellipsis,
 				letterSpacing = 0.2.sp,
 				lineHeight = 25.sp

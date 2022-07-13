@@ -4,19 +4,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.components.creator_project.CreatorProject
-import com.example.projectunion.presentation.ui.theme.OpenSans
 
 @Composable
 fun ProjectItem(
@@ -55,11 +52,7 @@ fun ProjectItem(
                     project.price?.let {
                         Text(
                             text = "$it ₽",
-                            style = TextStyle(
-                                fontFamily = OpenSans,
-                                fontWeight = FontWeight.W400,
-                                fontSize = 17.sp
-                            )
+                            style = MaterialTheme.typography.body1
                         )
                     }
                 }
