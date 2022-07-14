@@ -6,15 +6,17 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import com.example.projectunion.common.asPrice
+import androidx.compose.ui.unit.dp
+import com.example.projectunion.R
 
 @Composable
 fun CreatePriceField(
@@ -24,14 +26,16 @@ fun CreatePriceField(
 	textStyle: TextStyle,
 	focusManager: FocusManager
 ) {
-	Box(
-		modifier = Modifier.fillMaxWidth()
+	Row(
+		modifier = Modifier.fillMaxWidth(),
+		verticalAlignment = Alignment.CenterVertically,
+		horizontalArrangement = Arrangement.Start
 	) {
 		BasicTextField(
+			modifier = Modifier.width(90.dp),
 			value = value,
 			onValueChange = { value -> onValueChange(value) },
 			singleLine = true,
-			modifier = Modifier.fillMaxWidth(),
 			textStyle = textStyle,
 			keyboardOptions = KeyboardOptions(
 				keyboardType = KeyboardType.Number,
@@ -53,5 +57,17 @@ fun CreatePriceField(
 				innerTextField()
 			}
 		)
+
+		if (value.isNotEmpty()) {
+			Box(
+				modifier = Modifier.size(18.dp)
+			) {
+				Icon(
+					painter = painterResource(id = R.drawable.ic_ruble),
+					contentDescription = null,
+					tint = Color.DarkGray
+				)
+			}
+		}
 	}
 }

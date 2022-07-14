@@ -21,8 +21,11 @@ class HomeViewModel @Inject constructor(
 
 	val isAuth get() = checkAuthorizedUseCase()
 
-	private val _state = MutableLiveData<Response<List<ProjectTape>>>()
-	val state: LiveData<Response<List<ProjectTape>>> get() = _state
+	private val _stateGet = MutableLiveData<Response<List<ProjectTape>>>()
+	val stateGet: LiveData<Response<List<ProjectTape>>> get() = _stateGet
+
+	private val _stateUpdate = MutableLiveData<Response<List<ProjectTape>>>()
+	val stateUpdate: LiveData<Response<List<ProjectTape>>> get() = _stateUpdate
 
 	val search by lazy { SearchState() }
 
@@ -30,10 +33,18 @@ class HomeViewModel @Inject constructor(
 		getProjects()
 	}
 
-	private fun getProjects() {
+	fun getProjects() {
 		viewModelScope.launch {
 			getProjectsUseCase().collect { response ->
-				_state.postValue(response)
+				_stateGet.postValue(response)
+			}
+		}
+	}
+
+	fun updateProjects() {
+		viewModelScope.launch {
+			getProjectsUseCase().collect { response ->
+				_stateUpdate.postValue(response)
 			}
 		}
 	}
