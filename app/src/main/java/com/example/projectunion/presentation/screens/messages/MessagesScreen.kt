@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -44,7 +45,7 @@ fun MessagesScreen(
 						state = listState,
 						modifier = Modifier.fillMaxSize()
 					) {
-						items(state.data) { chat ->
+						itemsIndexed(state.data) {index,  chat ->
 							ChatItem(
 								userName = chat.userName,
 								userPhoto = chat.userPhoto,
@@ -57,16 +58,19 @@ fun MessagesScreen(
 											+ "&${Constants.ARGUMENT_USER_NAME_KEY}=${chat.userName}"
 								)
 							}
-							Row(
-								modifier = Modifier.fillMaxWidth(),
-								horizontalArrangement = Arrangement.End
-							) {
-								Spacer(
-									modifier = Modifier
-										.height(1.dp)
-										.fillMaxWidth(0.8f)
-										.background(Color.LightGray)
-								)
+
+							if (index != state.data.lastIndex) {
+								Row(
+									modifier = Modifier.fillMaxWidth(),
+									horizontalArrangement = Arrangement.End
+								) {
+									Spacer(
+										modifier = Modifier
+											.height(1.dp)
+											.fillMaxWidth(0.8f)
+											.background(Color.LightGray)
+									)
+								}
 							}
 						}
 					}

@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.projectunion.common.asPrice
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.components.creator_project.CreatorProject
@@ -51,7 +52,7 @@ fun ProjectItem(
 
                     project.price?.let {
                         Text(
-                            text = "$it ₽",
+                            text = "${it.asPrice()} ₽",
                             style = MaterialTheme.typography.body1
                         )
                     }

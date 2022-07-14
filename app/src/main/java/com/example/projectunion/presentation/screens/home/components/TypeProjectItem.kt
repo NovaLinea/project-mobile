@@ -31,10 +31,9 @@ fun TypeProjectItem(
         horizontalArrangement = Arrangement.Start
     ) {
         Box(
-            modifier = Modifier
-                .padding(start = 20.dp)
+            modifier = Modifier.padding(start = 20.dp)
         ) {
-            Icon(imageVector = imageVector, contentDescription = "Icon type project")
+            Icon(imageVector = imageVector, contentDescription = null)
         }
 
         Text(

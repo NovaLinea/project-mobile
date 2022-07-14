@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.common.Constants.BUY_PROJECT
+import com.example.projectunion.common.asPrice
 import com.example.projectunion.presentation.components.button_action.ButtonActionText
 import com.example.projectunion.presentation.ui.theme.OpenSans
 
@@ -32,7 +33,7 @@ fun ProjectBottomBar(
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			Text(
-				text = "$projectPrice ₽",
+				text = "${projectPrice.toInt().asPrice()} ₽",
 				style = TextStyle(
 					fontFamily = OpenSans,
 					fontWeight = FontWeight.W500,

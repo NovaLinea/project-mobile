@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,7 @@ fun CreateScreen(
 
 	val maxCharTitle = 120
 	val maxCharDescription = 10000
+	val focusManager = LocalFocusManager.current
 
 	Scaffold(
 		topBar = {
@@ -72,7 +74,7 @@ fun CreateScreen(
 			) {
 				Column(
 					modifier = Modifier
-						.padding(horizontal = 15.dp, vertical = 5.dp)
+						.padding(horizontal = 15.dp, vertical = 7.dp)
 						.verticalScroll(rememberScrollState())
 				) {
 					CreateTextField(
@@ -108,7 +110,8 @@ fun CreateScreen(
 							fontFamily = OpenSans,
 							fontWeight = FontWeight.W400,
 							fontSize = 17.sp
-						)
+						),
+						focusManager = focusManager
 					)
 
 					Spacer(modifier = Modifier.height(15.dp))
