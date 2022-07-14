@@ -5,4 +5,5 @@
     <color name="background_tape">#F6F6F6</color>
     <color name="app_background">#EDEDED</color>
     <color name="app_blue">#1E2D43</color>
+    <color name="button_send_message">#4684E1</color>
 </resources>

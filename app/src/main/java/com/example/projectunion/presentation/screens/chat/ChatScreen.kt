@@ -43,15 +43,10 @@ fun ChatScreen(
 ) {
 	val statePhoto = viewModel.statePhoto.observeAsState(null).value
 	val stateGet = viewModel.stateGet.observeAsState(Response.Success(emptyList())).value
+	val stateSend = viewModel.stateSend.observeAsState(Response.Success(false)).value
 
-	when(val state = viewModel.stateSend.observeAsState(Response.Success(false)).value) {
-		is Response.Loading -> Log.d(TAG, "Loading")
-		is Response.Success -> {
-			if (state.data) {
-				Log.d(TAG, "Success send message")
-			}
-		}
-		is Response.Error -> Log.d(TAG, state.message)
+	if (stateSend is Response.Error) {
+		Log.d(TAG, stateSend.message)
 	}
 
 	val listState = rememberLazyListState()
@@ -77,8 +72,6 @@ fun ChatScreen(
 				onValueChange = {
 					viewModel.message.text = it
 				},
-				placeholder = MESSAGE_FIELD,
-				isPlaceholderVisible = viewModel.message.text.isEmpty(),
 				onSend = {
 					if (viewModel.message.text.isNotEmpty()) {
 						viewModel.sendMessage()

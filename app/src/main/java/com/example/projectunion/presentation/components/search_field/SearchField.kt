@@ -37,7 +37,7 @@ fun SearchField(
 			)
 
 			BasicTextField(
-				modifier = Modifier.padding(start = 40.dp),
+				modifier = Modifier.padding(start = 40.dp, end = 5.dp),
 				value = value,
 				onValueChange = { value -> onValueChange(value) },
 				singleLine = true,
