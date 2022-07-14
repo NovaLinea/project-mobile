@@ -1,15 +1,11 @@
 package com.example.projectunion.presentation.screens.messages.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.projectunion.R
 import com.example.projectunion.common.asTime
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.ui.theme.OpenSans
@@ -44,33 +41,18 @@ fun ChatItem(
 				.fillMaxWidth()
 		) {
 			Card(
-				modifier = Modifier
-					.height(55.dp)
-					.width(55.dp),
+				modifier = Modifier.size(55.dp),
 				shape = CircleShape,
 				elevation = 0.dp,
 			) {
-				if (userPhoto == null) {
-					Box(
-						modifier = Modifier
-							.fillMaxSize()
-							.background(Color.LightGray),
-						contentAlignment = Alignment.Center
-					) {
-						Icon(
-							modifier = Modifier.padding(15.dp),
-							imageVector = Icons.Default.Person,
-							contentDescription = null
-						)
-					}
-				} else {
-					ImagePainter(
-						imageUrl = userPhoto,
-						isCircle = true,
-						onClick = { onOpenChat() }
-					)
-				}
+				ImagePainter(
+					imageUrl = userPhoto,
+					isCircle = true,
+					errorPhoto = R.drawable.ic_person,
+					onClick = { onOpenChat() }
+				)
 			}
+
 			Column(
 				modifier = Modifier
 					.padding(start = 12.dp, top = 3.dp, end = 10.dp)

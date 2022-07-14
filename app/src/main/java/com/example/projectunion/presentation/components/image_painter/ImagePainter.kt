@@ -3,13 +3,16 @@ package com.example.projectunion.presentation.components.image_painter
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberImagePainter
@@ -21,16 +24,16 @@ import com.example.projectunion.presentation.components.animated_shimmer.Animate
 
 @Composable
 fun ImagePainter(
-	imageUrl: Any,
+	imageUrl: Any?,
 	isCircle: Boolean = false,
 	shape: Float = 0f,
-	onClick: () -> Unit,
+	errorPhoto: Int = R.drawable.ic_photo,
+	padding: Int = 15,
+	onClick: () -> Unit
 ) {
 	val painter = rememberImagePainter(
 		data = imageUrl,
 		builder = {
-			//placeholder(R.drawable.ic_photo)
-			error(R.drawable.ic_photo)
 			crossfade(300)
 			scale(Scale.FILL)
 			if (isCircle)
@@ -62,5 +65,20 @@ fun ImagePainter(
 			.clip(RoundedCornerShape(radius.dp))
 			.background(brush)
 		)
+	}
+
+	if (painterState is AsyncImagePainter.State.Error) {
+		Box(
+			modifier = Modifier
+				.fillMaxSize()
+				.background(Color.LightGray),
+			contentAlignment = Alignment.Center
+		) {
+			Icon(
+				modifier = Modifier.padding(padding.dp),
+				painter = painterResource(id = errorPhoto),
+				contentDescription = null
+			)
+		}
 	}
 }

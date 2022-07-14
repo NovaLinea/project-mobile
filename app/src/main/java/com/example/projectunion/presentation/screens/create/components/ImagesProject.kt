@@ -29,8 +29,9 @@ fun ImagesProject(images: MutableList<Uri>) {
 			) {
 				ImagePainter(
 					imageUrl = imageUri,
-					shape = 10f
-				) {}
+					shape = 10f,
+					onClick = {}
+				)
 			}
 		}
 	}
