@@ -61,7 +61,7 @@ fun ChatTopBar(
 				ImagePainter(
 					imageUrl = photo,
 					isCircle = true,
-					errorPhoto = R.drawable.ic_person,
+					errorPhoto = R.drawable.ic_person_fill,
 					padding = 8,
 					onClick = { onClickUser() }
 				)

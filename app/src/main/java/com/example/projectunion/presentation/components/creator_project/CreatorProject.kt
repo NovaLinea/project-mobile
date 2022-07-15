@@ -36,7 +36,7 @@ fun CreatorProject(
 				imageUrl = creatorPhoto,
 				onClick = { onClickCreator() },
 				padding = 3,
-				errorPhoto = R.drawable.ic_person
+				errorPhoto = R.drawable.ic_person_fill
 			)
 		}
 

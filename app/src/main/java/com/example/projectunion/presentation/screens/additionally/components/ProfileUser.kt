@@ -44,7 +44,7 @@ fun ProfileUser(
                     imageUrl = photo,
                     isCircle = true,
                     padding = 12,
-                    errorPhoto = R.drawable.ic_person,
+                    errorPhoto = R.drawable.ic_person_fill,
                     onClick = { onClick() }
                 )
             }

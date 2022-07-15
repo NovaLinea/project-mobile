@@ -48,7 +48,7 @@ fun ChatItem(
 				ImagePainter(
 					imageUrl = userPhoto,
 					isCircle = true,
-					errorPhoto = R.drawable.ic_person,
+					errorPhoto = R.drawable.ic_person_fill,
 					onClick = { onOpenChat() }
 				)
 			}
@@ -66,7 +66,8 @@ fun ChatItem(
 				) {
 					Text(
 						text = userName,
-						style = MaterialTheme.typography.subtitle1
+						style = MaterialTheme.typography.subtitle1,
+						letterSpacing = 0.sp,
 					)
 
 					Text(

@@ -39,7 +39,7 @@ fun AvatarUser(
 			ImagePainter(
 				imageUrl = photo,
 				isCircle = true,
-				errorPhoto = R.drawable.ic_person,
+				errorPhoto = R.drawable.ic_person_fill,
 				padding = 7,
 				onClick = {
 					if (USER.id == id)
