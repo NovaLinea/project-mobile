@@ -89,7 +89,7 @@ fun HomeCreateBottomSheet(
         sheetState = sheetState,
         sheetBackgroundColor = Color.White,
         sheetElevation = 10.dp,
-        sheetShape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)
+        sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
     ) {
         HomeScreen(
             externalRouter = externalRouter,

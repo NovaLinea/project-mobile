@@ -8,6 +8,7 @@ import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.use_case.CheckAuthorizedUseCase
 import com.example.projectunion.domain.use_case.GetProjectsUseCase
+import com.example.projectunion.domain.use_case.CheckVerifyEmailUseCase
 import com.example.projectunion.presentation.components.search_field.SearchState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,10 +17,12 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
 	private val checkAuthorizedUseCase: CheckAuthorizedUseCase,
+	private val checkVerifyEmailUseCase: CheckVerifyEmailUseCase,
 	private val getProjectsUseCase: GetProjectsUseCase
 ): ViewModel() {
 
 	val isAuth get() = checkAuthorizedUseCase()
+	val isVerified get() = checkVerifyEmailUseCase()
 
 	private val _stateGet = MutableLiveData<Response<List<ProjectTape>>>()
 	val stateGet: LiveData<Response<List<ProjectTape>>> get() = _stateGet

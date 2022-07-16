@@ -10,6 +10,7 @@ object Constants {
 	const val ARGUMENT_PROJECT_TYPE_KEY = "typeProject"
 	const val ARGUMENT_USER_ID_KEY = "userId"
 	const val ARGUMENT_USER_NAME_KEY = "userName"
+	const val ARGUMENT_USER_EMAIL_KEY = "email"
 	const val ARGUMENT_USER_DESCRIPTION_KEY = "userDescription"
 
 	// Navigation main routes
@@ -47,6 +48,7 @@ object Constants {
 	const val MAIN_SCREEN = "Главная"
 	const val LOGIN_SCREEN = "Вход"
 	const val REGISTER_SCREEN = "Регистрация"
+	const val VERIFY_EMAIL_SCREEN = "Подтверждение почты"
 	const val PROJECT_SCREEN = "Проект"
 	const val MESSAGES_SCREEN = "Сообщения"
 	const val PROFILE_SCREEN = "Профиль"
@@ -65,6 +67,7 @@ object Constants {
 	// Screens routes
 	const val MAIN_SCREEN_ROUTE = "main_screen"
 	const val LOGIN_SCREEN_ROUTE = "login_screen"
+	const val VERIFY_EMAIL_SCREEN_ROUTE = "verify_email_screen"
 	const val REGISTER_SCREEN_ROUTE = "register_screen"
 	const val PROJECT_SCREEN_ROUTE = "project_screen"
 	const val CREATE_SCREEN_ROUTE = "create_screen"
@@ -109,6 +112,9 @@ object Constants {
 	const val TYPE_PROJECT_SALE = "sale"
 	const val TYPE_PROJECT_DONATE = "donate"
 	const val TYPE_PROJECT_TEAM = "team"
+
+	// Text
+	const val TEXT_VERIFY_EMAIL = "Мы отправили письмо со ссылкой для подтверждения вашей почты"
 
 	// Types messages
 	const val TYPE_MESSAGE_TEXT = "text"

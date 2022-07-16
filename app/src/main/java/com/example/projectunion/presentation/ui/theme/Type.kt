@@ -33,6 +33,16 @@ val Typography = Typography(
 		fontWeight = FontWeight.W600,
 		fontSize = 19.sp
 	),
+	h5 = TextStyle(
+		fontFamily = OpenSans,
+		fontWeight = FontWeight.W600,
+		fontSize = 21.sp
+	),
+	h4 = TextStyle(
+		fontFamily = OpenSans,
+		fontWeight = FontWeight.W600,
+		fontSize = 23.sp
+	),
 	h3 = TextStyle(
 		fontFamily = OpenSans,
 		fontWeight = FontWeight.W600,

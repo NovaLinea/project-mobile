@@ -50,7 +50,9 @@ fun LoginScreen(
 
 	val focusManager = LocalFocusManager.current
 
-	Scaffold {
+	Box(
+		modifier = Modifier.fillMaxSize()
+	) {
 		Box(modifier = Modifier.padding(5.dp)) {
 			CloseButton {
 				navController.popBackStack()

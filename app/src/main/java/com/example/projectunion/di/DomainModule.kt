@@ -21,6 +21,11 @@ class DomainModule {
 	}
 
 	@Provides
+	fun provideCheckVerifyEmailUseCase(authRepository: AuthRepository): CheckVerifyEmailUseCase {
+		return CheckVerifyEmailUseCase(repository = authRepository)
+	}
+
+	@Provides
 	fun provideLoginByEmailUseCase(authRepository: AuthRepository): LoginByEmailUseCase {
 		return LoginByEmailUseCase(repository = authRepository)
 	}

@@ -7,7 +7,6 @@ import com.example.projectunion.domain.use_case.LoginByEmailUseCase
 import com.example.projectunion.presentation.components.email_field.EmailState
 import com.example.projectunion.presentation.components.password_field.PasswordState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +14,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
 	private val loginByEmailUseCase: LoginByEmailUseCase
 ) : ViewModel() {
+
 	val email by lazy { EmailState() }
 	val password by lazy { PasswordState() }
 

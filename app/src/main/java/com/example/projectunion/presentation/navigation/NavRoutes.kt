@@ -35,12 +35,15 @@ import com.example.projectunion.common.Constants.SETTINGS_SCREEN
 import com.example.projectunion.common.Constants.SETTINGS_SCREEN_ROUTE
 import com.example.projectunion.common.Constants.THEMES_SCREEN
 import com.example.projectunion.common.Constants.THEMES_SCREEN_ROUTE
+import com.example.projectunion.common.Constants.VERIFY_EMAIL_SCREEN
+import com.example.projectunion.common.Constants.VERIFY_EMAIL_SCREEN_ROUTE
 
 
 sealed class MainNavRoute(val route: String, val title: String) {
 	object Main: MainNavRoute(MAIN_SCREEN_ROUTE, MAIN_SCREEN)
 	object Login: MainNavRoute(LOGIN_SCREEN_ROUTE, LOGIN_SCREEN)
 	object Register: MainNavRoute(REGISTER_SCREEN_ROUTE, REGISTER_SCREEN)
+	object VerifyEmail: MainNavRoute(VERIFY_EMAIL_SCREEN, VERIFY_EMAIL_SCREEN_ROUTE)
 	object Project: MainNavRoute(PROJECT_SCREEN_ROUTE, PROJECT_SCREEN)
 	object Create: MainNavRoute(CREATE_SCREEN_ROUTE, CREATE_SCREEN)
 	object Settings: MainNavRoute(SETTINGS_SCREEN_ROUTE, SETTINGS_SCREEN)

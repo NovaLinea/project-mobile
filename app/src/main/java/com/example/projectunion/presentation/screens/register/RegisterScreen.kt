@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.projectunion.common.Constants.ARGUMENT_USER_EMAIL_KEY
 import com.example.projectunion.common.Constants.EMAIL_IS_USED
 import com.example.projectunion.common.Constants.ERROR_SERVER
 import com.example.projectunion.common.Constants.INVALID_REGISTER
@@ -27,6 +28,7 @@ import com.example.projectunion.presentation.components.close_button.CloseButton
 import com.example.projectunion.presentation.components.error_field.ErrorField
 import com.example.projectunion.presentation.components.name_field.Name
 import com.example.projectunion.presentation.components.text_button_action.TextButtonAction
+import com.example.projectunion.presentation.navigation.MainNavRoute
 
 @Composable
 fun RegisterScreen(
@@ -39,7 +41,10 @@ fun RegisterScreen(
 		is Response.Success -> {
 			if (state.data) {
 				LaunchedEffect(state.data) {
-					navController.navigate(MAIN_ROUTE)
+					navController.navigate(
+						MainNavRoute.VerifyEmail.route
+								+ "?${ARGUMENT_USER_EMAIL_KEY}=${viewModel.email.text}"
+					)
 				}
 			}
 		}
@@ -48,7 +53,9 @@ fun RegisterScreen(
 
 	val focusManager = LocalFocusManager.current
 
-	Scaffold {
+	Box(
+		modifier = Modifier.fillMaxSize()
+	) {
 		Box(modifier = Modifier.padding(5.dp)) {
 			CloseButton {
 				navController.navigate(MAIN_ROUTE)
