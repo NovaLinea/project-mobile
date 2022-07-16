@@ -1,6 +1,5 @@
 package com.example.projectunion.data.firestoreDB
 
-import android.util.Log
 import com.example.projectunion.common.Constants.CREATED_AT_FIELD
 import com.example.projectunion.common.Constants.CREATOR_ID_PROJECT_FIELD
 import com.example.projectunion.common.Constants.DESCRIPTION_FIELD
@@ -12,7 +11,6 @@ import com.example.projectunion.common.Constants.NAME_USER_FIELD
 import com.example.projectunion.common.Constants.PHOTO_USER_FIELD
 import com.example.projectunion.common.Constants.PRICE_PROJECT_FIELD
 import com.example.projectunion.common.Constants.PROJECTS_COLLECTION
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_PROJECT_FIELD
 import com.example.projectunion.common.Constants.TYPE_PROJECT_FIELD
 import com.example.projectunion.common.Constants.UPDATED_AT_FIELD
@@ -22,7 +20,6 @@ import com.example.projectunion.domain.model.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 

@@ -24,7 +24,13 @@ fun MainScreen(
 	val navController = rememberNavController()
 
 	Scaffold(
-		bottomBar = {BottomBar(navController, externalRouter, viewModel.isAuth)}
+		bottomBar = {
+			BottomBar(
+				navController = navController,
+				externalRouter = externalRouter,
+				isAuth = viewModel.isAuth
+			)
+		}
 	) {
 		innerPadding ->
 			Box(

@@ -27,6 +27,7 @@ object Constants {
 	const val INVALID_PASSWORD = "Пароль не верный"
 	const val INVALID_REGISTER = "Эта почта уже используется"
 	const val ERROR_SERVER = "Ошибка на стороне сервера"
+	const val ERROR_VERIFY_EMAIL = "Для того чтобы войти в аккаунт, подтвердите почту"
 
 	// Errors Firebase
 	const val INVALID_LOGIN_PASSWORD = "The password is invalid or the user does not have a password."

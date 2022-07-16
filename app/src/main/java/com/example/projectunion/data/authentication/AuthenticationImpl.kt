@@ -1,6 +1,7 @@
 package com.example.projectunion.data.authentication
 
 import android.util.Log
+import com.example.projectunion.common.Constants.ERROR_VERIFY_EMAIL
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserLogin
@@ -14,7 +15,12 @@ class AuthenticationImpl(
 	private val auth: FirebaseAuth
 ) : Authentication {
 
-	override fun authorized() = auth.currentUser != null
+	override fun authorized(): Boolean {
+		return if (verified() != true)
+			false
+		else
+			auth.currentUser != null
+	}
 
 	override fun verified() = auth.currentUser?.isEmailVerified
 

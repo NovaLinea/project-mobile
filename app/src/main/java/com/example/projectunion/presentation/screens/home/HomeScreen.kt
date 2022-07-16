@@ -48,8 +48,6 @@ fun HomeScreen(
 	var isRefreshing by remember { mutableStateOf(false) }
 	val swipeState = rememberSwipeRefreshState(isRefreshing = isRefreshing)
 
-	Log.d(TAG, viewModel.isVerified.toString())
-
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),
 		floatingActionButton = {
@@ -58,9 +56,6 @@ fun HomeScreen(
 				onClick = {
 					if (!viewModel.isAuth)
 						externalRouter.navigateTo(AUTHENTICATION_ROUTE)
-					else if (viewModel.isVerified != true) {
-						// Snackbar verify your email
-					}
 					else
 						onClickCreate()
 				}

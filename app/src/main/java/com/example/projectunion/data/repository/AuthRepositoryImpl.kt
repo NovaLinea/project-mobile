@@ -1,17 +1,14 @@
 package com.example.projectunion.data.repository
 
-import android.util.Log
+import com.example.projectunion.common.Constants.ERROR_VERIFY_EMAIL
 import com.example.projectunion.common.Constants.INVALID_REGISTER
-import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.data.authentication.Authentication
 import com.example.projectunion.data.firestoreDB.FirestoreDB
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserLogin
 import com.example.projectunion.domain.model.UserRegister
 import com.example.projectunion.domain.repository.AuthRepository
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -23,7 +20,26 @@ class AuthRepositoryImpl @Inject constructor(
 
 	override fun verified() = authentication.verified()
 
-	override fun loginByEmail(userData: UserLogin) = authentication.loginByEmail(userData)
+	override fun loginByEmail(userData: UserLogin) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+
+			authentication.loginByEmail(userData).collect { response ->
+				when(response) {
+					is Response.Loading -> emit(response)
+					is Response.Error -> emit(response)
+					is Response.Success -> {
+						if (authentication.verified() == true)
+							emit(Response.Success(true))
+						else
+							emit(Response.Error(ERROR_VERIFY_EMAIL))
+					}
+				}
+			}
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
 
 	override fun registerByEmail(userData: UserRegister) = flow<Response<Boolean>> {
 		try {

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ERROR_SERVER
+import com.example.projectunion.common.Constants.ERROR_VERIFY_EMAIL
 import com.example.projectunion.common.Constants.INVALID_USER
 import com.example.projectunion.common.Constants.INVALID_LOGIN_PASSWORD
 import com.example.projectunion.common.Constants.INVALID_PASSWORD
@@ -96,6 +97,7 @@ fun LoginScreen(
 				when(state.message) {
 					USER_NOT_FOUND -> ErrorField(error = INVALID_USER)
 					INVALID_LOGIN_PASSWORD -> ErrorField(error = INVALID_PASSWORD)
+					ERROR_VERIFY_EMAIL -> ErrorField(error = ERROR_VERIFY_EMAIL)
 					else -> ErrorField(error = ERROR_SERVER)
 				}
 			}
