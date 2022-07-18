@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
+import com.example.projectunion.common.Constants.ERROR_BY_CREATE_PROJECT
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.PRICE_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.TAG
@@ -26,6 +28,7 @@ import com.example.projectunion.presentation.screens.create.components.create_te
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateTextField
 import com.example.projectunion.presentation.screens.create.components.CreateTopBar
 import com.example.projectunion.presentation.ui.theme.OpenSans
+import kotlinx.coroutines.launch
 
 @Composable
 fun CreateScreen(
@@ -34,21 +37,13 @@ fun CreateScreen(
 	viewModel: CreateViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(false)).value
-	when(state) {
-		is Response.Loading -> Log.d(TAG, "Loading")
-		is Response.Success -> {
-			if (state.data) {
-				LaunchedEffect(state.data) {
-					navController.navigate(MAIN_ROUTE)
-				}
-			}
-		}
-		is Response.Error -> Log.d(TAG, state.message)
-	}
 
 	val maxCharTitle = 120
 	val maxCharDescription = 10000
 	val focusManager = LocalFocusManager.current
+
+	val scaffoldState = rememberScaffoldState()
+	val scope = rememberCoroutineScope()
 
 	Scaffold(
 		topBar = {
@@ -66,9 +61,35 @@ fun CreateScreen(
 					viewModel.createProject()
 				}
 			)
+		},
+		scaffoldState = scaffoldState,
+		snackbarHost = {
+			SnackbarHost(it) { data ->
+				Snackbar(
+					backgroundColor = Color.White,
+					snackbarData = data
+				)
+			}
 		}
 	) {
 		innerPadding ->
+			when(state) {
+				is Response.Loading -> Log.d(TAG, "Loading")
+				is Response.Error -> {
+					Log.d(TAG, state.message)
+					scope.launch {
+						scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_CREATE_PROJECT)
+					}
+				}
+				is Response.Success -> {
+					if (state.data) {
+						LaunchedEffect(state.data) {
+							navController.navigate(MAIN_ROUTE)
+						}
+					}
+				}
+			}
+
 			Box(
 				modifier = Modifier.padding(innerPadding)
 			) {

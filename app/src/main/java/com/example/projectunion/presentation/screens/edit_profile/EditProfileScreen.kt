@@ -1,16 +1,19 @@
 package com.example.projectunion.presentation.screens.edit_profile
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.DESCRIPTION_PROFILE
+import com.example.projectunion.common.Constants.ERROR_BY_EDIT_PROFILE
 import com.example.projectunion.common.Constants.NAME_PLACEHOLDER
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USER
@@ -19,32 +22,22 @@ import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.edit_profile.components.EditProfileTextField
 import com.example.projectunion.presentation.screens.edit_profile.components.EditProfileTopBar
+import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditProfileScreen(
 	id: String,
 	navController: NavController,
 	viewModel: EditProfileViewModel = hiltViewModel()
 ) {
-	when(val state = viewModel.state.observeAsState(Response.Success(false)).value) {
-		is Response.Loading -> Loader()
-		is Response.Success -> {
-			if (state.data) {
-				USER.name = viewModel.name.text
-				LaunchedEffect(state.data) {
-					navController.popBackStack()
-					openProfile(
-						id = id,
-						navController = navController
-					)
-				}
-			}
-		}
-		is Response.Error -> Log.d(TAG, state.message)
-	}
+	val state = viewModel.state.observeAsState(Response.Success(false)).value
 
 	val maxCharName = 30
 	val maxCharDescription = 70
+
+	val scaffoldState = rememberScaffoldState()
+	val scope = rememberCoroutineScope()
 
 	Scaffold(
 		topBar = {
@@ -59,7 +52,38 @@ fun EditProfileScreen(
 				}
 			)
 		},
+		scaffoldState = scaffoldState,
+		snackbarHost = {
+			SnackbarHost(it) { data ->
+				Snackbar(
+					backgroundColor = Color.White,
+					snackbarData = data
+				)
+			}
+		}
 	) {
+		when(state) {
+			is Response.Loading -> Loader()
+			is Response.Error -> {
+				Log.d(TAG, state.message)
+				scope.launch {
+					scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_EDIT_PROFILE)
+				}
+			}
+			is Response.Success -> {
+				if (state.data) {
+					USER.name = viewModel.name.text
+					LaunchedEffect(state.data) {
+						navController.popBackStack()
+						openProfile(
+							id = id,
+							navController = navController
+						)
+					}
+				}
+			}
+		}
+
 		Column(
 			modifier = Modifier.padding(horizontal = 20.dp)
 		) {

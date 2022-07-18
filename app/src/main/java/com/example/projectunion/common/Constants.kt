@@ -28,6 +28,13 @@ object Constants {
 	const val INVALID_REGISTER = "Эта почта уже используется"
 	const val ERROR_SERVER = "Ошибка на стороне сервера"
 	const val ERROR_VERIFY_EMAIL = "Для того чтобы войти в аккаунт, подтвердите почту"
+	const val ERROR_BY_GET_PROJECTS = "Ошибка при получении проектов"
+	const val ERROR_BY_GET_CHATS = "Ошибка при получении чатов"
+	const val ERROR_BY_LOGOUT = "Ошибка при выходе из аккаунта"
+	const val ERROR_BY_GET_MESSAGES = "Ошибка при получении сообщений"
+	const val ERROR_BY_SEND_MESSAGE = "Ошибка при отправке сообщения"
+	const val ERROR_BY_CREATE_PROJECT = "Ошибка при создании проекта"
+	const val ERROR_BY_EDIT_PROFILE = "Ошибка при редактировании профиля"
 
 	// Errors Firebase
 	const val INVALID_LOGIN_PASSWORD = "The password is invalid or the user does not have a password."

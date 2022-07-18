@@ -11,7 +11,6 @@ import com.example.projectunion.domain.use_case.GetAuthCurrentUserUseCase
 import com.example.projectunion.presentation.screens.create.components.create_text_field.CreateState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

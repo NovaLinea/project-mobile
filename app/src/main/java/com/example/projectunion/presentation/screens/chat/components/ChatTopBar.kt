@@ -1,5 +1,6 @@
 package com.example.projectunion.presentation.screens.chat.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -13,6 +14,7 @@ import com.example.projectunion.R
 import com.example.projectunion.presentation.components.icon_button.IconButtonAction
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ChatTopBar(
 	title: String,
@@ -20,7 +22,7 @@ fun ChatTopBar(
 	onClickBack: () -> Unit,
 	onClickUser: () -> Unit
 ) {
-	Box(
+	Scaffold(
 		modifier = Modifier
 			.height(55.dp)
 			.fillMaxWidth()

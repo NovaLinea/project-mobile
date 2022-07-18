@@ -16,7 +16,6 @@ import com.example.projectunion.presentation.navigation.nav_graph.NavGraph
 import com.example.projectunion.presentation.ui.theme.ProjectUnionTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

@@ -22,8 +22,10 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.AUTHENTICATION_ROUTE
+import com.example.projectunion.common.Constants.ERROR_BY_GET_PROJECTS
 import com.example.projectunion.domain.model.ProjectTape
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.components.error.Error
 import com.example.projectunion.presentation.components.floating_button.FloatingButton
 import com.example.projectunion.presentation.navigation.Router
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
@@ -83,9 +85,12 @@ fun HomeScreen(
 
 			when(stateGet) {
 				is Response.Loading -> ShimmerLoaderProjects()
-				is Response.Error -> Log.d(TAG, stateGet.message)
+				is Response.Error -> {
+					Log.d(TAG, stateGet.message)
+					Error(message = ERROR_BY_GET_PROJECTS)
+				}
 				is Response.Success -> {
-					listProjects.addAll(stateGet.data)
+					//listProjects.addAll(stateGet.data)
 					SwipeRefresh(
 						state = swipeState,
 						onRefresh = {
@@ -103,8 +108,7 @@ fun HomeScreen(
 					) {
 						LazyColumn(
 							state = listState,
-							modifier = Modifier
-								.fillMaxSize()
+							modifier = Modifier.fillMaxSize()
 						) {
 							items(stateGet.data) { project ->
 								ProjectItem(

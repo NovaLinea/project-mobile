@@ -14,18 +14,22 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.projectunion.R
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.ERROR_BY_GET_MESSAGES
+import com.example.projectunion.common.Constants.ERROR_BY_SEND_MESSAGE
 import com.example.projectunion.common.Constants.MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_MESSAGES
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.common.Constants.countMessagesChat
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.components.error.Error
 import com.example.projectunion.presentation.components.loader.Loader
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.chat.components.ChatTopBar
@@ -45,10 +49,7 @@ fun ChatScreen(
 	val stateGet = viewModel.stateGet.observeAsState(Response.Success(emptyList())).value
 	val stateSend = viewModel.stateSend.observeAsState(Response.Success(false)).value
 
-	if (stateSend is Response.Error) {
-		Log.d(TAG, stateSend.message)
-	}
-
+	val scaffoldState = rememberScaffoldState()
 	val listState = rememberLazyListState()
 	val scope = rememberCoroutineScope()
 	//var stateScrollToLastMessage = true
@@ -79,8 +80,24 @@ fun ChatScreen(
 					}
 				}
 			)
+		},
+		scaffoldState = scaffoldState,
+		snackbarHost = {
+			SnackbarHost(it) { data ->
+				Snackbar(
+					backgroundColor = Color.White,
+					snackbarData = data
+				)
+			}
 		}
 	) { innerPadding ->
+		if (stateSend is Response.Error) {
+			Log.d(TAG, stateSend.message)
+			scope.launch {
+				scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_SEND_MESSAGE)
+			}
+		}
+
 		Box(
 			modifier = Modifier.padding(innerPadding)
 		) {
@@ -131,7 +148,13 @@ fun ChatScreen(
 			}*/
 			when(stateGet) {
 				is Response.Loading -> Loader()
-				is Response.Error -> Log.d(TAG, stateGet.message)
+				is Response.Error -> {
+					Log.d(TAG, stateGet.message)
+					Error(
+						message = ERROR_BY_GET_MESSAGES,
+						background = colorResource(id = R.color.app_background)
+					)
+				}
 				is Response.Success -> {
 					if (stateGet.data.isNotEmpty()) {
 						/*if (listState.firstVisibleItemIndex < 3 && listState.firstVisibleItemIndex != 0) {
