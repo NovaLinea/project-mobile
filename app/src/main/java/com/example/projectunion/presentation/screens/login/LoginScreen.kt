@@ -16,10 +16,10 @@ import com.example.projectunion.common.Constants.ERROR_VERIFY_EMAIL
 import com.example.projectunion.common.Constants.INVALID_USER
 import com.example.projectunion.common.Constants.INVALID_LOGIN_PASSWORD
 import com.example.projectunion.common.Constants.INVALID_PASSWORD
-import com.example.projectunion.common.Constants.LOGIN
+import com.example.projectunion.common.Constants.BUTTON_LOGIN
 import com.example.projectunion.common.Constants.LOGIN_SCREEN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
-import com.example.projectunion.common.Constants.REGISTER
+import com.example.projectunion.common.Constants.BUTTON_REGISTER
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.USER_NOT_FOUND
 import com.example.projectunion.domain.model.Response.*
@@ -105,7 +105,7 @@ fun LoginScreen(
 			Spacer(modifier = Modifier.height(10.dp))
 
 			ButtonActionText(
-				LOGIN,
+				BUTTON_LOGIN,
 				enabled = state != Loading
 						&& viewModel.email.isValidText()
 						&& viewModel.password.isValidText()
@@ -113,7 +113,7 @@ fun LoginScreen(
 				viewModel.loginByEmail()
 			}
 
-			TextButtonAction(title = REGISTER) {
+			TextButtonAction(title = BUTTON_REGISTER) {
 				navController.navigate(MainNavRoute.Register.route)
 			}
 		}

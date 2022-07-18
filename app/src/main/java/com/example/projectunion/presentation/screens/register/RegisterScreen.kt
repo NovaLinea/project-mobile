@@ -15,9 +15,9 @@ import com.example.projectunion.common.Constants.ARGUMENT_USER_EMAIL_KEY
 import com.example.projectunion.common.Constants.EMAIL_IS_USED
 import com.example.projectunion.common.Constants.ERROR_SERVER
 import com.example.projectunion.common.Constants.INVALID_REGISTER
-import com.example.projectunion.common.Constants.LOGIN
+import com.example.projectunion.common.Constants.BUTTON_LOGIN
 import com.example.projectunion.common.Constants.MAIN_ROUTE
-import com.example.projectunion.common.Constants.REGISTER
+import com.example.projectunion.common.Constants.BUTTON_REGISTER
 import com.example.projectunion.common.Constants.REGISTER_SCREEN
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.domain.model.Response
@@ -115,7 +115,7 @@ fun RegisterScreen(
 			Spacer(modifier = Modifier.height(10.dp))
 
 			ButtonActionText(
-				REGISTER,
+				BUTTON_REGISTER,
 				enabled = state != Response.Loading
 						&& viewModel.name.isValidText()
 						&& viewModel.email.isValidText()
@@ -124,7 +124,7 @@ fun RegisterScreen(
 				viewModel.registerByEmail()
 			}
 
-			TextButtonAction(title = LOGIN) {
+			TextButtonAction(title = BUTTON_LOGIN) {
 				navController.popBackStack()
 			}
 		}

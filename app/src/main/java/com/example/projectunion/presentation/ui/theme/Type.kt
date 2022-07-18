@@ -19,7 +19,6 @@ val OpenSans = FontFamily(
 val Typography = Typography(
 	body1 = TextStyle(
 		fontFamily = OpenSans,
-		color = Color.Black,
 		fontWeight = FontWeight.W400,
 		fontSize = 17.sp
 	),

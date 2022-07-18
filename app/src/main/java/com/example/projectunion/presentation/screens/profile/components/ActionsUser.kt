@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.projectunion.common.Constants.EDIT_PROFILE
-import com.example.projectunion.common.Constants.TO_WRITE_USER
+import com.example.projectunion.common.Constants.BUTTON_EDIT_PROFILE
+import com.example.projectunion.common.Constants.BUTTON_TO_WRITE_USER
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.presentation.components.button_action.ButtonActionText
 
@@ -24,13 +24,13 @@ fun ActionsUser(
 	) {
 		if (USER.id == id) {
 			ButtonActionText(
-				title = EDIT_PROFILE,
+				title = BUTTON_EDIT_PROFILE,
 				onClicked = { onClick() }
 			)
 		}
 		else {
 			ButtonActionText(
-				title = TO_WRITE_USER,
+				title = BUTTON_TO_WRITE_USER,
 				onClicked = { onClick() }
 			)
 			/*ButtonActionText(

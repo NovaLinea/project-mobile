@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,13 +14,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectunion.common.Constants.ADDITIONALLY_SCREEN
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ERROR_BY_LOGOUT
-import com.example.projectunion.common.Constants.LOGOUT
+import com.example.projectunion.common.Constants.BUTTON_LOGOUT
 import com.example.projectunion.common.Constants.MAIN_ROUTE
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.TEXT_LOGOUT_ACCOUNT
+import com.example.projectunion.common.Constants.TITLE_LOGOUT_ACCOUNT
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.domain.model.UserProfile
 import com.example.projectunion.presentation.components.loader.Loader
+import com.example.projectunion.presentation.components.modal.Modal
 import com.example.projectunion.presentation.components.text_button_action.TextButtonAction
 import com.example.projectunion.presentation.components.top_bar.TopBar
 import com.example.projectunion.presentation.navigation.MainNavRoute
@@ -32,7 +33,7 @@ import com.example.projectunion.presentation.screens.additionally.components.Add
 import com.example.projectunion.presentation.screens.additionally.components.ProfileUser
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
 fun AdditionallyScreen(
 	externalRouter: Router,
@@ -42,6 +43,8 @@ fun AdditionallyScreen(
 
 	val scaffoldState = rememberScaffoldState()
 	val scope = rememberCoroutineScope()
+
+	val openDialog = remember { mutableStateOf(false) }
 
 	val items = listOf(
 		//AdditionallyModel.Favorites,
@@ -58,6 +61,7 @@ fun AdditionallyScreen(
 			SnackbarHost(it) { data ->
 				Snackbar(
 					backgroundColor = Color.White,
+					contentColor = Color.Black,
 					snackbarData = data
 				)
 			}
@@ -104,12 +108,23 @@ fun AdditionallyScreen(
 			}
 
 			TextButtonAction(
-				title = LOGOUT,
-				color = Color.Red
-			) {
+				title = BUTTON_LOGOUT,
+				color = Color.Red,
+				onClick = {
+					openDialog.value = true
+				}
+			)
+		}
+
+		Modal(
+			openDialog = openDialog,
+			title = TITLE_LOGOUT_ACCOUNT,
+			text = TEXT_LOGOUT_ACCOUNT,
+			confirmButton = BUTTON_LOGOUT,
+			onClickTrue = {
 				viewModel.logout()
 			}
-		}
+		)
 	}
 }
 

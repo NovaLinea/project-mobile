@@ -6,6 +6,7 @@ import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.BUY_PROJECT_MESSAGE
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.TEXT_BUY_YOURSELF_PROJECT
 import com.example.projectunion.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.MessageSend
@@ -73,7 +74,7 @@ class ProjectViewModel @Inject constructor(
                         }
                     }
                     else {
-                        // Вы не можете купить свой проект
+                        _stateSend.postValue(Response.Error(TEXT_BUY_YOURSELF_PROJECT))
                     }
                 }
             }

@@ -24,7 +24,7 @@ import com.example.projectunion.presentation.screens.edit_profile.components.Edi
 import com.example.projectunion.presentation.screens.edit_profile.components.EditProfileTopBar
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
 fun EditProfileScreen(
 	id: String,

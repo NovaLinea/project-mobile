@@ -26,7 +26,7 @@ fun ParamsUser(
 		countProjects?.let { count ->
 			ParamsUserItem(
 				count = count,
-				title = Constants.COUNT_PROJECTS,
+				title = Constants.TITLE_COUNT_PROJECTS,
 				onClick = {}
 			)
 		}
@@ -34,7 +34,7 @@ fun ParamsUser(
 		follows?.let { count ->
 			ParamsUserItem(
 				count = count,
-				title = Constants.COUNT_FOLLOWS,
+				title = Constants.TITLE_COUNT_FOLLOWS,
 				onClick = {}
 			)
 		}
@@ -42,7 +42,7 @@ fun ParamsUser(
 		followings?.let { count ->
 			ParamsUserItem(
 				count = count,
-				title = Constants.COUNT_FOLLOWINGS,
+				title = Constants.TITLE_COUNT_FOLLOWINGS,
 				onClick = {}
 			)
 		}

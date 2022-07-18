@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.projectunion.common.Constants.CREATE_PROJECT
+import com.example.projectunion.common.Constants.BUTTON_CREATE_PROJECT
 import com.example.projectunion.presentation.components.button_action.ButtonActionText
 
 @Composable
@@ -27,7 +27,7 @@ fun CreateBottomBar(
 			ChoiceImage(images)
 
 			ButtonActionText(
-				title = CREATE_PROJECT,
+				title = BUTTON_CREATE_PROJECT,
 				enabled = enabledCreate
 			) {
 				onClickCreate()

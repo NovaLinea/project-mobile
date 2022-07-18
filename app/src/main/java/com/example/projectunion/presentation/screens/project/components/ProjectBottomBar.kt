@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.projectunion.common.Constants.BUY_PROJECT
+import com.example.projectunion.common.Constants.BUTTON_BUY_PROJECT
 import com.example.projectunion.common.asPrice
 import com.example.projectunion.presentation.components.button_action.ButtonActionText
 import com.example.projectunion.presentation.ui.theme.OpenSans
@@ -42,7 +42,7 @@ fun ProjectBottomBar(
 			)
 
 			ButtonActionText(
-				title = BUY_PROJECT,
+				title = BUTTON_BUY_PROJECT,
 				enabled = true
 			) {
 				onClickBuy()

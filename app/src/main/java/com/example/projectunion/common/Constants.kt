@@ -35,6 +35,8 @@ object Constants {
 	const val ERROR_BY_SEND_MESSAGE = "Ошибка при отправке сообщения"
 	const val ERROR_BY_CREATE_PROJECT = "Ошибка при создании проекта"
 	const val ERROR_BY_EDIT_PROFILE = "Ошибка при редактировании профиля"
+	const val ERROR_BY_SEND_BUY_MESSAGE_PROJECT = "Ошибка при отправке заявки на покупку"
+	const val ERROR_BY_GET_PROJECT = "Ошибка при открытии проекта"
 
 	// Errors Firebase
 	const val INVALID_LOGIN_PASSWORD = "The password is invalid or the user does not have a password."
@@ -91,27 +93,30 @@ object Constants {
 	const val ABOUT_APP_SCREEN_ROUTE = "about_app_screen"
 	const val THEMES_SCREEN_ROUTE = "themes_screen"
 	const val CHAT_SCREEN_ROUTE = "chat_screen"
-	const val SPLASH_SCREEN_ROUTE = "splash_screen"
 
 	// Buttons
-	const val LOGIN = "Войти"
-	const val REGISTER = "Зарегистрироваться"
-	const val LOGOUT = "Выйти"
-	const val CREATE_PROJECT = "Создать проект"
-	const val BUY_PROJECT = "Купить"
-	const val COUNT_PROJECTS = "Проектов"
-	const val COUNT_FOLLOWS = "Подписчиков"
-	const val COUNT_FOLLOWINGS = "Подписок"
-	const val EDIT_PROFILE = "Редактировать"
-	const val SUBSCRIBE_USER = "Подписаться"
-	const val UNSUBSCRIBE_USER = "Отписаться"
-	const val TO_WRITE_USER = "Написать"
+	const val BUTTON_LOGIN = "Войти"
+	const val BUTTON_REGISTER = "Зарегистрироваться"
+	const val BUTTON_LOGOUT = "Выйти"
+	const val BUTTON_CREATE_PROJECT = "Создать проект"
+	const val BUTTON_BUY_PROJECT = "Купить"
+	const val BUTTON_EDIT_PROFILE = "Редактировать"
+	const val BUTTON_SUBSCRIBE_USER = "Подписаться"
+	const val BUTTON_UNSUBSCRIBE_USER = "Отписаться"
+	const val BUTTON_TO_WRITE_USER = "Написать"
+	const val BUTTON_SEND = "Отправить"
+	const val BUTTON_CANCEL = "Отмена"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
 	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
 	const val TITLE_NO_PROJECTS = "Пока нет проектов"
 	const val TITLE_NO_MESSAGES = "Пока нет сообщений"
+	const val TITLE_BUY_PROJECT = "Покупка проекта"
+	const val TITLE_LOGOUT_ACCOUNT = "Выход из аккаунта"
+	const val TITLE_COUNT_PROJECTS = "Проектов"
+	const val TITLE_COUNT_FOLLOWS = "Подписчиков"
+	const val TITLE_COUNT_FOLLOWINGS = "Подписок"
 
 	// Types project
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"
@@ -123,6 +128,10 @@ object Constants {
 
 	// Text
 	const val TEXT_VERIFY_EMAIL = "Мы отправили письмо со ссылкой для подтверждения вашей почты"
+	const val TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT = "Заявка на покупку проекта успешно отправлена"
+	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
+	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
+	const val TEXT_LOGOUT_ACCOUNT = "Вы уверены, что хотите выйти из аккаунта?"
 
 	// Types messages
 	const val TYPE_MESSAGE_TEXT = "text"
