@@ -10,10 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
 
 @Composable
@@ -33,7 +30,7 @@ fun ButtonActionText(
 	) {
 		Text(
 			text = title,
-			modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
+			modifier = Modifier.padding(horizontal = 7.dp, vertical = 1.dp),
 			style = MaterialTheme.typography.button
 		)
 	}
