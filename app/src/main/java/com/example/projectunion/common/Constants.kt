@@ -37,6 +37,7 @@ object Constants {
 	const val ERROR_BY_EDIT_PROFILE = "Ошибка при редактировании профиля"
 	const val ERROR_BY_SEND_BUY_MESSAGE_PROJECT = "Ошибка при отправке заявки на покупку"
 	const val ERROR_BY_GET_PROJECT = "Ошибка при открытии проекта"
+	const val ERROR_BY_GET_PROFILE = "Ошибка при полчении данных профиля"
 
 	// Errors Firebase
 	const val INVALID_LOGIN_PASSWORD = "The password is invalid or the user does not have a password."
@@ -106,6 +107,7 @@ object Constants {
 	const val BUTTON_TO_WRITE_USER = "Написать"
 	const val BUTTON_SEND = "Отправить"
 	const val BUTTON_CANCEL = "Отмена"
+	const val BUTTON_TRY_AGAIN = "Повторить попытку"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"

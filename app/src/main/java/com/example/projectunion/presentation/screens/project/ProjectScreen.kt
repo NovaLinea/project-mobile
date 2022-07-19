@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ProjectScreen(
+	projectID: String,
 	price: Int,
 	navController: NavController,
 	viewModel: ProjectViewModel = hiltViewModel()
@@ -107,7 +108,9 @@ fun ProjectScreen(
 					is Response.Loading -> ShimmerLoaderProject()
 					is Response.Error -> {
 						Log.d(TAG, stateProject.message)
-						Error(message = ERROR_BY_GET_PROJECT)
+						Error(message = ERROR_BY_GET_PROJECT) {
+							viewModel.getProjectById(projectID)
+						}
 					}
 					is Response.Success -> {
 						if (stateProject.data != null) {

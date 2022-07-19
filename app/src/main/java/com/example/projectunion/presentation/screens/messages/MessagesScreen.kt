@@ -38,17 +38,16 @@ fun MessagesScreen(
 	val state = viewModel.state.observeAsState(Response.Success(emptyList())).value
 	val listState = rememberLazyListState()
 
-	val scaffoldState = rememberScaffoldState()
-
 	Scaffold(
-		topBar = { TopBar(MESSAGES_SCREEN) },
-		scaffoldState = scaffoldState
+		topBar = { TopBar(MESSAGES_SCREEN) }
 	) {
 		when(state) {
 			is Response.Loading -> ShimmerLoaderChats()
 			is Response.Error -> {
 				Log.d(TAG, state.message)
-				Error(message = ERROR_BY_GET_CHATS)
+				Error(message = ERROR_BY_GET_CHATS) {
+					viewModel.getChats()
+				}
 			}
 			is Response.Success -> {
 				if (state.data.isNotEmpty()) {

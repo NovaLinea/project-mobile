@@ -87,7 +87,9 @@ fun HomeScreen(
 				is Response.Loading -> ShimmerLoaderProjects()
 				is Response.Error -> {
 					Log.d(TAG, stateGet.message)
-					Error(message = ERROR_BY_GET_PROJECTS)
+					Error(message = ERROR_BY_GET_PROJECTS) {
+						viewModel.getProjects()
+					}
 				}
 				is Response.Success -> {
 					//listProjects.addAll(stateGet.data)
@@ -123,8 +125,8 @@ fun HomeScreen(
 										externalRouter.navigateTo(
 											MainNavRoute.Project.route
 													+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
-													+ "&$ARGUMENT_USER_ID_KEY=${project.creatorID}"
 													+ "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
+													+ "&$ARGUMENT_USER_ID_KEY=${project.creatorID}"
 										)
 									}
 								)

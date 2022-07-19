@@ -40,7 +40,7 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
-    private fun getProjectById(projectID: String) {
+    fun getProjectById(projectID: String) {
         viewModelScope.launch {
             getProjectByIdUseCase(projectID).collect { response ->
                 _stateProject.postValue(response)

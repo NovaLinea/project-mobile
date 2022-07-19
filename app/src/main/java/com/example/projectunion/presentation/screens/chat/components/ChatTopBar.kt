@@ -42,8 +42,7 @@ fun ChatTopBar(
 			modifier = Modifier.fillMaxSize(),
 			contentAlignment = Alignment.Center
 		) {
-			Text(
-				modifier = Modifier.padding(start = 10.dp),
+			Text (
 				text = title,
 				style = MaterialTheme.typography.subtitle2
 			)

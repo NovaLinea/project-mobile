@@ -41,7 +41,7 @@ class ProfileViewModel @Inject constructor(
 		}
 	}
 
-	private fun getProfileData(userID: String) {
+	fun getProfileData(userID: String) {
 		viewModelScope.launch {
 			getUserByIdUseCase(userID).collect { response ->
 				if (response is Response.Success)
@@ -52,7 +52,7 @@ class ProfileViewModel @Inject constructor(
 		}
 	}
 
-	private fun getProjects(userID: String) {
+	fun getProjects(userID: String) {
 		viewModelScope.launch {
 			getProjectsUserUseCase(userID).collect { response ->
 				_stateProjects.postValue(response)

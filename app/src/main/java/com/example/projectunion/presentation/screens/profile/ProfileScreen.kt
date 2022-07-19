@@ -1,5 +1,6 @@
 package com.example.projectunion.presentation.screens.profile
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,9 +20,12 @@ import com.example.projectunion.R
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.projectunion.common.Constants.ERROR_BY_GET_PROFILE
+import com.example.projectunion.common.Constants.ERROR_BY_GET_PROJECTS
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_PROJECTS
 import com.example.projectunion.domain.model.Response
+import com.example.projectunion.presentation.components.error.Error
 import com.example.projectunion.presentation.screens.home.components.ShimmerLoaderProjects
 import com.example.projectunion.presentation.navigation.MainNavRoute
 import com.example.projectunion.presentation.screens.home.components.ProjectItem
@@ -29,8 +33,10 @@ import com.example.projectunion.presentation.screens.profile.components.ProfileI
 import com.example.projectunion.presentation.screens.profile.components.ProfileTopBar
 import com.example.projectunion.presentation.screens.profile.components.ShimmerLoaderProfile
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(
+	userID: String,
 	navController: NavController,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
@@ -40,15 +46,10 @@ fun ProfileScreen(
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
 
 	var countProjects = 0
-	if (stateProjects is Response.Success)
-		countProjects = stateProjects.data.size
-	if (stateProjects is Response.Error)
-		Log.d(TAG, stateProjects.message)
-
 	val listState = rememberLazyListState()
 
 	Scaffold(
-		topBar = { ProfileTopBar(navController) },
+		topBar = { ProfileTopBar(navController) }
 	) {
 		LazyColumn(
 			state = listState,
@@ -59,7 +60,16 @@ fun ProfileScreen(
 			item() {
 				when(stateProfile) {
 					is Response.Loading -> ShimmerLoaderProfile()
-					is Response.Error -> Log.d(TAG, stateProfile.message)
+					is Response.Error -> {
+						Log.d(TAG, stateProfile.message)
+						Box(
+							modifier = Modifier.height(250.dp)
+						) {
+							Error(message = ERROR_BY_GET_PROFILE) {
+								viewModel.getProfileData(userID)
+							}
+						}
+					}
 					is Response.Success -> {
 						stateProfile.data?.let { user ->
 							ProfileInformation(
@@ -80,43 +90,63 @@ fun ProfileScreen(
 				Spacer(modifier = Modifier.height(5.dp))
 			}
 
-			if (stateProjects is Response.Loading) {
-				item {
-					ShimmerLoaderProjects()
+			when(stateProjects) {
+				is Response.Loading -> {
+					item {
+						ShimmerLoaderProjects()
+					}
 				}
-			}
-			if (stateProjects is Response.Success) {
-				if (stateProjects.data.isEmpty()) {
-					item() {
-						Column(
-							modifier = Modifier.fillMaxSize(),
-							horizontalAlignment = Alignment.CenterHorizontally
+				is Response.Error -> {
+					Log.d(TAG, stateProjects.message)
+					item {
+						Box(
+							modifier = Modifier.padding(top = 50.dp)
 						) {
-							Text(
-								modifier = Modifier.padding(top = 50.dp),
-								text = TITLE_NO_PROJECTS,
-								style = MaterialTheme.typography.body2
-							)
+							Error(
+								message = ERROR_BY_GET_PROJECTS,
+								background = colorResource(id = R.color.background_tape)
+							) {
+								viewModel.getProjects(userID)
+							}
 						}
 					}
 				}
-				else {
-					items(stateProjects.data) { project ->
-						ProjectItem(
-							project = project,
-							openProfile = {
-								navController.navigate(
-									MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${project.creatorID}"
-								)
-							},
-							openProject = {
-								navController.navigate(
-									MainNavRoute.Project.route
-											+ "?${ARGUMENT_PROJECT_ID_KEY}=${project.id}"
-											+ "&${ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
+				is Response.Success -> {
+					countProjects = stateProjects.data.size
+
+					if (stateProjects.data.isEmpty()) {
+						item() {
+							Column(
+								modifier = Modifier.fillMaxSize(),
+								horizontalAlignment = Alignment.CenterHorizontally
+							) {
+								Text(
+									modifier = Modifier.padding(top = 50.dp),
+									text = TITLE_NO_PROJECTS,
+									style = MaterialTheme.typography.body2
 								)
 							}
-						)
+						}
+					}
+					else {
+						items(stateProjects.data) { project ->
+							ProjectItem(
+								project = project,
+								openProfile = {
+									navController.navigate(
+										MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${project.creatorID}"
+									)
+								},
+								openProject = {
+									navController.navigate(
+										MainNavRoute.Project.route
+												+ "?${ARGUMENT_PROJECT_ID_KEY}=${project.id}"
+												+ "&${ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
+												+ "&$ARGUMENT_USER_ID_KEY=${project.creatorID}"
+									)
+								}
+							)
+						}
 					}
 				}
 			}

@@ -153,7 +153,9 @@ fun ChatScreen(
 					Error(
 						message = ERROR_BY_GET_MESSAGES,
 						background = colorResource(id = R.color.app_background)
-					)
+					) {
+						viewModel.getMessages()
+					}
 				}
 				is Response.Success -> {
 					if (stateGet.data.isNotEmpty()) {

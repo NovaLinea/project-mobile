@@ -54,7 +54,10 @@ fun NavGraphBuilder.mainNavGraph(
 				}
 			)
 		) {
-			ProfileScreen(navController = navController)
+			ProfileScreen(
+				userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
+				navController = navController
+			)
 		}
 
 		composable(
@@ -85,6 +88,7 @@ fun NavGraphBuilder.mainNavGraph(
 		) {
 			it.arguments?.let { args ->
 				ProjectScreen(
+					projectID = args.getString(ARGUMENT_PROJECT_ID_KEY) as String,
 					price = args.getInt(ARGUMENT_PROJECT_PRICE_KEY),
 					navController = navController
 				)

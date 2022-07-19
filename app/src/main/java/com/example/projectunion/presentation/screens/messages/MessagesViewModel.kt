@@ -20,7 +20,7 @@ class MessagesViewModel @Inject constructor(
 		getChats()
 	}
 
-	private fun getChats() {
+	fun getChats() {
 		viewModelScope.launch {
 			getChatsUseCase(
 				setListChats = { listChats ->
