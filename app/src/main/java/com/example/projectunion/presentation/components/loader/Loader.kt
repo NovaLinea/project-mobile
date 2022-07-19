@@ -12,10 +12,12 @@ import androidx.compose.ui.res.colorResource
 import com.example.projectunion.R
 
 @Composable
-fun Loader() {
+fun Loader(
+	background: Color = colorResource(id = R.color.app_background)
+) {
 	Box(
 		modifier = Modifier
-			.background(colorResource(id = R.color.app_background))
+			.background(background)
 			.fillMaxSize(),
 		contentAlignment = Alignment.Center
 	) {

@@ -134,6 +134,7 @@ object Constants {
 	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
 	const val TEXT_LOGOUT_ACCOUNT = "Вы уверены, что хотите выйти из аккаунта?"
+	const val TEXT_MAX_LENGTH = "Добавлено максимальное количество символов"
 
 	// Types messages
 	const val TYPE_MESSAGE_TEXT = "text"
@@ -175,9 +176,16 @@ object Constants {
 	const val TYPE_MESSAGE_FIELD = "type"
 	const val TIMESTAMP_MESSAGE_FIELD = "timestamp"
 
+	// LIMITATIONS
+	const val MAX_NAME_USER_LENGTH = 30
+	const val MAX_DESCRIPTION_USER_LENGTH = 70
+	const val MAX_TITLE_PROJECT_LENGTH = 120
+	const val MAX_DESCRIPTION_PROJECT_LENGTH = 10000
+	const val MIN_PASSWORD_LENGTH = 6
+	const val COUNT_MESSAGES_CHAT = 10
+
 	// Other
 	const val TAG = "AppLog"
-	var countMessagesChat = 10
 	var USER = UserProfile()
 	val NAME_APP = "С новой строки"
 }

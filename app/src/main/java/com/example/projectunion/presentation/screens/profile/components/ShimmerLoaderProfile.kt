@@ -47,7 +47,7 @@ fun ShimmerLoaderProfile() {
 		}
 
 		Spacer(modifier = Modifier.height(20.dp))
-		ShimmerBlock(brush, 150, 45, 10)
+		ShimmerBlock(brush, 150, 40, 10)
 		Spacer(modifier = Modifier.height(20.dp))
 	}
 }

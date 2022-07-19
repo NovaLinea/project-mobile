@@ -1,5 +1,6 @@
 package com.example.projectunion.presentation.screens.create
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,6 +20,8 @@ import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.ERROR_BY_CREATE_PROJECT
 import com.example.projectunion.common.Constants.MAIN_ROUTE
+import com.example.projectunion.common.Constants.MAX_DESCRIPTION_PROJECT_LENGTH
+import com.example.projectunion.common.Constants.MAX_TITLE_PROJECT_LENGTH
 import com.example.projectunion.common.Constants.PRICE_PROJECT_PLACEHOLDER
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_PROJECT_PLACEHOLDER
@@ -30,6 +33,7 @@ import com.example.projectunion.presentation.screens.create.components.CreateTop
 import com.example.projectunion.presentation.ui.theme.OpenSans
 import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun CreateScreen(
 	typeProject: String,
@@ -37,9 +41,6 @@ fun CreateScreen(
 	viewModel: CreateViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(false)).value
-
-	val maxCharTitle = 120
-	val maxCharDescription = 10000
 	val focusManager = LocalFocusManager.current
 
 	val scaffoldState = rememberScaffoldState()
@@ -67,6 +68,7 @@ fun CreateScreen(
 			SnackbarHost(it) { data ->
 				Snackbar(
 					backgroundColor = Color.White,
+					contentColor = Color.Black,
 					snackbarData = data
 				)
 			}
@@ -103,10 +105,10 @@ fun CreateScreen(
 						placeholder = TITLE_PROJECT_PLACEHOLDER,
 						isPlaceholderVisible = viewModel.title.text.isEmpty(),
 						onValueChange = {
-							if (it.length < maxCharTitle)
+							if (it.length < MAX_TITLE_PROJECT_LENGTH)
 								viewModel.title.text = it
-							else
-								viewModel.title.text = it.substring(0, maxCharTitle)
+							/*else
+								viewModel.title.text = it.substring(0, MAX_TITLE_PROJECT_LENGTH)*/
 						},
 						textStyle = MaterialTheme.typography.h6
 					)
@@ -142,10 +144,8 @@ fun CreateScreen(
 						placeholder = DESCRIPTION_PROJECT_PLACEHOLDER,
 						isPlaceholderVisible = viewModel.description.text.isEmpty(),
 						onValueChange = {
-							if (it.length < maxCharDescription)
+							if (it.length < MAX_DESCRIPTION_PROJECT_LENGTH)
 								viewModel.description.text = it
-							else
-								viewModel.description.text = it.substring(0, maxCharDescription)
 						},
 						textStyle = TextStyle(
 							fontFamily = OpenSans,

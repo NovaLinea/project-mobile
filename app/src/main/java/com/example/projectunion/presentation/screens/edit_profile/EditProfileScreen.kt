@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -14,8 +15,11 @@ import androidx.navigation.NavController
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.DESCRIPTION_PROFILE
 import com.example.projectunion.common.Constants.ERROR_BY_EDIT_PROFILE
+import com.example.projectunion.common.Constants.MAX_DESCRIPTION_USER_LENGTH
+import com.example.projectunion.common.Constants.MAX_NAME_USER_LENGTH
 import com.example.projectunion.common.Constants.NAME_PLACEHOLDER
 import com.example.projectunion.common.Constants.TAG
+import com.example.projectunion.common.Constants.TEXT_MAX_LENGTH
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader
@@ -33,9 +37,6 @@ fun EditProfileScreen(
 ) {
 	val state = viewModel.state.observeAsState(Response.Success(false)).value
 
-	val maxCharName = 30
-	val maxCharDescription = 70
-
 	val scaffoldState = rememberScaffoldState()
 	val scope = rememberCoroutineScope()
 
@@ -43,8 +44,10 @@ fun EditProfileScreen(
 		topBar = {
 			EditProfileTopBar(
 				onClickBack = {
-					navController.popBackStack()
-					openProfile(id, navController)
+					openProfile(
+						id = id,
+						navController = navController
+					)
 				},
 				onClickSave = {
 					if (viewModel.name.text.isNotEmpty())
@@ -57,13 +60,14 @@ fun EditProfileScreen(
 			SnackbarHost(it) { data ->
 				Snackbar(
 					backgroundColor = Color.White,
+					contentColor = Color.Black,
 					snackbarData = data
 				)
 			}
 		}
 	) {
 		when(state) {
-			is Response.Loading -> Loader()
+			is Response.Loading -> Loader(background = Color.White)
 			is Response.Error -> {
 				Log.d(TAG, state.message)
 				scope.launch {
@@ -74,7 +78,6 @@ fun EditProfileScreen(
 				if (state.data) {
 					USER.name = viewModel.name.text
 					LaunchedEffect(state.data) {
-						navController.popBackStack()
 						openProfile(
 							id = id,
 							navController = navController
@@ -89,17 +92,23 @@ fun EditProfileScreen(
 		) {
 			Spacer(modifier = Modifier.height(20.dp))
 
+			if (viewModel.name.text.isNotEmpty()) {
+				Text(
+					text = NAME_PLACEHOLDER,
+					style = MaterialTheme.typography.caption
+				)
+			}
+
 			EditProfileTextField(
 				value = viewModel.name.text,
 				placeholder = NAME_PLACEHOLDER,
 				isPlaceholderVisible = viewModel.name.text.isEmpty(),
 				onValueChange = {
-					if (it.length < maxCharName)
+					if (it.length <= MAX_NAME_USER_LENGTH)
 						viewModel.name.text = it
-					else
-						viewModel.name.text = it.substring(0, maxCharName)
 				},
 				singleLine = true,
+				maxLength = MAX_NAME_USER_LENGTH,
 				onSave = {
 					if (viewModel.name.text.isNotEmpty())
 						viewModel.editProfile()
@@ -108,17 +117,23 @@ fun EditProfileScreen(
 
 			Spacer(modifier = Modifier.height(15.dp))
 
+			if (viewModel.description.value.isNotEmpty()) {
+				Text(
+					text = DESCRIPTION_PROFILE,
+					style = MaterialTheme.typography.caption
+				)
+			}
+
 			EditProfileTextField(
 				value = viewModel.description.value,
 				placeholder = DESCRIPTION_PROFILE,
 				isPlaceholderVisible = viewModel.description.value.isEmpty(),
 				onValueChange = {
-					if (it.length < maxCharDescription)
+					if (it.length <= MAX_DESCRIPTION_USER_LENGTH)
 						viewModel.description.value = it
-					else
-						viewModel.description.value = it.substring(0, maxCharDescription)
 				},
 				singleLine = false,
+				maxLength = MAX_DESCRIPTION_USER_LENGTH,
 				onSave = {
 					if (viewModel.name.text.isNotEmpty())
 						viewModel.editProfile()
@@ -132,6 +147,7 @@ fun openProfile(
 	id: String,
 	navController: NavController
 ) {
+	navController.popBackStack()
 	navController.navigate(
 		MainNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
 	)

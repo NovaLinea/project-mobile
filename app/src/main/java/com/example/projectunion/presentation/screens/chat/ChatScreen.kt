@@ -3,7 +3,6 @@ package com.example.projectunion.presentation.screens.chat
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,11 +22,9 @@ import com.example.projectunion.R
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ERROR_BY_GET_MESSAGES
 import com.example.projectunion.common.Constants.ERROR_BY_SEND_MESSAGE
-import com.example.projectunion.common.Constants.MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_MESSAGES
 import com.example.projectunion.common.Constants.USER
-import com.example.projectunion.common.Constants.countMessagesChat
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.error.Error
 import com.example.projectunion.presentation.components.loader.Loader
@@ -86,6 +83,7 @@ fun ChatScreen(
 			SnackbarHost(it) { data ->
 				Snackbar(
 					backgroundColor = Color.White,
+					contentColor = Color.Black,
 					snackbarData = data
 				)
 			}
