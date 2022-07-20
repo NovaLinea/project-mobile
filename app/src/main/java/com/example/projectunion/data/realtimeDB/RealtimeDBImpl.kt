@@ -46,25 +46,23 @@ class RealtimeDBImpl(
 
 	override fun getMessages(
 		id: String,
-		setListMessages: (List<MessageGet?>) -> Unit,
 		addItemMessage: (MessageGet?) -> Unit
 	) = flow<Response<List<MessageGet>>> {
 		try {
 			emit(Response.Loading)
 
 			db.child("$NODE_MESSAGES/${USER.id}/$id")
-				.addValueEventListener(object: ValueEventListener {
-					override fun onDataChange(snapshot: DataSnapshot) {
-						val messages = snapshot.children.map { data ->
-							val message = data.getValue(MessageGet::class.java)
-							if (message != null) {
-								message.id =  data.key.toString()
-							}
-							message
+				.addChildEventListener(object: ChildEventListener {
+					override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+						val message = snapshot.getValue(MessageGet::class.java)
+						if (message != null) {
+							message.id =  snapshot.key.toString()
 						}
-						setListMessages(messages)
+						addItemMessage(message)
 					}
-
+					override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+					override fun onChildRemoved(snapshot: DataSnapshot) {}
+					override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 					override fun onCancelled(error: DatabaseError) {}
 				})
 		} catch (e: Exception) {

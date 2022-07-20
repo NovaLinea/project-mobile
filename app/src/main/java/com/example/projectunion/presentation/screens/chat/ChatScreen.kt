@@ -96,12 +96,24 @@ fun ChatScreen(
 			}
 		}
 
+		if (stateGet is Response.Loading)
+			Loader()
+		else if (stateGet is Response.Error) {
+			Log.d(TAG, stateGet.message)
+			Error(
+				message = ERROR_BY_GET_MESSAGES,
+				background = colorResource(id = R.color.app_background)
+			) {
+				viewModel.getMessages()
+			}
+		}
+
 		Box(
 			modifier = Modifier.padding(innerPadding)
 		) {
-			/*if (viewModel.messages.isNotEmpty()) {
+			if (viewModel.messages.isNotEmpty()) {
 				scope.launch {
-					listState.animateScrollToItem(viewModel.messages.size)
+					listState.animateScrollToItem(viewModel.messages.lastIndex)
 				}
 				LazyColumn(
 					state = listState,
@@ -111,7 +123,6 @@ fun ChatScreen(
 					contentPadding = PaddingValues(all = 10.dp),
 					verticalArrangement = Arrangement.spacedBy(10.dp)
 				) {
-					Log.d(TAG, viewModel.messages.toString())
 					items(
 						items = viewModel.messages,
 						key = { message ->
@@ -143,8 +154,9 @@ fun ChatScreen(
 						style = MaterialTheme.typography.body2
 					)
 				}
-			}*/
-			when(stateGet) {
+			}
+
+			/*when(stateGet) {
 				is Response.Loading -> Loader()
 				is Response.Error -> {
 					Log.d(TAG, stateGet.message)
@@ -211,7 +223,7 @@ fun ChatScreen(
 						}
 					}
 				}
-			}
+			}*/
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.example.projectunion.presentation.screens.chat
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.*
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.TAG
@@ -24,7 +25,7 @@ class ChatViewModel @Inject constructor(
 ): ViewModel() {
 
 	val message by lazy { MessageState() }
-	val messages = mutableListOf<MessageGet>()
+	val messages = mutableStateListOf<MessageGet>()
 
 	private val _statePhoto = MutableLiveData<String?>()
 	val statePhoto: LiveData<String?> get() = _statePhoto
@@ -59,9 +60,6 @@ class ChatViewModel @Inject constructor(
 			viewModelScope.launch {
 				getMessagesUseCase(
 					id = userId,
-					setListMessages = { listMessages ->
-						setListMessages(listMessages)
-					},
 					addItemMessage = { itemMessage ->
 						addItemMessage(itemMessage)
 					}
@@ -72,15 +70,11 @@ class ChatViewModel @Inject constructor(
 		}
 	}
 
-	private fun setListMessages(listMessages: List<MessageGet?>) {
-		_stateGet.postValue(Response.Success(listMessages as MutableList<MessageGet>))
-	}
-
 	private fun addItemMessage(itemMessage: MessageGet?) {
 		if (itemMessage != null) {
 			messages.add(itemMessage)
+			//_stateGet.postValue(Response.Success(messages))
 		}
-		//_stateGet.postValue(Response.Success(messages))
 	}
 
 	fun sendMessage() {

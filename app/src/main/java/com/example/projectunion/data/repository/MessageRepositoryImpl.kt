@@ -56,10 +56,10 @@ class MessageRepositoryImpl(
 		setListChats(listChats)
 	}
 
-	override fun getMessages(id: String,
-							 setListMessages: (List<MessageGet?>) -> Unit,
-							 addItemMessage: (MessageGet?) -> Unit
-	) = realtimeDB.getMessages(id, setListMessages, addItemMessage)
+	override fun getMessages(
+		id: String,
+		addItemMessage: (MessageGet?) -> Unit
+	) = realtimeDB.getMessages(id, addItemMessage)
 
 	override fun sendMessage(message: MessageSend) = realtimeDB.sendMessage(message)
 }

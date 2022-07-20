@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,7 +18,6 @@ import com.example.projectunion.common.Constants.MAX_DESCRIPTION_USER_LENGTH
 import com.example.projectunion.common.Constants.MAX_NAME_USER_LENGTH
 import com.example.projectunion.common.Constants.NAME_PLACEHOLDER
 import com.example.projectunion.common.Constants.TAG
-import com.example.projectunion.common.Constants.TEXT_MAX_LENGTH
 import com.example.projectunion.common.Constants.USER
 import com.example.projectunion.domain.model.Response
 import com.example.projectunion.presentation.components.loader.Loader

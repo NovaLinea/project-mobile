@@ -28,25 +28,32 @@ class ProjectRepositoryImpl(
 	) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)
-			firestoreDB.createProject(project).collect { response ->
-				when(response) {
+			firestoreDB.createProject(project).collect { responseCreate ->
+				when(responseCreate) {
 					is Response.Loading -> emit(Response.Loading)
+					is Response.Error -> emit(responseCreate)
 					is Response.Success -> {
 						if (images.isNotEmpty())
-							storageDB.addImagesProject(images, response.data).collect { respImg ->
-								when(respImg) {
-									is Response.Success ->
-										firestoreDB.uploadUrlImagesProject(respImg.data, response.data).collect {
-											emit(it)
+							storageDB.addImagesProject(
+								images = images,
+								id = responseCreate.data
+							).collect { responseImage ->
+								when(responseImage) {
+									is Response.Error -> emit(responseImage)
+									is Response.Loading -> emit(responseImage)
+									is Response.Success -> {
+										firestoreDB.uploadUrlImagesProject(
+											images = responseImage.data,
+											id = responseCreate.data
+										).collect { respUpload ->
+											emit(respUpload)
 										}
-									is Response.Error -> emit(respImg)
-									is Response.Loading -> emit(respImg)
+									}
 								}
 							}
 						else
 							emit(Response.Success(true))
 					}
-					is Response.Error -> emit(response)
 				}
 			}
 		} catch (e: Exception) {

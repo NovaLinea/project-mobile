@@ -111,10 +111,8 @@ fun CreateScreen(
 						placeholder = TITLE_PROJECT_PLACEHOLDER,
 						isPlaceholderVisible = viewModel.title.text.isEmpty(),
 						onValueChange = {
-							if (it.length < MAX_TITLE_PROJECT_LENGTH)
+							if (it.length <= MAX_TITLE_PROJECT_LENGTH)
 								viewModel.title.text = it
-							/*else
-								viewModel.title.text = it.substring(0, MAX_TITLE_PROJECT_LENGTH)*/
 						},
 						textStyle = MaterialTheme.typography.h6
 					)
@@ -150,7 +148,7 @@ fun CreateScreen(
 						placeholder = DESCRIPTION_PROJECT_PLACEHOLDER,
 						isPlaceholderVisible = viewModel.description.text.isEmpty(),
 						onValueChange = {
-							if (it.length < MAX_DESCRIPTION_PROJECT_LENGTH)
+							if (it.length <= MAX_DESCRIPTION_PROJECT_LENGTH)
 								viewModel.description.text = it
 						},
 						textStyle = TextStyle(

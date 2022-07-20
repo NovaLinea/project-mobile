@@ -1,7 +1,6 @@
 package com.example.projectunion.data.storage
 
 import android.net.Uri
-import androidx.compose.runtime.mutableStateOf
 import com.example.projectunion.common.Constants.PATH_IMAGES_PROJECTS
 import com.example.projectunion.common.Constants.PATH_IMAGES_USERS
 import com.example.projectunion.domain.model.Response
@@ -16,7 +15,7 @@ class StorageImpl(
 	override fun addImagesProject(images: List<Uri>, id: String) = flow<Response<MutableList<String>>> {
 		try {
 			emit(Response.Loading)
-			var imagesUrl = mutableListOf<String>()
+			val imagesUrl = mutableListOf<String>()
 
 			images.forEachIndexed { index, imageUri ->
 				val fileRef = storage.child("$PATH_IMAGES_PROJECTS/$id/image_${index}")

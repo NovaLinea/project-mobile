@@ -9,7 +9,6 @@ class GetMessagesUseCase(
 
 	operator fun invoke(
 		id: String,
-		setListMessages: (List<MessageGet?>) -> Unit,
 		addItemMessage: (MessageGet?) -> Unit
-	) = repository.getMessages(id, setListMessages, addItemMessage)
+	) = repository.getMessages(id, addItemMessage)
 }
