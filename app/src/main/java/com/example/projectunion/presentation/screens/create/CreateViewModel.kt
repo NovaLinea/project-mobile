@@ -1,6 +1,7 @@
 package com.example.projectunion.presentation.screens.create
 
 import android.net.Uri
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.projectunion.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
@@ -23,10 +24,18 @@ class CreateViewModel @Inject constructor(
     val title by lazy { CreateState() }
     val description by lazy { CreateState() }
     val price by lazy { CreateState() }
-    var images = mutableListOf<Uri>()
+    var images = mutableStateListOf<Uri>()
 
-    private val _state = MutableLiveData<Response<Boolean>>()
-    val state: LiveData<Response<Boolean>> get() = _state
+    private val _stateCreate = MutableLiveData<Response<Boolean>>()
+    val stateCreate: LiveData<Response<Boolean>> get() = _stateCreate
+
+    fun addImageProject(uri: Uri) {
+        images.add(uri)
+    }
+
+    fun deleteImageProject(index: Int) {
+        images.removeAt(index)
+    }
 
     fun createProject() {
         savedStateHandle.get<String>(ARGUMENT_PROJECT_TYPE_KEY)?.let { typeProject ->
@@ -44,7 +53,7 @@ class CreateViewModel @Inject constructor(
                     creatorID = creatorID.value
                 )
                 createProjectUseCase(project, images).collect { response ->
-                    _state.postValue(response)
+                    _stateCreate.postValue(response)
                 }
             }
         }

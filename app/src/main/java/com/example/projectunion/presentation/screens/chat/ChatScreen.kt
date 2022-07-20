@@ -168,7 +168,7 @@ fun ChatScreen(
 							}
 						}*/
 						scope.launch {
-							listState.animateScrollToItem(stateGet.data.size)
+							listState.animateScrollToItem(stateGet.data.lastIndex)
 						}
 						LazyColumn(
 							state = listState,

@@ -9,19 +9,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import com.example.projectunion.common.Constants.MAX_IMAGES_PROJECT
 
 @Composable
-fun ChoiceImage(images: MutableList<Uri>) {
-	val maxImagesProject = 3
+fun ChoiceImage(
+	countImages: Int,
+	onAddImage: (Uri) -> Unit,
+) {
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.GetContent()
 	) { uri: Uri? ->
-		uri?.let { images.add(images.size, it) }
+		uri?.let { onAddImage(it) }
 	}
 
 	IconButton(
 		onClick = {
-			if (images.size < maxImagesProject)
+			if (countImages < MAX_IMAGES_PROJECT)
 				launcher.launch("image/*")
 		}
 	) {

@@ -11,12 +11,20 @@ import com.example.projectunion.presentation.components.button_action.ButtonActi
 
 @Composable
 fun CreateBottomBar(
-	images: MutableList<Uri>,
+	images: List<Uri>,
 	enabledCreate: Boolean,
-	onClickCreate: () -> Unit
+	onAddImage: (Uri) -> Unit,
+	onDeleteImage: (Int) -> Unit,
+	onCreate: () -> Unit
 ) {
 	Column() {
-		ImagesProject(images)
+		ImagesProject(
+			images = images,
+			onDeleteImage = { index ->
+				onDeleteImage(index)
+			}
+		)
+
 		Row(
 			modifier = Modifier
 				.padding(10.dp)
@@ -24,13 +32,18 @@ fun CreateBottomBar(
 			horizontalArrangement = Arrangement.SpaceBetween,
 			verticalAlignment = Alignment.CenterVertically
 		) {
-			ChoiceImage(images)
+			ChoiceImage(
+				countImages = images.size,
+				onAddImage = { uri ->
+					onAddImage(uri)
+				}
+			)
 
 			ButtonActionText(
 				title = BUTTON_CREATE_PROJECT,
 				enabled = enabledCreate
 			) {
-				onClickCreate()
+				onCreate()
 			}
 		}
 	}

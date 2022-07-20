@@ -40,9 +40,9 @@ fun CreateScreen(
 	navController: NavController,
 	viewModel: CreateViewModel = hiltViewModel()
 ) {
-	val state = viewModel.state.observeAsState(Response.Success(false)).value
-	val focusManager = LocalFocusManager.current
+	val stateCreate = viewModel.stateCreate.observeAsState(Response.Success(false)).value
 
+	val focusManager = LocalFocusManager.current
 	val scaffoldState = rememberScaffoldState()
 	val scope = rememberCoroutineScope()
 
@@ -55,10 +55,16 @@ fun CreateScreen(
 		bottomBar = {
 			CreateBottomBar(
 				images = viewModel.images,
-				enabledCreate = state != Response.Loading
+				enabledCreate = stateCreate != Response.Loading
 						&& viewModel.title.isValidText()
 						&& viewModel.price.isValidText(),
-				onClickCreate = {
+				onAddImage = { uri ->
+					viewModel.addImageProject(uri)
+				},
+				onDeleteImage = { index ->
+					viewModel.deleteImageProject(index)
+				},
+				onCreate = {
 					viewModel.createProject()
 				}
 			)
@@ -75,17 +81,17 @@ fun CreateScreen(
 		}
 	) {
 		innerPadding ->
-			when(state) {
+			when(stateCreate) {
 				is Response.Loading -> Log.d(TAG, "Loading")
 				is Response.Error -> {
-					Log.d(TAG, state.message)
+					Log.d(TAG, stateCreate.message)
 					scope.launch {
 						scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_CREATE_PROJECT)
 					}
 				}
 				is Response.Success -> {
-					if (state.data) {
-						LaunchedEffect(state.data) {
+					if (stateCreate.data) {
+						LaunchedEffect(stateCreate.data) {
 							navController.navigate(MAIN_ROUTE)
 						}
 					}

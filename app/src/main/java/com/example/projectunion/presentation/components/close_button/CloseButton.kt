@@ -14,7 +14,7 @@ fun CloseButton(onClicked: () -> Unit) {
 	) {
 		Icon(
 			imageVector = Icons.Default.Close,
-			contentDescription = "Close icon",
+			contentDescription = null,
 			tint = Color.Black
 		)
 	}

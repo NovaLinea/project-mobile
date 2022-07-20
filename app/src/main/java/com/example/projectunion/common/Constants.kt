@@ -183,6 +183,7 @@ object Constants {
 	const val MAX_DESCRIPTION_PROJECT_LENGTH = 10000
 	const val MIN_PASSWORD_LENGTH = 6
 	const val COUNT_MESSAGES_CHAT = 10
+	const val MAX_IMAGES_PROJECT = 5
 
 	// Other
 	const val TAG = "AppLog"

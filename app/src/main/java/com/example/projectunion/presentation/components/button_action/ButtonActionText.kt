@@ -30,7 +30,7 @@ fun ButtonActionText(
 	) {
 		Text(
 			text = title,
-			modifier = Modifier.padding(horizontal = 7.dp, vertical = 1.dp),
+			modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp),
 			style = MaterialTheme.typography.button
 		)
 	}

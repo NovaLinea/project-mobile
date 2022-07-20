@@ -1,7 +1,10 @@
 package com.example.projectunion.common
 
+import android.util.Log
+import com.example.projectunion.common.Constants.TAG
 import com.google.firebase.Timestamp
 import java.util.*
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 fun Timestamp.asCreatedAt(): String {
@@ -18,24 +21,27 @@ fun Timestamp.asCreatedAt(): String {
 		else {
 			val deltaHours = (deltaMinutes / 60).toDouble().roundToInt()
 
-			when {
-				deltaHours < 24 -> {
-					return when (deltaHours) {
-						1, 21 -> "$deltaHours час"
-						2, 3, 4, 22, 23 -> "$deltaHours часа"
-						else -> "$deltaHours часов"
-					}
+			if (deltaHours < 24) {
+				return when (deltaHours) {
+					1, 21 -> "$deltaHours час"
+					2, 3, 4, 22, 23 -> "$deltaHours часа"
+					else -> "$deltaHours часов"
 				}
-				deltaHours < 48 -> return "вчера"
-				else -> {
-					val createdAtYear = this.seconds.asYear()
+			}
+			else {
+				val createdAtDay = this.seconds.asDate("dd")
+
+				return if (abs(createdAtDay.toInt() - Date().date) == 1 && deltaHours < 48)
+					"вчера"
+				else {
+					val createdAtYear = this.seconds.asDate("yyyy")
 					val nowYear = Calendar.getInstance()[1]
 
-					return if (createdAtYear.toInt() == nowYear) {
-						val date = this.seconds.asDate().split(".")
+					if (createdAtYear.toInt() == nowYear) {
+						val date = this.seconds.asDate("dd.MM").split(".")
 						"${date[0]} ${date[1].toInt().asMonth()}"
 					} else
-						this.seconds.asDateWithYear()
+						this.seconds.asDate("dd.MM.yyyy")
 				}
 			}
 		}
