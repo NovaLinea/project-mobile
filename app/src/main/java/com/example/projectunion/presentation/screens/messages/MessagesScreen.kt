@@ -55,7 +55,11 @@ fun MessagesScreen(
 						state = listState,
 						modifier = Modifier.fillMaxSize()
 					) {
-						itemsIndexed(state.data) {index,  chat ->
+						itemsIndexed(
+							items = state.data.sortedByDescending { chat ->
+								chat.timestamp.toString()
+							}
+						) {index, chat ->
 							ChatItem(
 								userName = chat.userName,
 								userPhoto = chat.userPhoto,

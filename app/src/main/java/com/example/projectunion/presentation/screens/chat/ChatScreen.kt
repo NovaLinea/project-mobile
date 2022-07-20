@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import com.example.projectunion.R
 import com.example.projectunion.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.projectunion.common.Constants.ERROR_BY_GET_MESSAGES
 import com.example.projectunion.common.Constants.ERROR_BY_SEND_MESSAGE
+import com.example.projectunion.common.Constants.LIMIT_MESSAGES_CHAT
 import com.example.projectunion.common.Constants.TAG
 import com.example.projectunion.common.Constants.TITLE_NO_MESSAGES
 import com.example.projectunion.common.Constants.USER
@@ -49,7 +51,8 @@ fun ChatScreen(
 	val scaffoldState = rememberScaffoldState()
 	val listState = rememberLazyListState()
 	val scope = rememberCoroutineScope()
-	//var stateScrollToLastMessage = true
+	var scrollToLastMessage = true
+	var isScrolling = false
 
 	Scaffold(
 		topBar = {
@@ -72,8 +75,8 @@ fun ChatScreen(
 				},
 				onSend = {
 					if (viewModel.message.text.isNotEmpty()) {
+						scrollToLastMessage = true
 						viewModel.sendMessage()
-						//stateScrollToLastMessage = true
 					}
 				}
 			)
@@ -112,8 +115,11 @@ fun ChatScreen(
 			modifier = Modifier.padding(innerPadding)
 		) {
 			if (viewModel.messages.isNotEmpty()) {
-				scope.launch {
-					listState.animateScrollToItem(viewModel.messages.lastIndex)
+				if (scrollToLastMessage) {
+					scope.launch {
+						listState.animateScrollToItem(viewModel.messages.lastIndex)
+						//scrollToLastMessage = false
+					}
 				}
 				LazyColumn(
 					state = listState,
@@ -123,6 +129,16 @@ fun ChatScreen(
 					contentPadding = PaddingValues(all = 10.dp),
 					verticalArrangement = Arrangement.spacedBy(10.dp)
 				) {
+					/*if (listState.isScrollInProgress && listState.firstVisibleItemIndex == 0) {
+						isScrolling = true
+					}
+
+					if (isScrolling) {
+						isScrolling = false
+						LIMIT_MESSAGES_CHAT += 10
+						viewModel.getMessages()
+					}*/
+
 					items(
 						items = viewModel.messages,
 						key = { message ->
@@ -175,7 +191,7 @@ fun ChatScreen(
 						}
 						if (stateScrollToLastMessage) {
 							scope.launch {
-								listState.animateScrollToItem(stateGet.data.size)
+								listState.animateScrollToItem(stateGet.data.lastIndex)
 								stateScrollToLastMessage = false
 							}
 						}*/

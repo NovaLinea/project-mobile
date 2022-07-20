@@ -73,6 +73,7 @@ class ChatViewModel @Inject constructor(
 	private fun addItemMessage(itemMessage: MessageGet?) {
 		if (itemMessage != null) {
 			messages.add(itemMessage)
+			Log.d(TAG, messages.size.toString())
 			//_stateGet.postValue(Response.Success(messages))
 		}
 	}

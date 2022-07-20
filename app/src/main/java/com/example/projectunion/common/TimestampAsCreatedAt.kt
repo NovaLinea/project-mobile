@@ -1,7 +1,5 @@
 package com.example.projectunion.common
 
-import android.util.Log
-import com.example.projectunion.common.Constants.TAG
 import com.google.firebase.Timestamp
 import java.util.*
 import kotlin.math.abs

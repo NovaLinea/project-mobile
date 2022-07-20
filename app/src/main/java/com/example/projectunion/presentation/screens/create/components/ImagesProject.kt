@@ -32,8 +32,8 @@ fun ImagesProject(
 	) {
 		itemsIndexed(
 			items = images,
-			key = { _, item ->
-				item.hashCode()
+			key = { index, _ ->
+				index
 			}
 		) { index, imageUri ->
 			Card(

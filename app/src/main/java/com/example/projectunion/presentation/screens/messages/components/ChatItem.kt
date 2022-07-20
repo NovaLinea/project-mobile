@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.projectunion.R
 import com.example.projectunion.common.asTime
+import com.example.projectunion.common.asTimeLastMessage
 import com.example.projectunion.presentation.components.image_painter.ImagePainter
 import com.example.projectunion.presentation.ui.theme.OpenSans
 
@@ -71,7 +72,7 @@ fun ChatItem(
 					)
 
 					Text(
-						text = timestamp.toString().asTime(),
+						text = timestamp.toString().asTimeLastMessage(),
 						style = TextStyle(
 							color = Color.DarkGray,
 							fontFamily = OpenSans,

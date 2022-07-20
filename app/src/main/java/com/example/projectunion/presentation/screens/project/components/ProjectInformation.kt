@@ -16,13 +16,14 @@ import com.example.projectunion.common.*
 import com.example.projectunion.domain.model.ProjectOpen
 import com.example.projectunion.presentation.components.creator_project.CreatorProject
 import com.example.projectunion.presentation.ui.theme.OpenSans
+import com.google.firebase.Timestamp
 
 @Composable
 fun ProjectInformation(
 	project: ProjectOpen,
 	onClickCreator: () -> Unit
 ) {
-	val createdAt = project.createdAt as com.google.firebase.Timestamp
+	val createdAt = project.createdAt as Timestamp
 
 	Column(
 		modifier = Modifier

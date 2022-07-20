@@ -1,6 +1,7 @@
 package com.example.projectunion.data.realtimeDB
 
 import com.example.projectunion.common.Constants.FROM_MESSAGE_FIELD
+import com.example.projectunion.common.Constants.LIMIT_MESSAGES_CHAT
 import com.example.projectunion.common.Constants.NODE_MESSAGES
 import com.example.projectunion.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.projectunion.common.Constants.TIMESTAMP_MESSAGE_FIELD
@@ -52,6 +53,7 @@ class RealtimeDBImpl(
 			emit(Response.Loading)
 
 			db.child("$NODE_MESSAGES/${USER.id}/$id")
+				.limitToLast(LIMIT_MESSAGES_CHAT)
 				.addChildEventListener(object: ChildEventListener {
 					override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
 						val message = snapshot.getValue(MessageGet::class.java)
