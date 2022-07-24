@@ -1,10 +1,8 @@
 package com.example.novalinea.presentation.screens.project
 
-import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
-import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.BUY_PROJECT_MESSAGE
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
@@ -12,7 +10,6 @@ import com.example.novalinea.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.MessageSend
 import com.example.novalinea.domain.model.ProjectOpen
-import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.use_case.GetProjectByIdUseCase
 import com.example.novalinea.domain.use_case.IncrementViewUseCase
@@ -26,7 +23,7 @@ class ProjectViewModel @Inject constructor(
     private val getProjectByIdUseCase: GetProjectByIdUseCase,
     private val incrementViewUseCase: IncrementViewUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
     private val _stateProject = MutableLiveData<Response<ProjectOpen?>>()
@@ -36,19 +33,13 @@ class ProjectViewModel @Inject constructor(
     val stateSend: LiveData<Response<Boolean>> get() = _stateSend
 
     init {
-        savedStateHandle.get<Parcelable>(ARGUMENT_PROJECT_DATA)?.let { project ->
-            Log.d(TAG, project.toString())
+        savedStateHandle.get<String>(ARGUMENT_PROJECT_ID_KEY)?.let { projectID ->
+            incrementView(projectID = projectID)
+            getProjectById(projectID = projectID)
         }
-        savedStateHandle.get<ProjectTape>(ARGUMENT_PROJECT_DATA)?.let { project ->
-            Log.d(TAG, project.toString())
-        }
-        /*savedStateHandle.get<String>(ARGUMENT_PROJECT_ID_KEY)?.let { projectID ->
-            getProjectById(projectID)
-            incrementView(projectID)
-        }*/
     }
 
-    fun getProjectById(projectID: String) {
+    private fun getProjectById(projectID: String) {
         viewModelScope.launch {
             getProjectByIdUseCase(projectID).collect { response ->
                 _stateProject.postValue(response)
@@ -66,8 +57,8 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
-    fun sendMessage() {
-        savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { toID ->
+    fun sendMessage(toID: String?) {
+        toID?.let { toID ->
             viewModelScope.launch {
                 USER.id?.let { fromID ->
                     if (toID != fromID) {

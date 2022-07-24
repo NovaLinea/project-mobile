@@ -43,7 +43,7 @@ fun HomeCreateBottomSheet(
             ) {
                 Box(
                     modifier = Modifier
-                        .padding(top = 15.dp, bottom = 10.dp)
+                        .padding(top = 20.dp, bottom = 10.dp)
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {

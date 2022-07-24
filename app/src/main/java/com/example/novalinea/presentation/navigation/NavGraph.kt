@@ -23,8 +23,8 @@ fun NavGraph(
 			route = MAIN_ROUTE
 		) {
 			MainScreen(
-				router = createExternalRouter { route, param, key ->
-					navController.navigate(route, param, key)
+				router = createExternalRouter { route, param ->
+					navController.navigate(route, param)
 				}
 			)
 		}

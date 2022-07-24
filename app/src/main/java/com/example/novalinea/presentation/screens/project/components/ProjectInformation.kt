@@ -12,20 +12,19 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.novalinea.common.*
+import com.example.novalinea.common.asCreatedAt
 import com.example.novalinea.domain.model.ProjectOpen
 import com.example.novalinea.domain.model.ProjectTape
+import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.creator_project.CreatorProject
 import com.example.novalinea.presentation.ui.theme.OpenSans
-import com.google.firebase.Timestamp
 
 @Composable
 fun ProjectInformation(
 	project: ProjectTape,
+	additionallyData: Response<ProjectOpen?>,
 	onClickCreator: () -> Unit
 ) {
-	//val createdAt = project.createdAt as Timestamp
-
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
@@ -45,15 +44,19 @@ fun ProjectInformation(
 					onClickCreator = { onClickCreator() }
 				)
 
-				/*Text(
-					text = createdAt.asCreatedAt(),
-					style = TextStyle(
-						color = Color.DarkGray,
-						fontSize = 15.sp,
-						fontWeight = FontWeight.W500,
-						fontFamily = OpenSans
-					)
-				)*/
+				if (additionallyData is Response.Success) {
+					additionallyData.data?.createdAt?.let { createdAt ->
+						Text(
+							text = createdAt.asCreatedAt(),
+							style = TextStyle(
+								color = Color.DarkGray,
+								fontSize = 15.sp,
+								fontWeight = FontWeight.W500,
+								fontFamily = OpenSans
+							)
+						)
+					}
+				}
 			}
 
 			Spacer(modifier = Modifier.height(10.dp))
@@ -69,8 +72,10 @@ fun ProjectInformation(
 			SliderImagesProject(images = images)
 		}
 
-		FeedbackProject(
-			views = project.views
-		)
+		if (additionallyData is Response.Success) {
+			FeedbackProject(
+				views = additionallyData.data?.views
+			)
+		}
 	}
 }

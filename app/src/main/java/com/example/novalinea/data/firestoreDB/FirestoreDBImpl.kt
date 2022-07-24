@@ -125,17 +125,6 @@ class FirestoreDBImpl(
 			val project = db.collection(PROJECTS_COLLECTION)
 				.document(id).get().await()
 				.toObject(ProjectOpen::class.java)
-
-			if (project != null) {
-				if (project.creatorID != null) {
-					val creator = db.collection(USERS_COLLECTION)
-						.document(project.creatorID).get().await()
-						.toObject(ProjectCreator::class.java)
-					project.creatorName = creator?.name.toString()
-					project.creatorPhoto = creator?.photo.toString()
-				}
-			}
-
 			emit(Response.Success(project))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))

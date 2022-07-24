@@ -20,7 +20,7 @@ fun PresentModal(content: @Composable () -> Unit) {
 fun PresentNested(content: @Composable () -> Unit) {
 	AnimatedVisibility(
 		visible = true,
-		enter = slideInHorizontally(initialOffsetX = { it }) + fadeIn(initialAlpha = 0.3f),
+		enter = slideInHorizontally(initialOffsetX = { 50 }) + fadeIn(initialAlpha = 0.3f),
 		exit = slideOutHorizontally() + fadeOut(),
 		content = content,
 		initiallyVisible = false

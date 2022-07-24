@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.R
+import com.example.novalinea.common.Constants
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
-import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_PRICE_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROFILE
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECTS
@@ -28,6 +28,7 @@ import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.navigation.HomeNavRoute
 import com.example.novalinea.presentation.navigation.ProfileNavRoute
+import com.example.novalinea.presentation.navigation.navigate
 import com.example.novalinea.presentation.screens.home.components.ShimmerLoaderProjects
 import com.example.novalinea.presentation.screens.home.components.ProjectItem
 import com.example.novalinea.presentation.screens.profile.components.ProfileInformation
@@ -141,9 +142,8 @@ fun ProfileScreen(
 								openProject = {
 									navController.navigate(
 										HomeNavRoute.Project.route
-												+ "?${ARGUMENT_PROJECT_ID_KEY}=${project.id}"
-												+ "&${ARGUMENT_PROJECT_PRICE_KEY}=${project.price}"
-												+ "&$ARGUMENT_USER_ID_KEY=${project.creatorID}"
+												+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
+										Pair(Constants.ARGUMENT_PROJECT_DATA, project)
 									)
 								}
 							)

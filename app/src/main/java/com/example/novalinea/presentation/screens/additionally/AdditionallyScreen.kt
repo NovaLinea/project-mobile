@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ADDITIONALLY_SCREEN
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_LOGOUT
@@ -91,7 +92,9 @@ fun AdditionallyScreen(
 				photo  = USER.photo,
 				onClick = {
 					USER.id?.let { id ->
-						openProfile(externalRouter, id)
+						externalRouter.routeTo(
+							ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
+						)
 					}
 				}
 			)
@@ -101,6 +104,7 @@ fun AdditionallyScreen(
 			items.forEach { item ->
 				AdditionallyItem(title = item.title, icon = item.icon) {
 					externalRouter.routeTo(item.screen_route)
+					//navController.navigate(item.screen_route)
 				}
 			}
 
@@ -123,13 +127,4 @@ fun AdditionallyScreen(
 			}
 		)
 	}
-}
-
-fun openProfile(
-	externalRouter: Router,
-	id: String
-) {
-	externalRouter.routeTo(
-		ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
-	)
 }

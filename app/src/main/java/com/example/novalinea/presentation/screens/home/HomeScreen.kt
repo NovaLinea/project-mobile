@@ -15,11 +15,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.novalinea.R
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
+import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECTS
@@ -124,22 +123,11 @@ fun HomeScreen(
 									)
 								}
 							) {
-								/*navController.currentBackStackEntry?.savedStateHandle?.set(
-									ARGUMENT_PROJECT_DATA,
-									project
-								)*/
-								//navController.navigate(HomeNavRoute.Project.route)
 								router?.routeTo(
-									HomeNavRoute.Project.route,
-									project,
-									ARGUMENT_PROJECT_DATA
-								)
-								/*router?.routeTo(
 									HomeNavRoute.Project.route
-											+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}"
-											+ "&$ARGUMENT_PROJECT_PRICE_KEY=${project.price}"
-											+ "&$ARGUMENT_USER_ID_KEY=${project.creatorID}"
-								)*/
+											+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
+									Pair(ARGUMENT_PROJECT_DATA, project)
+								)
 							}
 
 							/*when(stateLoad) {

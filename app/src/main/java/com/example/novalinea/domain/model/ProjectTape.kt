@@ -1,8 +1,6 @@
 package com.example.novalinea.domain.model
 
 import android.os.Parcelable
-import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
-import com.google.firebase.Timestamp
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -15,10 +13,10 @@ data class ProjectTape (
 	val price: Int? = null,
 	//val progress: Int,
 	//val listStaff: List<String>,
-	val views: Int? = null,
+	//val views: Int? = null,
 	val creatorID: String? = null,
 	var creatorName: String? = null,
 	var creatorPhoto: String? = null,
-	val createdAt: Timestamp? = null,
-	val updatedAt: Timestamp? = null
+	//val createdAt: Timestamp? = null,
+	//val updatedAt: Timestamp? = null
 ): Parcelable

@@ -6,13 +6,12 @@ object Constants {
 
 	// Arguments navigation
 	const val ARGUMENT_PROJECT_DATA = "project_data"
-	const val ARGUMENT_PROJECT_ID_KEY = "projectId"
-	const val ARGUMENT_PROJECT_PRICE_KEY = "projectPrice"
-	const val ARGUMENT_PROJECT_TYPE_KEY = "typeProject"
-	const val ARGUMENT_USER_ID_KEY = "userId"
-	const val ARGUMENT_USER_NAME_KEY = "userName"
-	const val ARGUMENT_USER_EMAIL_KEY = "email"
-	const val ARGUMENT_USER_DESCRIPTION_KEY = "userDescription"
+	const val ARGUMENT_PROJECT_ID_KEY = "project_id"
+	const val ARGUMENT_PROJECT_TYPE_KEY = "type_project"
+	const val ARGUMENT_USER_ID_KEY = "user_id"
+	const val ARGUMENT_USER_NAME_KEY = "user_name"
+	const val ARGUMENT_USER_EMAIL_KEY = "user_email"
+	const val ARGUMENT_USER_DESCRIPTION_KEY = "user_description"
 
 	// Navigation main routes
 	const val MAIN_ROUTE = "main_route"
@@ -39,7 +38,7 @@ object Constants {
 	const val ERROR_BY_CREATE_PROJECT = "Ошибка при создании проекта"
 	const val ERROR_BY_EDIT_PROFILE = "Ошибка при редактировании профиля"
 	const val ERROR_BY_SEND_BUY_MESSAGE_PROJECT = "Ошибка при отправке заявки на покупку"
-	const val ERROR_BY_GET_PROJECT = "Ошибка при открытии проекта"
+	const val ERROR_BY_GET_ADDITIONALLY_DATA_PROJECT = "Ошибка при получении дополнительной информации проекта"
 	const val ERROR_BY_GET_PROFILE = "Ошибка при полчении данных профиля"
 
 	// Errors Firebase
@@ -127,7 +126,6 @@ object Constants {
 	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
 	const val TEXT_LOGOUT_ACCOUNT = "Вы уверены, что хотите выйти из аккаунта?"
-	const val TEXT_MAX_LENGTH = "Добавлено максимальное количество символов"
 
 	// Types messages
 	const val TYPE_MESSAGE_TEXT = "text"
@@ -177,7 +175,7 @@ object Constants {
 	const val MIN_PASSWORD_LENGTH = 6
 	const val MAX_IMAGES_PROJECT = 5
 	const val LIMIT_MESSAGES_CHAT = 10
-	const val LIMIT_PROJECTS_TAPE = 3
+	const val LIMIT_PROJECTS_TAPE = 10
 
 	// Other
 	const val TAG = "AppLog"

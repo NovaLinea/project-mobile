@@ -20,40 +20,36 @@ import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.BUTTON_SEND
-import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECT
+import com.example.novalinea.common.Constants.ERROR_BY_GET_ADDITIONALLY_DATA_PROJECT
 import com.example.novalinea.common.Constants.ERROR_BY_SEND_BUY_MESSAGE_PROJECT
-import com.example.novalinea.common.Constants.TAG
-import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
 import com.example.novalinea.common.Constants.TEXT_BUY_PROJECT
-import com.example.novalinea.common.Constants.TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
 import com.example.novalinea.common.Constants.TITLE_BUY_PROJECT
 import com.example.novalinea.common.Constants.USER
-import com.example.novalinea.domain.model.ProjectData
+import com.example.novalinea.common.Constants.TAG
+import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
+import com.example.novalinea.common.Constants.TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
-import com.example.novalinea.presentation.components.error.Error
+import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.components.modal.Modal
 import com.example.novalinea.presentation.navigation.ProfileNavRoute
 import com.example.novalinea.presentation.screens.project.components.ProjectBottomBar
 import com.example.novalinea.presentation.screens.project.components.ProjectInformation
 import com.example.novalinea.presentation.screens.project.components.ProjectTopBar
-import com.example.novalinea.presentation.screens.project.components.ShimmerLoaderProject
 import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProjectScreen(
 	project: ProjectTape,
-	//projectID: String,
-	//price: Int,
 	navController: NavController,
 	viewModel: ProjectViewModel = hiltViewModel()
 ) {
-	//val stateProject = viewModel.stateProject.observeAsState(Response.Success(null)).value
-	//val stateSend = viewModel.stateSend.observeAsState(Response.Success(false)).value
+	val stateProject = viewModel.stateProject.observeAsState(Response.Success(null)).value
+	val stateSend = viewModel.stateSend.observeAsState(Response.Success(false)).value
 
 	val scaffoldState = rememberScaffoldState()
-	//val scope = rememberCoroutineScope()
+	val scope = rememberCoroutineScope()
 
 	val openDialog = remember { mutableStateOf(false) }
 
@@ -81,11 +77,42 @@ fun ProjectScreen(
 			}
 		}
 	) { innerPadding ->
+
+		if (stateProject is Response.Error) {
+			Log.d(TAG, stateProject.message)
+			scope.launch {
+				scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_GET_ADDITIONALLY_DATA_PROJECT)
+			}
+		}
+
+		when(stateSend) {
+			is Response.Loading -> Loader()
+			is Response.Error -> {
+				Log.d(TAG, stateSend.message)
+				scope.launch {
+					if (stateSend.message == TEXT_BUY_YOURSELF_PROJECT)
+						scaffoldState.snackbarHostState.showSnackbar(TEXT_BUY_YOURSELF_PROJECT)
+					else
+						scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_SEND_BUY_MESSAGE_PROJECT)
+				}
+			}
+			is Response.Success -> {
+				if (stateSend.data) {
+					scope.launch {
+						scaffoldState.snackbarHostState.showSnackbar(
+							TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
+						)
+					}
+				}
+			}
+		}
+
 		Box(
 			modifier = Modifier.padding(innerPadding)
 		) {
 			ProjectInformation(
-				project = project
+				project = project,
+				additionallyData = stateProject
 			) {
 				navController.navigate(
 					ProfileNavRoute.Profile.route
@@ -100,75 +127,8 @@ fun ProjectScreen(
 			text = TEXT_BUY_PROJECT,
 			confirmButton = BUTTON_SEND,
 			onClickTrue = {
-				viewModel.sendMessage()
+				viewModel.sendMessage(toID = project.creatorID)
 			}
 		)
-
-		/*innerPadding ->
-			when(stateSend) {
-				is Response.Loading -> Log.d(TAG, "Loading")
-				is Response.Error -> {
-					Log.d(TAG, stateSend.message)
-					scope.launch {
-						if (stateSend.message == TEXT_BUY_YOURSELF_PROJECT)
-							scaffoldState.snackbarHostState.showSnackbar(TEXT_BUY_YOURSELF_PROJECT)
-						else
-							scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_SEND_BUY_MESSAGE_PROJECT)
-					}
-				}
-				is Response.Success -> {
-					if (stateSend.data) {
-						scope.launch {
-							scaffoldState.snackbarHostState.showSnackbar(
-								TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
-							)
-						}
-					}
-				}
-			}
-
-			Box(
-				modifier = Modifier.padding(innerPadding)
-			) {
-				ProjectInformation(
-					project = project
-				) {
-					navController.navigate(
-						ProfileNavRoute.Profile.route
-								+ "?${ARGUMENT_USER_ID_KEY}=${project.creatorID.toString()}"
-					)
-				}
-				/*when(stateProject) {
-					is Response.Loading -> ShimmerLoaderProject()
-					is Response.Error -> {
-						Log.d(TAG, stateProject.message)
-						Error(message = ERROR_BY_GET_PROJECT) {
-							viewModel.getProjectById(projectID)
-						}
-					}
-					is Response.Success -> {
-						if (stateProject.data != null) {
-							ProjectInformation(
-								project = stateProject.data
-							) {
-								navController.navigate(
-									ProfileNavRoute.Profile.route
-											+ "?${ARGUMENT_USER_ID_KEY}=${stateProject.data.creatorID.toString()}"
-								)
-							}
-						}
-					}
-				}*/
-			}
-
-			Modal(
-				openDialog = openDialog,
-				title = TITLE_BUY_PROJECT,
-				text = TEXT_BUY_PROJECT,
-				confirmButton = BUTTON_SEND,
-				onClickTrue = {
-					viewModel.sendMessage()
-				}
-			)*/
 	}
 }

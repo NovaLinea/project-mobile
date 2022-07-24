@@ -1,6 +1,7 @@
 package com.example.novalinea.presentation.navigation
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -11,18 +12,21 @@ import androidx.navigation.compose.rememberNavController
 fun NavigationController(
 	router: Router? = null,
 	startDestination: String,
-	screens: List<Pair<String, @Composable (NavController, Router?, Bundle?) -> Unit>> = emptyList()
+	screens: List<Pair<String, @Composable (NavController, Router?, Pair<String, Parcelable>?) -> Unit>> = emptyList()
 ) {
-	val navigation = rememberNavController()
+	val navController = rememberNavController()
 
-	NavHost(navController = navigation, startDestination = startDestination) {
+	NavHost(
+		navController = navController,
+		startDestination = startDestination
+	) {
 		screens.forEach { screen ->
 			composable(screen.first) {
-				screen.second.invoke(
-					navigation,
+				/*screen.second.invoke(
+					navController,
 					router,
-					navigation.previousBackStackEntry?.arguments
-				)
+					//Pair(screen.first, navController.previousBackStackEntry?.savedStateHandle?.get<>(screen.first))
+				)*/
 			}
 		}
 	}
