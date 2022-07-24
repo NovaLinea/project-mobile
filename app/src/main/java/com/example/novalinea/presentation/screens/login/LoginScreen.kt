@@ -1,5 +1,6 @@
 package com.example.novalinea.presentation.screens.login
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -26,43 +27,42 @@ import com.example.novalinea.domain.model.Response.*
 import com.example.novalinea.presentation.components.email_field.Email
 import com.example.novalinea.presentation.components.password_field.Password
 import com.example.novalinea.presentation.components.button_action.ButtonActionText
-import com.example.novalinea.presentation.components.close_button.CloseButton
 import com.example.novalinea.presentation.components.error_field.ErrorField
 import com.example.novalinea.presentation.components.text_button_action.TextButtonAction
 import com.example.novalinea.presentation.navigation.AuthNavRoute
+import com.example.novalinea.presentation.screens.login.components.LoginTopBar
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(
 	navController: NavController,
 	viewModel: LoginViewModel = hiltViewModel()
 ) {
 	val state = viewModel.state.observeAsState(Success(false)).value
-	when(state) {
-		is Loading -> Log.d(TAG, "Loading")
-		is Success -> {
-			if (state.data) {
-				LaunchedEffect(state.data) {
-					navController.navigate(MAIN_ROUTE)
-				}
-			}
-		}
-		is Error -> Log.d(TAG, state.message)
-	}
-
 	val focusManager = LocalFocusManager.current
 
-	Box(
-		modifier = Modifier.fillMaxSize()
+	Scaffold(
+		topBar = {
+			LoginTopBar() {
+				navController.navigate(MAIN_ROUTE)
+			}
+		}
 	) {
-		Box(modifier = Modifier.padding(5.dp)) {
-			CloseButton {
-				navController.popBackStack()
+		when(state) {
+			is Loading -> Log.d(TAG, "Loading")
+			is Error -> Log.d(TAG, state.message)
+			is Success -> {
+				if (state.data) {
+					LaunchedEffect(state.data) {
+						navController.navigate(MAIN_ROUTE)
+					}
+				}
 			}
 		}
 
 		Column(
 			modifier = Modifier
-				.padding(top = 80.dp, start = 40.dp, end = 40.dp),
+				.padding(top = 50.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Text(

@@ -89,6 +89,7 @@ object Constants {
 
 	// Buttons
 	const val BUTTON_LOGIN = "Войти"
+	const val BUTTON_LOGIN_TO_ACCOUNT = "Войти в аккаунт"
 	const val BUTTON_REGISTER = "Зарегистрироваться"
 	const val BUTTON_LOGOUT = "Выйти"
 	const val BUTTON_CREATE_PROJECT = "Создать проект"
