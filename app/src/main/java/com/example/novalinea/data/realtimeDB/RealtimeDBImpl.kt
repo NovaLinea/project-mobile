@@ -17,8 +17,8 @@ class RealtimeDBImpl(
 ): RealtimeDB {
 
 	override fun getChats(
-		setListChats: (List<Chat>) -> Unit
-	): Flow<Response<List<Chat>>> = flow<Response<List<Chat>>> {
+		setListChats: (List<ChatGet>) -> Unit
+	): Flow<Response<List<ChatGet>>> = flow<Response<List<ChatGet>>> {
 		try {
 			emit(Response.Loading)
 
@@ -27,7 +27,7 @@ class RealtimeDBImpl(
 					override fun onDataChange(snapshot: DataSnapshot) {
 						val chats = snapshot.children.map { chat ->
 							val lastMessage = chat.children.last().getValue(MessageGet::class.java)
-							val chatItem = Chat(
+							val chatItem = ChatGet(
 								userId = chat.key.toString(),
 								lastMessage = lastMessage!!.text,
 								timestamp = lastMessage.timestamp

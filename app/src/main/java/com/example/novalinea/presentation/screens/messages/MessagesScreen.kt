@@ -15,12 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.novalinea.common.Constants.ARGUMENT_CHAT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
-import com.example.novalinea.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_GET_CHATS
 import com.example.novalinea.common.Constants.MESSAGES_SCREEN
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_DIALOGS
+import com.example.novalinea.domain.model.ChatOpen
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.components.top_bar.TopBar
@@ -68,8 +69,15 @@ fun MessagesScreen(
 							) {
 								externalRouter.routeTo(
 									MessagesNavRoute.Chat.route
-											+ "?${ARGUMENT_USER_ID_KEY}=${chat.userId}"
-											+ "&${ARGUMENT_USER_NAME_KEY}=${chat.userName}"
+											+ "?${ARGUMENT_USER_ID_KEY}=${chat.userId}",
+									Pair(
+										ARGUMENT_CHAT_DATA,
+										ChatOpen(
+											userId = chat.userId,
+											userName = chat.userName,
+											userPhoto = chat.userPhoto
+										)
+									)
 								)
 							}
 

@@ -1,7 +1,7 @@
 package com.example.novalinea.presentation.screens.messages
 
 import androidx.lifecycle.*
-import com.example.novalinea.domain.model.Chat
+import com.example.novalinea.domain.model.ChatGet
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.use_case.GetChatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +13,8 @@ class MessagesViewModel @Inject constructor(
 	private val getChatsUseCase: GetChatsUseCase
 ): ViewModel() {
 
-	private val _state = MutableLiveData<Response<List<Chat>>>()
-	val state: LiveData<Response<List<Chat>>> get() = _state
+	private val _state = MutableLiveData<Response<List<ChatGet>>>()
+	val state: LiveData<Response<List<ChatGet>>> get() = _state
 
 	init {
 		getChats()
@@ -32,9 +32,9 @@ class MessagesViewModel @Inject constructor(
 		}
 	}
 
-	private fun setListChats(listChats: List<Chat>) {
+	private fun setListChats(listChats: List<ChatGet>) {
 		//listChats.sortedByDescending { it.timestamp.toString().asTime() }
 		//Log.d(TAG, listChats.toString())
-		_state.postValue(Response.Success(listChats as MutableList<Chat>))
+		_state.postValue(Response.Success(listChats as MutableList<ChatGet>))
 	}
 }

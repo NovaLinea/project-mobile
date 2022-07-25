@@ -9,7 +9,6 @@ import com.example.novalinea.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.*
 import com.example.novalinea.domain.use_case.GetMessagesUseCase
-import com.example.novalinea.domain.use_case.GetUserByIdUseCase
 import com.example.novalinea.domain.use_case.SendMessageUseCase
 import com.example.novalinea.presentation.screens.chat.components.MessageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
-	private val getUserByIdUseCase: GetUserByIdUseCase,
 	private val getMessagesUseCase: GetMessagesUseCase,
 	private val sendMessageUseCase: SendMessageUseCase,
 	private val savedStateHandle: SavedStateHandle
@@ -27,9 +25,6 @@ class ChatViewModel @Inject constructor(
 	val message by lazy { MessageState() }
 	val messages = mutableStateListOf<MessageGet>()
 
-	private val _statePhoto = MutableLiveData<String?>()
-	val statePhoto: LiveData<String?> get() = _statePhoto
-
 	private val _stateGet = MutableLiveData<Response<List<MessageGet>>>()
 	val stateGet: LiveData<Response<List<MessageGet>>> get() = _stateGet
 
@@ -37,22 +32,7 @@ class ChatViewModel @Inject constructor(
 	val stateSend: LiveData<Response<Boolean>> get() = _stateSend
 
 	init {
-		getDataUser()
 		getMessages()
-	}
-
-	private fun getDataUser() {
-		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userId ->
-			viewModelScope.launch {
-				getUserByIdUseCase(userId).collect { response ->
-					if (response is Response.Error)
-						Log.d(TAG, response.message)
-					else if (response is Response.Success) {
-						_statePhoto.postValue(response.data?.photo)
-					}
-				}
-			}
-		}
 	}
 
 	fun getMessages() {

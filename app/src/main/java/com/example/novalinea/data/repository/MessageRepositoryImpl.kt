@@ -3,7 +3,7 @@ package com.example.novalinea.data.repository
 import com.example.novalinea.data.firestoreDB.FirestoreDB
 import com.example.novalinea.data.realtimeDB.RealtimeDB
 import com.example.novalinea.data.storage.Storage
-import com.example.novalinea.domain.model.Chat
+import com.example.novalinea.domain.model.ChatGet
 import com.example.novalinea.domain.model.MessageGet
 import com.example.novalinea.domain.model.MessageSend
 import com.example.novalinea.domain.model.Response
@@ -21,7 +21,7 @@ class MessageRepositoryImpl(
 ) : MessageRepository {
 
 	@OptIn(DelicateCoroutinesApi::class)
-	override fun getChats(setListChats: (List<Chat>) -> Unit) = flow<Response<List<Chat>>> {
+	override fun getChats(setListChats: (List<ChatGet>) -> Unit) = flow<Response<List<ChatGet>>> {
 		try {
 			emit(Response.Loading)
 
@@ -40,8 +40,8 @@ class MessageRepositoryImpl(
 	}
 
 	private suspend fun getChatsDetail(
-		listChats: List<Chat>,
-		setListChats: (List<Chat>) -> Unit
+		listChats: List<ChatGet>,
+		setListChats: (List<ChatGet>) -> Unit
 	) {
 		listChats.forEachIndexed { index, chat ->
 			firestoreDB.getUserById(chat.userId).collect { response ->

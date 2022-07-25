@@ -9,15 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.novalinea.common.Constants.ARGUMENT_CHAT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_USER_DESCRIPTION_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.USER
+import com.example.novalinea.domain.model.ChatOpen
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserProfile
 import com.example.novalinea.presentation.navigation.MessagesNavRoute
 import com.example.novalinea.presentation.navigation.ProfileNavRoute
+import com.example.novalinea.presentation.navigation.navigate
 
 @Composable
 fun ProfileInformation(
@@ -73,8 +76,15 @@ fun ProfileInformation(
 						else -> {
 							navController.navigate(
 								MessagesNavRoute.Chat.route
-										+ "?${ARGUMENT_USER_ID_KEY}=${id}"
-										+ "&${ARGUMENT_USER_NAME_KEY}=${user.name}"
+										+ "?${ARGUMENT_USER_ID_KEY}=${id}",
+								Pair(
+									ARGUMENT_CHAT_DATA,
+									ChatOpen(
+										userId = user.id,
+										userName = user.name,
+										userPhoto = user.photo
+									)
+								)
 							)
 						}
 					}

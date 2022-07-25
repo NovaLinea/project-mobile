@@ -6,6 +6,7 @@ object Constants {
 
 	// Arguments navigation
 	const val ARGUMENT_PROJECT_DATA = "project_data"
+	const val ARGUMENT_CHAT_DATA = "chat_data"
 	const val ARGUMENT_PROJECT_ID_KEY = "project_id"
 	const val ARGUMENT_PROJECT_TYPE_KEY = "type_project"
 	const val ARGUMENT_USER_ID_KEY = "user_id"

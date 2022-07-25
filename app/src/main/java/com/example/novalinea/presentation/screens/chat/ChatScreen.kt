@@ -25,6 +25,7 @@ import com.example.novalinea.common.Constants.ERROR_BY_SEND_MESSAGE
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_MESSAGES
 import com.example.novalinea.common.Constants.USER
+import com.example.novalinea.domain.model.ChatOpen
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.components.loader.Loader
@@ -37,12 +38,10 @@ import kotlinx.coroutines.launch
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ChatScreen(
-	userId: String,
-	userName: String,
+	chat: ChatOpen,
 	navController: NavController,
 	viewModel: ChatViewModel = hiltViewModel()
 ) {
-	val statePhoto = viewModel.statePhoto.observeAsState(null).value
 	val stateGet = viewModel.stateGet.observeAsState(Response.Success(emptyList())).value
 	val stateSend = viewModel.stateSend.observeAsState(Response.Success(false)).value
 
@@ -54,16 +53,18 @@ fun ChatScreen(
 
 	Scaffold(
 		topBar = {
-			ChatTopBar(
-				title = userName,
-				photo = statePhoto,
-				onClickBack = { navController.popBackStack() },
-				onClickUser = {
-					navController.navigate(
-						ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${userId}"
-					)
-				}
-			)
+			chat.userName?.let { name ->
+				ChatTopBar(
+					title = name,
+					photo = chat.userPhoto,
+					onClickBack = { navController.popBackStack() },
+					onClickUser = {
+						navController.navigate(
+							ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${chat.userId}"
+						)
+					}
+				)
+			}
 		},
 		bottomBar = {
 			MessageField(
@@ -99,7 +100,7 @@ fun ChatScreen(
 
 		if (stateGet is Response.Loading)
 			Loader()
-		else if (stateGet is Response.Error) {
+		else if (stateGet is Response.Error){
 			Log.d(TAG, stateGet.message)
 			Error(
 				message = ERROR_BY_GET_MESSAGES,
@@ -169,75 +170,6 @@ fun ChatScreen(
 					)
 				}
 			}
-
-			/*when(stateGet) {
-				is Response.Loading -> Loader()
-				is Response.Error -> {
-					Log.d(TAG, stateGet.message)
-					Error(
-						message = ERROR_BY_GET_MESSAGES,
-						background = colorResource(id = R.color.app_background)
-					) {
-						viewModel.getMessages()
-					}
-				}
-				is Response.Success -> {
-					if (stateGet.data.isNotEmpty()) {
-						/*if (listState.firstVisibleItemIndex < 3 && listState.firstVisibleItemIndex != 0) {
-							countMessagesChat += 10
-							viewModel.getMessages()
-						}
-						if (stateScrollToLastMessage) {
-							scope.launch {
-								listState.animateScrollToItem(stateGet.data.lastIndex)
-								stateScrollToLastMessage = false
-							}
-						}*/
-						scope.launch {
-							listState.animateScrollToItem(stateGet.data.lastIndex)
-						}
-						LazyColumn(
-							state = listState,
-							modifier = Modifier
-								.fillMaxSize()
-								.background(colorResource(id = R.color.app_background)),
-							contentPadding = PaddingValues(all = 10.dp),
-							verticalArrangement = Arrangement.spacedBy(10.dp)
-						) {
-							items(
-								items = stateGet.data,
-								key = { message ->
-									message.id
-								}
-							) { message ->
-								var location = Arrangement.Start
-								if (USER.id == message.from)
-									location = Arrangement.End
-
-								MessageItem(
-									message = message.text,
-									time = message.timestamp,
-									locationArrangement = location
-								)
-							}
-						}
-					}
-					else {
-						Column(
-							modifier = Modifier
-								.fillMaxSize()
-								.background(colorResource(id = R.color.app_background)),
-							horizontalAlignment = Alignment.CenterHorizontally
-						) {
-							Text(
-								modifier = Modifier.padding(top = 170.dp),
-								text = TITLE_NO_MESSAGES,
-								style = MaterialTheme.typography.body2
-							)
-						}
-					}
-				}
-			}*/
 		}
 	}
 }

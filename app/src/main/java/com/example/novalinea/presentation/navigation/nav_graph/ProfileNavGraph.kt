@@ -30,7 +30,6 @@ fun NavGraphBuilder.profileNavGraph(
 					name = ARGUMENT_USER_ID_KEY
 				) {
 					type = NavType.StringType
-					defaultValue = "-1"
 				}
 			)
 		) {
@@ -52,19 +51,16 @@ fun NavGraphBuilder.profileNavGraph(
 					name = ARGUMENT_USER_ID_KEY
 				) {
 					type = NavType.StringType
-					defaultValue = "-1"
 				},
 				navArgument(
 					name = ARGUMENT_USER_NAME_KEY
 				) {
 					type = NavType.StringType
-					defaultValue = "-1"
 				},
 				navArgument(
 					name = ARGUMENT_USER_DESCRIPTION_KEY
 				) {
 					type = NavType.StringType
-					defaultValue = "-1"
 				}
 			)
 		) {

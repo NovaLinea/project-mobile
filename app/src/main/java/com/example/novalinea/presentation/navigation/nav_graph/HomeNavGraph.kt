@@ -7,6 +7,7 @@ import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
 import com.example.novalinea.common.Constants.HOME_ROUTE
+import com.example.novalinea.common.Constants.TYPE_PROJECT_SALE
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.presentation.navigation.HomeNavRoute
 import com.example.novalinea.presentation.navigation.PresentNested
@@ -51,7 +52,7 @@ fun NavGraphBuilder.homeNavGraph(
 					name = ARGUMENT_PROJECT_TYPE_KEY
 				) {
 					type = NavType.StringType
-					defaultValue = "sale"
+					defaultValue = TYPE_PROJECT_SALE
 				}
 			)
 		) {

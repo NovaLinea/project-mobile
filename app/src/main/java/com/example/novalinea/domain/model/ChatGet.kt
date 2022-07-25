@@ -1,6 +1,6 @@
 package com.example.novalinea.domain.model
 
-data class Chat(
+data class ChatGet(
 	val userId: String = "",
 	var userName: String = "",
 	var userPhoto: String? = null,
