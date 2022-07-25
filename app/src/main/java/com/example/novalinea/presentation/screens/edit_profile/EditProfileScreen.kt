@@ -21,7 +21,7 @@ import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.loader.Loader
-import com.example.novalinea.presentation.navigation.ProfileNavRoute
+import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.screens.edit_profile.components.EditProfileTextField
 import com.example.novalinea.presentation.screens.edit_profile.components.EditProfileTopBar
 import kotlinx.coroutines.launch
@@ -147,6 +147,6 @@ fun openProfile(
 ) {
 	navController.popBackStack()
 	navController.navigate(
-		ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
+		BottomNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
 	)
 }

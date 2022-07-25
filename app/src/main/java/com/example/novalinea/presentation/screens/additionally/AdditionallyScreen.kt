@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ADDITIONALLY_SCREEN
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_LOGOUT
@@ -27,7 +26,7 @@ import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.components.modal.Modal
 import com.example.novalinea.presentation.components.text_button_action.TextButtonAction
 import com.example.novalinea.presentation.components.top_bar.TopBar
-import com.example.novalinea.presentation.navigation.ProfileNavRoute
+import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.navigation.Router
 import com.example.novalinea.presentation.screens.additionally.components.AdditionallyItem
 import com.example.novalinea.presentation.screens.additionally.components.AdditionallyModel
@@ -93,7 +92,7 @@ fun AdditionallyScreen(
 				onClick = {
 					USER.id?.let { id ->
 						externalRouter.routeTo(
-							ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
+							BottomNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${id}"
 						)
 					}
 				}

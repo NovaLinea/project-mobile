@@ -32,7 +32,7 @@ import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.components.modal.Modal
-import com.example.novalinea.presentation.navigation.ProfileNavRoute
+import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.screens.project.components.ProjectBottomBar
 import com.example.novalinea.presentation.screens.project.components.ProjectInformation
 import com.example.novalinea.presentation.screens.project.components.ProjectTopBar
@@ -115,7 +115,7 @@ fun ProjectScreen(
 				additionallyData = stateProject
 			) {
 				navController.navigate(
-					ProfileNavRoute.Profile.route
+					BottomNavRoute.Profile.route
 							+ "?${ARGUMENT_USER_ID_KEY}=${project.creatorID.toString()}"
 				)
 			}

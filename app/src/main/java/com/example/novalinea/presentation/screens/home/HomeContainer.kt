@@ -17,9 +17,9 @@ fun HomeContainer(
 		startDestination = BottomNavRoute.Home.route,
 		router = externalRouter,
 		screens = listOf(
-			Pair(BottomNavRoute.Home.route) { _, router, _ ->
+			Pair(BottomNavRoute.Home.route) { nav, router, _ ->
 				router?.let {
-					HomeCreateBottomSheet(it)
+					HomeCreateBottomSheet(nav, it)
 				}
 			},
 			Pair(HomeNavRoute.Project.route) { nav, _, param ->

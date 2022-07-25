@@ -26,9 +26,7 @@ import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_PROJECTS
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.error.Error
-import com.example.novalinea.presentation.navigation.HomeNavRoute
-import com.example.novalinea.presentation.navigation.ProfileNavRoute
-import com.example.novalinea.presentation.navigation.navigate
+import com.example.novalinea.presentation.navigation.*
 import com.example.novalinea.presentation.screens.home.components.ShimmerLoaderProjects
 import com.example.novalinea.presentation.screens.home.components.ProjectItem
 import com.example.novalinea.presentation.screens.profile.components.ProfileInformation
@@ -40,6 +38,7 @@ import com.example.novalinea.presentation.screens.profile.components.ShimmerLoad
 fun ProfileScreen(
 	userID: String,
 	navController: NavController,
+	router: Router? = null,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
 	val stateProfile = viewModel.stateProfile.observeAsState(Response.Success(null)).value
@@ -51,7 +50,14 @@ fun ProfileScreen(
 	val listState = rememberLazyListState()
 
 	Scaffold(
-		topBar = { ProfileTopBar(navController) }
+		topBar = {
+			ProfileTopBar(
+				isBack = router == null,
+				onClickBack = {
+					navController.popBackStack()
+				}
+			)
+		}
 	) {
 		LazyColumn(
 			state = listState,
@@ -136,15 +142,25 @@ fun ProfileScreen(
 								project = project,
 								openProfile = {
 									navController.navigate(
-										ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${project.creatorID}"
+										BottomNavRoute.Profile.route
+												+ "?${ARGUMENT_USER_ID_KEY}=${project.creatorID}"
 									)
 								},
 								openProject = {
-									navController.navigate(
-										HomeNavRoute.Project.route
-												+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
-										Pair(Constants.ARGUMENT_PROJECT_DATA, project)
-									)
+									if (router != null) {
+										router.routeTo(
+											HomeNavRoute.Project.route
+													+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
+											Pair(Constants.ARGUMENT_PROJECT_DATA, project)
+										)
+									}
+									else {
+										navController.navigate(
+											HomeNavRoute.Project.route
+													+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
+											Pair(Constants.ARGUMENT_PROJECT_DATA, project)
+										)
+									}
 								}
 							)
 						}

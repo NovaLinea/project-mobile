@@ -3,8 +3,6 @@ package com.example.novalinea.presentation.navigation
 import com.example.novalinea.R
 import com.example.novalinea.common.Constants.ABOUT_APP_SCREEN
 import com.example.novalinea.common.Constants.ABOUT_APP_SCREEN_ROUTE
-import com.example.novalinea.common.Constants.ADDITIONALLY_SCREEN
-import com.example.novalinea.common.Constants.ADDITIONALLY_SCREEN_ROUTE
 import com.example.novalinea.common.Constants.CHAT_SCREEN
 import com.example.novalinea.common.Constants.CHAT_SCREEN_ROUTE
 import com.example.novalinea.common.Constants.CREATE_SCREEN
@@ -31,7 +29,8 @@ import com.example.novalinea.common.Constants.VERIFY_EMAIL_SCREEN_ROUTE
 sealed class BottomNavRoute(val route: String, val title: String, val icon_default: Int, val icon_selected: Int) {
 	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, R.drawable.ic_home_outline, R.drawable.ic_home_fill)
 	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, R.drawable.ic_messages_outline, R.drawable.ic_messages_fill)
-	object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, R.drawable.ic_person_outline, R.drawable.ic_person_fill)
+	//object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, R.drawable.ic_person_outline, R.drawable.ic_person_fill)
+	object Profile: BottomNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN, R.drawable.ic_person_outline, R.drawable.ic_person_fill)
 }
 
 sealed class HomeNavRoute(val route: String, val title: String) {
@@ -44,7 +43,6 @@ sealed class MessagesNavRoute(val route: String, val title: String) {
 }
 
 sealed class ProfileNavRoute(val route: String, val title: String) {
-	object Profile: ProfileNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN)
 	object EditProfile: ProfileNavRoute(EDIT_PROFILE_SCREEN_ROUTE, EDIT_PROFILE_SCREEN)
 	object Themes: ProfileNavRoute(THEMES_SCREEN_ROUTE, THEMES_SCREEN)
 	object AboutApp: ProfileNavRoute(ABOUT_APP_SCREEN_ROUTE, ABOUT_APP_SCREEN)

@@ -29,7 +29,7 @@ import com.example.novalinea.domain.model.ChatOpen
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.components.loader.Loader
-import com.example.novalinea.presentation.navigation.ProfileNavRoute
+import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.screens.chat.components.ChatTopBar
 import com.example.novalinea.presentation.screens.chat.components.MessageField
 import com.example.novalinea.presentation.screens.chat.components.MessageItem
@@ -60,7 +60,7 @@ fun ChatScreen(
 					onClickBack = { navController.popBackStack() },
 					onClickUser = {
 						navController.navigate(
-							ProfileNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${chat.userId}"
+							BottomNavRoute.Profile.route + "?${ARGUMENT_USER_ID_KEY}=${chat.userId}"
 						)
 					}
 				)

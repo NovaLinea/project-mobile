@@ -12,7 +12,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.*
+import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
+import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.navigation.Router
 import com.example.novalinea.presentation.navigation.nav_graph.BottomNavGraph
@@ -25,12 +27,13 @@ fun MainScreen(
 ) {
 	val navController = rememberNavController()
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
+	//val profileUserId = navController.currentBackStackEntry?.arguments?.getString(ARGUMENT_USER_ID_KEY)
 	val currentRoute = navBackStackEntry?.destination?.route
 
 	val screens = listOf(
 		BottomNavRoute.Home,
 		BottomNavRoute.Messages,
-		BottomNavRoute.Additionally
+		BottomNavRoute.Profile
 	)
 
 	Scaffold(
@@ -46,7 +49,7 @@ fun MainScreen(
 						navController = navController,
 						router = router,
 						isAuth = viewModel.isAuth,
-						selected = currentRoute == screen.route
+						selected = currentRoute == screen.route || currentRoute?.contains(screen.route) == true
 					)
 				}
 			}
@@ -80,6 +83,12 @@ fun RowScope.AddItem(
 		onClick = {
 			if (!isAuth && screen.route != BottomNavRoute.Home.route)
 				router.routeTo(AUTHENTICATION_ROUTE)
+			else if (screen.route == BottomNavRoute.Profile.route) {
+				navController.navigate(
+					screen.route
+						+ "?${ARGUMENT_USER_ID_KEY}=${USER.id}"
+				)
+			}
 			else
 				navController.navigate(screen.route)
 		}

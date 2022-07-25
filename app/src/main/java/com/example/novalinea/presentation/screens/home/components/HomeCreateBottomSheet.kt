@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
 import com.example.novalinea.common.Constants.TITLE_TYPE_PROJECT
 import com.example.novalinea.common.Constants.TYPE_PROJECT_DONATE_TEXT
@@ -28,6 +29,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeCreateBottomSheet(
+    navController: NavController,
     externalRouter: Router
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -92,6 +94,7 @@ fun HomeCreateBottomSheet(
         sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
     ) {
         HomeScreen(
+            navController = navController,
             router = externalRouter,
             onClickCreate = {
                 coroutineScope.launch {

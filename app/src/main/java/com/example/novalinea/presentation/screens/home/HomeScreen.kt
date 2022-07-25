@@ -16,6 +16,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.novalinea.R
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
@@ -35,6 +36,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
 fun HomeScreen(
+	navController: NavController,
 	router: Router?,
 	onClickCreate: () -> Unit,
 	viewModel: HomeViewModel = hiltViewModel()
@@ -118,17 +120,18 @@ fun HomeScreen(
 								project = project,
 								openProfile = {
 									router?.routeTo(
-										ProfileNavRoute.Profile.route
+										BottomNavRoute.Profile.route
 												+ "?$ARGUMENT_USER_ID_KEY=${project.creatorID.toString()}"
 									)
+								},
+								openProject = {
+									router?.routeTo(
+										HomeNavRoute.Project.route
+												+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
+										Pair(ARGUMENT_PROJECT_DATA, project)
+									)
 								}
-							) {
-								router?.routeTo(
-									HomeNavRoute.Project.route
-											+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
-									Pair(ARGUMENT_PROJECT_DATA, project)
-								)
-							}
+							)
 
 							/*when(stateLoad) {
 								is Response.Loading -> {}
