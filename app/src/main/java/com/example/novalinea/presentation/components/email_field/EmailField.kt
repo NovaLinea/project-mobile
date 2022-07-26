@@ -67,7 +67,7 @@ fun Email(
 		shape = RoundedCornerShape(10.dp),
 		colors = TextFieldDefaults.textFieldColors(
 			disabledTextColor = Color.Transparent,
-			backgroundColor = colorResource(id = R.color.app_background),
+			backgroundColor = colorResource(id = R.color.app_light_blue),
 			cursorColor = Color.Black,
 			focusedIndicatorColor = Color.Transparent,
 			unfocusedIndicatorColor = Color.Transparent,

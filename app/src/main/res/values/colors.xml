@@ -2,8 +2,9 @@
 <resources>
     <color name="black">#000</color>
     <color name="white">#FFF</color>
-    <color name="background_tape">#F6F6F6</color>
+    <color name="app_background_tape">#F6F6F6</color>
     <color name="app_background">#EDEDED</color>
     <color name="app_blue">#1E2D43</color>
-    <color name="button_send_message">#4684E1</color>
+    <color name="app_light_blue">#61B5F6</color>
+    <color name="app_green">#609557</color>
 </resources>

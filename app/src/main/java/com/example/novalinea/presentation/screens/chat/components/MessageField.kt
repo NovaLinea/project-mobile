@@ -86,7 +86,7 @@ fun MessageField(
 							.padding(3.dp),
 						elevation = 0.dp,
 						shape = CircleShape,
-						backgroundColor = colorResource(id = R.color.button_send_message)
+						backgroundColor = colorResource(id = R.color.app_light_blue)
 					) {
 						Box(
 							modifier = Modifier

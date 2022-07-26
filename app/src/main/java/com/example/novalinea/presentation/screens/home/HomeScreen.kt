@@ -16,7 +16,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.novalinea.R
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
@@ -36,9 +35,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
 fun HomeScreen(
-	navController: NavController,
 	router: Router?,
-	onClickCreate: () -> Unit,
+	showCreateBottomSheet: () -> Unit,
 	viewModel: HomeViewModel = hiltViewModel()
 ) {
 	//val listProjects = mutableStateListOf<ProjectTape>()
@@ -61,7 +59,7 @@ fun HomeScreen(
 					if (!viewModel.isAuth)
 						router?.routeTo(AUTHENTICATION_ROUTE)
 					else
-						onClickCreate()
+						showCreateBottomSheet()
 				}
 			)
 		}
@@ -96,7 +94,7 @@ fun HomeScreen(
 						state = listState,
 						modifier = Modifier
 							.fillMaxSize()
-							.background(colorResource(id = R.color.background_tape))
+							.background(colorResource(id = R.color.app_background_tape))
 							/*.background(
 								brush = Brush.verticalGradient(
 									colors = listOf(

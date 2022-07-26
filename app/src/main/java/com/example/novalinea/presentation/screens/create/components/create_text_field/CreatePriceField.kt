@@ -50,7 +50,7 @@ fun CreatePriceField(
 						Text(
 							text = placeholder,
 							style = textStyle,
-							color = Color.DarkGray,
+							color = Color.Gray,
 						)
 					}
 				}

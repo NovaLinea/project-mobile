@@ -22,7 +22,7 @@ fun ShimmerLoaderProjects() {
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
-			.background(colorResource(id = R.color.background_tape))
+			.background(colorResource(id = R.color.app_background_tape))
 	) {
 		repeat(3) {
 			ShimmerItemProject(brush)

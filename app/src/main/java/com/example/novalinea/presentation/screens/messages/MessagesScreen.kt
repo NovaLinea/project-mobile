@@ -65,7 +65,9 @@ fun MessagesScreen(
 								userName = chat.userName,
 								userPhoto = chat.userPhoto,
 								lastMessage = chat.lastMessage,
-								timestamp = chat.timestamp
+								timestamp = chat.timestamp,
+								viewed = chat.viewed,
+								countNewMessages = chat.countNewMessages
 							) {
 								externalRouter.routeTo(
 									MessagesNavRoute.Chat.route

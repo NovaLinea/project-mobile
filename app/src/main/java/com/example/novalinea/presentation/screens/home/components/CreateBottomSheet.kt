@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
 import com.example.novalinea.common.Constants.TITLE_TYPE_PROJECT
 import com.example.novalinea.common.Constants.TYPE_PROJECT_DONATE_TEXT
@@ -23,19 +22,27 @@ import com.example.novalinea.common.Constants.TYPE_PROJECT_SALE_TEXT
 import com.example.novalinea.common.Constants.TYPE_PROJECT_TEAM_TEXT
 import com.example.novalinea.presentation.navigation.HomeNavRoute
 import com.example.novalinea.presentation.navigation.Router
-import com.example.novalinea.presentation.screens.home.HomeScreen
+import com.example.novalinea.presentation.screens.main.MainScreen
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HomeCreateBottomSheet(
-    navController: NavController,
+fun CreateBottomSheet(
     externalRouter: Router
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val scope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmStateChange = {
+            it != ModalBottomSheetValue.HalfExpanded
+        }
+    )
 
     ModalBottomSheetLayout(
+        sheetState = sheetState,
         sheetContent = {
             Column(
                 modifier = Modifier
@@ -88,19 +95,31 @@ fun HomeCreateBottomSheet(
                 }
             }
         },
-        sheetState = sheetState,
         sheetBackgroundColor = Color.White,
         sheetElevation = 10.dp,
         sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
     ) {
-        HomeScreen(
-            navController = navController,
+        MainScreen(
             router = externalRouter,
-            onClickCreate = {
-                coroutineScope.launch {
-                    sheetState.show()
+            showCreateBottomSheet = {
+                scope.launch {
+                    if (sheetState.isVisible) {
+                        sheetState.hide()
+                    } else {
+                        sheetState.forceExpand()
+                    }
                 }
             }
         )
+    }
+}
+
+@ExperimentalMaterialApi
+suspend fun ModalBottomSheetState.forceExpand() {
+    try {
+        animateTo(ModalBottomSheetValue.Expanded)
+    } catch (e: CancellationException) {
+        currentCoroutineContext().ensureActive()
+        forceExpand()
     }
 }

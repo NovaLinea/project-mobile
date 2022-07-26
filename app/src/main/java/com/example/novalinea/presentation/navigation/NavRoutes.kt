@@ -29,7 +29,6 @@ import com.example.novalinea.common.Constants.VERIFY_EMAIL_SCREEN_ROUTE
 sealed class BottomNavRoute(val route: String, val title: String, val icon_default: Int, val icon_selected: Int) {
 	object Home: BottomNavRoute(HOME_SCREEN_ROUTE, HOME_SCREEN, R.drawable.ic_home_outline, R.drawable.ic_home_fill)
 	object Messages: BottomNavRoute(MESSAGES_SCREEN_ROUTE, MESSAGES_SCREEN, R.drawable.ic_messages_outline, R.drawable.ic_messages_fill)
-	//object Additionally: BottomNavRoute(ADDITIONALLY_SCREEN_ROUTE, ADDITIONALLY_SCREEN, R.drawable.ic_person_outline, R.drawable.ic_person_fill)
 	object Profile: BottomNavRoute(PROFILE_SCREEN_ROUTE, PROFILE_SCREEN, R.drawable.ic_person_outline, R.drawable.ic_person_fill)
 }
 

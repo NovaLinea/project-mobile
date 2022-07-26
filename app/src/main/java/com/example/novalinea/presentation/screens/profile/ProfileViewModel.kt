@@ -9,6 +9,7 @@ import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserProfile
 import com.example.novalinea.domain.use_case.GetProjectsUserUseCase
 import com.example.novalinea.domain.use_case.GetUserByIdUseCase
+import com.example.novalinea.domain.use_case.LogoutUseCase
 import com.example.novalinea.domain.use_case.UploadPhotoUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class ProfileViewModel @Inject constructor(
 	private val getUserByIdUseCase: GetUserByIdUseCase,
 	private val getProjectsUserUseCase: GetProjectsUserUseCase,
 	private val uploadPhotoUserUseCase: UploadPhotoUserUseCase,
+	private val logoutUseCase: LogoutUseCase,
 	private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -33,6 +35,9 @@ class ProfileViewModel @Inject constructor(
 
 	private val _photoProfile = MutableLiveData<String?>()
 	val photoProfile: LiveData<String?> get() = _photoProfile
+
+	//private val _stateLogout = MutableLiveData<Response<Boolean>>()
+	//val stateLogout: LiveData<Response<Boolean>> get() = _stateLogout
 
 	init {
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
@@ -73,4 +78,12 @@ class ProfileViewModel @Inject constructor(
 			}
 		}
 	}
+
+	/*fun logout() {
+		viewModelScope.launch {
+			logoutUseCase().collect { response ->
+				_stateLogout.postValue(response)
+			}
+		}
+	}*/
 }

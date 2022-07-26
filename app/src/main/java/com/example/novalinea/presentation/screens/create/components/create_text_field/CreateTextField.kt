@@ -31,7 +31,7 @@ fun CreateTextField(
 		if (isPlaceholderVisible) {
 			Text(
 				text = placeholder,
-				color = Color.DarkGray,
+				color = Color.Gray,
 				style = textStyle
 			)
 		}

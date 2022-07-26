@@ -49,7 +49,7 @@ fun ChatScreen(
 	val listState = rememberLazyListState()
 	val scope = rememberCoroutineScope()
 	var scrollToLastMessage = true
-	var isScrolling = false
+	//var isScrolling = false
 
 	Scaffold(
 		topBar = {
@@ -151,6 +151,7 @@ fun ChatScreen(
 						MessageItem(
 							message = message.text,
 							time = message.timestamp,
+							viewed = message.viewed,
 							locationArrangement = location
 						)
 					}

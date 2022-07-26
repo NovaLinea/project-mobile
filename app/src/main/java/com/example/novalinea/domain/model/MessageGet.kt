@@ -5,5 +5,6 @@ data class MessageGet(
 	val text: String = "",
 	val from: String = "",
 	val type: String = "",
-	val timestamp: Any = ""
+	val timestamp: Any = "",
+	val viewed: Boolean = false
 )

@@ -8,7 +8,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.*
@@ -18,11 +21,13 @@ import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.navigation.Router
 import com.example.novalinea.presentation.navigation.nav_graph.BottomNavGraph
+import com.example.novalinea.presentation.ui.theme.OpenSans
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
 	router: Router,
+	showCreateBottomSheet: () -> Unit,
 	viewModel: MainViewModel = hiltViewModel()
 ) {
 	val navController = rememberNavController()
@@ -58,7 +63,11 @@ fun MainScreen(
 		Box(
 			modifier = Modifier.padding(innerPadding)
 		) {
-			BottomNavGraph(navController, router)
+			BottomNavGraph(
+				navController = navController,
+				router = router,
+				showCreateBottomSheet = showCreateBottomSheet
+			)
 		}
 	}
 }
@@ -76,7 +85,7 @@ fun RowScope.AddItem(
 			Icon(
 				painter = if (selected) painterResource(id = screen.icon_selected) else painterResource(id = screen.icon_default),
 				contentDescription = null,
-				tint = if (selected) Color.Black else Color.DarkGray
+				tint = if (selected) Color.Black else Color.Gray
 			)
 		},
 		selected = selected,
@@ -85,8 +94,7 @@ fun RowScope.AddItem(
 				router.routeTo(AUTHENTICATION_ROUTE)
 			else if (screen.route == BottomNavRoute.Profile.route) {
 				navController.navigate(
-					screen.route
-						+ "?${ARGUMENT_USER_ID_KEY}=${USER.id}"
+					screen.route + "?${ARGUMENT_USER_ID_KEY}=${USER.id}"
 				)
 			}
 			else

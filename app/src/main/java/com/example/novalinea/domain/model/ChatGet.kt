@@ -5,5 +5,7 @@ data class ChatGet(
 	var userName: String = "",
 	var userPhoto: String? = null,
 	val lastMessage: String = "",
-	val timestamp: Any = ""
+	val timestamp: Any = "",
+	val viewed: Boolean = false,
+	val countNewMessages: Int = 0
 )

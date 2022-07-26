@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.R
-import com.example.novalinea.common.Constants
+import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROFILE
@@ -45,6 +45,7 @@ fun ProfileScreen(
 	val stateProjects = viewModel.stateProjects.observeAsState(Response.Success(emptyList())).value
 	val statePhoto = viewModel.statePhoto.observeAsState(Response.Success(null)).value
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
+	//val stateLogout = viewModel.stateLogout.observeAsState(false).value
 
 	var countProjects = 0
 	val listState = rememberLazyListState()
@@ -63,7 +64,7 @@ fun ProfileScreen(
 			state = listState,
 			modifier = Modifier
 				.fillMaxSize()
-				.background(colorResource(id = R.color.background_tape))
+				.background(colorResource(id = R.color.app_background_tape))
 		) {
 			item() {
 				when(stateProfile) {
@@ -112,7 +113,7 @@ fun ProfileScreen(
 						) {
 							Error(
 								message = ERROR_BY_GET_PROJECTS,
-								background = colorResource(id = R.color.background_tape)
+								background = colorResource(id = R.color.app_background_tape)
 							) {
 								viewModel.getProjects(userID)
 							}
@@ -151,14 +152,14 @@ fun ProfileScreen(
 										router.routeTo(
 											HomeNavRoute.Project.route
 													+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
-											Pair(Constants.ARGUMENT_PROJECT_DATA, project)
+											Pair(ARGUMENT_PROJECT_DATA, project)
 										)
 									}
 									else {
 										navController.navigate(
 											HomeNavRoute.Project.route
 													+ "?$ARGUMENT_PROJECT_ID_KEY=${project.id}",
-											Pair(Constants.ARGUMENT_PROJECT_DATA, project)
+											Pair(ARGUMENT_PROJECT_DATA, project)
 										)
 									}
 								}
