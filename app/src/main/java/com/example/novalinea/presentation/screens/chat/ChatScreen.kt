@@ -104,10 +104,11 @@ fun ChatScreen(
 			Log.d(TAG, stateGet.message)
 			Error(
 				message = ERROR_BY_GET_MESSAGES,
-				background = colorResource(id = R.color.app_background)
-			) {
-				viewModel.getMessages()
-			}
+				background = colorResource(id = R.color.app_background),
+				onClickTryAgain = {
+					viewModel.getMessages()
+				}
+			)
 		}
 
 		Box(
@@ -147,6 +148,8 @@ fun ChatScreen(
 						var location = Arrangement.Start
 						if (USER.id == message.from)
 							location = Arrangement.End
+
+						//Log.d(TAG, listState.)
 
 						MessageItem(
 							message = message.text,

@@ -1,9 +1,11 @@
 package com.example.novalinea.presentation.screens.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.use_case.CheckAuthorizedUseCase
@@ -32,6 +34,12 @@ class HomeViewModel @Inject constructor(
 	//var page = 1
 
 	init {
+		Log.d(TAG, "init")
+		when(_stateGet.value) {
+			is Response.Loading -> Log.d(TAG, "loading")
+			is Response.Error -> Log.d(TAG, "error")
+			is Response.Success -> Log.d(TAG, "success ${(_stateGet.value as Response.Success<List<ProjectTape>>).data?.size}")
+		}
 		getProjects()
 	}
 

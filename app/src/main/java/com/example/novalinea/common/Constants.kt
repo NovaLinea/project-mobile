@@ -18,7 +18,6 @@ object Constants {
 	const val MAIN_ROUTE = "main_route"
 	const val HOME_ROUTE = "home_route"
 	const val MESSAGES_ROUTE = "messages_route"
-	const val PROFILE_ROUTE = "profile_route"
 	const val AUTHENTICATION_ROUTE = "authentication_route"
 
 	// Errors

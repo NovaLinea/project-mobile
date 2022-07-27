@@ -1,10 +1,8 @@
 package com.example.novalinea.presentation.screens.chat
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
-import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.*
@@ -53,7 +51,7 @@ class ChatViewModel @Inject constructor(
 	private fun addItemMessage(itemMessage: MessageGet?) {
 		if (itemMessage != null) {
 			messages.add(itemMessage)
-			Log.d(TAG, messages.size.toString())
+			//Log.d(TAG, messages.size.toString())
 			//_stateGet.postValue(Response.Success(messages))
 		}
 	}

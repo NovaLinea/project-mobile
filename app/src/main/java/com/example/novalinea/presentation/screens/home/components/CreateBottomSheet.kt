@@ -77,7 +77,8 @@ fun CreateBottomSheet(
                                 }
                             }
                             externalRouter.routeTo(
-                                HomeNavRoute.Create.route + "?${ARGUMENT_PROJECT_TYPE_KEY}=${TYPE_PROJECT_SALE}"
+                                HomeNavRoute.Create.route
+                                        + "?${ARGUMENT_PROJECT_TYPE_KEY}=${TYPE_PROJECT_SALE}"
                             )
                         }
                     )

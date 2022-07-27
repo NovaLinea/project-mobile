@@ -13,24 +13,24 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TopBar(
-    title: String,
-    elevation: Int = 0
+	title: String,
+	elevation: Int = 0
 ) {
-    TopAppBar(
-        modifier = Modifier.fillMaxWidth(),
-        title = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                Alignment.Center
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.h6
-                )
-            }
-        },
-        backgroundColor = Color.White,
-        elevation = elevation.dp
-    )
+	TopAppBar(
+		modifier = Modifier.fillMaxWidth(),
+		title = {
+			Box(
+				modifier = Modifier
+					.fillMaxWidth(),
+				Alignment.Center
+			) {
+				Text(
+					text = title,
+					style = MaterialTheme.typography.h6
+				)
+			}
+		},
+		backgroundColor = Color.White,
+		elevation = elevation.dp
+	)
 }

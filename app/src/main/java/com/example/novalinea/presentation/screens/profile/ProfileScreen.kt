@@ -50,6 +50,8 @@ fun ProfileScreen(
 	var countProjects = 0
 	val listState = rememberLazyListState()
 
+	Log.d(TAG, userID.toString())
+
 	Scaffold(
 		topBar = {
 			ProfileTopBar(

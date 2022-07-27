@@ -2,6 +2,7 @@ package com.example.novalinea.presentation
 
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
 			installSplashScreen().setKeepOnScreenCondition{ true }
 
 		super.onCreate(savedInstanceState)
-		//window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+		window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
 		lifecycleScope.launchWhenCreated {
 			setContent {

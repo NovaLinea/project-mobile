@@ -101,15 +101,29 @@ fun RowScope.AddItem(
 		selectedContentColor = Color.Black,
 		unselectedContentColor = Color.DarkGray,
 		onClick = {
-			if (!isAuth && screen.route != BottomNavRoute.Home.route)
-				router.routeTo(AUTHENTICATION_ROUTE)
-			else if (screen.route == BottomNavRoute.Profile.route) {
-				navController.navigate(
-					screen.route + "?${ARGUMENT_USER_ID_KEY}=${USER.id}"
-				)
+			if (!selected) {
+				if (!isAuth && screen.route != BottomNavRoute.Home.route)
+					router.routeTo(AUTHENTICATION_ROUTE)
+				else if (screen.route == BottomNavRoute.Profile.route) {
+					navController.navigate(
+						screen.route + "?${ARGUMENT_USER_ID_KEY}=${USER.id}"
+					) {
+						popUpTo(navController.graph.startDestinationId) {
+							saveState = true
+						}
+						launchSingleTop = true
+						restoreState = true
+					}
+				} else {
+					navController.navigate(screen.route) {
+						popUpTo(navController.graph.startDestinationId) {
+							saveState = true
+						}
+						launchSingleTop = true
+						restoreState = true
+					}
+				}
 			}
-			else
-				navController.navigate(screen.route)
 		}
 	)
 }
