@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
-import com.example.novalinea.common.Constants.TITLE_TYPE_PROJECT
+import com.example.novalinea.common.Constants.TITLE_CREATE_PROJECT
 import com.example.novalinea.common.Constants.TYPE_PROJECT_DONATE_TEXT
 import com.example.novalinea.common.Constants.TYPE_PROJECT_SALE
 import com.example.novalinea.common.Constants.TYPE_PROJECT_SALE_TEXT
@@ -46,7 +46,7 @@ fun CreateBottomSheet(
         sheetContent = {
             Column(
                 modifier = Modifier
-                    .height(220.dp)
+                    .height(250.dp)
                     .fillMaxWidth()
                     .background(Color.White)
             ) {
@@ -57,8 +57,8 @@ fun CreateBottomSheet(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = TITLE_TYPE_PROJECT,
-                        style = MaterialTheme.typography.h6
+                        text = TITLE_CREATE_PROJECT,
+                        style = MaterialTheme.typography.h5
                     )
                 }
 
@@ -69,6 +69,13 @@ fun CreateBottomSheet(
                         TYPE_PROJECT_SALE_TEXT,
                         Icons.Default.AttachMoney,
                         onClick = {
+                            scope.launch {
+                                if (sheetState.isVisible) {
+                                    sheetState.hide()
+                                } else {
+                                    sheetState.forceExpand()
+                                }
+                            }
                             externalRouter.routeTo(
                                 HomeNavRoute.Create.route + "?${ARGUMENT_PROJECT_TYPE_KEY}=${TYPE_PROJECT_SALE}"
                             )
@@ -96,7 +103,7 @@ fun CreateBottomSheet(
             }
         },
         sheetBackgroundColor = Color.White,
-        sheetElevation = 10.dp,
+        sheetElevation = 0.dp,
         sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
     ) {
         MainScreen(

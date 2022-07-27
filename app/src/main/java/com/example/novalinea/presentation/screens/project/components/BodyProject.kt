@@ -20,7 +20,7 @@ fun BodyProject(
 		title?.let {
 			Text(
 				text = it,
-				style = MaterialTheme.typography.h6,
+				style = MaterialTheme.typography.h5,
 				overflow = TextOverflow.Ellipsis,
 				letterSpacing = 0.2.sp,
 				lineHeight = 25.sp
@@ -28,7 +28,7 @@ fun BodyProject(
 		}
 
 		if (description != null && description.isNotEmpty()) {
-			Spacer(modifier = Modifier.height(3.dp))
+			Spacer(modifier = Modifier.height(10.dp))
 			Text(
 				text = description,
 				style = MaterialTheme.typography.body2,

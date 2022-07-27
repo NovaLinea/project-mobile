@@ -2,14 +2,12 @@ package com.example.novalinea.presentation.screens.create.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.novalinea.common.Constants.CREATE_SCREEN
-import com.example.novalinea.presentation.components.icon_button.IconButtonAction
+import com.example.novalinea.presentation.components.close_button.CloseButton
 
 @Composable
 fun CreateTopBar(
@@ -26,7 +24,7 @@ fun CreateTopBar(
 				.fillMaxSize(),
 			contentAlignment = Alignment.CenterStart
 		) {
-			IconButtonAction(Icons.Default.ArrowBack) {
+			CloseButton {
 				onClickBack()
 			}
 		}

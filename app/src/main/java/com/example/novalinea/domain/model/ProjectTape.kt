@@ -13,10 +13,7 @@ data class ProjectTape (
 	val price: Int? = null,
 	//val progress: Int,
 	//val listStaff: List<String>,
-	//val views: Int? = null,
 	val creatorID: String? = null,
 	var creatorName: String? = null,
-	var creatorPhoto: String? = null,
-	//val createdAt: Timestamp? = null,
-	//val updatedAt: Timestamp? = null
+	var creatorPhoto: String? = null
 ): Parcelable

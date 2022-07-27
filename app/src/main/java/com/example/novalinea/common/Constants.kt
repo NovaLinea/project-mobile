@@ -52,7 +52,7 @@ object Constants {
 	const val EMAIL_PLACEHOLDER = "Почта"
 	const val PASSWORD_PLACEHOLDER = "Пароль"
 	const val SEARCH_PLACEHOLDER = "Поиск"
-	const val TITLE_PROJECT_PLACEHOLDER = "Название проекта"
+	const val TITLE_PROJECT_PLACEHOLDER = "Заголовок"
 	const val DESCRIPTION_PROJECT_PLACEHOLDER = "Описание проекта"
 	const val PRICE_PROJECT_PLACEHOLDER = "Цена"
 	const val DESCRIPTION_PROFILE = "О себе"
@@ -102,7 +102,7 @@ object Constants {
 	const val BUTTON_TRY_AGAIN = "Повторить попытку"
 
 	// Titles
-	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
+	const val TITLE_CREATE_PROJECT = "Создать проект"
 	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
 	const val TITLE_NO_PROJECTS = "Пока нет проектов"
 	const val TITLE_NO_MESSAGES = "Пока нет сообщений"

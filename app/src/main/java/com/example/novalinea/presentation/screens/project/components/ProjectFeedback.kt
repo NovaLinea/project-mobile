@@ -1,10 +1,7 @@
 package com.example.novalinea.presentation.screens.project.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,10 +10,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.novalinea.common.asViews
 import com.example.novalinea.presentation.ui.theme.OpenSans
 
 @Composable
-fun FeedbackProject(
+fun ProjectFeedback(
 	views: Int?
 ) {
 	Row(
@@ -48,24 +46,14 @@ fun FeedbackProject(
 			}
 		}*/
 
-		Row(
-			verticalAlignment = Alignment.CenterVertically,
-		) {
-			Icon(
-				imageVector = Icons.Default.RemoveRedEye,
-				contentDescription = null,
-				tint = Color.DarkGray
+		Text(
+			text = "${views?.asViews()}",
+			style = TextStyle(
+				fontFamily = OpenSans,
+				fontWeight = FontWeight.W400,
+				fontSize = 14.sp,
+				color = Color.Gray
 			)
-			Text(
-				modifier = Modifier.padding(start = 5.dp),
-				text = "$views",
-				style = TextStyle(
-					fontFamily = OpenSans,
-					fontWeight = FontWeight.W400,
-					fontSize = 16.sp
-				),
-				color = Color.DarkGray
-			)
-		}
+		)
 	}
 }

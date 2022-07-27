@@ -73,7 +73,7 @@ fun ProjectInformation(
 		}
 
 		if (additionallyData is Response.Success) {
-			FeedbackProject(
+			ProjectFeedback(
 				views = additionallyData.data?.views
 			)
 		}

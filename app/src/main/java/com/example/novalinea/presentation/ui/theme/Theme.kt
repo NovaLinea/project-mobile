@@ -22,7 +22,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun ProjectUnionTheme(
+fun NovaLineaTheme(
 	darkTheme: Boolean = isSystemInDarkTheme(),
 	content: @Composable () -> Unit
 ) {

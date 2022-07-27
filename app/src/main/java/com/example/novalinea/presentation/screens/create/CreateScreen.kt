@@ -11,10 +11,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
@@ -30,7 +27,6 @@ import com.example.novalinea.presentation.screens.create.components.CreateBottom
 import com.example.novalinea.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.novalinea.presentation.screens.create.components.create_text_field.CreateTextField
 import com.example.novalinea.presentation.screens.create.components.CreateTopBar
-import com.example.novalinea.presentation.ui.theme.OpenSans
 import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -114,7 +110,7 @@ fun CreateScreen(
 							if (it.length <= MAX_TITLE_PROJECT_LENGTH)
 								viewModel.title.text = it
 						},
-						textStyle = MaterialTheme.typography.h6
+						textStyle = MaterialTheme.typography.h3
 					)
 
 					Spacer(modifier = Modifier.height(15.dp))
@@ -133,11 +129,7 @@ fun CreateScreen(
 								}
 							}
 						},
-						textStyle = TextStyle(
-							fontFamily = OpenSans,
-							fontWeight = FontWeight.W400,
-							fontSize = 17.sp
-						),
+						textStyle = MaterialTheme.typography.body1,
 						focusManager = focusManager
 					)
 
@@ -151,11 +143,7 @@ fun CreateScreen(
 							if (it.length <= MAX_DESCRIPTION_PROJECT_LENGTH)
 								viewModel.description.text = it
 						},
-						textStyle = TextStyle(
-							fontFamily = OpenSans,
-							fontWeight = FontWeight.W400,
-							fontSize = 16.sp
-						)
+						textStyle = MaterialTheme.typography.body1
 					)
 				}
 			}

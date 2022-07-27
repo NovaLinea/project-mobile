@@ -24,21 +24,26 @@ fun TypeProjectItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
+            .height(55.dp)
             .background(Color.White)
             .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
         Box(
-            modifier = Modifier.padding(start = 20.dp)
+            modifier = Modifier.padding(start = 20.dp).size(27.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Icon(imageVector = imageVector, contentDescription = null)
+            Icon(
+                modifier = Modifier.fillMaxSize(),
+                imageVector = imageVector,
+                contentDescription = null
+            )
         }
 
         Text(
             text = title,
-            modifier = Modifier.padding(start = 20.dp),
+            modifier = Modifier.padding(start = 18.dp),
             style = TextStyle(
                 fontSize = 17.sp,
                 fontWeight = FontWeight.W500,

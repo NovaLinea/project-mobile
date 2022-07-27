@@ -1,5 +1,6 @@
 package com.example.novalinea.presentation.screens.project.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Text
@@ -7,10 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.novalinea.R
 import com.example.novalinea.common.Constants.BUTTON_BUY_PROJECT
 import com.example.novalinea.common.asPrice
 import com.example.novalinea.presentation.components.button_action.ButtonActionText
@@ -23,29 +26,40 @@ fun ProjectBottomBar(
 ) {
 	BottomNavigation(
 		backgroundColor = Color.White,
-		elevation = 7.dp
+		elevation = 0.dp
 	) {
-		Row(
-			modifier = Modifier
-				.padding(top = 5.dp, bottom = 5.dp, start = 15.dp, end = 10.dp)
-				.fillMaxWidth(),
-			horizontalArrangement = Arrangement.SpaceBetween,
-			verticalAlignment = Alignment.CenterVertically
+		Column(
+			modifier = Modifier.background(Color.White)
 		) {
-			Text(
-				text = "${projectPrice.toInt().asPrice()} ₽",
-				style = TextStyle(
-					fontFamily = OpenSans,
-					fontWeight = FontWeight.W500,
-					fontSize = 20.sp
-				)
+			Spacer(
+				modifier = Modifier
+					.height(1.dp)
+					.fillMaxWidth()
+					.background(colorResource(id = R.color.app_background))
 			)
 
-			ButtonActionText(
-				title = BUTTON_BUY_PROJECT,
-				enabled = true
+			Row(
+				modifier = Modifier
+					.padding(top = 2.dp, bottom = 2.dp, start = 15.dp, end = 10.dp)
+					.fillMaxWidth(),
+				horizontalArrangement = Arrangement.SpaceBetween,
+				verticalAlignment = Alignment.CenterVertically
 			) {
-				onClickBuy()
+				Text(
+					text = "${projectPrice.toInt().asPrice()} ₽",
+					style = TextStyle(
+						fontFamily = OpenSans,
+						fontWeight = FontWeight.W500,
+						fontSize = 20.sp
+					)
+				)
+
+				ButtonActionText(
+					title = BUTTON_BUY_PROJECT,
+					enabled = true
+				) {
+					onClickBuy()
+				}
 			}
 		}
 	}

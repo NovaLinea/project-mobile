@@ -1,11 +1,9 @@
 package com.example.novalinea.presentation.screens.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.use_case.CheckAuthorizedUseCase
@@ -22,7 +20,7 @@ class HomeViewModel @Inject constructor(
 
 	val isAuth get() = checkAuthorizedUseCase()
 
-	private val _stateGet = MutableLiveData<Response<List<ProjectTape>>>()
+	private val _stateGet by lazy { MutableLiveData<Response<List<ProjectTape>>>() }
 	val stateGet: LiveData<Response<List<ProjectTape>>> get() = _stateGet
 
 	//private val _stateUpdate = MutableLiveData<Response<List<ProjectTape>>>()

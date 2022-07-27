@@ -30,7 +30,8 @@ class RealtimeDBImpl(
 							val chatItem = ChatGet(
 								userId = chat.key.toString(),
 								lastMessage = lastMessage!!.text,
-								timestamp = lastMessage.timestamp
+								timestamp = lastMessage.timestamp,
+								viewed = lastMessage.viewed
 							)
 							chatItem
 						}
