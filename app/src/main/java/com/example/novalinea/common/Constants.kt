@@ -1,5 +1,6 @@
 package com.example.novalinea.common
 
+import androidx.compose.runtime.remember
 import com.example.novalinea.domain.model.UserProfile
 
 object Constants {
@@ -99,6 +100,8 @@ object Constants {
 	const val BUTTON_SEND = "Отправить"
 	const val BUTTON_CANCEL = "Отмена"
 	const val BUTTON_TRY_AGAIN = "Повторить попытку"
+	const val BUTTON_SETTINGS = "Настройки"
+	const val BUTTON_FAVORITES = "Избранное"
 
 	// Titles
 	const val TITLE_CREATE_PROJECT = "Создать проект"

@@ -36,7 +36,6 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun HomeScreen(
 	router: Router?,
-	showCreateBottomSheet: () -> Unit,
 	viewModel: HomeViewModel = hiltViewModel()
 ) {
 	//val listProjects = mutableStateListOf<ProjectTape>()
@@ -59,7 +58,7 @@ fun HomeScreen(
 					if (!viewModel.isAuth)
 						router?.routeTo(AUTHENTICATION_ROUTE)
 					else
-						showCreateBottomSheet()
+						router?.routeTo(HomeNavRoute.Create.route)
 				}
 			)
 		}

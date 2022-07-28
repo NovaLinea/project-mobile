@@ -26,7 +26,7 @@ import com.example.novalinea.presentation.navigation.nav_graph.BottomNavGraph
 @Composable
 fun MainScreen(
 	router: Router,
-	showCreateBottomSheet: () -> Unit,
+	showBottomSheet: () -> Unit,
 	viewModel: MainViewModel = hiltViewModel()
 ) {
 	val navController = rememberNavController()
@@ -76,7 +76,7 @@ fun MainScreen(
 			BottomNavGraph(
 				navController = navController,
 				router = router,
-				showCreateBottomSheet = showCreateBottomSheet
+				showBottomSheet = showBottomSheet
 			)
 		}
 	}

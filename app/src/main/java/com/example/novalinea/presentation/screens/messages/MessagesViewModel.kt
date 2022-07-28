@@ -33,8 +33,6 @@ class MessagesViewModel @Inject constructor(
 	}
 
 	private fun setListChats(listChats: List<ChatGet>) {
-		//listChats.sortedByDescending { it.timestamp.toString().asTime() }
-		//Log.d(TAG, listChats.toString())
 		_state.postValue(Response.Success(listChats as MutableList<ChatGet>))
 	}
 }

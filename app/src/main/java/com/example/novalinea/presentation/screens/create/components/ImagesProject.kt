@@ -24,10 +24,8 @@ fun ImagesProject(
 
 	LazyRow(
 		state = listState,
-		modifier = Modifier
-			.padding(horizontal = 5.dp)
-			.fillMaxWidth(),
-		contentPadding = PaddingValues(horizontal = 5.dp),
+		modifier = Modifier.fillMaxWidth(),
+		contentPadding = PaddingValues(horizontal = 10.dp),
 		horizontalArrangement = Arrangement.spacedBy(5.dp)
 	) {
 		itemsIndexed(

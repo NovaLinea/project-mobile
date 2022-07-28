@@ -60,7 +60,7 @@ fun MessagesScreen(
 							items = state.data.sortedByDescending { chat ->
 								chat.timestamp.toString()
 							}
-						) {index, chat ->
+						) { index, chat ->
 							ChatItem(
 								userName = chat.userName,
 								userPhoto = chat.userPhoto,

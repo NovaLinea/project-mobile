@@ -27,6 +27,7 @@ class MessageRepositoryImpl(
 
 			realtimeDB.getChats(
 				setListChats = { listChats ->
+					//Log.d(TAG, "repository $listChats")
 					GlobalScope.launch(Dispatchers.IO) {
 						getChatsDetail(listChats, setListChats)
 					}

@@ -6,16 +6,19 @@ import androidx.navigation.compose.composable
 import com.example.novalinea.common.Constants.ARGUMENT_USER_DESCRIPTION_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_NAME_KEY
+import com.example.novalinea.presentation.components.bottom_sheet.BottomSheet
 import com.example.novalinea.presentation.navigation.*
 import com.example.novalinea.presentation.screens.about_app.AboutAppScreen
 import com.example.novalinea.presentation.screens.edit_profile.EditProfileScreen
 import com.example.novalinea.presentation.screens.profile.ProfileScreen
+import com.example.novalinea.presentation.screens.profile.components.ActionsSheetContent
 import com.example.novalinea.presentation.screens.themes.ThemesScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.profileNavGraph(
 	navController: NavHostController,
-	router: Router? = null
+	router: Router? = null,
+	showBottomSheet: (() -> Unit)? = null
 ) {
 	composable(
 		route = BottomNavRoute.Profile.route
@@ -28,12 +31,42 @@ fun NavGraphBuilder.profileNavGraph(
 			}
 		)
 	) {
-		PresentNested{
-			ProfileScreen(
-				userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
-				navController = navController,
-				router = router
-			)
+		PresentNested {
+			if (showBottomSheet == null) {
+				BottomSheet(
+					sheetContent = { _ ->
+						ActionsSheetContent()
+					},
+					content = { _, showBottomSheet ->
+						ProfileScreen(
+							userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
+							navController = navController,
+							showBottomSheet = showBottomSheet
+						)
+					}
+				)
+			}
+			else {
+				ProfileScreen(
+					userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
+					navController = navController,
+					router = router,
+					showBottomSheet = showBottomSheet
+				)
+			}
+			/*BottomSheet(
+				sheetContent = { _ ->
+					ActionsSheetContent()
+				},
+				content = { _, showBottomSheet ->
+					ProfileScreen(
+						userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
+						navController = navController,
+						router = router,
+						showBottomSheet = showBottomSheet
+					)
+				}
+			)*/
 		}
 	}
 

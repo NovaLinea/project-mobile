@@ -1,23 +1,20 @@
 package com.example.novalinea.presentation.screens.profile.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.novalinea.common.Constants
 import com.example.novalinea.presentation.components.icon_button.IconButtonAction
 
 @Composable
 fun ProfileTopBar(
 	isBack: Boolean,
-	onClickBack: () -> Unit
+	onClickBack: () -> Unit,
+	onClickAction: () -> Unit
 ) {
 	Box(
 		modifier = Modifier
@@ -44,7 +41,7 @@ fun ProfileTopBar(
 			contentAlignment = Alignment.CenterEnd
 		) {
 			IconButtonAction(Icons.Default.MoreVert) {
-
+				onClickAction()
 			}
 		}
 	}

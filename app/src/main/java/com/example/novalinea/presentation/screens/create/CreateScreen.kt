@@ -32,7 +32,6 @@ import kotlinx.coroutines.launch
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun CreateScreen(
-	typeProject: String,
 	navController: NavController,
 	viewModel: CreateViewModel = hiltViewModel()
 ) {

@@ -16,7 +16,7 @@ import com.example.novalinea.presentation.screens.messages.MessagesScreen
 fun BottomNavGraph(
 	navController: NavHostController,
 	router: Router,
-	showCreateBottomSheet: () -> Unit
+	showBottomSheet: () -> Unit
 ) {
 	NavHost(
 		navController = navController,
@@ -25,8 +25,7 @@ fun BottomNavGraph(
 		composable(BottomNavRoute.Home.route) {
 			PresentNested{
 				HomeScreen(
-					router = router,
-					showCreateBottomSheet = showCreateBottomSheet
+					router = router
 				)
 			}
 		}
@@ -36,6 +35,10 @@ fun BottomNavGraph(
 			}
 		}
 
-		profileNavGraph(navController, router)
+		profileNavGraph(
+			navController = navController,
+			router = router,
+			showBottomSheet = showBottomSheet
+		)
 	}
 }

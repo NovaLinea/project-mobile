@@ -3,6 +3,7 @@ package com.example.novalinea.presentation.screens.project.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.novalinea.common.asCreatedAt
@@ -61,15 +63,31 @@ fun ProjectInformation(
 
 			Spacer(modifier = Modifier.height(10.dp))
 
-			BodyProject(
-				title = project.title,
-				description = project.description
-			)
-		}
+			project.title?.let { title ->
+				Text(
+					text = title,
+					style = MaterialTheme.typography.h5,
+					overflow = TextOverflow.Ellipsis,
+					letterSpacing = 0.2.sp,
+					lineHeight = 25.sp
+				)
+			}
 
-		project.images?.let { images ->
-			Spacer(modifier = Modifier.height(10.dp))
-			SliderImagesProject(images = images)
+			project.images?.let { images ->
+				Spacer(modifier = Modifier.height(15.dp))
+				SliderImagesProject(images = images)
+			}
+
+			if (project.description != null && project.description.isNotEmpty()) {
+				Spacer(modifier = Modifier.height(15.dp))
+				Text(
+					text = project.description,
+					style = MaterialTheme.typography.body2,
+					overflow = TextOverflow.Ellipsis,
+					letterSpacing = 0.2.sp,
+					lineHeight = 25.sp
+				)
+			}
 		}
 
 		if (additionallyData is Response.Success) {

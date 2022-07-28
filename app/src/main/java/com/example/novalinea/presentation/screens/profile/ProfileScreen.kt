@@ -39,6 +39,7 @@ fun ProfileScreen(
 	userID: String,
 	navController: NavController,
 	router: Router? = null,
+	showBottomSheet: () -> Unit,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
 	val stateProfile = viewModel.stateProfile.observeAsState(Response.Success(null)).value
@@ -58,7 +59,8 @@ fun ProfileScreen(
 				isBack = router == null,
 				onClickBack = {
 					navController.popBackStack()
-				}
+				},
+				onClickAction = showBottomSheet
 			)
 		}
 	) {

@@ -1,12 +1,14 @@
 package com.example.novalinea.presentation.screens.project.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.novalinea.presentation.components.image_painter.ImagePainter
 
@@ -14,20 +16,36 @@ import com.example.novalinea.presentation.components.image_painter.ImagePainter
 fun SliderImagesProject(
 	images: List<String>
 ) {
+	val listState = rememberLazyListState()
+
 	if (images.isNotEmpty()) {
-		images.forEach { image ->
-			Box(
-				modifier = Modifier
-					.height(250.dp)
-					.fillMaxWidth(),
-				contentAlignment = Alignment.Center,
-			) {
-				ImagePainter(
-					imageUrl = image,
-					onClick = {}
-				)
+		LazyRow(
+			state = listState,
+			modifier = Modifier
+				.fillMaxWidth(),
+			horizontalArrangement = Arrangement.spacedBy(8.dp)
+		) {
+			items(
+				items = images,
+				key = { image ->
+					image.hashCode()
+				}
+			) { image ->
+				Card(
+					modifier = Modifier
+						.height(70.dp)
+						.width(100.dp),
+					backgroundColor = Color.White,
+					elevation = 5.dp,
+					shape = RoundedCornerShape(10.dp)
+				) {
+					ImagePainter(
+						imageUrl = image,
+						shape = 10f,
+						onClick = {}
+					)
+				}
 			}
-			Spacer(modifier = Modifier.height(10.dp))
 		}
 	}
 }
