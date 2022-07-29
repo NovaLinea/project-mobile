@@ -30,8 +30,12 @@ fun NavGraph(
 				externalRouter = createExternalRouter { route, param ->
 					navController.navigate(route, param)
 				},
-				sheetContent = { _ ->
-					ActionsSheetContent()
+				sheetContent = { router, hideBottomSheet ->
+					ActionsSheetContent(
+						router = router,
+						navController = navController,
+						hideBottomSheet = hideBottomSheet
+					)
 				},
 				content = { router, showBottomSheet ->
 					if (router != null) {

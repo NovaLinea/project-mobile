@@ -71,6 +71,8 @@ object Constants {
 	const val ABOUT_APP_SCREEN = "О приложении"
 	const val THEMES_SCREEN = "Настройка темы"
 	const val CHAT_SCREEN = "Чат"
+	const val SETTINGS_SCREEN = "Настройки"
+	const val FAVORITES_SCREEN = "Избранное"
 
 	// Screens routes
 	const val LOGIN_SCREEN_ROUTE = "login_screen"
@@ -100,8 +102,6 @@ object Constants {
 	const val BUTTON_SEND = "Отправить"
 	const val BUTTON_CANCEL = "Отмена"
 	const val BUTTON_TRY_AGAIN = "Повторить попытку"
-	const val BUTTON_SETTINGS = "Настройки"
-	const val BUTTON_FAVORITES = "Избранное"
 
 	// Titles
 	const val TITLE_CREATE_PROJECT = "Создать проект"

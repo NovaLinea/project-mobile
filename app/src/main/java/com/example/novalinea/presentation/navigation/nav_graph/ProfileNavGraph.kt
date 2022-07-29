@@ -34,8 +34,12 @@ fun NavGraphBuilder.profileNavGraph(
 		PresentNested {
 			if (showBottomSheet == null) {
 				BottomSheet(
-					sheetContent = { _ ->
-						ActionsSheetContent()
+					sheetContent = { router, hideBottomSheet ->
+						ActionsSheetContent(
+							router = router,
+							navController = navController,
+							hideBottomSheet = hideBottomSheet
+						)
 					},
 					content = { _, showBottomSheet ->
 						ProfileScreen(

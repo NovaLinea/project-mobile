@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun BottomSheet(
     externalRouter: Router? = null,
-    sheetContent: @Composable (Router?) -> Unit,
+    sheetContent: @Composable (Router?, () -> Unit) -> Unit,
     content: @Composable (Router?, () -> Unit) -> Unit
 ) {
     val scope = rememberCoroutineScope()
@@ -30,7 +30,15 @@ fun BottomSheet(
     ModalBottomSheetLayout(
         sheetState = sheetState,
         sheetContent = {
-            sheetContent(externalRouter)
+            sheetContent(externalRouter) {
+                scope.launch {
+                    if (sheetState.isVisible) {
+                        sheetState.hide()
+                    } else {
+                        sheetState.forceExpand()
+                    }
+                }
+            }
         },
         sheetBackgroundColor = Color.White,
         sheetElevation = 0.dp,

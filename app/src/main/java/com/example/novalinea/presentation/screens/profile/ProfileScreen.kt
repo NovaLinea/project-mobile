@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,7 +34,7 @@ import com.example.novalinea.presentation.screens.profile.components.ProfileInfo
 import com.example.novalinea.presentation.screens.profile.components.ProfileTopBar
 import com.example.novalinea.presentation.screens.profile.components.ShimmerLoaderProfile
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
 fun ProfileScreen(
 	userID: String,
@@ -46,12 +47,10 @@ fun ProfileScreen(
 	val stateProjects = viewModel.stateProjects.observeAsState(Response.Success(emptyList())).value
 	val statePhoto = viewModel.statePhoto.observeAsState(Response.Success(null)).value
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
-	//val stateLogout = viewModel.stateLogout.observeAsState(false).value
 
 	var countProjects = 0
 	val listState = rememberLazyListState()
-
-	Log.d(TAG, userID.toString())
+	val scaffoldState = rememberScaffoldState()
 
 	Scaffold(
 		topBar = {
@@ -62,6 +61,16 @@ fun ProfileScreen(
 				},
 				onClickAction = showBottomSheet
 			)
+		},
+		scaffoldState = scaffoldState,
+		snackbarHost = {
+			SnackbarHost(it) { data ->
+				Snackbar(
+					backgroundColor = Color.White,
+					contentColor = Color.Black,
+					snackbarData = data
+				)
+			}
 		}
 	) {
 		LazyColumn(
