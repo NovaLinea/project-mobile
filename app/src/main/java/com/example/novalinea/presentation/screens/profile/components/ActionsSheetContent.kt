@@ -146,7 +146,7 @@ fun ActionItem(
 	Row(
 		modifier = Modifier
 			.fillMaxWidth()
-			.height(45.dp)
+			.height(50.dp)
 			.background(Color.White)
 			.clickable { onClick() },
 		verticalAlignment = Alignment.CenterVertically,

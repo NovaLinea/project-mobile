@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.novalinea.common.Constants.BUTTON_CREATE_PROJECT
 import com.example.novalinea.common.Constants.MAX_IMAGES_PROJECT
 import com.example.novalinea.common.Constants.PRICE_PROJECT_PLACEHOLDER
+import com.example.novalinea.common.asPrice
 import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.presentation.components.button_action.ButtonActionText
 import com.example.novalinea.presentation.components.close_button.CloseButton
@@ -71,8 +72,13 @@ fun AdditionallyInformationProject(
 				.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 50.dp)
 		) {
 			if (type == TypesProject.SALE) {
+				var formatPrice = ""
+
+				if (price != "")
+					formatPrice =  price.replace(" ", "").toInt().asPrice()
+
 				CreatePriceField(
-					value = price,
+					value = formatPrice,
 					placeholder = PRICE_PROJECT_PLACEHOLDER,
 					onValueChange = onPriceChange,
 					textStyle = MaterialTheme.typography.body1,
@@ -149,17 +155,11 @@ fun AdditionallyInformationProject(
 								modifier = Modifier.fillMaxWidth(),
 								contentAlignment = Alignment.Center
 							) {
-								IconButton(
-									onClick = {
-										launcher.launch("image/*")
-									}
-								) {
-									Icon(
-										imageVector = Icons.Default.Add,
-										contentDescription = null,
-										tint = Color.DarkGray
-									)
-								}
+								Icon(
+									imageVector = Icons.Default.Add,
+									contentDescription = null,
+									tint = Color.DarkGray
+								)
 							}
 						}
 					}

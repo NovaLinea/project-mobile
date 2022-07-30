@@ -55,7 +55,7 @@ fun TypeSelection(
 				.background(Color.White)
 		) {
 			Box(
-				modifier = Modifier.padding(start = 20.dp, bottom = 7.dp),
+				modifier = Modifier.padding(start = 20.dp, bottom = 10.dp),
 				contentAlignment = Alignment.CenterStart
 			) {
 				Text(

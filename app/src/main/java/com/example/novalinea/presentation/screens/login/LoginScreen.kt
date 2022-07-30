@@ -44,7 +44,7 @@ fun LoginScreen(
 	Scaffold(
 		topBar = {
 			LoginTopBar() {
-				navController.navigate(MAIN_ROUTE)
+				navController.popBackStack()
 			}
 		}
 	) {

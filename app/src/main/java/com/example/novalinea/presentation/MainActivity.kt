@@ -23,14 +23,13 @@ class MainActivity() : ComponentActivity() {
 	private val viewModel: MainActivityViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		installSplashScreen().setKeepOnScreenCondition{
-			viewModel.isLoading.value
-		}
-
 		super.onCreate(savedInstanceState)
 		window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
 		viewModel.getDataUser()
+		installSplashScreen().setKeepOnScreenCondition{
+			viewModel.isLoading.value
+		}
 
 		lifecycleScope.launchWhenCreated {
 			setContent {

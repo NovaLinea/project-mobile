@@ -50,7 +50,7 @@ class CreateViewModel @Inject constructor(
                 title = title.text,
                 description = description.text,
                 type = type.value,
-                price = price.text.toInt(),
+                price = price.text.replace(" ", "").toInt(),
                 creatorID = creatorID.value
             )
             createProjectUseCase(project, images).collect { response ->

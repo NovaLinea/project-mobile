@@ -33,7 +33,7 @@ fun MainInformationProject(
 		bottomBar = {
 			Box(
 				modifier = Modifier
-					.padding(end = 10.dp, bottom = 10.dp)
+					.padding(end = 15.dp, bottom = 15.dp)
 					.fillMaxWidth(),
 				contentAlignment = Alignment.CenterEnd
 			) {
@@ -41,7 +41,7 @@ fun MainInformationProject(
 					modifier = Modifier.size(50.dp),
 					onClick = { nextStep() },
 					colors = ButtonDefaults.buttonColors(
-						backgroundColor = colorResource(id = R.color.app_light_blue),
+						backgroundColor = colorResource(id = R.color.app_blue),
 						contentColor = Color.White
 					),
 					shape = CircleShape,

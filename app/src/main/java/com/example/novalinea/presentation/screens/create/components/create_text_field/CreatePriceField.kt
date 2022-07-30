@@ -8,8 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -32,17 +31,19 @@ fun CreatePriceField(
 		horizontalArrangement = Arrangement.Start
 	) {
 		BasicTextField(
-			modifier = Modifier.width(90.dp),
+			modifier = Modifier.width(120.dp),
 			value = value,
-			onValueChange = { value -> onValueChange(value) },
+			onValueChange = { value ->
+				onValueChange(value)
+			},
 			singleLine = true,
 			textStyle = textStyle,
 			keyboardOptions = KeyboardOptions(
 				keyboardType = KeyboardType.Number,
-				imeAction = ImeAction.Next
+				imeAction = ImeAction.Done
 			),
 			keyboardActions = KeyboardActions(
-				onNext = { focusManager.moveFocus(FocusDirection.Down) }
+				onDone = { focusManager.clearFocus() }
 			),
 			decorationBox = { innerTextField ->
 				Row() {

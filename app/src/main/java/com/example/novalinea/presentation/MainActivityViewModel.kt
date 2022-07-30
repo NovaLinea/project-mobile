@@ -40,12 +40,16 @@ class MainActivityViewModel @Inject constructor(
 							_isLoading.value = false
 						}
 					}
-					else if (response is Response.Error)
+					else if (response is Response.Error){
 						USER = UserProfile()
+						_isLoading.value = false
+					}
 				}
 			}
 		}
-		else
+		else {
 			USER = UserProfile()
+			_isLoading.value = false
+		}
 	}
 }

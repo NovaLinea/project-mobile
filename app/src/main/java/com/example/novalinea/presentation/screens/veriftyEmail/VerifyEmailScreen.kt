@@ -62,7 +62,7 @@ fun VerifyEmailScreen(
 
 			Spacer(modifier = Modifier.height(15.dp))
 			ButtonActionText(
-				BUTTON_LOGIN_TO_ACCOUNT
+				title = BUTTON_LOGIN_TO_ACCOUNT
 			) {
 				navController.navigate(AUTHENTICATION_ROUTE)
 			}

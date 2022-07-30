@@ -49,7 +49,20 @@ fun CreateScreen(
 		topBar = {
 			CreateTopBar(
 				stateSteps = stateSteps,
+				isShowBack = step.value != StepsCreateProject.TYPE_PROJECT,
 				onClickBack = {
+					when(step.value) {
+						StepsCreateProject.MAIN_INFORMATION -> {
+							step.value = StepsCreateProject.TYPE_PROJECT
+							stateSteps[1] = false
+						}
+						StepsCreateProject.ADDITIONALLY_INFORMATION -> {
+							step.value = StepsCreateProject.MAIN_INFORMATION
+							stateSteps[2] = false
+						}
+					}
+				},
+				onClickClose = {
 					navController.popBackStack()
 				}
 			)
@@ -120,11 +133,10 @@ fun CreateScreen(
 						type = viewModel.type.value,
 						price = viewModel.price.text,
 						onPriceChange = { price ->
-							if (price.isEmpty()) {
+							if (price.isEmpty())
 								viewModel.price.text = ""
-							}
 							else {
-								viewModel.price.text = when(price.toIntOrNull()) {
+								viewModel.price.text = when(price.replace(" ", "").toIntOrNull()) {
 									null -> viewModel.price.text
 									else -> price
 								}
