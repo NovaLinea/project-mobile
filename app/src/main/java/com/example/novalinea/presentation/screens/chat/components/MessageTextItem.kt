@@ -21,7 +21,7 @@ import com.example.novalinea.common.asTime
 import com.example.novalinea.presentation.ui.theme.OpenSans
 
 @Composable
-fun MessageItem(
+fun MessageTextItem(
 	message: String,
 	time: Any,
 	viewed: Boolean,
@@ -53,7 +53,8 @@ fun MessageItem(
 						style = TextStyle(
 							color = Color.Black,
 							fontWeight = FontWeight.W400,
-							fontSize = 15.sp
+							fontSize = 15.sp,
+							fontFamily = OpenSans
 						)
 					)
 				}

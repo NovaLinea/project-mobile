@@ -6,6 +6,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.novalinea.common.Constants.MAIN_ROUTE
+import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.presentation.components.bottom_sheet.BottomSheet
 import com.example.novalinea.presentation.navigation.nav_graph.authNavGraph
 import com.example.novalinea.presentation.navigation.nav_graph.homeNavGraph
@@ -32,6 +33,7 @@ fun NavGraph(
 				},
 				sheetContent = { router, hideBottomSheet ->
 					ActionsSheetContent(
+						userID = USER.id,
 						router = router,
 						navController = navController,
 						hideBottomSheet = hideBottomSheet

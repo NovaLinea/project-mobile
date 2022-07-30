@@ -127,7 +127,12 @@ fun ProjectScreen(
 			text = TEXT_BUY_PROJECT,
 			confirmButton = BUTTON_SEND,
 			onClickTrue = {
-				viewModel.sendMessage(toID = project.creatorID)
+				viewModel.sendMessage(
+					toID = project.creatorID,
+					projectID = project.id,
+					projectTitle = project.title,
+					projectPrice = project.price
+				)
 			}
 		)
 	}

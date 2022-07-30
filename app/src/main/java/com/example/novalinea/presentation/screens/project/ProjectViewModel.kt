@@ -3,14 +3,11 @@ package com.example.novalinea.presentation.screens.project
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
-import com.example.novalinea.common.Constants.BUY_PROJECT_MESSAGE
 import com.example.novalinea.common.Constants.TAG
+import com.example.novalinea.common.Constants.TEXT_APPLICATION_BUY_PROJECT
 import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
-import com.example.novalinea.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.novalinea.common.Constants.USER
-import com.example.novalinea.domain.model.MessageSend
-import com.example.novalinea.domain.model.ProjectOpen
-import com.example.novalinea.domain.model.Response
+import com.example.novalinea.domain.model.*
 import com.example.novalinea.domain.use_case.GetProjectByIdUseCase
 import com.example.novalinea.domain.use_case.IncrementViewUseCase
 import com.example.novalinea.domain.use_case.SendMessageUseCase
@@ -57,16 +54,24 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
-    fun sendMessage(toID: String?) {
+    fun sendMessage(
+        toID: String?,
+        projectID: String?,
+        projectTitle: String?,
+        projectPrice: Int?
+    ) {
         toID?.let { toID ->
             viewModelScope.launch {
                 USER.id?.let { fromID ->
                     if (toID != fromID) {
                         val messageSend = MessageSend(
-                            text = BUY_PROJECT_MESSAGE,
+                            text = TEXT_APPLICATION_BUY_PROJECT,
                             from = fromID,
                             to = toID,
-                            type = TYPE_MESSAGE_TEXT
+                            type = TypesMessage.BUY_PROJECT,
+                            project_id = projectID,
+                            project_title = projectTitle,
+                            project_price = projectPrice
                         )
                         sendMessageUseCase(messageSend).collect { response ->
                             _stateSend.postValue(response)

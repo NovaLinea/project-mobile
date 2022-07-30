@@ -101,6 +101,7 @@ object Constants {
 	const val BUTTON_SEND = "Отправить"
 	const val BUTTON_CANCEL = "Отмена"
 	const val BUTTON_TRY_AGAIN = "Повторить попытку"
+	const val BUTTON_COMPLAIN = "Пожаловаться"
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
@@ -117,9 +118,6 @@ object Constants {
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"
 	const val TYPE_PROJECT_DONATE_TEXT = "Сбор донатов"
 	const val TYPE_PROJECT_TEAM_TEXT = "Набор команды"
-	const val TYPE_PROJECT_SALE = "sale"
-	const val TYPE_PROJECT_DONATE = "donate"
-	const val TYPE_PROJECT_TEAM = "team"
 
 	// Text
 	const val TEXT_VERIFY_EMAIL = "Мы отправили письмо со ссылкой для подтверждения вашей почты"
@@ -127,12 +125,7 @@ object Constants {
 	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
 	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
-
-	// Types messages
-	const val TYPE_MESSAGE_TEXT = "text"
-
-	// Standard messages
-	const val BUY_PROJECT_MESSAGE = "Покупка проекта"
+	const val TEXT_APPLICATION_BUY_PROJECT = "Заявка на покупку проекта"
 
 	// Firestore collections
 	const val USERS_COLLECTION = "users"
@@ -167,6 +160,9 @@ object Constants {
 	const val FROM_MESSAGE_FIELD = "from"
 	const val TYPE_MESSAGE_FIELD = "type"
 	const val TIMESTAMP_MESSAGE_FIELD = "timestamp"
+	const val PROJECT_ID_MESSAGE_FIELD = "project_id"
+	const val PROJECT_TITLE_MESSAGE_FIELD = "project_title"
+	const val PROJECT_PRICE_MESSAGE_FIELD = "project_price"
 
 	// LIMITATIONS
 	const val MAX_NAME_USER_LENGTH = 30

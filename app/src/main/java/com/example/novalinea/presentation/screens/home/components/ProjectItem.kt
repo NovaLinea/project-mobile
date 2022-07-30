@@ -60,12 +60,10 @@ fun ProjectItem(
 
                 Spacer(modifier = Modifier.height(7.dp))
 
-                Column() {
-                    BodyProject(
-                        title = project.title,
-                        description = project.description
-                    )
-                }
+                BodyProject(
+                    title = project.title,
+                    description = project.description
+                )
             }
 
             project.images?.let { images ->

@@ -53,6 +53,7 @@ fun LoginScreen(
 			is Error -> Log.d(TAG, state.message)
 			is Success -> {
 				if (state.data) {
+					viewModel.getDataUser()
 					LaunchedEffect(state.data) {
 						navController.navigate(MAIN_ROUTE)
 					}

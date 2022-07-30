@@ -7,3 +7,7 @@ enum class TypesProject {
 enum class StepsCreateProject {
 	TYPE_PROJECT, MAIN_INFORMATION, ADDITIONALLY_INFORMATION
 }
+
+enum class TypesMessage {
+	TEXT, BUY_PROJECT, APPLICATION_TO_TEAM, VOICE, DOCUMENT
+}

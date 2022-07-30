@@ -1,10 +1,8 @@
 package com.example.novalinea.presentation.screens.profile
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
-import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
@@ -37,7 +35,6 @@ class ProfileViewModel @Inject constructor(
 	val photoProfile: LiveData<String?> get() = _photoProfile
 
 	init {
-		Log.d(TAG, "init profile view model")
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
 			getProfileData(userID)
 			getProjects(userID)

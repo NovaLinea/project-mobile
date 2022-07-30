@@ -4,7 +4,10 @@ data class MessageGet(
 	var id: String = "",
 	val text: String = "",
 	val from: String = "",
-	val type: String = "",
+	val type: TypesMessage = TypesMessage.TEXT,
+	val project_id: String = "",
+	val project_title: String = "",
+	val project_price: Int? = null,
 	val timestamp: Any = "",
 	val viewed: Boolean = false
 )

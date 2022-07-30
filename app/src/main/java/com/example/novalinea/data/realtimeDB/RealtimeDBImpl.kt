@@ -2,6 +2,9 @@ package com.example.novalinea.data.realtimeDB
 
 import com.example.novalinea.common.Constants.FROM_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.NODE_MESSAGES
+import com.example.novalinea.common.Constants.PROJECT_ID_MESSAGE_FIELD
+import com.example.novalinea.common.Constants.PROJECT_PRICE_MESSAGE_FIELD
+import com.example.novalinea.common.Constants.PROJECT_TITLE_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.TYPE_MESSAGE_FIELD
@@ -81,10 +84,23 @@ class RealtimeDBImpl(
 			val messageKey = db.child(refFromUser).push().key
 
 			val mapMessage = hashMapOf<String, Any>()
+
 			mapMessage[TEXT_MESSAGE_FIELD] = message.text
 			mapMessage[FROM_MESSAGE_FIELD] = message.from
 			mapMessage[TYPE_MESSAGE_FIELD] = message.type
 			mapMessage[TIMESTAMP_MESSAGE_FIELD] = ServerValue.TIMESTAMP
+
+			if (message.type == TypesMessage.BUY_PROJECT) {
+				message.project_id?.let { id ->
+					mapMessage[PROJECT_ID_MESSAGE_FIELD] = id
+				}
+				message.project_title?.let { title ->
+					mapMessage[PROJECT_TITLE_MESSAGE_FIELD] = title
+				}
+				message.project_price?.let { price ->
+					mapMessage[PROJECT_PRICE_MESSAGE_FIELD] = price
+				}
+			}
 
 			val mapDialog = hashMapOf<String, Any>()
 			mapDialog["$refFromUser/$messageKey"] = mapMessage

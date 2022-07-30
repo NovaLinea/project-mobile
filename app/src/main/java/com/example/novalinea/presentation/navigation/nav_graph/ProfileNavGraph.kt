@@ -36,6 +36,7 @@ fun NavGraphBuilder.profileNavGraph(
 				BottomSheet(
 					sheetContent = { router, hideBottomSheet ->
 						ActionsSheetContent(
+							userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
 							router = router,
 							navController = navController,
 							hideBottomSheet = hideBottomSheet

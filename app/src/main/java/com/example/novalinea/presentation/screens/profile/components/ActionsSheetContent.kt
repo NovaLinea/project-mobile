@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.novalinea.common.Constants.ABOUT_APP_SCREEN
+import com.example.novalinea.common.Constants.BUTTON_COMPLAIN
 import com.example.novalinea.common.Constants.BUTTON_LOGOUT
 import com.example.novalinea.common.Constants.FAVORITES_SCREEN
 import com.example.novalinea.common.Constants.MAIN_ROUTE
@@ -39,12 +39,14 @@ import com.example.novalinea.presentation.navigation.Router
 
 @Composable
 fun ActionsSheetContent(
+	userID: String?,
 	router: Router?,
 	navController: NavController,
 	hideBottomSheet: () -> Unit,
 	viewModel: ActionsSheetViewModel = hiltViewModel()
 ) {
-	when(val stateLogout = viewModel.stateLogout.observeAsState(Response.Success(false)).value) {
+	if (userID == USER.id)
+		when(val stateLogout = viewModel.stateLogout.observeAsState(Response.Success(false)).value) {
 		is Response.Loading -> Loader()
 		is Response.Error -> {
 			Log.d(TAG, stateLogout.message)
@@ -55,7 +57,10 @@ fun ActionsSheetContent(
 		is Response.Success -> {
 			if (stateLogout.data) {
 				LaunchedEffect(stateLogout.data) {
-					router?.routeTo(MAIN_ROUTE)
+					if (router != null)
+						router.routeTo(MAIN_ROUTE)
+					else
+						navController.navigate(MAIN_ROUTE)
 					USER = UserProfile()
 				}
 			}
@@ -84,47 +89,49 @@ fun ActionsSheetContent(
 		}
 		Spacer(modifier = Modifier.height(10.dp))
 
-		ActionItem(
-			title = SETTINGS_SCREEN,
-			icon = Icons.Default.Settings,
-			onClick = {
-				hideBottomSheet()
-			}
-		)
+		if (userID == USER.id) {
+			ActionItem(
+				title = SETTINGS_SCREEN,
+				icon = Icons.Default.Settings,
+				onClick = {
+					hideBottomSheet()
+				}
+			)
 
-		ActionItem(
-			title = FAVORITES_SCREEN,
-			icon = Icons.Default.Bookmark,
-			onClick = {
-				hideBottomSheet()
-			}
-		)
+			ActionItem(
+				title = FAVORITES_SCREEN,
+				icon = Icons.Default.Bookmark,
+				onClick = {
+					hideBottomSheet()
+				}
+			)
 
-		ActionItem(
-			title = THEMES_SCREEN,
-			icon = Icons.Default.WbSunny,
-			onClick = {
-				hideBottomSheet()
-				navController.navigate(ProfileNavRoute.Themes.route)
-			}
-		)
+			ActionItem(
+				title = THEMES_SCREEN,
+				icon = Icons.Default.WbSunny,
+				onClick = {
+					hideBottomSheet()
+					navController.navigate(ProfileNavRoute.Themes.route)
+				}
+			)
 
-		ActionItem(
-			title = ABOUT_APP_SCREEN,
-			icon = Icons.Default.Info,
-			onClick = {
-				hideBottomSheet()
-				navController.navigate(ProfileNavRoute.AboutApp.route)
-			}
-		)
-
-		ActionItem(
-			title = BUTTON_LOGOUT,
-			icon = Icons.Default.Logout,
-			onClick = {
-				viewModel.logout()
-			}
-		)
+			ActionItem(
+				title = BUTTON_LOGOUT,
+				icon = Icons.Default.Logout,
+				onClick = {
+					viewModel.logout()
+				}
+			)
+		}
+		else {
+			ActionItem(
+				title = BUTTON_COMPLAIN,
+				icon = Icons.Default.Report,
+				onClick = {
+					hideBottomSheet()
+				}
+			)
+		}
 
 		Spacer(modifier = Modifier.height(15.dp))
 	}

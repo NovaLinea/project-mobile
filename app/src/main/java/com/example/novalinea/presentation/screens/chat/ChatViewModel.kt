@@ -3,7 +3,6 @@ package com.example.novalinea.presentation.screens.chat
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
-import com.example.novalinea.common.Constants.TYPE_MESSAGE_TEXT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.*
 import com.example.novalinea.domain.use_case.GetMessagesUseCase
@@ -64,7 +63,7 @@ class ChatViewModel @Inject constructor(
 						text = message.text,
 						from = fromID,
 						to = toID,
-						type = TYPE_MESSAGE_TEXT
+						type = TypesMessage.TEXT
 					)
 					sendMessageUseCase(messageSend).collect { response ->
 						_stateSend.postValue(response)
