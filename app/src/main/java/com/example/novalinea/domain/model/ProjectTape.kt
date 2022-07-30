@@ -9,7 +9,7 @@ data class ProjectTape (
 	val title: String? = null,
 	val description: String? = null,
 	val images: List<String>? = null,
-	val type: String? = null,
+	val type: TypesProject? = null,
 	val price: Int? = null,
 	//val progress: Int,
 	//val listStaff: List<String>,

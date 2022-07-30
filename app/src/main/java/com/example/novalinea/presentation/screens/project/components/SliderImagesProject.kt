@@ -22,7 +22,9 @@ fun SliderImagesProject(
 		LazyRow(
 			state = listState,
 			modifier = Modifier
+				.padding(top = 15.dp)
 				.fillMaxWidth(),
+			contentPadding = PaddingValues(horizontal = 2.dp),
 			horizontalArrangement = Arrangement.spacedBy(8.dp)
 		) {
 			items(

@@ -2,34 +2,32 @@ package com.example.novalinea.presentation.screens.create
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.novalinea.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
 import com.example.novalinea.common.Constants.ERROR_BY_CREATE_PROJECT
 import com.example.novalinea.common.Constants.MAIN_ROUTE
 import com.example.novalinea.common.Constants.MAX_DESCRIPTION_PROJECT_LENGTH
 import com.example.novalinea.common.Constants.MAX_TITLE_PROJECT_LENGTH
-import com.example.novalinea.common.Constants.PRICE_PROJECT_PLACEHOLDER
 import com.example.novalinea.common.Constants.TAG
-import com.example.novalinea.common.Constants.TITLE_PROJECT_PLACEHOLDER
 import com.example.novalinea.domain.model.Response
-import com.example.novalinea.presentation.screens.create.components.CreateBottomBar
-import com.example.novalinea.presentation.screens.create.components.create_text_field.CreatePriceField
-import com.example.novalinea.presentation.screens.create.components.create_text_field.CreateTextField
+import com.example.novalinea.domain.model.StepsCreateProject
+import com.example.novalinea.domain.model.TypesProject
+import com.example.novalinea.presentation.navigation.PresentNested
+import com.example.novalinea.presentation.screens.create.components.AdditionallyInformationProject
 import com.example.novalinea.presentation.screens.create.components.CreateTopBar
+import com.example.novalinea.presentation.screens.create.components.MainInformationProject
+import com.example.novalinea.presentation.screens.create.components.TypeSelection
 import kotlinx.coroutines.launch
 
-@SuppressLint("CoroutineCreationDuringComposition")
+@OptIn(ExperimentalAnimationApi::class)
+@SuppressLint("CoroutineCreationDuringComposition", "UnusedMaterialScaffoldPaddingParameter",
+	"UnrememberedMutableState"
+)
 @Composable
 fun CreateScreen(
 	navController: NavController,
@@ -37,33 +35,25 @@ fun CreateScreen(
 ) {
 	val stateCreate = viewModel.stateCreate.observeAsState(Response.Success(false)).value
 
-	val focusManager = LocalFocusManager.current
+	val stateSteps = remember {
+		mutableStateListOf(true, false, false)
+	}
+	var step = remember {
+		mutableStateOf(StepsCreateProject.TYPE_PROJECT)
+	}
+
 	val scaffoldState = rememberScaffoldState()
 	val scope = rememberCoroutineScope()
 
 	Scaffold(
 		topBar = {
-			CreateTopBar() {
-				navController.popBackStack()
-			}
-		 },
-		bottomBar = {
-			CreateBottomBar(
-				images = viewModel.images,
-				enabledCreate = stateCreate != Response.Loading
-						&& viewModel.title.isValidText()
-						&& viewModel.price.isValidText(),
-				onAddImage = { uri ->
-					viewModel.addImageProject(uri)
-				},
-				onDeleteImage = { index ->
-					viewModel.deleteImageProject(index)
-				},
-				onCreate = {
-					viewModel.createProject()
+			CreateTopBar(
+				stateSteps = stateSteps,
+				onClickBack = {
+					navController.popBackStack()
 				}
 			)
-		},
+		 },
 		scaffoldState = scaffoldState,
 		snackbarHost = {
 			SnackbarHost(it) { data ->
@@ -75,76 +65,87 @@ fun CreateScreen(
 			}
 		}
 	) {
-		innerPadding ->
-			when(stateCreate) {
-				is Response.Loading -> Log.d(TAG, "Loading")
-				is Response.Error -> {
-					Log.d(TAG, stateCreate.message)
-					scope.launch {
-						scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_CREATE_PROJECT)
+		when(stateCreate) {
+			is Response.Loading -> Log.d(TAG, "Loading")
+			is Response.Error -> {
+				Log.d(TAG, stateCreate.message)
+				scope.launch {
+					scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_CREATE_PROJECT)
+				}
+			}
+			is Response.Success -> {
+				if (stateCreate.data) {
+					LaunchedEffect(stateCreate.data) {
+						navController.navigate(MAIN_ROUTE)
 					}
 				}
-				is Response.Success -> {
-					if (stateCreate.data) {
-						LaunchedEffect(stateCreate.data) {
-							navController.navigate(MAIN_ROUTE)
-						}
+			}
+		}
+
+		when(step.value) {
+			StepsCreateProject.TYPE_PROJECT -> {
+				PresentNested {
+					TypeSelection { typeProject ->
+						viewModel.type.value = typeProject
+						stateSteps[1] = true
+						step.value = StepsCreateProject.MAIN_INFORMATION
 					}
 				}
 			}
 
-			Box(
-				modifier = Modifier.padding(innerPadding)
-			) {
-				Column(
-					modifier = Modifier
-						.padding(horizontal = 15.dp, vertical = 7.dp)
-						.verticalScroll(rememberScrollState())
-				) {
-					CreateTextField(
-						value = viewModel.title.text,
-						placeholder = TITLE_PROJECT_PLACEHOLDER,
-						isPlaceholderVisible = viewModel.title.text.isEmpty(),
-						onValueChange = {
-							if (it.length <= MAX_TITLE_PROJECT_LENGTH)
-								viewModel.title.text = it
+			StepsCreateProject.MAIN_INFORMATION -> {
+				PresentNested {
+					MainInformationProject(
+						title = viewModel.title.text,
+						onTitleChange = { title ->
+							if (title.length <= MAX_TITLE_PROJECT_LENGTH)
+								viewModel.title.text = title
 						},
-						textStyle = MaterialTheme.typography.h3
-					)
+						description = viewModel.description.text,
+						onDescriptionChange = { description ->
+							if (description.length <= MAX_DESCRIPTION_PROJECT_LENGTH)
+								viewModel.description.text = description
+						},
+						enabled = viewModel.title.isValidText() && viewModel.description.isValidText()
+					) {
+						stateSteps[2] = true
+						step.value = StepsCreateProject.ADDITIONALLY_INFORMATION
+					}
+				}
+			}
 
-					Spacer(modifier = Modifier.height(15.dp))
-
-					CreatePriceField(
-						value = viewModel.price.text,
-						placeholder = PRICE_PROJECT_PLACEHOLDER,
-						onValueChange = {
-							if (it.isEmpty()) {
+			StepsCreateProject.ADDITIONALLY_INFORMATION -> {
+				PresentNested {
+					AdditionallyInformationProject(
+						type = viewModel.type.value,
+						price = viewModel.price.text,
+						onPriceChange = { price ->
+							if (price.isEmpty()) {
 								viewModel.price.text = ""
 							}
 							else {
-								viewModel.price.text = when(it.toIntOrNull()) {
+								viewModel.price.text = when(price.toIntOrNull()) {
 									null -> viewModel.price.text
-									else -> it
+									else -> price
 								}
 							}
 						},
-						textStyle = MaterialTheme.typography.body1,
-						focusManager = focusManager
-					)
-
-					Spacer(modifier = Modifier.height(15.dp))
-
-					CreateTextField(
-						value = viewModel.description.text,
-						placeholder = DESCRIPTION_PROJECT_PLACEHOLDER,
-						isPlaceholderVisible = viewModel.description.text.isEmpty(),
-						onValueChange = {
-							if (it.length <= MAX_DESCRIPTION_PROJECT_LENGTH)
-								viewModel.description.text = it
+						images = viewModel.images,
+						onAddImage = { uri ->
+							viewModel.addImageProject(uri)
 						},
-						textStyle = MaterialTheme.typography.body1
+						onDeleteImage = { index ->
+							viewModel.deleteImageProject(index)
+						},
+						enabled = stateCreate != Response.Loading &&
+								if (viewModel.type.value == TypesProject.SALE) viewModel.price.isValidText()
+								else true,
+						onCreate = {
+							viewModel.createProject()
+						}
 					)
 				}
 			}
+		}
 	}
 }

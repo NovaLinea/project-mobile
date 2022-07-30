@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_TYPE_KEY
 import com.example.novalinea.domain.model.ProjectCreate
 import com.example.novalinea.domain.model.Response
+import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.domain.use_case.CreateProjectUseCase
 import com.example.novalinea.domain.use_case.GetAuthCurrentUserUseCase
 import com.example.novalinea.presentation.screens.create.components.create_text_field.CreateState
@@ -21,6 +22,7 @@ class CreateViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
+    val type by lazy { mutableStateOf(TypesProject.SALE) }
     val title by lazy { CreateState() }
     val description by lazy { CreateState() }
     val price by lazy { CreateState() }
@@ -38,23 +40,21 @@ class CreateViewModel @Inject constructor(
     }
 
     fun createProject() {
-        savedStateHandle.get<String>(ARGUMENT_PROJECT_TYPE_KEY)?.let { typeProject ->
-            var creatorID = mutableStateOf("")
-            viewModelScope.launch {
-                creatorID.value = getAuthCurrentUserUseCase()?.uid.toString()
-            }
+        var creatorID = mutableStateOf("")
+        viewModelScope.launch {
+            creatorID.value = getAuthCurrentUserUseCase()?.uid.toString()
+        }
 
-            viewModelScope.launch {
-                val project = ProjectCreate(
-                    title = title.text,
-                    description = description.text,
-                    type = typeProject,
-                    price = price.text.toInt(),
-                    creatorID = creatorID.value
-                )
-                createProjectUseCase(project, images).collect { response ->
-                    _stateCreate.postValue(response)
-                }
+        viewModelScope.launch {
+            val project = ProjectCreate(
+                title = title.text,
+                description = description.text,
+                type = type.value,
+                price = price.text.toInt(),
+                creatorID = creatorID.value
+            )
+            createProjectUseCase(project, images).collect { response ->
+                _stateCreate.postValue(response)
             }
         }
     }

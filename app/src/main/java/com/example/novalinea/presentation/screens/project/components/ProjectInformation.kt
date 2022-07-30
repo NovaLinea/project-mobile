@@ -74,12 +74,15 @@ fun ProjectInformation(
 			}
 
 			project.images?.let { images ->
-				Spacer(modifier = Modifier.height(15.dp))
 				SliderImagesProject(images = images)
 			}
 
 			if (project.description != null && project.description.isNotEmpty()) {
-				Spacer(modifier = Modifier.height(15.dp))
+				if (project.images == null)
+					Spacer(modifier = Modifier.height(7.dp))
+				else
+					Spacer(modifier = Modifier.height(15.dp))
+
 				Text(
 					text = project.description,
 					style = MaterialTheme.typography.body2,

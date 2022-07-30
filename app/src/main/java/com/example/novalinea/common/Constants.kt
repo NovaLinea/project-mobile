@@ -1,6 +1,5 @@
 package com.example.novalinea.common
 
-import androidx.compose.runtime.remember
 import com.example.novalinea.domain.model.UserProfile
 
 object Constants {
@@ -104,15 +103,15 @@ object Constants {
 	const val BUTTON_TRY_AGAIN = "Повторить попытку"
 
 	// Titles
-	const val TITLE_CREATE_PROJECT = "Создать проект"
+	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
 	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
 	const val TITLE_NO_PROJECTS = "Пока нет проектов"
 	const val TITLE_NO_MESSAGES = "Пока нет сообщений"
 	const val TITLE_BUY_PROJECT = "Покупка проекта"
-	const val TITLE_LOGOUT_ACCOUNT = "Выход из аккаунта"
 	const val TITLE_COUNT_PROJECTS = "Проектов"
 	const val TITLE_COUNT_FOLLOWS = "Подписчиков"
 	const val TITLE_COUNT_FOLLOWINGS = "Подписок"
+	const val TITLE_SOON = "скоро"
 
 	// Types project
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"
@@ -127,7 +126,7 @@ object Constants {
 	const val TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT = "Заявка на покупку проекта успешно отправлена"
 	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
-	const val TEXT_LOGOUT_ACCOUNT = "Вы уверены, что хотите выйти из аккаунта?"
+	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
 
 	// Types messages
 	const val TYPE_MESSAGE_TEXT = "text"
@@ -182,5 +181,4 @@ object Constants {
 	// Other
 	const val TAG = "AppLog"
 	var USER = UserProfile()
-	val NAME_APP = "С новой строки"
 }

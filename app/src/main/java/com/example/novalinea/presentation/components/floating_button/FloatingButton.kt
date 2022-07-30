@@ -17,7 +17,7 @@ fun FloatingButton(
         onClick = { onClick() },
         backgroundColor = colorResource(id = R.color.app_blue),
         contentColor = Color.White
-    ){
-        Icon(imageVector = imageVector, contentDescription = "Icon floating button")
+    ) {
+        Icon(imageVector = imageVector, contentDescription = null)
     }
 }
