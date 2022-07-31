@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
-import com.example.novalinea.common.Constants.DESCRIPTION_PROFILE
+import com.example.novalinea.common.Constants.DESCRIPTION_PROFILE_PLACEHOLDER
 import com.example.novalinea.common.Constants.ERROR_BY_EDIT_PROFILE
 import com.example.novalinea.common.Constants.MAX_DESCRIPTION_USER_LENGTH
 import com.example.novalinea.common.Constants.MAX_NAME_USER_LENGTH
@@ -117,14 +117,14 @@ fun EditProfileScreen(
 
 			if (viewModel.description.value.isNotEmpty()) {
 				Text(
-					text = DESCRIPTION_PROFILE,
+					text = DESCRIPTION_PROFILE_PLACEHOLDER,
 					style = MaterialTheme.typography.caption
 				)
 			}
 
 			EditProfileTextField(
 				value = viewModel.description.value,
-				placeholder = DESCRIPTION_PROFILE,
+				placeholder = DESCRIPTION_PROFILE_PLACEHOLDER,
 				isPlaceholderVisible = viewModel.description.value.isEmpty(),
 				onValueChange = {
 					if (it.length <= MAX_DESCRIPTION_USER_LENGTH)

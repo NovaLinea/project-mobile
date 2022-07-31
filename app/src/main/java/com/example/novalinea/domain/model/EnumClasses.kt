@@ -5,7 +5,7 @@ enum class TypesProject {
 }
 
 enum class StepsCreateProject {
-	TYPE_PROJECT, MAIN_INFORMATION, ADDITIONALLY_INFORMATION
+	TYPE_PROJECT, MAIN_INFORMATION, ADDITIONALLY_INFORMATION, IMAGES_PROJECT
 }
 
 enum class TypesMessage {

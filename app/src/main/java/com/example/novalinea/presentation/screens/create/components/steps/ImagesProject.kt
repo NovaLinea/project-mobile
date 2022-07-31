@@ -1,9 +1,10 @@
-package com.example.novalinea.presentation.screens.create.components
+package com.example.novalinea.presentation.screens.create.components.steps
 
 import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -14,40 +15,31 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.example.novalinea.common.Constants.BUTTON_CREATE_PROJECT
 import com.example.novalinea.common.Constants.MAX_IMAGES_PROJECT
-import com.example.novalinea.common.Constants.PRICE_PROJECT_PLACEHOLDER
-import com.example.novalinea.common.asPrice
-import com.example.novalinea.domain.model.TypesProject
+import com.example.novalinea.common.Constants.TITLE_IMAGES_PROJECT
 import com.example.novalinea.presentation.components.button_action.ButtonActionText
 import com.example.novalinea.presentation.components.close_button.CloseButton
 import com.example.novalinea.presentation.components.image_painter.ImagePainter
-import com.example.novalinea.presentation.screens.create.components.create_text_field.CreatePriceField
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AdditionallyInformationProject(
-	type: TypesProject,
-	price: String,
-	onPriceChange: (String) -> Unit,
-	images: List<Uri>,
-	onAddImage: (Uri) -> Unit,
-	onDeleteImage: (Int) -> Unit,
+fun ImagesProject(
+	images: SnapshotStateList<Uri>,
 	enabled: Boolean,
 	onCreate: () -> Unit
 ) {
-	val focusManager = LocalFocusManager.current
 	val listState = rememberLazyListState()
 
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.GetContent()
 	) { uri: Uri? ->
-		uri?.let { onAddImage(it) }
+		uri?.let { images.add(it) }
 	}
 
 	Scaffold(
@@ -65,33 +57,28 @@ fun AdditionallyInformationProject(
 					onCreate()
 				}
 			}
-		}
+		},
 	) {
 		Column(
 			modifier = Modifier
-				.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 50.dp)
+				.padding(start = 15.dp, end = 15.dp, top = 5.dp)
+				.fillMaxWidth()
+				.background(Color.White)
 		) {
-			if (type == TypesProject.SALE) {
-				var formatPrice = ""
-
-				if (price != "")
-					formatPrice =  price.replace(" ", "").toInt().asPrice()
-
-				CreatePriceField(
-					value = formatPrice,
-					placeholder = PRICE_PROJECT_PLACEHOLDER,
-					onValueChange = onPriceChange,
-					textStyle = MaterialTheme.typography.body1,
-					focusManager = focusManager
+			Box(
+				modifier = Modifier.padding(bottom = 15.dp),
+				contentAlignment = Alignment.CenterStart
+			) {
+				Text(
+					text = TITLE_IMAGES_PROJECT,
+					style = MaterialTheme.typography.h6
 				)
 			}
-
-			Spacer(modifier = Modifier.height(20.dp))
 
 			LazyRow(
 				state = listState,
 				modifier = Modifier.fillMaxWidth(),
-				contentPadding = PaddingValues(horizontal = 2.dp),
+				contentPadding = PaddingValues(all = 2.dp),
 				horizontalArrangement = Arrangement.spacedBy(8.dp)
 			) {
 				itemsIndexed(
@@ -129,9 +116,7 @@ fun AdditionallyInformationProject(
 								Box(
 									modifier = Modifier.padding(2.dp)
 								) {
-									CloseButton {
-										onDeleteImage(index)
-									}
+									CloseButton { images.removeAt(index) }
 								}
 							}
 						}

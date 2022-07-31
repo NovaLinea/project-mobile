@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.example.novalinea.common.Constants.MESSAGE_FIELD
+import com.example.novalinea.common.Constants.MESSAGE_FIELD_PLACEHOLDER
 import com.example.novalinea.presentation.components.icon_button.IconButtonAction
 import com.example.novalinea.R
 
@@ -68,7 +68,7 @@ fun MessageField(
 							Row() {
 								if (value.isEmpty()) {
 									Text(
-										text = MESSAGE_FIELD,
+										text = MESSAGE_FIELD_PLACEHOLDER,
 										color = Color.DarkGray,
 										style = MaterialTheme.typography.body1
 									)
@@ -89,8 +89,7 @@ fun MessageField(
 						backgroundColor = colorResource(id = R.color.app_blue)
 					) {
 						Box(
-							modifier = Modifier
-								.padding(7.dp),
+							modifier = Modifier.padding(7.dp),
 							contentAlignment = Alignment.Center
 						) {
 							IconButtonAction(

@@ -1,6 +1,6 @@
 package com.example.novalinea.presentation.screens.create.components.create_text_field
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Text
@@ -13,27 +13,26 @@ import androidx.compose.ui.text.TextStyle
 fun CreateTextField(
 	value: String,
 	placeholder: String,
-	isPlaceholderVisible: Boolean,
 	onValueChange: (String) -> Unit,
 	textStyle: TextStyle
 ) {
-	Box(
-		modifier = Modifier.fillMaxWidth()
-	) {
-		BasicTextField(
-			value = value,
-			onValueChange = { value -> onValueChange(value) },
-			singleLine = false,
-			modifier = Modifier.fillMaxWidth(),
-			textStyle = textStyle
-		)
-
-		if (isPlaceholderVisible) {
-			Text(
-				text = placeholder,
-				color = Color.Gray,
-				style = textStyle
-			)
+	BasicTextField(
+		value = value,
+		onValueChange = { value -> onValueChange(value) },
+		singleLine = false,
+		modifier = Modifier.fillMaxWidth(),
+		textStyle = textStyle,
+		decorationBox = { innerTextField ->
+			Row() {
+				if (value.isEmpty()) {
+					Text(
+						text = placeholder,
+						style = textStyle,
+						color = Color.Gray
+					)
+				}
+			}
+			innerTextField()
 		}
-	}
+	)
 }

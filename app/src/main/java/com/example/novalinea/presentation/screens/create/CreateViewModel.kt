@@ -23,18 +23,11 @@ class CreateViewModel @Inject constructor(
     val title by lazy { CreateState() }
     val description by lazy { CreateState() }
     val price by lazy { CreateState() }
-    var images = mutableStateListOf<Uri>()
+    val listStaff by lazy { mutableStateListOf<String>() }
+    val images by lazy { mutableStateListOf<Uri>() }
 
     private val _stateCreate = MutableLiveData<Response<Boolean>>()
     val stateCreate: LiveData<Response<Boolean>> get() = _stateCreate
-
-    fun addImageProject(uri: Uri) {
-        images.add(uri)
-    }
-
-    fun deleteImageProject(index: Int) {
-        images.removeAt(index)
-    }
 
     fun createProject() {
         viewModelScope.launch {

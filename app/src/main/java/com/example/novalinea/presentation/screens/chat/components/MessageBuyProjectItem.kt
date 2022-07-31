@@ -43,7 +43,7 @@ fun MessageBuyProjectItem(
 			backgroundColor = Color.White
 		) {
 			Column(
-				horizontalAlignment = Alignment.End
+				horizontalAlignment = Alignment.Start
 			) {
 				Column(
 					modifier = Modifier
@@ -87,7 +87,9 @@ fun MessageBuyProjectItem(
 
 				Box(
 					modifier = Modifier
-						.padding(start = 5.dp, end = 5.dp, bottom = 5.dp),
+						.padding(start = 5.dp, end = 5.dp, bottom = 5.dp)
+						.fillMaxWidth(),
+					contentAlignment = Alignment.CenterEnd
 				) {
 					Row(
 						verticalAlignment = Alignment.CenterVertically

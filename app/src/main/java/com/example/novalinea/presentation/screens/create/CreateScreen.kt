@@ -18,10 +18,11 @@ import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.StepsCreateProject
 import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.presentation.navigation.PresentNested
-import com.example.novalinea.presentation.screens.create.components.AdditionallyInformationProject
 import com.example.novalinea.presentation.screens.create.components.CreateTopBar
-import com.example.novalinea.presentation.screens.create.components.MainInformationProject
-import com.example.novalinea.presentation.screens.create.components.TypeSelection
+import com.example.novalinea.presentation.screens.create.components.steps.AdditionallyInformationProject
+import com.example.novalinea.presentation.screens.create.components.steps.ImagesProject
+import com.example.novalinea.presentation.screens.create.components.steps.MainInformationProject
+import com.example.novalinea.presentation.screens.create.components.steps.TypeSelection
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -36,7 +37,7 @@ fun CreateScreen(
 	val stateCreate = viewModel.stateCreate.observeAsState(Response.Success(false)).value
 
 	val stateSteps = remember {
-		mutableStateListOf(true, false, false)
+		mutableStateListOf(true, false, false, false)
 	}
 	var step = remember {
 		mutableStateOf(StepsCreateProject.TYPE_PROJECT)
@@ -59,6 +60,10 @@ fun CreateScreen(
 						StepsCreateProject.ADDITIONALLY_INFORMATION -> {
 							step.value = StepsCreateProject.MAIN_INFORMATION
 							stateSteps[2] = false
+						}
+						StepsCreateProject.IMAGES_PROJECT -> {
+							step.value = StepsCreateProject.ADDITIONALLY_INFORMATION
+							stateSteps[3] = false
 						}
 					}
 				},
@@ -142,19 +147,30 @@ fun CreateScreen(
 								}
 							}
 						},
+						listStaff = viewModel.listStaff,
+						enabled = when(viewModel.type.value) {
+									TypesProject.SALE -> viewModel.price.isValidText()
+									TypesProject.TEAM -> viewModel.listStaff.isNotEmpty()
+									else -> true
+								}
+					) {
+						stateSteps[3] = true
+						step.value = StepsCreateProject.IMAGES_PROJECT
+					}
+				}
+			}
+
+			StepsCreateProject.IMAGES_PROJECT -> {
+				PresentNested {
+					ImagesProject(
 						images = viewModel.images,
-						onAddImage = { uri ->
-							viewModel.addImageProject(uri)
-						},
-						onDeleteImage = { index ->
-							viewModel.deleteImageProject(index)
-						},
 						enabled = stateCreate != Response.Loading &&
-								if (viewModel.type.value == TypesProject.SALE) viewModel.price.isValidText()
-								else true,
-						onCreate = {
-							viewModel.createProject()
-						}
+								when(viewModel.type.value) {
+									TypesProject.SALE -> viewModel.price.isValidText()
+									TypesProject.TEAM -> viewModel.listStaff.isNotEmpty()
+									else -> true
+								},
+						onCreate = { viewModel.createProject() }
 					)
 				}
 			}

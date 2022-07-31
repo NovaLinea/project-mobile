@@ -1,4 +1,4 @@
-package com.example.novalinea.presentation.screens.create.components
+package com.example.novalinea.presentation.screens.create.components.steps
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -55,7 +55,7 @@ fun TypeSelection(
 				.background(Color.White)
 		) {
 			Box(
-				modifier = Modifier.padding(start = 20.dp, bottom = 10.dp),
+				modifier = Modifier.padding(start = 20.dp, top = 5.dp, bottom = 10.dp),
 				contentAlignment = Alignment.CenterStart
 			) {
 				Text(

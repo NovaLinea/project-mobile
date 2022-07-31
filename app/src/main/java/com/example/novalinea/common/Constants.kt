@@ -54,8 +54,9 @@ object Constants {
 	const val TITLE_PROJECT_PLACEHOLDER = "Заголовок"
 	const val DESCRIPTION_PROJECT_PLACEHOLDER = "Описание проекта"
 	const val PRICE_PROJECT_PLACEHOLDER = "Цена"
-	const val DESCRIPTION_PROFILE = "О себе"
-	const val MESSAGE_FIELD = "Сообщение"
+	const val DESCRIPTION_PROFILE_PLACEHOLDER = "О себе"
+	const val MESSAGE_FIELD_PLACEHOLDER = "Сообщение"
+	const val STAFF_PLACEHOLDER = "Сотрудник"
 
 	// Screens
 	const val LOGIN_SCREEN = "Вход"
@@ -102,6 +103,9 @@ object Constants {
 
 	// Titles
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
+	const val TITLE_PRICE_PROJECT = "Стоимость проекта"
+	const val TITLE_STAFF_PROJECT = "Требуемые сотрудники"
+	const val TITLE_IMAGES_PROJECT = "Изображения проекта"
 	const val TITLE_NO_DIALOGS = "Пока нет диалогов"
 	const val TITLE_NO_PROJECTS = "Пока нет проектов"
 	const val TITLE_NO_MESSAGES = "Пока нет сообщений"
@@ -123,6 +127,7 @@ object Constants {
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
 	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
 	const val TEXT_APPLICATION_BUY_PROJECT = "Заявка на покупку проекта"
+	const val TEXT_ADDED_MAX_COUNT_STAFF = "Добавлено максимальное количество сотрудников"
 
 	// Firestore collections
 	const val USERS_COLLECTION = "users"
@@ -166,6 +171,8 @@ object Constants {
 	const val MAX_DESCRIPTION_USER_LENGTH = 70
 	const val MAX_TITLE_PROJECT_LENGTH = 120
 	const val MAX_DESCRIPTION_PROJECT_LENGTH = 10000
+	const val MAX_STAFF_LENGTH = 30
+	const val MAX_COUNT_STAFF = 15
 	const val MIN_PASSWORD_LENGTH = 6
 	const val MAX_IMAGES_PROJECT = 5
 	const val LIMIT_MESSAGES_CHAT = 10
