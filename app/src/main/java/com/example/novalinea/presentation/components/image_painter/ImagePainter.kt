@@ -21,6 +21,7 @@ import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.example.novalinea.presentation.components.animated_shimmer.AnimatedShimmer
 import com.example.novalinea.R
+import com.example.novalinea.presentation.components.loader.Loader
 
 @Composable
 fun ImagePainter(
@@ -29,6 +30,8 @@ fun ImagePainter(
 	shape: Float = 0f,
 	errorPhoto: Int = R.drawable.ic_photo,
 	padding: Int = 15,
+	contentScale: ContentScale = ContentScale.Crop,
+	loader: Boolean = false,
 	onClick: () -> Unit
 ) {
 	val painter = rememberImagePainter(
@@ -48,23 +51,30 @@ fun ImagePainter(
 	Image(
 		painter = painter,
 		contentDescription = null,
-		contentScale = ContentScale.Crop,
+		contentScale = contentScale,
 		modifier = Modifier
 			.fillMaxSize()
 			.clickable { onClick() }
 	)
 
 	if (painterState is AsyncImagePainter.State.Loading) {
-		val brush = AnimatedShimmer()
-		var radius = 5
-		if (isCircle)
-			radius = 100
+		if (loader) {
+			Loader(background = Color.Black)
+		}
+		else {
+			val brush = AnimatedShimmer()
+			var radius = shape.toInt()
+			if (isCircle)
+				radius = 100
 
-		Spacer(modifier = Modifier
-			.fillMaxSize()
-			.clip(RoundedCornerShape(radius.dp))
-			.background(brush)
-		)
+			Spacer(
+				modifier = Modifier
+					.fillMaxSize()
+					.clip(RoundedCornerShape(radius.dp))
+					.background(brush)
+			)
+		}
+
 	}
 
 	if (painterState is AsyncImagePainter.State.Error) {

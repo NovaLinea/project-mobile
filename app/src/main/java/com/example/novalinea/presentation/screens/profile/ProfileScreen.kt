@@ -12,12 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.R
+import com.example.novalinea.common.Constants.ARGUMENT_PHOTOS_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
@@ -25,6 +25,7 @@ import com.example.novalinea.common.Constants.ERROR_BY_GET_PROFILE
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECTS
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_PROJECTS
+import com.example.novalinea.domain.model.Photos
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.navigation.*
@@ -50,7 +51,6 @@ fun ProfileScreen(
 
 	var countProjects = 0
 	val listState = rememberLazyListState()
-	val scaffoldState = rememberScaffoldState()
 
 	Scaffold(
 		topBar = {
@@ -61,16 +61,6 @@ fun ProfileScreen(
 				},
 				onClickAction = showBottomSheet
 			)
-		},
-		scaffoldState = scaffoldState,
-		snackbarHost = {
-			SnackbarHost(it) { data ->
-				Snackbar(
-					backgroundColor = Color.White,
-					contentColor = Color.Black,
-					snackbarData = data
-				)
-			}
 		}
 	) {
 		LazyColumn(
@@ -100,8 +90,22 @@ fun ProfileScreen(
 								statePhoto = statePhoto,
 								countProjects = countProjects,
 								navController = navController,
-								onChangePhoto = { uri ->
-									viewModel.updatePhoto(uri)
+								onViewingPhoto = {
+									if (photoProfile != null) {
+										val photos = Photos(photos = listOf(photoProfile))
+										if (router != null) {
+											router?.routeTo(
+												ProfileNavRoute.ViewingPhoto.route,
+												Pair(ARGUMENT_PHOTOS_KEY, photos)
+											)
+										}
+										else {
+											navController.navigate(
+												ProfileNavRoute.ViewingPhoto.route,
+												Pair(ARGUMENT_PHOTOS_KEY, photos)
+											)
+										}
+									}
 								}
 							)
 						}

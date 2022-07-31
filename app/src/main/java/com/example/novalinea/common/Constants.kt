@@ -8,11 +8,11 @@ object Constants {
 	const val ARGUMENT_PROJECT_DATA = "project_data"
 	const val ARGUMENT_CHAT_DATA = "chat_data"
 	const val ARGUMENT_PROJECT_ID_KEY = "project_id"
-	const val ARGUMENT_PROJECT_TYPE_KEY = "type_project"
 	const val ARGUMENT_USER_ID_KEY = "user_id"
 	const val ARGUMENT_USER_NAME_KEY = "user_name"
 	const val ARGUMENT_USER_EMAIL_KEY = "user_email"
 	const val ARGUMENT_USER_DESCRIPTION_KEY = "user_description"
+	const val ARGUMENT_PHOTOS_KEY = "photos"
 
 	// Navigation main routes
 	const val MAIN_ROUTE = "main_route"
@@ -61,15 +61,11 @@ object Constants {
 	const val LOGIN_SCREEN = "Вход"
 	const val REGISTER_SCREEN = "Регистрация"
 	const val VERIFY_EMAIL_SCREEN = "Подтверждение почты"
-	const val PROJECT_SCREEN = "Проект"
 	const val MESSAGES_SCREEN = "Сообщения"
-	const val PROFILE_SCREEN = "Профиль"
-	const val CREATE_SCREEN = "Новый проект"
 	const val HOME_SCREEN = "Главная"
 	const val EDIT_PROFILE_SCREEN = "Редактирование"
 	const val ABOUT_APP_SCREEN = "О приложении"
 	const val THEMES_SCREEN = "Настройка темы"
-	const val CHAT_SCREEN = "Чат"
 	const val SETTINGS_SCREEN = "Настройки"
 	const val FAVORITES_SCREEN = "Избранное"
 
@@ -86,6 +82,7 @@ object Constants {
 	const val ABOUT_APP_SCREEN_ROUTE = "about_app_screen"
 	const val THEMES_SCREEN_ROUTE = "themes_screen"
 	const val CHAT_SCREEN_ROUTE = "chat_screen"
+	const val VIEWING_PHOTO_SCREEN_ROUTE = "viewing_photo_screen"
 
 	// Buttons
 	const val BUTTON_LOGIN = "Войти"

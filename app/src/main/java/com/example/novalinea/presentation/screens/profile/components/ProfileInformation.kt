@@ -1,6 +1,5 @@
 package com.example.novalinea.presentation.screens.profile.components
 
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -29,7 +28,7 @@ fun ProfileInformation(
 	statePhoto: Response<String?>,
 	countProjects: Int,
 	navController: NavController,
-	onChangePhoto: (Uri) -> Unit,
+	onViewingPhoto: () -> Unit
 ) {
 	Column(
 		modifier = Modifier
@@ -37,14 +36,11 @@ fun ProfileInformation(
 			.background(Color.White),
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
-		user.id?.let { id ->
-			AvatarUser(
-				id = id,
-				photo = photoProfile,
-				statePhoto = statePhoto,
-				onChangePhoto = onChangePhoto
-			)
-		}
+		AvatarUser(
+			photo = photoProfile,
+			statePhoto = statePhoto,
+			onViewingPhoto = onViewingPhoto
+		)
 
 		MainDataUser(
 			name = user.name,

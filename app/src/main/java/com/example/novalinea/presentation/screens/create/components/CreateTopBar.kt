@@ -59,7 +59,7 @@ fun CreateTopBar(
 
 		Box(
 			modifier = Modifier
-				.padding(start = 5.dp)
+				.padding(end = 5.dp)
 				.fillMaxSize(),
 			contentAlignment = Alignment.CenterEnd
 		) {

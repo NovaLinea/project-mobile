@@ -21,6 +21,7 @@ class EditProfileViewModel @Inject constructor(
 
     val name by lazy { NameState() }
     val description by lazy { mutableStateOf("") }
+    val photo by lazy { mutableStateOf("") }
 
     private val _state = MutableLiveData<Response<Boolean>>()
     val state: LiveData<Response<Boolean>> get() = _state

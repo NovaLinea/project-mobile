@@ -22,7 +22,7 @@ fun Loader(
 		contentAlignment = Alignment.Center
 	) {
 		CircularProgressIndicator(
-			color = Color.Gray
+			color = if (background == Color.White) Color.Gray else Color.White
 		)
 	}
 }
