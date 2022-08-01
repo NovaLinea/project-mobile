@@ -115,6 +115,7 @@ fun LoginScreen(
 			}
 
 			TextButtonAction(title = BUTTON_REGISTER) {
+				navController.popBackStack()
 				navController.navigate(AuthNavRoute.Register.route)
 			}
 		}

@@ -36,7 +36,7 @@ fun MainInformationProject(
 		) {
 			Column(
 				modifier = Modifier
-					.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 60.dp)
+					.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 65.dp)
 			) {
 				CreateTextField(
 					value = title,

@@ -36,9 +36,17 @@ class CreateViewModel @Inject constructor(
                     title = title.text,
                     description = description.text,
                     type = type.value,
-                    price = price.text.replace(" ", "").toInt(),
                     creatorID = it
                 )
+
+                when (type.value) {
+                    TypesProject.SALE ->
+                        project.price = price.text.replace(" ", "").toInt()
+
+                    TypesProject.TEAM ->
+                        project.staff = listStaff
+                }
+
                 createProjectUseCase(project, images).collect { response ->
                     _stateCreate.postValue(response)
                 }

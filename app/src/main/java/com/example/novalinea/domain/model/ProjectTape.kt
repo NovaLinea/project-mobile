@@ -11,8 +11,7 @@ data class ProjectTape (
 	val images: List<String>? = null,
 	val type: TypesProject? = null,
 	val price: Int? = null,
-	//val progress: Int,
-	//val listStaff: List<String>,
+	val staff: List<String>? = null,
 	val creatorID: String? = null,
 	var creatorName: String? = null,
 	var creatorPhoto: String? = null

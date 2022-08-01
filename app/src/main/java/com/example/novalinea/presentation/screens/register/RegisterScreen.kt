@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_USER_EMAIL_KEY
+import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.EMAIL_IS_USED
 import com.example.novalinea.common.Constants.ERROR_SERVER
 import com.example.novalinea.common.Constants.INVALID_REGISTER
 import com.example.novalinea.common.Constants.BUTTON_LOGIN
-import com.example.novalinea.common.Constants.MAIN_ROUTE
 import com.example.novalinea.common.Constants.BUTTON_REGISTER
 import com.example.novalinea.common.Constants.REGISTER_SCREEN
 import com.example.novalinea.common.Constants.TAG
@@ -42,8 +42,8 @@ fun RegisterScreen(
 
 	Scaffold(
 		topBar = {
-			RegisterTopBar() {
-				navController.navigate(MAIN_ROUTE)
+			RegisterTopBar {
+				navController.popBackStack()
 			}
 		}
 	) {
@@ -126,6 +126,7 @@ fun RegisterScreen(
 
 			TextButtonAction(title = BUTTON_LOGIN) {
 				navController.popBackStack()
+				navController.navigate(AUTHENTICATION_ROUTE)
 			}
 		}
 	}

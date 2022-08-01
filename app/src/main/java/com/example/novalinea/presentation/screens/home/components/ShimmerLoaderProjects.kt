@@ -60,6 +60,8 @@ fun ShimmerItemProject(brush: Brush) {
 				ShimmerLine(brush, 65)
 			}
 			Spacer(modifier = Modifier.height(20.dp))
+			ShimmerLine(brush, 80)
+			Spacer(modifier = Modifier.height(20.dp))
 			ShimmerLine(brush, 250)
 			Spacer(modifier = Modifier.height(20.dp))
 			ShimmerLine(brush, 300)

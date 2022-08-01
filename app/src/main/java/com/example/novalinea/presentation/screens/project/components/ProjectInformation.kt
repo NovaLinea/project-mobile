@@ -19,6 +19,8 @@ import com.example.novalinea.domain.model.ProjectOpen
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.creator_project.CreatorProject
+import com.example.novalinea.presentation.components.staff_project.StaffProject
+import com.example.novalinea.presentation.components.type_project.TypeProject
 import com.example.novalinea.presentation.ui.theme.OpenSans
 
 @Composable
@@ -60,8 +62,12 @@ fun ProjectInformation(
 					}
 				}
 			}
+			Spacer(modifier = Modifier.height(11.dp))
 
-			Spacer(modifier = Modifier.height(10.dp))
+			project.type?.let { type ->
+				TypeProject(type = type)
+			}
+			Spacer(modifier = Modifier.height(7.dp))
 
 			project.title?.let { title ->
 				Text(
@@ -90,6 +96,11 @@ fun ProjectInformation(
 					letterSpacing = 0.2.sp,
 					lineHeight = 25.sp
 				)
+			}
+
+			project.staff?.let {staff ->
+				Spacer(modifier = Modifier.height(15.dp))
+				StaffProject(staff = staff, isAllVisible = true)
 			}
 		}
 

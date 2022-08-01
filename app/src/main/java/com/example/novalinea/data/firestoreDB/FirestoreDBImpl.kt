@@ -11,6 +11,7 @@ import com.example.novalinea.common.Constants.NAME_USER_FIELD
 import com.example.novalinea.common.Constants.PHOTO_USER_FIELD
 import com.example.novalinea.common.Constants.PRICE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.PROJECTS_COLLECTION
+import com.example.novalinea.common.Constants.STAFF_PROJECT_FIELD
 import com.example.novalinea.common.Constants.TITLE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.TYPE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.UPDATED_AT_FIELD
@@ -95,12 +96,18 @@ class FirestoreDBImpl(
 			mapProject[TITLE_PROJECT_FIELD] = projectData.title
 			mapProject[DESCRIPTION_FIELD] = projectData.description
 			mapProject[TYPE_PROJECT_FIELD] = projectData.type
-			mapProject[PRICE_PROJECT_FIELD] = projectData.price
 			mapProject[VIEWS_PROJECT_FIELD] = 0
 			mapProject[LIKES_PROJECT_FIELD] = 0
 			mapProject[CREATOR_ID_PROJECT_FIELD] = projectData.creatorID
 			mapProject[CREATED_AT_FIELD] = FieldValue.serverTimestamp()
 			mapProject[UPDATED_AT_FIELD] = FieldValue.serverTimestamp()
+
+			when(projectData.type) {
+				TypesProject.SALE ->
+					mapProject[PRICE_PROJECT_FIELD] = projectData.price
+				TypesProject.TEAM ->
+					mapProject[STAFF_PROJECT_FIELD] = projectData.staff
+			}
 
 			val projectID = db.collection(PROJECTS_COLLECTION).add(mapProject).await().id
 			emit(Response.Success(projectID))

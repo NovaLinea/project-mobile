@@ -64,119 +64,117 @@ fun AdditionallyInformationProject(
 			}
 		}
 	) {
-		LazyColumn(
-			state = listState,
-			modifier = Modifier
-				.padding(top = 5.dp)
-				.fillMaxSize()
+		val title = when (type) {
+			TypesProject.SALE -> TITLE_PRICE_PROJECT
+			TypesProject.TEAM -> TITLE_STAFF_PROJECT
+			else -> ""
+		}
+
+		Column(
+			modifier = Modifier.fillMaxSize()
 		) {
-			item {
-				var title = ""
-				if (type == TypesProject.SALE)
-					title = TITLE_PRICE_PROJECT
-				else if (type == TypesProject.TEAM)
-					title = TITLE_STAFF_PROJECT
+			Box(
+				modifier = Modifier.padding(start = 15.dp, bottom = 15.dp),
+				contentAlignment = Alignment.CenterStart
+			) {
+				Text(
+					text = title,
+					style = MaterialTheme.typography.h6
+				)
+			}
+
+			if (type == TypesProject.SALE) {
+				var formatPrice = ""
+				if (price != "")
+					formatPrice =  price.replace(" ", "").toInt().asPrice()
 
 				Box(
-					modifier = Modifier.padding(start = 15.dp, bottom = 15.dp),
-					contentAlignment = Alignment.CenterStart
+					modifier = Modifier.padding(start = 15.dp, end = 15.dp)
 				) {
-					Text(
-						text = title,
-						style = MaterialTheme.typography.h6
+					CreatePriceField(
+						value = formatPrice,
+						onValueChange = onPriceChange,
+						focusManager = focusManager
 					)
 				}
 			}
 
-			if (type == TypesProject.SALE) {
-				item {
-					var formatPrice = ""
-					if (price != "")
-						formatPrice =  price.replace(" ", "").toInt().asPrice()
-
-					Box(
-						modifier = Modifier.padding(start = 15.dp, end = 15.dp)
-					) {
-						CreatePriceField(
-							value = formatPrice,
-							onValueChange = onPriceChange,
-							focusManager = focusManager
-						)
-					}
-				}
-			}
-
 			else if (type == TypesProject.TEAM) {
-				item {
-					Box(
-						modifier = Modifier.padding(start = 15.dp, end = 15.dp)
-					) {
-						CreateStaffField(
-							addStaff = { staff ->
-								if (listStaff.size < MAX_COUNT_STAFF)
-									listStaff.add(staff)
-								else {
-									scope.launch {
-										scaffoldState.snackbarHostState.showSnackbar(TEXT_ADDED_MAX_COUNT_STAFF)
+				Box(
+					modifier = Modifier.padding(start = 15.dp, end = 15.dp)
+				) {
+					CreateStaffField(
+						addStaff = { staff ->
+							if (listStaff.size < MAX_COUNT_STAFF)
+								listStaff.add(staff)
+							else {
+								scope.launch {
+									scaffoldState.snackbarHostState.showSnackbar(TEXT_ADDED_MAX_COUNT_STAFF)
+								}
+							}
+						}
+					)
+				}
+				Spacer(modifier = Modifier.height(10.dp))
+
+				LazyColumn(
+					state = listState,
+					modifier = Modifier
+						.padding(top = 5.dp)
+						.fillMaxWidth()
+				) {
+					itemsIndexed(
+						items = listStaff,
+						key = { index, _ ->
+							index.hashCode()
+						}
+					) { index, staff ->
+						Row(
+							modifier = Modifier
+								.height(35.dp)
+								.padding(vertical = 5.dp, horizontal = 15.dp)
+								.fillMaxWidth(),
+							verticalAlignment = Alignment.CenterVertically,
+							horizontalArrangement = Arrangement.SpaceBetween
+						) {
+							Row(
+								modifier = Modifier
+									.padding(start = 5.dp)
+									.fillMaxHeight(),
+								verticalAlignment = Alignment.CenterVertically
+							) {
+								Icon(
+									modifier = Modifier.size(7.dp),
+									painter = painterResource(id = R.drawable.ic_circle),
+									contentDescription = null
+								)
+
+								Text(
+									modifier = Modifier.padding(start = 10.dp),
+									text = staff,
+									style = MaterialTheme.typography.body1
+								)
+							}
+							Card(
+								modifier = Modifier.size(20.dp),
+								backgroundColor = colorResource(id = R.color.app_background),
+								shape = CircleShape,
+								elevation = 0.dp
+							) {
+								Box(
+									modifier = Modifier.padding(3.dp)
+								) {
+									CloseButton {
+										listStaff.removeAt(index)
 									}
 								}
 							}
-						)
-					}
-					Spacer(modifier = Modifier.height(10.dp))
-				}
-
-				itemsIndexed(
-					items = listStaff,
-					key = { index, _ ->
-						index.hashCode()
-					}
-				) { index, staff ->
-					Row(
-						modifier = Modifier
-							.height(35.dp)
-							.padding(vertical = 5.dp, horizontal = 15.dp)
-							.fillMaxWidth(),
-						verticalAlignment = Alignment.CenterVertically,
-						horizontalArrangement = Arrangement.SpaceBetween
-					) {
-						Row(
-							modifier = Modifier
-								.padding(start = 5.dp)
-								.fillMaxHeight(),
-							verticalAlignment = Alignment.CenterVertically
-						) {
-							Icon(
-								modifier = Modifier.size(7.dp),
-								painter = painterResource(id = R.drawable.ic_circle),
-								contentDescription = null
-							)
-
-							Text(
-								modifier = Modifier.padding(start = 10.dp),
-								text = staff,
-								style = MaterialTheme.typography.body1
-							)
-						}
-						Card(
-							modifier = Modifier.size(20.dp),
-							backgroundColor = colorResource(id = R.color.app_background),
-							shape = CircleShape,
-							elevation = 0.dp
-						) {
-							Box(
-								modifier = Modifier.padding(3.dp)
-							) {
-								CloseButton {
-									listStaff.removeAt(index)
-								}
-							}
 						}
 					}
-				}
 
-				item {
-					Spacer(modifier = Modifier.height(60.dp))
+					item {
+						Spacer(modifier = Modifier.height(65.dp))
+					}
 				}
 			}
 		}

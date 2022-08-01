@@ -30,6 +30,7 @@ import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
 import com.example.novalinea.common.Constants.TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
+import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.components.modal.Modal
 import com.example.novalinea.presentation.navigation.BottomNavRoute
@@ -56,15 +57,19 @@ fun ProjectScreen(
 	Scaffold(
 		topBar = { ProjectTopBar(navController) },
 		bottomBar = {
-			ProjectBottomBar(
-				projectPrice = "${project.price}",
-				onClickBuy = {
-					if (USER.id != null)
-						openDialog.value = true
-					else
-						navController.navigate(AUTHENTICATION_ROUTE)
+			when(project.type) {
+				TypesProject.SALE -> {
+					ProjectBottomBar(
+						projectPrice = "${project.price}",
+						onClickBuy = {
+							if (USER.id != null)
+								openDialog.value = true
+							else
+								navController.navigate(AUTHENTICATION_ROUTE)
+						}
+					)
 				}
-			)
+			}
 		},
 		scaffoldState = scaffoldState,
 		snackbarHost = {
