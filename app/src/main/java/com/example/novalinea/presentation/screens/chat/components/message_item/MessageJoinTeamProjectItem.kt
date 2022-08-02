@@ -1,4 +1,4 @@
-package com.example.novalinea.presentation.screens.chat.components
+package com.example.novalinea.presentation.screens.chat.components.message_item
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,14 +19,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.novalinea.R
 import com.example.novalinea.common.Constants.TEXT_APPLICATION_BUY_PROJECT
+import com.example.novalinea.common.Constants.TEXT_APPLICATION_JOIN_TEAM_PROJECT
 import com.example.novalinea.common.asPrice
 import com.example.novalinea.common.asTime
 import com.example.novalinea.presentation.ui.theme.OpenSans
 
 @Composable
-fun MessageBuyProjectItem(
+fun MessageJoinTeamProjectItem(
 	title: String,
-	price: Int?,
+	staff: String,
 	time: Any,
 	viewed: Boolean,
 	locationArrangement: Arrangement.Horizontal
@@ -51,7 +52,7 @@ fun MessageBuyProjectItem(
 					horizontalAlignment = Alignment.Start
 				) {
 					Text(
-						text = TEXT_APPLICATION_BUY_PROJECT,
+						text = TEXT_APPLICATION_JOIN_TEAM_PROJECT,
 						style = TextStyle(
 							color = Color.Black,
 							fontWeight = FontWeight.W600,
@@ -72,17 +73,15 @@ fun MessageBuyProjectItem(
 						)
 					)
 					Spacer(modifier = Modifier.height(5.dp))
-					price?.let {
-						Text(
-							text = "${it.asPrice()} ₽",
-							style = TextStyle(
-								color = Color.Black,
-								fontWeight = FontWeight.W500,
-								fontSize = 16.sp,
-								fontFamily = OpenSans
-							)
+					Text(
+						text = staff,
+						style = TextStyle(
+							color = Color.Black,
+							fontWeight = FontWeight.W600,
+							fontSize = 16.sp,
+							fontFamily = OpenSans
 						)
-					}
+					)
 				}
 
 				Box(

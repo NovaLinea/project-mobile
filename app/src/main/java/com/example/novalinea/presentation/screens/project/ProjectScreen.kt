@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,24 +14,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
-import com.example.novalinea.common.Constants.BUTTON_SEND
 import com.example.novalinea.common.Constants.ERROR_BY_GET_ADDITIONALLY_DATA_PROJECT
 import com.example.novalinea.common.Constants.ERROR_BY_SEND_BUY_MESSAGE_PROJECT
-import com.example.novalinea.common.Constants.TEXT_BUY_PROJECT
-import com.example.novalinea.common.Constants.TITLE_BUY_PROJECT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
 import com.example.novalinea.common.Constants.TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
+import com.example.novalinea.common.Constants.TEXT_SUCCESS_SEND_MESSAGE_JOIN_TEAM_PROJECT
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.TypesProject
+import com.example.novalinea.presentation.components.bottom_sheets.BottomSheetScreen
 import com.example.novalinea.presentation.components.loader.Loader
-import com.example.novalinea.presentation.components.modal.Modal
 import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.screens.project.components.ProjectInformation
 import com.example.novalinea.presentation.screens.project.components.ProjectTopBar
-import com.example.novalinea.presentation.screens.project.components.bottom_bar.ProjectSaleBottomBar
+import com.example.novalinea.presentation.screens.project.components.bottom_bar.ProjectBuyBottomBar
 import com.example.novalinea.presentation.screens.project.components.bottom_bar.ProjectTeamBottomBar
 import kotlinx.coroutines.launch
 
@@ -42,6 +38,7 @@ import kotlinx.coroutines.launch
 fun ProjectScreen(
 	project: ProjectTape,
 	navController: NavController,
+	showBottomSheet: (BottomSheetScreen) -> Unit,
 	viewModel: ProjectViewModel = hiltViewModel()
 ) {
 	val stateProject = viewModel.stateProject.observeAsState(Response.Success(null)).value
@@ -50,18 +47,29 @@ fun ProjectScreen(
 	val scaffoldState = rememberScaffoldState()
 	val scope = rememberCoroutineScope()
 
-	val openDialog = remember { mutableStateOf(false) }
-
 	Scaffold(
 		topBar = { ProjectTopBar(navController) },
 		bottomBar = {
 			when(project.type) {
 				TypesProject.SALE -> {
-					ProjectSaleBottomBar(
+					ProjectBuyBottomBar(
 						projectPrice = "${project.price}",
-						onClickBuy = {
-							if (USER.id != null)
-								openDialog.value = true
+						showBottomSheet = {
+							if (USER.id != null) {
+								showBottomSheet(
+									BottomSheetScreen.BuyProject(
+										onSendApplication = {
+											viewModel.sendApplication(
+												typeProject = project.type,
+												toID = project.creatorID,
+												projectID = project.id,
+												projectTitle = project.title,
+												projectPrice = project.price
+											)
+										}
+									)
+								)
+							}
 							else
 								navController.navigate(AUTHENTICATION_ROUTE)
 						}
@@ -69,9 +77,28 @@ fun ProjectScreen(
 				}
 
 				TypesProject.TEAM -> {
-					ProjectTeamBottomBar {
-
-					}
+					ProjectTeamBottomBar(
+						showBottomSheet = {
+							if (USER.id != null) {
+								showBottomSheet(
+									BottomSheetScreen.JoinTheTeam(
+										staff = project.staff,
+										onSendApplication = { staff ->
+											viewModel.sendApplication(
+												typeProject = project.type,
+												toID = project.creatorID,
+												projectID = project.id,
+												projectTitle = project.title,
+												staff = staff
+											)
+										}
+									)
+								)
+							}
+							else
+								navController.navigate(AUTHENTICATION_ROUTE)
+						}
+					)
 				}
 
 				TypesProject.DONATES -> {
@@ -90,7 +117,6 @@ fun ProjectScreen(
 			}
 		}
 	) { innerPadding ->
-
 		if (stateProject is Response.Error) {
 			Log.d(TAG, stateProject.message)
 			scope.launch {
@@ -112,9 +138,21 @@ fun ProjectScreen(
 			is Response.Success -> {
 				if (stateSend.data) {
 					scope.launch {
-						scaffoldState.snackbarHostState.showSnackbar(
-							TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
-						)
+						when(project.type) {
+							TypesProject.SALE -> {
+								scaffoldState.snackbarHostState.showSnackbar(
+									TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT
+								)
+							}
+							TypesProject.TEAM -> {
+								scaffoldState.snackbarHostState.showSnackbar(
+									TEXT_SUCCESS_SEND_MESSAGE_JOIN_TEAM_PROJECT
+								)
+							}
+							TypesProject.DONATES -> {
+
+							}
+						}
 					}
 				}
 			}
@@ -132,24 +170,6 @@ fun ProjectScreen(
 							+ "?${ARGUMENT_USER_ID_KEY}=${project.creatorID.toString()}"
 				)
 			}
-		}
-
-		if (project.type == TypesProject.SALE) {
-			Modal(
-				openDialog = openDialog,
-				title = TITLE_BUY_PROJECT,
-				text = TEXT_BUY_PROJECT,
-				confirmButton = BUTTON_SEND,
-				onClickTrue = {
-					viewModel.sendApplication(
-						typeProject = project.type,
-						toID = project.creatorID,
-						projectID = project.id,
-						projectTitle = project.title,
-						projectPrice = project.price
-					)
-				}
-			)
 		}
 	}
 }

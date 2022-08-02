@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.dp
 import com.example.novalinea.presentation.navigation.Router
 import com.example.novalinea.presentation.screens.profile.components.bottom_sheets.PhotoActions
 import com.example.novalinea.presentation.screens.profile.components.bottom_sheets.ProfileActions
+import com.example.novalinea.presentation.screens.project.components.bottom_sheets.BuyProject
+import com.example.novalinea.presentation.screens.project.components.bottom_sheets.JoinTeamProject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -47,31 +49,39 @@ fun BottomSheet(
                 is BottomSheetScreen.ProfileActions -> {
                     ProfileActions(
                         userID = (currentBottomSheet as BottomSheetScreen.ProfileActions).userID,
-                        router = externalRouter,
                         navController = (currentBottomSheet as BottomSheetScreen.ProfileActions).navController,
-                        hideBottomSheet = hideSheet
+                        onLogout = (currentBottomSheet as BottomSheetScreen.ProfileActions).onLogout,
+                        hideBottomSheet = hideSheet,
                     )
                 }
 
                 is BottomSheetScreen.PhotoProfileActions -> {
                     PhotoActions(
                         photoIsEmpty = (currentBottomSheet as BottomSheetScreen.PhotoProfileActions).photoIsEmpty,
-                        onOpenPhoto = {
-                            (currentBottomSheet as BottomSheetScreen.PhotoProfileActions).onOpenPhoto()
-                        },
+                        onOpenPhoto = (currentBottomSheet as BottomSheetScreen.PhotoProfileActions).onOpenPhoto,
                         onChangePhoto = { uri ->
                             (currentBottomSheet as BottomSheetScreen.PhotoProfileActions).onChangePhoto(uri)
                         },
-                        onDeletePhoto = {
-                            (currentBottomSheet as BottomSheetScreen.PhotoProfileActions).onDeletePhoto()
-                        },
+                        onDeletePhoto = (currentBottomSheet as BottomSheetScreen.PhotoProfileActions).onDeletePhoto,
                         hideBottomSheet = hideSheet
                     )
                 }
 
-                BottomSheetScreen.JoinTheTeam -> {
-                    Text("JoinTeam")
+                is BottomSheetScreen.BuyProject -> {
+                    BuyProject(
+                        onSendApplication = (currentBottomSheet as BottomSheetScreen.BuyProject).onSendApplication,
+                        hideBottomSheet = hideSheet
+                    )
                 }
+
+                is BottomSheetScreen.JoinTheTeam -> {
+                    JoinTeamProject(
+                        staff = (currentBottomSheet as BottomSheetScreen.JoinTheTeam).staff,
+                        onSendApplication = (currentBottomSheet as BottomSheetScreen.JoinTheTeam).onSendApplication,
+                        hideBottomSheet = hideSheet
+                    )
+                }
+
                 else -> Text("null")
             }
         },

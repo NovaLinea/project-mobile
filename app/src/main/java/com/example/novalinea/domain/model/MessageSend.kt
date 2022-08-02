@@ -8,5 +8,5 @@ data class MessageSend(
 	val project_id: String? = null,
 	val project_title: String? = null,
 	val project_price: Int? = null,
-	val staff: String? = null
+	val team_staff: String? = null
 )

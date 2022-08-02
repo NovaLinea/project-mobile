@@ -32,9 +32,10 @@ import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.screens.chat.components.ChatTopBar
-import com.example.novalinea.presentation.screens.chat.components.MessageBuyProjectItem
 import com.example.novalinea.presentation.screens.chat.components.MessageField
-import com.example.novalinea.presentation.screens.chat.components.MessageTextItem
+import com.example.novalinea.presentation.screens.chat.components.message_item.MessageBuyProjectItem
+import com.example.novalinea.presentation.screens.chat.components.message_item.MessageJoinTeamProjectItem
+import com.example.novalinea.presentation.screens.chat.components.message_item.MessageTextItem
 import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -152,24 +153,35 @@ fun ChatScreen(
 						if (USER.id == message.from)
 							location = Arrangement.End
 
-						//Log.d(TAG, listState.)
+						when(message.type) {
+							TypesMessage.TEXT -> {
+								MessageTextItem(
+									message = message.text,
+									time = message.timestamp,
+									viewed = message.viewed,
+									locationArrangement = location
+								)
+							}
 
-						if (message.type == TypesMessage.TEXT) {
-							MessageTextItem(
-								message = message.text,
-								time = message.timestamp,
-								viewed = message.viewed,
-								locationArrangement = location
-							)
-						}
-						else if (message.type == TypesMessage.BUY_PROJECT) {
-							MessageBuyProjectItem(
-								title = message.project_title,
-								price = message.project_price,
-								time = message.timestamp,
-								viewed = message.viewed,
-								locationArrangement = location
-							)
+							TypesMessage.BUY_PROJECT -> {
+								MessageBuyProjectItem(
+									title = message.project_title,
+									price = message.project_price,
+									time = message.timestamp,
+									viewed = message.viewed,
+									locationArrangement = location
+								)
+							}
+
+							TypesMessage.JOIN_THE_TEAM -> {
+								MessageJoinTeamProjectItem(
+									title = message.project_title,
+									staff = message.team_staff,
+									time = message.timestamp,
+									viewed = message.viewed,
+									locationArrangement = location
+								)
+							}
 						}
 					}
 				}

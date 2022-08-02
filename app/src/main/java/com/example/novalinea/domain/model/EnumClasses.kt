@@ -1,9 +1,5 @@
 package com.example.novalinea.domain.model
 
-enum class BottomSheets {
-	PROFILE
-}
-
 enum class TypesProject {
 	SALE, DONATES, TEAM
 }

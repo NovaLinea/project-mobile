@@ -1,4 +1,4 @@
-package com.example.novalinea.presentation.screens.chat.components
+package com.example.novalinea.presentation.screens.chat.components.message_item
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

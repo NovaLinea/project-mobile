@@ -7,10 +7,7 @@ import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserProfile
-import com.example.novalinea.domain.use_case.DeletePhotoUserUseCase
-import com.example.novalinea.domain.use_case.GetProjectsUserUseCase
-import com.example.novalinea.domain.use_case.GetUserByIdUseCase
-import com.example.novalinea.domain.use_case.UploadPhotoUserUseCase
+import com.example.novalinea.domain.use_case.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,6 +18,7 @@ class ProfileViewModel @Inject constructor(
 	private val getProjectsUserUseCase: GetProjectsUserUseCase,
 	private val uploadPhotoUserUseCase: UploadPhotoUserUseCase,
 	private val deletePhotoUserUseCase: DeletePhotoUserUseCase,
+	private val logoutUseCase: LogoutUseCase,
 	savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -35,6 +33,9 @@ class ProfileViewModel @Inject constructor(
 
 	private val _photoProfile = MutableLiveData<String?>()
 	val photoProfile: LiveData<String?> get() = _photoProfile
+
+	private val _stateLogout = MutableLiveData<Response<Boolean>>()
+	val stateLogout: LiveData<Response<Boolean>> get() = _stateLogout
 
 	init {
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
@@ -85,6 +86,14 @@ class ProfileViewModel @Inject constructor(
 						USER.photo = null
 					}
 				}
+			}
+		}
+	}
+
+	fun logout() {
+		viewModelScope.launch {
+			logoutUseCase().collect { response ->
+				_stateLogout.postValue(response)
 			}
 		}
 	}

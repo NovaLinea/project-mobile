@@ -6,13 +6,23 @@ import androidx.navigation.NavController
 sealed class BottomSheetScreen {
 	class ProfileActions(
 		val userID: String,
-		val navController: NavController
+		val navController: NavController,
+		val onLogout: () -> Unit,
 	): BottomSheetScreen()
+
 	class PhotoProfileActions(
 		val photoIsEmpty: Boolean,
 		val onOpenPhoto: () -> Unit,
 		val onChangePhoto: (Uri) -> Unit,
 		val onDeletePhoto: () -> Unit
 	): BottomSheetScreen()
-	object JoinTheTeam: BottomSheetScreen()
+
+	class BuyProject(
+		val onSendApplication: () -> Unit
+	): BottomSheetScreen()
+
+	class JoinTheTeam(
+		val staff: List<String>?,
+		val onSendApplication: (String) -> Unit
+	): BottomSheetScreen()
 }

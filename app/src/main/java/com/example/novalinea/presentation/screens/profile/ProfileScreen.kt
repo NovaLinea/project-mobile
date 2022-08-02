@@ -9,33 +9,41 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.R
+import com.example.novalinea.common.Constants
 import com.example.novalinea.common.Constants.ARGUMENT_PHOTOS_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROFILE
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECTS
+import com.example.novalinea.common.Constants.ERROR_BY_LOGOUT
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_PROJECTS
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.Photos
 import com.example.novalinea.domain.model.Response
+import com.example.novalinea.domain.model.UserProfile
 import com.example.novalinea.presentation.components.bottom_sheets.BottomSheetScreen
 import com.example.novalinea.presentation.components.error.Error
+import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.navigation.*
 import com.example.novalinea.presentation.screens.home.components.ShimmerLoaderProjects
 import com.example.novalinea.presentation.screens.home.components.ProjectItem
 import com.example.novalinea.presentation.screens.profile.components.ProfileInformation
 import com.example.novalinea.presentation.screens.profile.components.ProfileTopBar
 import com.example.novalinea.presentation.screens.profile.components.ShimmerLoaderProfile
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
@@ -50,9 +58,13 @@ fun ProfileScreen(
 	val stateProjects = viewModel.stateProjects.observeAsState(Response.Success(emptyList())).value
 	val statePhoto = viewModel.statePhoto.observeAsState(Response.Success(null)).value
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
+	val stateLogout = viewModel.stateLogout.observeAsState(Response.Success(false)).value
 
 	var countProjects = 0
 	val listState = rememberLazyListState()
+
+	val scaffoldState = rememberScaffoldState()
+	val scope = rememberCoroutineScope()
 
 	Scaffold(
 		topBar = {
@@ -63,13 +75,47 @@ fun ProfileScreen(
 					showBottomSheet(
 						BottomSheetScreen.ProfileActions(
 							userID = userID,
-							navController = navController
+							navController = navController,
+							onLogout = {
+								viewModel.logout()
+							}
 						)
 					)
 				}
 			)
+		},
+		scaffoldState = scaffoldState,
+		snackbarHost = {
+			SnackbarHost(it) { data ->
+				Snackbar(
+					backgroundColor = Color.White,
+					contentColor = Color.Black,
+					snackbarData = data
+				)
+			}
 		}
 	) {
+		when(stateLogout) {
+			is Response.Loading -> Loader()
+			is Response.Error -> {
+				Log.d(TAG, stateLogout.message)
+				scope.launch {
+					scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_LOGOUT)
+				}
+			}
+			is Response.Success -> {
+				if (stateLogout.data) {
+					LaunchedEffect(stateLogout.data) {
+						if (router != null)
+							router.routeTo(Constants.MAIN_ROUTE)
+						else
+							navController?.navigate(Constants.MAIN_ROUTE)
+						USER = UserProfile()
+					}
+				}
+			}
+		}
+
 		LazyColumn(
 			state = listState,
 			modifier = Modifier

@@ -93,6 +93,7 @@ object Constants {
 	const val BUTTON_CREATE_PROJECT = "Создать проект"
 	const val BUTTON_BUY_PROJECT = "Купить"
 	const val BUTTON_JOIN_TEAM_PROJECT = "Вступить в команду"
+	const val BUTTON_SEND_APPLICATION = "Отправить заявку"
 	const val BUTTON_EDIT_PROFILE = "Редактировать"
 	const val BUTTON_SUBSCRIBE_USER = "Подписаться"
 	const val BUTTON_UNSUBSCRIBE_USER = "Отписаться"
@@ -112,6 +113,7 @@ object Constants {
 	const val TITLE_NO_PROJECTS = "Пока нет проектов"
 	const val TITLE_NO_MESSAGES = "Пока нет сообщений"
 	const val TITLE_BUY_PROJECT = "Покупка проекта"
+	const val TITLE_JOIN_TEAM_PROJECT = "Вступление в команду"
 	const val TITLE_COUNT_PROJECTS = "Проектов"
 	const val TITLE_COUNT_FOLLOWS = "Подписчиков"
 	const val TITLE_COUNT_FOLLOWINGS = "Подписок"
@@ -128,11 +130,13 @@ object Constants {
 	// Text
 	const val TEXT_VERIFY_EMAIL = "Мы отправили письмо со ссылкой для подтверждения вашей почты"
 	const val TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT = "Заявка на покупку проекта успешно отправлена"
+	const val TEXT_SUCCESS_SEND_MESSAGE_JOIN_TEAM_PROJECT = "Заявка на вступление в команду успешно отправлена"
 	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
-	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
+	const val TEXT_JOIN_TEAM_PROJECT = "Выберите, на какую позицию вы претендуете"
 	const val TEXT_APPLICATION_BUY_PROJECT = "Заявка на покупку проекта"
 	const val TEXT_APPLICATION_JOIN_TEAM_PROJECT = "Заявка на вступление в команду"
+	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
 	const val TEXT_ADDED_MAX_COUNT_STAFF = "Добавлено максимальное количество сотрудников"
 
 	// Firestore collections
@@ -172,6 +176,7 @@ object Constants {
 	const val PROJECT_ID_MESSAGE_FIELD = "project_id"
 	const val PROJECT_TITLE_MESSAGE_FIELD = "project_title"
 	const val PROJECT_PRICE_MESSAGE_FIELD = "project_price"
+	const val TEAM_STAFF_MESSAGE_FIELD = "team_staff"
 
 	// LIMITATIONS
 	const val MAX_NAME_USER_LENGTH = 30

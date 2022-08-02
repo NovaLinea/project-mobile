@@ -20,9 +20,9 @@ import com.example.novalinea.presentation.components.button_action.ButtonActionT
 import com.example.novalinea.presentation.ui.theme.OpenSans
 
 @Composable
-fun ProjectSaleBottomBar(
+fun ProjectBuyBottomBar(
 	projectPrice: String,
-	onClickBuy: () -> Unit
+	showBottomSheet: () -> Unit
 ) {
 	BottomNavigation(
 		backgroundColor = Color.White,
@@ -58,7 +58,7 @@ fun ProjectSaleBottomBar(
 					title = BUTTON_BUY_PROJECT,
 					enabled = true
 				) {
-					onClickBuy()
+					showBottomSheet()
 				}
 			}
 		}

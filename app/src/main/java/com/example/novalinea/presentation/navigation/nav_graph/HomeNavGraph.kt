@@ -3,13 +3,16 @@ package com.example.novalinea.presentation.navigation.nav_graph
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.*
 import androidx.navigation.compose.composable
+import com.example.novalinea.common.Constants
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_DATA
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.HOME_ROUTE
 import com.example.novalinea.domain.model.ProjectTape
+import com.example.novalinea.presentation.components.bottom_sheets.BottomSheet
 import com.example.novalinea.presentation.navigation.HomeNavRoute
 import com.example.novalinea.presentation.navigation.PresentNested
 import com.example.novalinea.presentation.screens.create.CreateScreen
+import com.example.novalinea.presentation.screens.profile.ProfileScreen
 import com.example.novalinea.presentation.screens.project.ProjectScreen
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -34,9 +37,16 @@ fun NavGraphBuilder.homeNavGraph(
 			val project = navController.previousBackStackEntry?.savedStateHandle?.get<ProjectTape>(ARGUMENT_PROJECT_DATA)
 			project?.let {
 				PresentNested {
-					ProjectScreen(
-						project = it,
-						navController = navController
+					BottomSheet(
+						content = { _, showBottomSheet ->
+							ProjectScreen(
+								project = it,
+								navController = navController,
+								showBottomSheet = { bottomSheet ->
+									showBottomSheet(bottomSheet)
+								}
+							)
+						}
 					)
 				}
 			}

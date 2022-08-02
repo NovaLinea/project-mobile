@@ -88,7 +88,7 @@ class ProjectViewModel @Inject constructor(
                                     type = TypesMessage.JOIN_THE_TEAM,
                                     project_id = projectID,
                                     project_title = projectTitle,
-                                    staff = staff
+                                    team_staff = staff
                                 )
                             }
 

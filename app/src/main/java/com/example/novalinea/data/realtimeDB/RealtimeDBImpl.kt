@@ -5,6 +5,7 @@ import com.example.novalinea.common.Constants.NODE_MESSAGES
 import com.example.novalinea.common.Constants.PROJECT_ID_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.PROJECT_PRICE_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.PROJECT_TITLE_MESSAGE_FIELD
+import com.example.novalinea.common.Constants.TEAM_STAFF_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.TEXT_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.TIMESTAMP_MESSAGE_FIELD
 import com.example.novalinea.common.Constants.TYPE_MESSAGE_FIELD
@@ -90,15 +91,29 @@ class RealtimeDBImpl(
 			mapMessage[TYPE_MESSAGE_FIELD] = message.type
 			mapMessage[TIMESTAMP_MESSAGE_FIELD] = ServerValue.TIMESTAMP
 
-			if (message.type == TypesMessage.BUY_PROJECT) {
-				message.project_id?.let { id ->
-					mapMessage[PROJECT_ID_MESSAGE_FIELD] = id
+			when(message.type) {
+				TypesMessage.BUY_PROJECT -> {
+					message.project_id?.let { id ->
+						mapMessage[PROJECT_ID_MESSAGE_FIELD] = id
+					}
+					message.project_title?.let { title ->
+						mapMessage[PROJECT_TITLE_MESSAGE_FIELD] = title
+					}
+					message.project_price?.let { price ->
+						mapMessage[PROJECT_PRICE_MESSAGE_FIELD] = price
+					}
 				}
-				message.project_title?.let { title ->
-					mapMessage[PROJECT_TITLE_MESSAGE_FIELD] = title
-				}
-				message.project_price?.let { price ->
-					mapMessage[PROJECT_PRICE_MESSAGE_FIELD] = price
+
+				TypesMessage.JOIN_THE_TEAM -> {
+					message.project_id?.let { id ->
+						mapMessage[PROJECT_ID_MESSAGE_FIELD] = id
+					}
+					message.project_title?.let { title ->
+						mapMessage[PROJECT_TITLE_MESSAGE_FIELD] = title
+					}
+					message.team_staff?.let { staff ->
+						mapMessage[TEAM_STAFF_MESSAGE_FIELD] = staff
+					}
 				}
 			}
 

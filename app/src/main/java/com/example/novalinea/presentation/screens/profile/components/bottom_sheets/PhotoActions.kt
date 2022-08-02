@@ -57,7 +57,7 @@ fun PhotoActions(
 		if (!photoIsEmpty) {
 			BottomSheetItem(
 				title = TITLE_OPEN_PHOTO,
-				icon = Icons.Default.FolderOpen,
+				icon = Icons.Default.OpenInFull,
 				onClick = {
 					hideBottomSheet()
 					onOpenPhoto()

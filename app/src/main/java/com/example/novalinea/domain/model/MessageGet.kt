@@ -8,6 +8,7 @@ data class MessageGet(
 	val project_id: String = "",
 	val project_title: String = "",
 	val project_price: Int? = null,
+	val team_staff: String = "",
 	val timestamp: Any = "",
 	val viewed: Boolean = false
 )
