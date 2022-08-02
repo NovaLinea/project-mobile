@@ -1,4 +1,4 @@
-package com.example.novalinea.presentation.screens.profile.components
+package com.example.novalinea.presentation.screens.profile.components.bottom_sheets
 
 import androidx.lifecycle.*
 import com.example.novalinea.domain.model.Response
@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ActionsSheetViewModel @Inject constructor(
+class BottomSheetViewModel @Inject constructor(
 	private val logoutUseCase: LogoutUseCase
 ): ViewModel() {
 

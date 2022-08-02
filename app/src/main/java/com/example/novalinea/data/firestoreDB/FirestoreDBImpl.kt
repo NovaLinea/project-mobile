@@ -73,6 +73,19 @@ class FirestoreDBImpl(
 		}
 	}
 
+	override fun deletePhotoUser(id: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+			db.collection(USERS_COLLECTION)
+				.document(id)
+				.update(PHOTO_USER_FIELD, FieldValue.delete())
+				.await()
+			emit(Response.Success(true))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
 	override fun editProfile(user: UserEdit) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)

@@ -8,12 +8,12 @@ import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.novalinea.common.Constants.ARGUMENT_PHOTOS_KEY
 import com.example.novalinea.domain.model.Photos
-import com.example.novalinea.presentation.components.bottom_sheet.BottomSheet
+import com.example.novalinea.presentation.components.bottom_sheets.BottomSheet
+import com.example.novalinea.presentation.components.bottom_sheets.BottomSheetScreen
 import com.example.novalinea.presentation.navigation.*
 import com.example.novalinea.presentation.screens.about_app.AboutAppScreen
 import com.example.novalinea.presentation.screens.edit_profile.EditProfileScreen
 import com.example.novalinea.presentation.screens.profile.ProfileScreen
-import com.example.novalinea.presentation.screens.profile.components.ActionsSheetContent
 import com.example.novalinea.presentation.screens.themes.ThemesScreen
 import com.example.novalinea.presentation.screens.viewing_photos.ViewingPhotos
 
@@ -21,7 +21,7 @@ import com.example.novalinea.presentation.screens.viewing_photos.ViewingPhotos
 fun NavGraphBuilder.profileNavGraph(
 	navController: NavHostController,
 	router: Router? = null,
-	showBottomSheet: (() -> Unit)? = null
+	showBottomSheet: ((BottomSheetScreen) -> Unit)? = null
 ) {
 	composable(
 		route = BottomNavRoute.Profile.route
@@ -37,19 +37,13 @@ fun NavGraphBuilder.profileNavGraph(
 		PresentNested {
 			if (showBottomSheet == null) {
 				BottomSheet(
-					sheetContent = { router, hideBottomSheet ->
-						ActionsSheetContent(
-							userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
-							router = router,
-							navController = navController,
-							hideBottomSheet = hideBottomSheet
-						)
-					},
 					content = { _, showBottomSheet ->
 						ProfileScreen(
 							userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
 							navController = navController,
-							showBottomSheet = showBottomSheet
+							showBottomSheet = { bottomSheet ->
+								showBottomSheet(bottomSheet)
+							}
 						)
 					}
 				)
@@ -59,7 +53,9 @@ fun NavGraphBuilder.profileNavGraph(
 					userID = it.arguments?.getString(ARGUMENT_USER_ID_KEY) as String,
 					navController = navController,
 					router = router,
-					showBottomSheet = showBottomSheet
+					showBottomSheet = { bottomSheet ->
+						showBottomSheet(bottomSheet)
+					}
 				)
 			}
 		}

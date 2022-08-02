@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_PROJECT_ID_KEY
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TEXT_APPLICATION_BUY_PROJECT
+import com.example.novalinea.common.Constants.TEXT_APPLICATION_JOIN_TEAM_PROJECT
 import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.*
@@ -54,32 +55,54 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
-    fun sendMessage(
+    fun sendApplication(
+        typeProject: TypesProject,
         toID: String?,
         projectID: String?,
         projectTitle: String?,
-        projectPrice: Int?
+        projectPrice: Int? = null,
+        staff: String? = null
     ) {
         toID?.let { toID ->
             viewModelScope.launch {
                 USER.id?.let { fromID ->
                     if (toID != fromID) {
-                        val messageSend = MessageSend(
-                            text = TEXT_APPLICATION_BUY_PROJECT,
-                            from = fromID,
-                            to = toID,
-                            type = TypesMessage.BUY_PROJECT,
-                            project_id = projectID,
-                            project_title = projectTitle,
-                            project_price = projectPrice
-                        )
-                        sendMessageUseCase(messageSend).collect { response ->
-                            _stateSend.postValue(response)
+                        val messageSend = when(typeProject) {
+                            TypesProject.SALE -> {
+                                MessageSend(
+                                    text = TEXT_APPLICATION_BUY_PROJECT,
+                                    from = fromID,
+                                    to = toID,
+                                    type = TypesMessage.BUY_PROJECT,
+                                    project_id = projectID,
+                                    project_title = projectTitle,
+                                    project_price = projectPrice
+                                )
+                            }
+
+                            TypesProject.TEAM -> {
+                                MessageSend(
+                                    text = TEXT_APPLICATION_JOIN_TEAM_PROJECT,
+                                    from = fromID,
+                                    to = toID,
+                                    type = TypesMessage.JOIN_THE_TEAM,
+                                    project_id = projectID,
+                                    project_title = projectTitle,
+                                    staff = staff
+                                )
+                            }
+
+                            else -> null
+                        }
+
+                        messageSend?.let { message ->
+                            sendMessageUseCase(message).collect { response ->
+                                _stateSend.postValue(response)
+                            }
                         }
                     }
-                    else {
+                    else
                         _stateSend.postValue(Response.Error(TEXT_BUY_YOURSELF_PROJECT))
-                    }
                 }
             }
         }

@@ -18,6 +18,8 @@ import com.example.novalinea.R
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.USER
+import com.example.novalinea.domain.model.BottomSheets
+import com.example.novalinea.presentation.components.bottom_sheets.BottomSheetScreen
 import com.example.novalinea.presentation.navigation.BottomNavRoute
 import com.example.novalinea.presentation.navigation.Router
 import com.example.novalinea.presentation.navigation.nav_graph.BottomNavGraph
@@ -26,7 +28,7 @@ import com.example.novalinea.presentation.navigation.nav_graph.BottomNavGraph
 @Composable
 fun MainScreen(
 	router: Router,
-	showBottomSheet: () -> Unit,
+	showBottomSheet: (BottomSheetScreen) -> Unit,
 	viewModel: MainViewModel = hiltViewModel()
 ) {
 	val navController = rememberNavController()
@@ -76,7 +78,9 @@ fun MainScreen(
 			BottomNavGraph(
 				navController = navController,
 				router = router,
-				showBottomSheet = showBottomSheet
+				showBottomSheet = { bottomSheet ->
+					showBottomSheet(bottomSheet)
+				}
 			)
 		}
 	}

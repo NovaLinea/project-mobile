@@ -83,6 +83,11 @@ class DomainModule {
 	}
 
 	@Provides
+	fun provideDeletePhotoUserUseCase(userRepository: UserRepository): DeletePhotoUserUseCase {
+		return DeletePhotoUserUseCase(repository = userRepository)
+	}
+
+	@Provides
 	fun provideEditProfileUseCase(userRepository: UserRepository): EditProfileUseCase {
 		return EditProfileUseCase(repository = userRepository)
 	}

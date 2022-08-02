@@ -25,8 +25,10 @@ import com.example.novalinea.common.Constants.ERROR_BY_GET_PROFILE
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECTS
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_PROJECTS
+import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.Photos
 import com.example.novalinea.domain.model.Response
+import com.example.novalinea.presentation.components.bottom_sheets.BottomSheetScreen
 import com.example.novalinea.presentation.components.error.Error
 import com.example.novalinea.presentation.navigation.*
 import com.example.novalinea.presentation.screens.home.components.ShimmerLoaderProjects
@@ -41,7 +43,7 @@ fun ProfileScreen(
 	userID: String,
 	navController: NavController,
 	router: Router? = null,
-	showBottomSheet: () -> Unit,
+	showBottomSheet: (BottomSheetScreen) -> Unit,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
 	val stateProfile = viewModel.stateProfile.observeAsState(Response.Success(null)).value
@@ -56,10 +58,15 @@ fun ProfileScreen(
 		topBar = {
 			ProfileTopBar(
 				isBack = router == null,
-				onClickBack = {
-					navController.popBackStack()
-				},
-				onClickAction = showBottomSheet
+				onClickBack = { navController.popBackStack() },
+				showBottomSheet = {
+					showBottomSheet(
+						BottomSheetScreen.ProfileActions(
+							userID = userID,
+							navController = navController
+						)
+					)
+				}
 			)
 		}
 	) {
@@ -69,7 +76,7 @@ fun ProfileScreen(
 				.fillMaxSize()
 				.background(colorResource(id = R.color.app_background_tape))
 		) {
-			item() {
+			item {
 				when(stateProfile) {
 					is Response.Loading -> ShimmerLoaderProfile()
 					is Response.Error -> {
@@ -89,30 +96,40 @@ fun ProfileScreen(
 								photoProfile = photoProfile,
 								statePhoto = statePhoto,
 								countProjects = countProjects,
-								navController = navController,
-								onViewingPhoto = {
-									if (photoProfile != null) {
-										val photos = Photos(photos = listOf(photoProfile))
-										if (router != null) {
-											router?.routeTo(
-												ProfileNavRoute.ViewingPhoto.route,
-												Pair(ARGUMENT_PHOTOS_KEY, photos)
-											)
-										}
-										else {
-											navController.navigate(
-												ProfileNavRoute.ViewingPhoto.route,
-												Pair(ARGUMENT_PHOTOS_KEY, photos)
-											)
-										}
-									}
+								navController = navController
+							) {
+								if (USER.id == userID) {
+									showBottomSheet(
+										BottomSheetScreen.PhotoProfileActions(
+											photoIsEmpty = photoProfile == null,
+											onOpenPhoto = {
+												openPhoto(
+													photoProfile = photoProfile,
+													router = router,
+													navController = navController
+												)
+											},
+											onChangePhoto = { uri ->
+												viewModel.updatePhoto(uri)
+											},
+											onDeletePhoto = {
+												viewModel.deletePhoto()
+											}
+										)
+									)
 								}
-							)
+								else {
+									openPhoto(
+										photoProfile = photoProfile,
+										router = router,
+										navController = navController
+									)
+								}
+							}
 						}
 					}
 				}
-			}
-			item() {
+
 				Spacer(modifier = Modifier.height(5.dp))
 			}
 
@@ -185,6 +202,28 @@ fun ProfileScreen(
 					}
 				}
 			}
+		}
+	}
+}
+
+fun openPhoto(
+	photoProfile: String?,
+	navController: NavController,
+	router: Router? = null,
+
+) {
+	if (photoProfile != null) {
+		val photos = Photos(photos = listOf(photoProfile))
+		if (router != null) {
+			router.routeTo(
+				ProfileNavRoute.ViewingPhoto.route,
+				Pair(ARGUMENT_PHOTOS_KEY, photos)
+			)
+		} else {
+			navController.navigate(
+				ProfileNavRoute.ViewingPhoto.route,
+				Pair(ARGUMENT_PHOTOS_KEY, photos)
+			)
 		}
 	}
 }

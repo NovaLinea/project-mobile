@@ -1,5 +1,6 @@
 package com.example.novalinea.presentation.components.button_action
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -17,9 +18,11 @@ import com.example.novalinea.R
 fun ButtonActionText(
 	title: String,
 	enabled: Boolean = true,
+	isMaxWidth: Boolean = false,
 	onClicked: () -> Unit
 ) {
 	Button(
+		modifier = if (isMaxWidth) Modifier.fillMaxWidth() else Modifier,
 		onClick = { onClicked() },
 		colors = ButtonDefaults.buttonColors(
 			backgroundColor = colorResource(id = R.color.app_blue),

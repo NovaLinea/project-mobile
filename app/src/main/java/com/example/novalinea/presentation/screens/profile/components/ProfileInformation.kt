@@ -28,7 +28,7 @@ fun ProfileInformation(
 	statePhoto: Response<String?>,
 	countProjects: Int,
 	navController: NavController,
-	onViewingPhoto: () -> Unit
+	onClickAvatar: () -> Unit
 ) {
 	Column(
 		modifier = Modifier
@@ -39,7 +39,7 @@ fun ProfileInformation(
 		AvatarUser(
 			photo = photoProfile,
 			statePhoto = statePhoto,
-			onViewingPhoto = onViewingPhoto
+			onClickAvatar = onClickAvatar
 		)
 
 		MainDataUser(

@@ -10,5 +10,6 @@ interface UserRepository {
 
 	fun getUserById(id: String): Flow<Response<UserProfile?>>
 	fun uploadPhotoUser(photo: Uri, id: String): Flow<Response<String>>
+	fun deletePhotoUser(id: String): Flow<Response<Boolean>>
 	fun editProfile(user: UserEdit): Flow<Response<Boolean>>
 }

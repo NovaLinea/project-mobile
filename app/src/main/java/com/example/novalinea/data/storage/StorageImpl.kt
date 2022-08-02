@@ -43,4 +43,17 @@ class StorageImpl(
 			emit(Response.Error(e.message ?: e.toString()))
 		}
 	}
+
+	override fun deletePhotoUser(id: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+
+			val fileRef = storage.child("$PATH_IMAGES_USERS/$id")
+			fileRef.delete()
+
+			emit(Response.Success(true))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
 }

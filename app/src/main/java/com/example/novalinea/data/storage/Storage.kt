@@ -8,4 +8,5 @@ interface Storage{
 
 	fun addImagesProject(images: List<Uri>, id: String): Flow<Response<MutableList<String>>>
 	fun addPhotoUser(photo: Uri, id: String): Flow<Response<String>>
+	fun deletePhotoUser(id: String): Flow<Response<Boolean>>
 }

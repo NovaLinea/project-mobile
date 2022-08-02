@@ -14,7 +14,7 @@ import com.example.novalinea.presentation.components.icon_button.IconButtonActio
 fun ProfileTopBar(
 	isBack: Boolean,
 	onClickBack: () -> Unit,
-	onClickAction: () -> Unit
+	showBottomSheet: () -> Unit
 ) {
 	Box(
 		modifier = Modifier
@@ -41,7 +41,7 @@ fun ProfileTopBar(
 			contentAlignment = Alignment.CenterEnd
 		) {
 			IconButtonAction(Icons.Default.MoreVert) {
-				onClickAction()
+				showBottomSheet()
 			}
 		}
 	}

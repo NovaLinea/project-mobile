@@ -32,5 +32,22 @@ class UserRepositoryImpl(
 		}
 	}
 
+	override fun deletePhotoUser(id: String) = flow<Response<Boolean>> {
+		try {
+			storageDB.deletePhotoUser(id).collect { response ->
+				when(response) {
+					is Response.Success ->
+						firestoreDB.deletePhotoUser(id).collect {
+							emit(it)
+						}
+					is Response.Error -> emit(response)
+					is Response.Loading -> emit(response)
+				}
+			}
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
 	override fun editProfile(user: UserEdit) = firestoreDB.editProfile(user)
 }

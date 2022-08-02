@@ -92,6 +92,7 @@ object Constants {
 	const val BUTTON_LOGOUT = "Выйти"
 	const val BUTTON_CREATE_PROJECT = "Создать проект"
 	const val BUTTON_BUY_PROJECT = "Купить"
+	const val BUTTON_JOIN_TEAM_PROJECT = "Вступить в команду"
 	const val BUTTON_EDIT_PROFILE = "Редактировать"
 	const val BUTTON_SUBSCRIBE_USER = "Подписаться"
 	const val BUTTON_UNSUBSCRIBE_USER = "Отписаться"
@@ -115,6 +116,9 @@ object Constants {
 	const val TITLE_COUNT_FOLLOWS = "Подписчиков"
 	const val TITLE_COUNT_FOLLOWINGS = "Подписок"
 	const val TITLE_SOON = "скоро"
+	const val TITLE_CHANGE_PHOTO = "Загрузить фотографию"
+	const val TITLE_DELETE_PHOTO = "Удалить фотографию"
+	const val TITLE_OPEN_PHOTO = "Открыть"
 
 	// Types project
 	const val TYPE_PROJECT_SALE_TEXT = "Для продажи"
@@ -128,6 +132,7 @@ object Constants {
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
 	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
 	const val TEXT_APPLICATION_BUY_PROJECT = "Заявка на покупку проекта"
+	const val TEXT_APPLICATION_JOIN_TEAM_PROJECT = "Заявка на вступление в команду"
 	const val TEXT_ADDED_MAX_COUNT_STAFF = "Добавлено максимальное количество сотрудников"
 
 	// Firestore collections

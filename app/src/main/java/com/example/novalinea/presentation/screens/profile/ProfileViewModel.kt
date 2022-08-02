@@ -7,6 +7,7 @@ import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserProfile
+import com.example.novalinea.domain.use_case.DeletePhotoUserUseCase
 import com.example.novalinea.domain.use_case.GetProjectsUserUseCase
 import com.example.novalinea.domain.use_case.GetUserByIdUseCase
 import com.example.novalinea.domain.use_case.UploadPhotoUserUseCase
@@ -19,7 +20,8 @@ class ProfileViewModel @Inject constructor(
 	private val getUserByIdUseCase: GetUserByIdUseCase,
 	private val getProjectsUserUseCase: GetProjectsUserUseCase,
 	private val uploadPhotoUserUseCase: UploadPhotoUserUseCase,
-	private val savedStateHandle: SavedStateHandle
+	private val deletePhotoUserUseCase: DeletePhotoUserUseCase,
+	savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
 	private val _stateProfile = MutableLiveData<Response<UserProfile?>>()
@@ -61,13 +63,26 @@ class ProfileViewModel @Inject constructor(
 	}
 
 	fun updatePhoto(photoUri: Uri) {
-		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
+		USER.id?.let { userID ->
 			viewModelScope.launch {
 				uploadPhotoUserUseCase(photoUri, userID).collect { response ->
 					_statePhoto.postValue(response)
 					if (response is Response.Success) {
 						_photoProfile.postValue(response.data)
 						USER.photo = response.data
+					}
+				}
+			}
+		}
+	}
+
+	fun deletePhoto() {
+		USER.id?.let { userID ->
+			viewModelScope.launch {
+				deletePhotoUserUseCase(userID).collect { response ->
+					if (response is Response.Success) {
+						_photoProfile.postValue(null)
+						USER.photo = null
 					}
 				}
 			}

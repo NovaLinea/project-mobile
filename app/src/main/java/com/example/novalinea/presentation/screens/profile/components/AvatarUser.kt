@@ -15,7 +15,7 @@ import com.example.novalinea.R
 fun AvatarUser(
 	photo: String?,
 	statePhoto: Response<String?>,
-	onViewingPhoto: () -> Unit
+	onClickAvatar: () -> Unit
 ) {
 	Card(
 		modifier = Modifier.size(70.dp),
@@ -31,9 +31,7 @@ fun AvatarUser(
 				errorPhoto = R.drawable.ic_person_fill,
 				padding = 7,
 				onClick = {
-					if (photo != null) {
-						onViewingPhoto()
-					}
+					onClickAvatar()
 				}
 			)
 		}

@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -34,9 +31,10 @@ import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.presentation.components.modal.Modal
 import com.example.novalinea.presentation.navigation.BottomNavRoute
-import com.example.novalinea.presentation.screens.project.components.ProjectBottomBar
 import com.example.novalinea.presentation.screens.project.components.ProjectInformation
 import com.example.novalinea.presentation.screens.project.components.ProjectTopBar
+import com.example.novalinea.presentation.screens.project.components.bottom_bar.ProjectSaleBottomBar
+import com.example.novalinea.presentation.screens.project.components.bottom_bar.ProjectTeamBottomBar
 import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition", "UnusedMaterialScaffoldPaddingParameter")
@@ -59,7 +57,7 @@ fun ProjectScreen(
 		bottomBar = {
 			when(project.type) {
 				TypesProject.SALE -> {
-					ProjectBottomBar(
+					ProjectSaleBottomBar(
 						projectPrice = "${project.price}",
 						onClickBuy = {
 							if (USER.id != null)
@@ -68,6 +66,16 @@ fun ProjectScreen(
 								navController.navigate(AUTHENTICATION_ROUTE)
 						}
 					)
+				}
+
+				TypesProject.TEAM -> {
+					ProjectTeamBottomBar {
+
+					}
+				}
+
+				TypesProject.DONATES -> {
+
 				}
 			}
 		},
@@ -126,19 +134,22 @@ fun ProjectScreen(
 			}
 		}
 
-		Modal(
-			openDialog = openDialog,
-			title = TITLE_BUY_PROJECT,
-			text = TEXT_BUY_PROJECT,
-			confirmButton = BUTTON_SEND,
-			onClickTrue = {
-				viewModel.sendMessage(
-					toID = project.creatorID,
-					projectID = project.id,
-					projectTitle = project.title,
-					projectPrice = project.price
-				)
-			}
-		)
+		if (project.type == TypesProject.SALE) {
+			Modal(
+				openDialog = openDialog,
+				title = TITLE_BUY_PROJECT,
+				text = TEXT_BUY_PROJECT,
+				confirmButton = BUTTON_SEND,
+				onClickTrue = {
+					viewModel.sendApplication(
+						typeProject = project.type,
+						toID = project.creatorID,
+						projectID = project.id,
+						projectTitle = project.title,
+						projectPrice = project.price
+					)
+				}
+			)
+		}
 	}
 }
