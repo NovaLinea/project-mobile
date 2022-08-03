@@ -6,7 +6,6 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.novalinea.domain.model.Response
 import com.example.novalinea.presentation.components.image_painter.ImagePainter
 import com.example.novalinea.presentation.components.loader.Loader
 import com.example.novalinea.R
@@ -14,7 +13,7 @@ import com.example.novalinea.R
 @Composable
 fun AvatarUser(
 	photo: String?,
-	statePhoto: Response<String?>,
+	isLoadingPhoto: Boolean,
 	onClickAvatar: () -> Unit
 ) {
 	Card(
@@ -22,7 +21,7 @@ fun AvatarUser(
 		shape = CircleShape,
 		elevation = 0.dp,
 	) {
-		if (statePhoto is Response.Loading)
+		if (isLoadingPhoto)
 			Loader()
 		else {
 			ImagePainter(

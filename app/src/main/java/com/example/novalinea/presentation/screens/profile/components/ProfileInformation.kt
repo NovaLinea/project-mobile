@@ -15,7 +15,6 @@ import com.example.novalinea.common.Constants.ARGUMENT_USER_NAME_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.ChatOpen
-import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserProfile
 import com.example.novalinea.presentation.navigation.MessagesNavRoute
 import com.example.novalinea.presentation.navigation.ProfileNavRoute
@@ -25,7 +24,7 @@ import com.example.novalinea.presentation.navigation.navigate
 fun ProfileInformation(
 	user: UserProfile,
 	photoProfile: String?,
-	statePhoto: Response<String?>,
+	isLoadingPhoto: Boolean,
 	countProjects: Int,
 	navController: NavController,
 	onClickAvatar: () -> Unit
@@ -38,12 +37,13 @@ fun ProfileInformation(
 	) {
 		AvatarUser(
 			photo = photoProfile,
-			statePhoto = statePhoto,
+			isLoadingPhoto = isLoadingPhoto,
 			onClickAvatar = onClickAvatar
 		)
 
 		MainDataUser(
 			name = user.name,
+			verify = user.verify,
 			description = user.description
 		)
 

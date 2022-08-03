@@ -1,8 +1,10 @@
 package com.example.novalinea.presentation.screens.profile
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
+import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
@@ -64,8 +66,8 @@ class ProfileViewModel @Inject constructor(
 	}
 
 	fun updatePhoto(photoUri: Uri) {
-		USER.id?.let { userID ->
-			viewModelScope.launch {
+		viewModelScope.launch {
+			USER.id?.let { userID ->
 				uploadPhotoUserUseCase(photoUri, userID).collect { response ->
 					_statePhoto.postValue(response)
 					if (response is Response.Success) {

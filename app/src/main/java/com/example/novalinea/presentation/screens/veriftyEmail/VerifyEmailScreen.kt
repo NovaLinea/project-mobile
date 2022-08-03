@@ -41,7 +41,7 @@ fun VerifyEmailScreen(
 		) {
 			Icon(
 				modifier = Modifier.size(64.dp),
-				painter = painterResource(id = R.drawable.ic_check_circle_fill),
+				painter = painterResource(id = R.drawable.ic_circle_checked),
 				contentDescription = null,
 				tint = Color.DarkGray
 			)

@@ -4,11 +4,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,6 +24,7 @@ import com.example.novalinea.R
 fun CreatorProject(
 	creatorName: String?,
 	creatorPhoto: String?,
+	creatorVerify: Boolean,
 	onClickCreator: () -> Unit
 ) {
 	Row(
@@ -40,17 +44,32 @@ fun CreatorProject(
 			)
 		}
 
-		creatorName?.let { name ->
-			Text(
-				text = name,
-				modifier = Modifier.padding(start = 7.dp),
-				style = TextStyle(
-					color = Color.DarkGray,
-					fontFamily = OpenSans,
-					fontSize = 15.sp,
-					fontWeight = FontWeight.W500
+		Row(
+			verticalAlignment = Alignment.CenterVertically
+		) {
+			creatorName?.let { name ->
+				Text(
+					text = name,
+					modifier = Modifier.padding(start = 7.dp),
+					style = TextStyle(
+						color = Color.DarkGray,
+						fontFamily = OpenSans,
+						fontSize = 15.sp,
+						fontWeight = FontWeight.W500
+					)
 				)
-			)
+			}
+
+			if (creatorVerify) {
+				Icon(
+					modifier = Modifier
+						.size(18.dp)
+						.padding(start = 3.dp),
+					painter = painterResource(id = R.drawable.ic_verify_account),
+					contentDescription = null,
+					tint = colorResource(id = R.color.app_blue_verify)
+				)
+			}
 		}
 	}
 }

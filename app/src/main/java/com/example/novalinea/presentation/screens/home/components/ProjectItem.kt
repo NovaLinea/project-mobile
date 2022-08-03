@@ -55,6 +55,7 @@ fun ProjectItem(
                     CreatorProject(
                         creatorName = project.creatorName,
                         creatorPhoto = project.creatorPhoto,
+                        creatorVerify = project.creatorVerify,
                         onClickCreator = { openProfile() }
                     )
 

@@ -46,6 +46,9 @@
         <entry key="app/src/main/res/drawable/ic_add_outline.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_check_circle_fill.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/ic_circle.xml" value="0.178" />
+        <entry key="app/src/main/res/drawable/ic_circle_checked.xml" value="0.178" />
+        <entry key="app/src/main/res/drawable/ic_circle_outline.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/ic_double_check.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.13" />
         <entry key="app/src/main/res/drawable/ic_home_fill.xml" value="0.1265" />

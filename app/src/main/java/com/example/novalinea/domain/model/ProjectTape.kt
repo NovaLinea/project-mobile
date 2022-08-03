@@ -14,5 +14,6 @@ data class ProjectTape (
 	val staff: List<String>? = null,
 	val creatorID: String? = null,
 	var creatorName: String? = null,
-	var creatorPhoto: String? = null
+	var creatorPhoto: String? = null,
+	var creatorVerify: Boolean = false
 ): Parcelable

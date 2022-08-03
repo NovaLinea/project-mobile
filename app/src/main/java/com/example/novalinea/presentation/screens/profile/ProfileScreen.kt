@@ -28,6 +28,7 @@ import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROFILE
 import com.example.novalinea.common.Constants.ERROR_BY_GET_PROJECTS
 import com.example.novalinea.common.Constants.ERROR_BY_LOGOUT
+import com.example.novalinea.common.Constants.ERROR_BY_UPDATE_PHOTO
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TITLE_NO_PROJECTS
 import com.example.novalinea.common.Constants.USER
@@ -95,6 +96,13 @@ fun ProfileScreen(
 			}
 		}
 	) {
+		if (statePhoto is Response.Error) {
+			Log.d(TAG, statePhoto.message)
+			scope.launch {
+				scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_UPDATE_PHOTO)
+			}
+		}
+
 		when(stateLogout) {
 			is Response.Loading -> Loader()
 			is Response.Error -> {
@@ -140,7 +148,7 @@ fun ProfileScreen(
 							ProfileInformation(
 								user = user,
 								photoProfile = photoProfile,
-								statePhoto = statePhoto,
+								isLoadingPhoto = statePhoto is Response.Loading,
 								countProjects = countProjects,
 								navController = navController
 							) {

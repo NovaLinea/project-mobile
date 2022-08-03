@@ -5,6 +5,7 @@
     <color name="app_background_tape">#F6F6F6</color>
     <color name="app_background">#EDEDED</color>
     <color name="app_blue">#1E2D43</color>
+    <color name="app_blue_verify">#6DB6F3</color>
     <color name="app_light_blue">#DEF1F8</color>
     <color name="app_green">#609557</color>
     <color name="app_light_green">#E6F5F0</color>

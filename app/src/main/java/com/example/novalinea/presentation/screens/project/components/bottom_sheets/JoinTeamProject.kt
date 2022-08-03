@@ -74,7 +74,7 @@ fun JoinTeamProject(
 				style = MaterialTheme.typography.body2
 			)
 
-			Spacer(modifier = Modifier.height(10.dp))
+			Spacer(modifier = Modifier.height(5.dp))
 			staff?.let { listStaff ->
 				LazyColumn(
 					state = listState,

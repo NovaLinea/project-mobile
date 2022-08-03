@@ -7,6 +7,7 @@ import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.TEXT_APPLICATION_BUY_PROJECT
 import com.example.novalinea.common.Constants.TEXT_APPLICATION_JOIN_TEAM_PROJECT
 import com.example.novalinea.common.Constants.TEXT_BUY_YOURSELF_PROJECT
+import com.example.novalinea.common.Constants.TEXT_JOIN_TEAM_YOURSELF_PROJECT
 import com.example.novalinea.common.Constants.USER
 import com.example.novalinea.domain.model.*
 import com.example.novalinea.domain.use_case.GetProjectByIdUseCase
@@ -101,8 +102,14 @@ class ProjectViewModel @Inject constructor(
                             }
                         }
                     }
-                    else
-                        _stateSend.postValue(Response.Error(TEXT_BUY_YOURSELF_PROJECT))
+                    else {
+                        when(typeProject) {
+                            TypesProject.SALE ->
+                                _stateSend.postValue(Response.Error(TEXT_BUY_YOURSELF_PROJECT))
+                            TypesProject.TEAM ->
+                                _stateSend.postValue(Response.Error(TEXT_JOIN_TEAM_YOURSELF_PROJECT))
+                        }
+                    }
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.example.novalinea.di
 
+import android.app.Application
+import android.content.Context
 import com.example.novalinea.data.authentication.Authentication
 import com.example.novalinea.data.authentication.AuthenticationImpl
 import com.example.novalinea.data.firestoreDB.FirestoreDB
@@ -28,12 +30,13 @@ import com.google.firebase.storage.StorageReference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataModule {
+class DataModule() {
 
 	@Provides
 	@Singleton
@@ -79,9 +82,10 @@ class DataModule {
 	@Provides
 	@Singleton
 	fun provideStorage(
-		storageRef: StorageReference
+		storageRef: StorageReference,
+		@ApplicationContext context: Context
 	): Storage {
-		return StorageImpl(storageRef)
+		return StorageImpl(storageRef, context)
 	}
 
 
@@ -98,7 +102,7 @@ class DataModule {
 	@Singleton
 	fun provideUserRepository(
 		firestoreDB: FirestoreDB,
-		storageDB: Storage
+		storageDB: Storage,
 	): UserRepository {
 		return UserRepositoryImpl(firestoreDB, storageDB)
 	}

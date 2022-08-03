@@ -21,8 +21,8 @@ import com.example.novalinea.R
 import com.example.novalinea.common.Constants.TITLE_PRICE_PROJECT
 import com.example.novalinea.common.Constants.MAX_COUNT_STAFF
 import com.example.novalinea.common.Constants.TEXT_ADDED_MAX_COUNT_STAFF
+import com.example.novalinea.common.Constants.TEXT_ADD_EXISTING_STAFF
 import com.example.novalinea.common.Constants.TITLE_STAFF_PROJECT
-import com.example.novalinea.common.asPrice
 import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.presentation.components.close_button.CloseButton
 import com.example.novalinea.presentation.screens.create.components.ButtonNextStep
@@ -84,15 +84,15 @@ fun AdditionallyInformationProject(
 			}
 
 			if (type == TypesProject.SALE) {
-				var formatPrice = ""
-				if (price != "")
-					formatPrice =  price.replace(" ", "").toInt().asPrice()
+				//var formatPrice = ""
+				//if (price != "")
+				//	formatPrice =  price.replace(" ", "").toInt().asPrice()
 
 				Box(
 					modifier = Modifier.padding(start = 15.dp, end = 15.dp)
 				) {
 					CreatePriceField(
-						value = formatPrice,
+						value = price,
 						onValueChange = onPriceChange,
 						focusManager = focusManager
 					)
@@ -105,8 +105,15 @@ fun AdditionallyInformationProject(
 				) {
 					CreateStaffField(
 						addStaff = { staff ->
-							if (listStaff.size < MAX_COUNT_STAFF)
-								listStaff.add(staff)
+							if (listStaff.size < MAX_COUNT_STAFF) {
+								if (!listStaff.contains(staff))
+									listStaff.add(staff)
+								else {
+									scope.launch {
+										scaffoldState.snackbarHostState.showSnackbar(TEXT_ADD_EXISTING_STAFF)
+									}
+								}
+							}
 							else {
 								scope.launch {
 									scaffoldState.snackbarHostState.showSnackbar(TEXT_ADDED_MAX_COUNT_STAFF)

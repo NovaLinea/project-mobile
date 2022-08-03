@@ -57,7 +57,8 @@ fun CreatePriceField(
 					) {
 						Icon(
 							painter = painterResource(id = R.drawable.ic_ruble),
-							contentDescription = null
+							contentDescription = null,
+							tint = Color.DarkGray
 						)
 					}
 

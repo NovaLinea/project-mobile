@@ -16,6 +16,7 @@ import com.example.novalinea.common.Constants.TITLE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.TYPE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.UPDATED_AT_FIELD
 import com.example.novalinea.common.Constants.USERS_COLLECTION
+import com.example.novalinea.common.Constants.VERIFY_USER_FIELD
 import com.example.novalinea.common.Constants.VIEWS_PROJECT_FIELD
 import com.example.novalinea.domain.model.*
 import com.google.firebase.firestore.FieldValue
@@ -39,7 +40,8 @@ class FirestoreDBImpl(
 			val mapUser = hashMapOf<String, Any>()
 			mapUser[NAME_USER_FIELD] = userData.name
 			mapUser[EMAIL_USER_FIELD] = userData.email
-			mapUser[CREATED_AT_FIELD] = FieldValue.serverTimestamp()
+			mapUser[VERIFY_USER_FIELD] = false
+ 			mapUser[CREATED_AT_FIELD] = FieldValue.serverTimestamp()
 
 			db.collection(USERS_COLLECTION).document(uid).set(mapUser).await()
 			emit(Response.Success(true))
@@ -167,6 +169,7 @@ class FirestoreDBImpl(
 							.toObject(ProjectCreator::class.java)
 						project.creatorName = creator?.name.toString()
 						project.creatorPhoto = creator?.photo.toString()
+						project.creatorVerify = creator?.verify == true
 					}
 
 					project

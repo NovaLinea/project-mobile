@@ -45,6 +45,7 @@ fun ProjectInformation(
 				CreatorProject(
 					creatorName = project.creatorName,
 					creatorPhoto = project.creatorPhoto,
+					creatorVerify = project.creatorVerify,
 					onClickCreator = { onClickCreator() }
 				)
 

@@ -21,7 +21,7 @@ object Constants {
 	const val AUTHENTICATION_ROUTE = "authentication_route"
 
 	// Errors
-	const val NAME_INVALID = "Имя и фамилия от 1 до 30 символов"
+	const val NAME_INVALID = "Имя и фамилия от 1 до 20 символов"
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
 	const val FIELD_INVALID = "Запись не верна"
@@ -33,6 +33,7 @@ object Constants {
 	const val ERROR_BY_GET_PROJECTS = "Ошибка при получении проектов"
 	const val ERROR_BY_GET_CHATS = "Ошибка при получении чатов"
 	const val ERROR_BY_LOGOUT = "Ошибка при выходе из аккаунта"
+	const val ERROR_BY_UPDATE_PHOTO = "Ошибка при изменении фотографии"
 	const val ERROR_BY_GET_MESSAGES = "Ошибка при получении сообщений"
 	const val ERROR_BY_SEND_MESSAGE = "Ошибка при отправке сообщения"
 	const val ERROR_BY_CREATE_PROJECT = "Ошибка при создании проекта"
@@ -132,12 +133,14 @@ object Constants {
 	const val TEXT_SUCCESS_SEND_MESSAGE_BUY_PROJECT = "Заявка на покупку проекта успешно отправлена"
 	const val TEXT_SUCCESS_SEND_MESSAGE_JOIN_TEAM_PROJECT = "Заявка на вступление в команду успешно отправлена"
 	const val TEXT_BUY_YOURSELF_PROJECT = "Вы не можете купить свой проект"
+	const val TEXT_JOIN_TEAM_YOURSELF_PROJECT = "Вы не можете вступить в команду своего проекта"
 	const val TEXT_BUY_PROJECT = "Вы уверены, что хотите отправить заявку на покупку проекта?"
 	const val TEXT_JOIN_TEAM_PROJECT = "Выберите, на какую позицию вы претендуете"
 	const val TEXT_APPLICATION_BUY_PROJECT = "Заявка на покупку проекта"
 	const val TEXT_APPLICATION_JOIN_TEAM_PROJECT = "Заявка на вступление в команду"
 	const val TEXT_CHOICE_PROJECT_DONATES = "Создание проекта для сбора донатов находится в разработке"
 	const val TEXT_ADDED_MAX_COUNT_STAFF = "Добавлено максимальное количество сотрудников"
+	const val TEXT_ADD_EXISTING_STAFF = "Такой сотрудник уже добавлен"
 
 	// Firestore collections
 	const val USERS_COLLECTION = "users"
@@ -164,6 +167,7 @@ object Constants {
 	const val PHOTO_USER_FIELD = "photo"
 	const val DESCRIPTION_USER_FIELD = "description"
 	const val EMAIL_USER_FIELD = "email"
+	const val VERIFY_USER_FIELD = "verify"
 
 	// Nodes realtime database
 	const val NODE_MESSAGES = "messages"
@@ -179,7 +183,7 @@ object Constants {
 	const val TEAM_STAFF_MESSAGE_FIELD = "team_staff"
 
 	// LIMITATIONS
-	const val MAX_NAME_USER_LENGTH = 30
+	const val MAX_NAME_USER_LENGTH = 25
 	const val MAX_DESCRIPTION_USER_LENGTH = 70
 	const val MAX_TITLE_PROJECT_LENGTH = 120
 	const val MAX_DESCRIPTION_PROJECT_LENGTH = 10000
