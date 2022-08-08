@@ -37,7 +37,7 @@ fun ImagePainter(
 	val painter = rememberImagePainter(
 		data = imageUrl,
 		builder = {
-			crossfade(300)
+			crossfade(0)
 			scale(Scale.FILL)
 			if (isCircle)
 				transformations(CircleCropTransformation())

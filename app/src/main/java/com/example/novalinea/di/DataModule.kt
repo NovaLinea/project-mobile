@@ -1,17 +1,15 @@
 package com.example.novalinea.di
 
-import android.app.Application
 import android.content.Context
+import androidx.paging.PagingConfig
+import com.example.novalinea.common.Constants.LIMIT_PROJECTS_TAPE
 import com.example.novalinea.data.authentication.Authentication
 import com.example.novalinea.data.authentication.AuthenticationImpl
 import com.example.novalinea.data.firestoreDB.FirestoreDB
 import com.example.novalinea.data.firestoreDB.FirestoreDBImpl
 import com.example.novalinea.data.realtimeDB.RealtimeDB
 import com.example.novalinea.data.realtimeDB.RealtimeDBImpl
-import com.example.novalinea.data.repository.AuthRepositoryImpl
-import com.example.novalinea.data.repository.MessageRepositoryImpl
-import com.example.novalinea.data.repository.ProjectRepositoryImpl
-import com.example.novalinea.data.repository.UserRepositoryImpl
+import com.example.novalinea.data.repository.*
 import com.example.novalinea.data.storage.Storage
 import com.example.novalinea.data.storage.StorageImpl
 import com.example.novalinea.domain.repository.AuthRepository
@@ -53,6 +51,18 @@ class DataModule() {
 	@Provides
 	@Singleton
 	fun provideStorageReference() = FirebaseStorage.getInstance().reference
+
+	@Provides
+	@Singleton
+	fun provideProjectsPagingSource(
+		db: FirebaseFirestore
+	) = ProjectsPagingSource(db)
+
+	@Provides
+	@Singleton
+	fun providePagingConfig() = PagingConfig(
+		pageSize = LIMIT_PROJECTS_TAPE
+	)
 
 
 	@Provides
@@ -111,9 +121,16 @@ class DataModule() {
 	@Singleton
 	fun provideProjectRepository(
 		firestoreDB: FirestoreDB,
-		storageDB: Storage
+		storageDB: Storage,
+		source: ProjectsPagingSource,
+		config: PagingConfig
 	): ProjectRepository {
-		return ProjectRepositoryImpl(firestoreDB, storageDB)
+		return ProjectRepositoryImpl(
+			firestoreDB = firestoreDB,
+			storageDB = storageDB,
+			source = source,
+			config = config
+		)
 	}
 
 	@Provides

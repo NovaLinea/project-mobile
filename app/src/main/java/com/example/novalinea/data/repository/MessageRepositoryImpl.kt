@@ -49,6 +49,7 @@ class MessageRepositoryImpl(
 				if (response is Response.Success) {
 					listChats[index].userName = response.data?.name.toString()
 					listChats[index].userPhoto = response.data?.photo.toString()
+					listChats[index].userVerify = response.data?.verify == true
 				}
 			}
 		}

@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class ChatOpen(
 	val userId: String? = "",
 	var userName: String? = "",
-	var userPhoto: String? = null
+	var userPhoto: String? = null,
+	var userVerify: Boolean = false
 ): Parcelable

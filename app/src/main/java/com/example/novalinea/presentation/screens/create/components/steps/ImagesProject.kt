@@ -31,6 +31,8 @@ import com.example.novalinea.presentation.components.image_painter.ImagePainter
 @Composable
 fun ImagesProject(
 	images: SnapshotStateList<Uri>,
+	onAddImage: (Uri) -> Unit,
+	onDeleteImage: (Int) -> Unit,
 	enabled: Boolean,
 	onCreate: () -> Unit
 ) {
@@ -39,7 +41,7 @@ fun ImagesProject(
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.GetContent()
 	) { uri: Uri? ->
-		uri?.let { images.add(it) }
+		uri?.let { onAddImage(it) }
 	}
 
 	Scaffold(
@@ -116,7 +118,7 @@ fun ImagesProject(
 								Box(
 									modifier = Modifier.padding(2.dp)
 								) {
-									CloseButton { images.removeAt(index) }
+									CloseButton { onDeleteImage(index) }
 								}
 							}
 						}

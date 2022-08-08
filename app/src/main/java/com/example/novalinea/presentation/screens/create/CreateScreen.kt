@@ -164,6 +164,12 @@ fun CreateScreen(
 				PresentNested {
 					ImagesProject(
 						images = viewModel.images,
+						onAddImage = { uri ->
+							viewModel.onAddImage(uri)
+						},
+						onDeleteImage = { index ->
+							viewModel.onDeleteImage(index)
+						},
 						enabled = stateCreate != Response.Loading &&
 								when(viewModel.type.value) {
 									TypesProject.SALE -> viewModel.price.isValidText()

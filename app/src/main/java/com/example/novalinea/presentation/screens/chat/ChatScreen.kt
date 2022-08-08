@@ -60,6 +60,7 @@ fun ChatScreen(
 				ChatTopBar(
 					title = name,
 					photo = chat.userPhoto,
+					verify = chat.userVerify,
 					onClickBack = { navController.popBackStack() },
 					onClickUser = {
 						navController.navigate(

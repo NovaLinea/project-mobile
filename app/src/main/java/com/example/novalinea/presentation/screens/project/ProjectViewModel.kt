@@ -48,9 +48,11 @@ class ProjectViewModel @Inject constructor(
 
     private fun incrementView(projectID: String) {
         viewModelScope.launch {
-            incrementViewUseCase(projectID).collect { response ->
-                if (response is Response.Error) {
-                    Log.d(TAG, response.message)
+            if (USER.id != null) {
+                incrementViewUseCase(projectID).collect { response ->
+                    if (response is Response.Error) {
+                        Log.d(TAG, response.message)
+                    }
                 }
             }
         }

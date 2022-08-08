@@ -64,6 +64,7 @@ fun MessagesScreen(
 							ChatItem(
 								userName = chat.userName,
 								userPhoto = chat.userPhoto,
+								userVerify = chat.userVerify,
 								lastMessage = chat.lastMessage,
 								timestamp = chat.timestamp,
 								viewed = chat.viewed,
@@ -77,7 +78,8 @@ fun MessagesScreen(
 										ChatOpen(
 											userId = chat.userId,
 											userName = chat.userName,
-											userPhoto = chat.userPhoto
+											userPhoto = chat.userPhoto,
+											userVerify = chat.userVerify
 										)
 									)
 								)

@@ -9,6 +9,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.novalinea.R
 import com.example.novalinea.presentation.components.icon_button.IconButtonAction
@@ -19,6 +21,7 @@ import com.example.novalinea.presentation.components.image_painter.ImagePainter
 fun ChatTopBar(
 	title: String,
 	photo: String?,
+	verify: Boolean,
 	onClickBack: () -> Unit,
 	onClickUser: () -> Unit
 ) {
@@ -38,14 +41,26 @@ fun ChatTopBar(
 			}
 		}
 
-		Box(
+		Row(
 			modifier = Modifier.fillMaxSize(),
-			contentAlignment = Alignment.Center
+			verticalAlignment = Alignment.CenterVertically,
+			horizontalArrangement = Arrangement.Center
 		) {
 			Text (
 				text = title,
 				style = MaterialTheme.typography.subtitle2
 			)
+
+			if (verify) {
+				Icon(
+					modifier = Modifier
+						.size(24.dp)
+						.padding(start = 5.dp),
+					painter = painterResource(id = R.drawable.ic_verify_account),
+					contentDescription = null,
+					tint = colorResource(id = R.color.app_blue_verify)
+				)
+			}
 		}
 
 		Box(

@@ -1,6 +1,5 @@
 package com.example.novalinea.domain.use_case
 
-import android.net.Uri
 import com.example.novalinea.domain.model.ProjectCreate
 import com.example.novalinea.domain.repository.ProjectRepository
 
@@ -10,6 +9,6 @@ class CreateProjectUseCase(
 
     operator fun invoke(
         projectData: ProjectCreate,
-        images: MutableList<Uri>
+        images: MutableList<ByteArray>
     ) = repository.createProject(projectData, images)
 }

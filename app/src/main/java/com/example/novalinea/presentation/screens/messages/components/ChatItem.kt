@@ -26,6 +26,7 @@ import com.example.novalinea.R
 fun ChatItem(
 	userName: String,
 	userPhoto: String?,
+	userVerify: Boolean,
 	lastMessage: String?,
 	timestamp: Any,
 	viewed: Boolean,
@@ -68,11 +69,26 @@ fun ChatItem(
 					verticalAlignment = Alignment.CenterVertically,
 					horizontalArrangement = Arrangement.SpaceBetween
 				) {
-					Text(
-						text = userName,
-						style = MaterialTheme.typography.subtitle1,
-						letterSpacing = 0.sp,
-					)
+					Row(
+						verticalAlignment = Alignment.CenterVertically
+					) {
+						Text(
+							text = userName,
+							style = MaterialTheme.typography.subtitle1,
+							letterSpacing = 0.sp,
+						)
+
+						if (userVerify) {
+							Icon(
+								modifier = Modifier
+									.size(24.dp)
+									.padding(start = 5.dp),
+								painter = painterResource(id = R.drawable.ic_verify_account),
+								contentDescription = null,
+								tint = colorResource(id = R.color.app_blue_verify)
+							)
+						}
+					}
 
 					Row(
 						verticalAlignment = Alignment.CenterVertically

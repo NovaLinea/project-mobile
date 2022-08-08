@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import com.example.novalinea.common.Constants.PATH_IMAGES_PROJECTS
 import com.example.novalinea.common.Constants.PATH_IMAGES_USERS
+import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.domain.model.Response
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.flow.flow
@@ -17,14 +19,14 @@ class StorageImpl(
 	private val context: Context
 ): Storage {
 
-	override fun addImagesProject(images: List<Uri>, id: String) = flow<Response<MutableList<String>>> {
+	override fun addImagesProject(images: List<ByteArray>, id: String) = flow<Response<MutableList<String>>> {
 		try {
 			emit(Response.Loading)
 			val imagesUrl = mutableListOf<String>()
 
-			images.forEachIndexed { index, imageUri ->
+			images.forEachIndexed { index, imageByte ->
 				val fileRef = storage.child("$PATH_IMAGES_PROJECTS/$id/image_${index}")
-				fileRef.putFile(imageUri).await()
+				fileRef.putBytes(imageByte).await()
 				val url = fileRef.downloadUrl.await()
 				imagesUrl.add(index, url.toString())
 			}

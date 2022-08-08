@@ -1,6 +1,7 @@
 package com.example.novalinea.data.repository
 
-import android.net.Uri
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.novalinea.data.firestoreDB.FirestoreDB
 import com.example.novalinea.data.storage.Storage
 import com.example.novalinea.domain.model.ProjectCreate
@@ -10,10 +11,14 @@ import kotlinx.coroutines.flow.flow
 
 class ProjectRepositoryImpl(
 	private val firestoreDB: FirestoreDB,
-	private val storageDB: Storage
+	private val storageDB: Storage,
+	private val source: ProjectsPagingSource,
+	private val config: PagingConfig
 ) : ProjectRepository {
 
-	override fun getProjects() = firestoreDB.getProjects()
+	override fun getProjects() = Pager(
+		config = config
+	) { source }.flow
 
 	override fun getProjectsUser(id: String) = firestoreDB.getProjectsUser(id)
 
@@ -21,7 +26,7 @@ class ProjectRepositoryImpl(
 
 	override fun createProject(
 		project: ProjectCreate,
-		images: MutableList<Uri>
+		images: MutableList<ByteArray>
 	) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)

@@ -2,44 +2,69 @@ package com.example.novalinea.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.novalinea.common.Constants
+import com.example.novalinea.common.Constants.LIMIT_PROJECTS_TAPE
 import com.example.novalinea.common.Constants.PROJECTS_COLLECTION
+import com.example.novalinea.common.Constants.USERS_COLLECTION
+import com.example.novalinea.common.Constants.VIEWS_PROJECT_FIELD
 import com.example.novalinea.domain.model.ProjectCreator
 import com.example.novalinea.domain.model.ProjectTape
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Query.Direction.DESCENDING
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
 
 class ProjectsPagingSource(
 	private val db: FirebaseFirestore
-) : PagingSource<Int, ProjectTape>() {
+) : PagingSource<QuerySnapshot, ProjectTape>() {
 
-	override fun getRefreshKey(state: PagingState<Int, ProjectTape>): Int? {
-		TODO("Not yet implemented")
-	}
+	override fun getRefreshKey(state: PagingState<QuerySnapshot, ProjectTape>): QuerySnapshot? = null
 
-	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProjectTape> {
-		val page: Int = params.key ?: 1
-		val pageSize: Int = params.loadSize
+	override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, ProjectTape> {
+		return try {
+			val currentPage = params.key ?: db.collection(PROJECTS_COLLECTION)
+				.orderBy(VIEWS_PROJECT_FIELD, DESCENDING)
+				.limit(LIMIT_PROJECTS_TAPE.toLong())
+				.get().await()
 
-		val projects = db.collection(PROJECTS_COLLECTION)
-			.orderBy(Constants.VIEWS_PROJECT_FIELD, Query.Direction.DESCENDING)
-			//.limit(Constants.LIMIT_PROJECTS_TAPE.toLong())
-			.get().await().map { document ->
-				val project = document.toObject(ProjectTape::class.java)
-				project.id = document.id
+			if (currentPage.size() == 0) {
+				LoadResult.Page(
+					data = emptyList(),
+					prevKey = null,
+					nextKey = null
+				)
+			}
+			else {
+				val lastVisibleProject = currentPage.documents[currentPage.size() - 1]
+				val nextPage = db.collection(PROJECTS_COLLECTION)
+					.orderBy(VIEWS_PROJECT_FIELD, DESCENDING)
+					.limit(LIMIT_PROJECTS_TAPE.toLong())
+					.startAfter(lastVisibleProject)
+					.get().await()
 
-				if (project.creatorID != null) {
-					val creator = db.collection(Constants.USERS_COLLECTION)
-						.document(project.creatorID).get().await()
-						.toObject(ProjectCreator::class.java)
-					project.creatorName = creator?.name.toString()
-					project.creatorPhoto = creator?.photo.toString()
+				val detailsProjectData = currentPage.map { document ->
+					val project = document.toObject(ProjectTape::class.java)
+					project.id = document.id
+
+					if (project.creatorID != null) {
+						val creator = db.collection(USERS_COLLECTION)
+							.document(project.creatorID).get().await()
+							.toObject(ProjectCreator::class.java)
+						project.creatorName = creator?.name.toString()
+						project.creatorPhoto = creator?.photo.toString()
+						project.creatorVerify = creator?.verify == true
+					}
+
+					project
 				}
 
-				project
+				LoadResult.Page(
+					data = detailsProjectData,
+					prevKey = null,
+					nextKey = nextPage
+				)
 			}
-
-		return LoadResult.Page(projects, 1, 2)
+		} catch (e: Exception) {
+			LoadResult.Error(e)
+		}
 	}
 }

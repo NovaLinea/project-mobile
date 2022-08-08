@@ -78,7 +78,8 @@ fun ProfileInformation(
 									ChatOpen(
 										userId = user.id,
 										userName = user.name,
-										userPhoto = user.photo
+										userPhoto = user.photo,
+										userVerify = user.verify
 									)
 								)
 							)

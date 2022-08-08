@@ -1,5 +1,6 @@
 package com.example.novalinea.data.firestoreDB
 
+import androidx.paging.PagingConfig
 import com.example.novalinea.common.Constants.CREATED_AT_FIELD
 import com.example.novalinea.common.Constants.CREATOR_ID_PROJECT_FIELD
 import com.example.novalinea.common.Constants.DESCRIPTION_FIELD
@@ -18,6 +19,7 @@ import com.example.novalinea.common.Constants.UPDATED_AT_FIELD
 import com.example.novalinea.common.Constants.USERS_COLLECTION
 import com.example.novalinea.common.Constants.VERIFY_USER_FIELD
 import com.example.novalinea.common.Constants.VIEWS_PROJECT_FIELD
+import com.example.novalinea.data.repository.ProjectsPagingSource
 import com.example.novalinea.domain.model.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -153,53 +155,25 @@ class FirestoreDBImpl(
 		}
 	}
 
-	override fun getProjects() = flow<Response<List<ProjectTape>>> {
-		try {
-			emit(Response.Loading)
-			val projects = db.collection(PROJECTS_COLLECTION)
-				.orderBy(VIEWS_PROJECT_FIELD, Query.Direction.DESCENDING)
-				//.limit(LIMIT_PROJECTS_TAPE.toLong())
-				.get().await().map { document ->
-					val project = document.toObject(ProjectTape::class.java)
-					project.id = document.id
-
-					if (project.creatorID != null) {
-						val creator = db.collection(USERS_COLLECTION)
-							.document(project.creatorID).get().await()
-							.toObject(ProjectCreator::class.java)
-						project.creatorName = creator?.name.toString()
-						project.creatorPhoto = creator?.photo.toString()
-						project.creatorVerify = creator?.verify == true
-					}
-
-					project
-			}
-			emit(Response.Success(projects))
-		} catch (e: Exception) {
-			emit(Response.Error(e.message ?: e.toString()))
-		}
-	}
-
 	override fun getProjectsUser(id: String) = flow<Response<List<ProjectTape>>> {
 		try {
 			emit(Response.Loading)
 			val projects = mutableListOf<ProjectTape>()
 			db.collection(PROJECTS_COLLECTION)
+				.whereEqualTo(CREATOR_ID_PROJECT_FIELD, id)
 				.orderBy(CREATED_AT_FIELD, Query.Direction.DESCENDING)
 				.get().await().forEach { document ->
 					val project = document.toObject(ProjectTape::class.java)
+					project.id = document.id
 
-					if (project.creatorID == id) {
-						project.id = document.id
+					val creator = db.collection(USERS_COLLECTION)
+						.document(id).get().await()
+						.toObject(ProjectCreator::class.java)
 
-						val creator = db.collection(USERS_COLLECTION)
-							.document(id).get().await()
-							.toObject(ProjectCreator::class.java)
-						project.creatorName = creator?.name.toString()
-						project.creatorPhoto = creator?.photo.toString()
+					project.creatorName = creator?.name.toString()
+					project.creatorPhoto = creator?.photo.toString()
 
-						projects.add(projects.size, project)
-					}
+					projects.add(projects.size, project)
 				}
 			emit(Response.Success(projects))
 		} catch (e: Exception) {
@@ -210,7 +184,10 @@ class FirestoreDBImpl(
 	override fun incrementView(id: String) = flow<Response<Boolean>> {
 		try {
 			emit(Response.Loading)
-			db.collection(PROJECTS_COLLECTION).document(id).update(VIEWS_PROJECT_FIELD, FieldValue.increment(1))
+			db.collection(PROJECTS_COLLECTION)
+				.document(id)
+				.update(VIEWS_PROJECT_FIELD, FieldValue.increment(1))
+				.await()
 			emit(Response.Success(true))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
