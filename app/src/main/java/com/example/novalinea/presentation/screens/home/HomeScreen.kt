@@ -1,6 +1,5 @@
 package com.example.novalinea.presentation.screens.home
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import com.example.novalinea.common.Constants.TAG
@@ -32,12 +31,9 @@ import com.example.novalinea.presentation.screens.home.components.ProjectItem
 import com.example.novalinea.presentation.navigation.*
 import com.example.novalinea.presentation.screens.home.components.HomeTopBar
 import com.example.novalinea.presentation.screens.home.components.ShimmerLoaderProjects
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun HomeScreen(
 	router: Router?,

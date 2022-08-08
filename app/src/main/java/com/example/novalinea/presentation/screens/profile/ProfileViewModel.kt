@@ -1,12 +1,9 @@
 package com.example.novalinea.presentation.screens.profile
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.novalinea.common.Constants.ARGUMENT_USER_ID_KEY
-import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.common.Constants.USER
-import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserProfile
 import com.example.novalinea.domain.use_case.*
@@ -17,18 +14,22 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
 	private val getUserByIdUseCase: GetUserByIdUseCase,
-	private val getProjectsUserUseCase: GetProjectsUserUseCase,
 	private val uploadPhotoUserUseCase: UploadPhotoUserUseCase,
 	private val deletePhotoUserUseCase: DeletePhotoUserUseCase,
 	private val logoutUseCase: LogoutUseCase,
+	getProjectsUserUseCase: GetProjectsUserUseCase,
 	savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
+	val projects = savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
+		getProjectsUserUseCase(
+			userID = userID,
+			viewModelScope = viewModelScope
+		)
+	}
+
 	private val _stateProfile = MutableLiveData<Response<UserProfile?>>()
 	val stateProfile: LiveData<Response<UserProfile?>> get() = _stateProfile
-
-	private val _stateProjects = MutableLiveData<Response<List<ProjectTape>>>()
-	val stateProjects: LiveData<Response<List<ProjectTape>>> get() = _stateProjects
 
 	private val _statePhoto = MutableLiveData<Response<String>>()
 	val statePhoto: LiveData<Response<String>> get() = _statePhoto
@@ -42,7 +43,6 @@ class ProfileViewModel @Inject constructor(
 	init {
 		savedStateHandle.get<String>(ARGUMENT_USER_ID_KEY)?.let { userID ->
 			getProfileData(userID)
-			getProjects(userID)
 		}
 	}
 
@@ -51,16 +51,7 @@ class ProfileViewModel @Inject constructor(
 			getUserByIdUseCase(userID).collect { response ->
 				if (response is Response.Success)
 					_photoProfile.postValue(response.data?.photo)
-
 				_stateProfile.postValue(response)
-			}
-		}
-	}
-
-	fun getProjects(userID: String) {
-		viewModelScope.launch {
-			getProjectsUserUseCase(userID).collect { response ->
-				_stateProjects.postValue(response)
 			}
 		}
 	}

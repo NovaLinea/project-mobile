@@ -1,18 +1,28 @@
 package com.example.novalinea.di
 
+import com.example.novalinea.data.pagging.ProjectsPagingSource
 import com.example.novalinea.domain.repository.AuthRepository
 import com.example.novalinea.domain.repository.MessageRepository
 import com.example.novalinea.domain.repository.ProjectRepository
 import com.example.novalinea.domain.repository.UserRepository
 import com.example.novalinea.domain.use_case.*
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
+
 @Module
 @InstallIn(ViewModelComponent::class)
 class DomainModule {
+
+	// Paging
+	@Provides
+	fun provideProjectsPagingSource(
+		db: FirebaseFirestore
+	) = ProjectsPagingSource(db)
+
 
 	// Auth
 	@Provides
@@ -52,13 +62,17 @@ class DomainModule {
 	}
 
 	@Provides
-	fun provideGetProjectsUseCase(projectRepository: ProjectRepository): GetProjectsUseCase {
-		return GetProjectsUseCase(repository = projectRepository)
+	fun provideGetProjectsUseCase(
+		source: ProjectsPagingSource
+	): GetProjectsUseCase {
+		return GetProjectsUseCase(source)
 	}
 
 	@Provides
-	fun provideGetProjectsUserUseCase(projectRepository: ProjectRepository): GetProjectsUserUseCase {
-		return GetProjectsUserUseCase(repository = projectRepository)
+	fun provideGetProjectsUserUseCase(
+		db: FirebaseFirestore
+	): GetProjectsUserUseCase {
+		return GetProjectsUserUseCase(db)
 	}
 
 	@Provides

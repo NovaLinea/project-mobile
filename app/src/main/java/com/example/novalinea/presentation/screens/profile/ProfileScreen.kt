@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -19,6 +18,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.example.novalinea.R
 import com.example.novalinea.common.Constants
 import com.example.novalinea.common.Constants.ARGUMENT_PHOTOS_KEY
@@ -55,8 +57,9 @@ fun ProfileScreen(
 	showBottomSheet: (BottomSheetScreen) -> Unit,
 	viewModel: ProfileViewModel = hiltViewModel()
 ) {
+	val projects = viewModel.projects?.collectAsLazyPagingItems()
+
 	val stateProfile = viewModel.stateProfile.observeAsState(Response.Success(null)).value
-	val stateProjects = viewModel.stateProjects.observeAsState(Response.Success(emptyList())).value
 	val statePhoto = viewModel.statePhoto.observeAsState(Response.Success(null)).value
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
 	val stateLogout = viewModel.stateLogout.observeAsState(Response.Success(false)).value
@@ -187,46 +190,31 @@ fun ProfileScreen(
 				Spacer(modifier = Modifier.height(5.dp))
 			}
 
-			when(stateProjects) {
-				is Response.Loading -> {
+			projects?.let {
+				if (projects.itemCount == 0 && projects.loadState.refresh is LoadState.NotLoading) {
 					item {
-						ShimmerLoaderProjects()
-					}
-				}
-				is Response.Error -> {
-					Log.d(TAG, stateProjects.message)
-					item {
-						Box(
-							modifier = Modifier.padding(top = 50.dp)
+						Column(
+							modifier = Modifier.fillMaxSize(),
+							horizontalAlignment = Alignment.CenterHorizontally
 						) {
-							Error(
-								message = ERROR_BY_GET_PROJECTS,
-								background = colorResource(id = R.color.app_background_tape)
-							) {
-								viewModel.getProjects(userID)
-							}
+							Text(
+								modifier = Modifier.padding(top = 50.dp),
+								text = TITLE_NO_PROJECTS,
+								style = MaterialTheme.typography.body2
+							)
 						}
 					}
 				}
-				is Response.Success -> {
-					countProjects = stateProjects.data.size
+				else {
+					countProjects = projects.itemCount
 
-					if (stateProjects.data.isEmpty()) {
-						item() {
-							Column(
-								modifier = Modifier.fillMaxSize(),
-								horizontalAlignment = Alignment.CenterHorizontally
-							) {
-								Text(
-									modifier = Modifier.padding(top = 50.dp),
-									text = TITLE_NO_PROJECTS,
-									style = MaterialTheme.typography.body2
-								)
-							}
+					items(
+						items = projects,
+						key = { project ->
+							project.id.hashCode()
 						}
-					}
-					else {
-						items(stateProjects.data) { project ->
+					) { project ->
+						project?.let {
 							ProjectItem(
 								project = project,
 								openProfile = {
@@ -252,6 +240,42 @@ fun ProfileScreen(
 									}
 								}
 							)
+						}
+					}
+
+					projects.loadState.apply {
+						when {
+							refresh is LoadState.Loading -> item {
+								ShimmerLoaderProjects()
+							}
+							refresh is LoadState.Error -> item {
+								Log.d(TAG, (refresh as LoadState.Error).toString())
+								Box(
+									modifier = Modifier.padding(top = 50.dp)
+								) {
+									Error(
+										message = ERROR_BY_GET_PROJECTS,
+										background = colorResource(id = R.color.app_background_tape)
+									) {
+										projects.retry()
+									}
+								}
+							}
+							append is LoadState.Loading -> item {
+								Box(
+									modifier = Modifier
+										.height(75.dp)
+										.fillMaxWidth()
+								) {
+									Loader(background = Color.White)
+								}
+							}
+							append is LoadState.Error -> {
+								Log.d(TAG, (append as LoadState.Error).toString())
+								scope.launch {
+									scaffoldState.snackbarHostState.showSnackbar(ERROR_BY_GET_PROJECTS)
+								}
+							}
 						}
 					}
 				}

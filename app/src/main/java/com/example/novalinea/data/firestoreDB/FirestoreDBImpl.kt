@@ -1,6 +1,5 @@
 package com.example.novalinea.data.firestoreDB
 
-import androidx.paging.PagingConfig
 import com.example.novalinea.common.Constants.CREATED_AT_FIELD
 import com.example.novalinea.common.Constants.CREATOR_ID_PROJECT_FIELD
 import com.example.novalinea.common.Constants.DESCRIPTION_FIELD
@@ -19,11 +18,10 @@ import com.example.novalinea.common.Constants.UPDATED_AT_FIELD
 import com.example.novalinea.common.Constants.USERS_COLLECTION
 import com.example.novalinea.common.Constants.VERIFY_USER_FIELD
 import com.example.novalinea.common.Constants.VIEWS_PROJECT_FIELD
-import com.example.novalinea.data.repository.ProjectsPagingSource
 import com.example.novalinea.domain.model.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Query.Direction.DESCENDING
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
@@ -150,32 +148,6 @@ class FirestoreDBImpl(
 				.document(id).get().await()
 				.toObject(ProjectOpen::class.java)
 			emit(Response.Success(project))
-		} catch (e: Exception) {
-			emit(Response.Error(e.message ?: e.toString()))
-		}
-	}
-
-	override fun getProjectsUser(id: String) = flow<Response<List<ProjectTape>>> {
-		try {
-			emit(Response.Loading)
-			val projects = mutableListOf<ProjectTape>()
-			db.collection(PROJECTS_COLLECTION)
-				.whereEqualTo(CREATOR_ID_PROJECT_FIELD, id)
-				.orderBy(CREATED_AT_FIELD, Query.Direction.DESCENDING)
-				.get().await().forEach { document ->
-					val project = document.toObject(ProjectTape::class.java)
-					project.id = document.id
-
-					val creator = db.collection(USERS_COLLECTION)
-						.document(id).get().await()
-						.toObject(ProjectCreator::class.java)
-
-					project.creatorName = creator?.name.toString()
-					project.creatorPhoto = creator?.photo.toString()
-
-					projects.add(projects.size, project)
-				}
-			emit(Response.Success(projects))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))
 		}
