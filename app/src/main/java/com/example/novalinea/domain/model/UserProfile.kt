@@ -5,6 +5,7 @@ import com.google.firebase.Timestamp
 data class UserProfile (
 	var id: String? = null,
 	var name: String? = null,
+	var username: String? = null,
 	var email: String? = null,
 	var description: String = "",
 	var photo: String? = null,

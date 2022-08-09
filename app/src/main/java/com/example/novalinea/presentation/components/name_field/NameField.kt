@@ -1,4 +1,4 @@
-package com.example.novalinea.presentation.components.login_field
+package com.example.novalinea.presentation.components.name_field
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,17 +19,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.novalinea.common.Constants.LOGIN_PLACEHOLDER
+import com.example.novalinea.common.Constants.NAME_PLACEHOLDER
 import com.example.novalinea.presentation.components.error_field.ErrorField
 import com.example.novalinea.presentation.ui.theme.OpenSans
 import com.example.novalinea.R
 
 @Composable
-fun Login(
+fun Name(
 	name: String,
 	error: String?,
 	focusManager: FocusManager,
-	onNameChanged: (String) -> Unit
+	onChangeName: (String) -> Unit
 ) {
 	TextField(
 		modifier = Modifier
@@ -37,10 +37,10 @@ fun Login(
 			.wrapContentHeight(align = Alignment.CenterVertically)
 			.height(57.dp),
 		value = name,
-		onValueChange = { value -> onNameChanged(value) },
+		onValueChange = { value -> onChangeName(value) },
 		placeholder = {
 			Text(
-				text = LOGIN_PLACEHOLDER,
+				text = NAME_PLACEHOLDER,
 				style = TextStyle(
 					color = Color.DarkGray,
 					fontFamily = OpenSans,

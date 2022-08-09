@@ -1,7 +1,7 @@
 package com.example.novalinea.presentation.components.password_field
 
 import com.example.novalinea.common.Constants.MIN_PASSWORD_LENGTH
-import com.example.novalinea.common.Constants.PASSWORD_INVALID
+import com.example.novalinea.common.Constants.ERROR_FIELD_PASSWORD_INVALID
 import com.example.novalinea.presentation.components.fields_state.TextFieldState
 
 class PasswordState: TextFieldState(
@@ -12,4 +12,4 @@ class PasswordState: TextFieldState(
 
 private fun passwordValid(password: String) = password.length >= MIN_PASSWORD_LENGTH
 
-private fun passwordErrorMessage() = PASSWORD_INVALID
+private fun passwordErrorMessage() = ERROR_FIELD_PASSWORD_INVALID

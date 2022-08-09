@@ -1,4 +1,4 @@
-package com.example.novalinea.presentation.components.name_field
+package com.example.novalinea.presentation.components.username_field
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,28 +19,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.novalinea.common.Constants.NAME_PLACEHOLDER
+import com.example.novalinea.common.Constants.LOGIN_PLACEHOLDER
 import com.example.novalinea.presentation.components.error_field.ErrorField
 import com.example.novalinea.presentation.ui.theme.OpenSans
 import com.example.novalinea.R
 
 @Composable
-fun Name(
-	name: String,
+fun UserName(
+	username: String,
 	error: String?,
 	focusManager: FocusManager,
-	onNameChanged: (String) -> Unit
+	onChangeUserName: (String) -> Unit
 ) {
 	TextField(
 		modifier = Modifier
 			.fillMaxWidth()
 			.wrapContentHeight(align = Alignment.CenterVertically)
 			.height(57.dp),
-		value = name,
-		onValueChange = { value -> onNameChanged(value) },
+		value = username,
+		onValueChange = { value -> onChangeUserName(value) },
 		placeholder = {
 			Text(
-				text = NAME_PLACEHOLDER,
+				text = LOGIN_PLACEHOLDER,
 				style = TextStyle(
 					color = Color.DarkGray,
 					fontFamily = OpenSans,
@@ -50,10 +50,10 @@ fun Name(
 			)
 		},
 		keyboardOptions = KeyboardOptions(
-			imeAction = ImeAction.Next
+			imeAction = ImeAction.Done
 		),
 		keyboardActions = KeyboardActions(
-			onNext = { focusManager.moveFocus(FocusDirection.Down) }
+			onDone = { focusManager.clearFocus() }
 		),
 		singleLine = true,
 		textStyle = TextStyle(

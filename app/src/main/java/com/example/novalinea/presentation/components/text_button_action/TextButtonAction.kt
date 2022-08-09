@@ -17,7 +17,7 @@ fun TextButtonAction(
 		Text(
 			text = title,
 			style = TextStyle(
-				fontSize = 16.sp,
+				fontSize = 15.sp,
 				color = color
 			)
 		)

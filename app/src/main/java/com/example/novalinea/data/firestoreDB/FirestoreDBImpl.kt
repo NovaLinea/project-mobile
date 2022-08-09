@@ -16,6 +16,7 @@ import com.example.novalinea.common.Constants.STAFF_PROJECT_FIELD
 import com.example.novalinea.common.Constants.TITLE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.TYPE_PROJECT_FIELD
 import com.example.novalinea.common.Constants.UPDATED_AT_FIELD
+import com.example.novalinea.common.Constants.USERNAME_USER_FIELD
 import com.example.novalinea.common.Constants.USERS_COLLECTION
 import com.example.novalinea.common.Constants.VERIFY_USER_FIELD
 import com.example.novalinea.common.Constants.VIEWS_PROJECT_FIELD
@@ -30,6 +31,40 @@ class FirestoreDBImpl(
 ): FirestoreDB {
 
 	// User
+	override fun checkEmail(email: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+
+			val user = db.collection(USERS_COLLECTION)
+				.whereEqualTo(EMAIL_USER_FIELD, email)
+				.get().await()
+
+			if (user.isEmpty)
+				emit(Response.Success(true))
+			else
+				emit(Response.Success(false))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun checkUserName(username: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+
+			val user = db.collection(USERS_COLLECTION)
+				.whereEqualTo(USERNAME_USER_FIELD, username)
+				.get().await()
+
+			if (user.isEmpty)
+				emit(Response.Success(true))
+			else
+				emit(Response.Success(false))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
 	override fun createUser(
 		userData: UserRegister,
 		uid: String
@@ -39,6 +74,7 @@ class FirestoreDBImpl(
 
 			val mapUser = hashMapOf<String, Any>()
 			mapUser[NAME_USER_FIELD] = userData.name
+			mapUser[USERNAME_USER_FIELD] = userData.username
 			mapUser[EMAIL_USER_FIELD] = userData.email
 			mapUser[VERIFY_USER_FIELD] = false
 			mapUser[COUNT_PROJECTS_FIELD] = 0

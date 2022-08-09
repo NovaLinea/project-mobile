@@ -28,6 +28,16 @@ class DomainModule {
 	}
 
 	@Provides
+	fun provideCheckEmailByRegisterUseCase(authRepository: AuthRepository): CheckEmailByRegisterUseCase {
+		return CheckEmailByRegisterUseCase(repository = authRepository)
+	}
+
+	@Provides
+	fun provideCheckUserNameByRegisterUseCase(authRepository: AuthRepository): CheckUserNameByRegisterUseCase {
+		return CheckUserNameByRegisterUseCase(repository = authRepository)
+	}
+
+	@Provides
 	fun provideLoginByEmailUseCase(authRepository: AuthRepository): LoginByEmailUseCase {
 		return LoginByEmailUseCase(repository = authRepository)
 	}

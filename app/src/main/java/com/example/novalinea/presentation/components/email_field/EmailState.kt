@@ -1,7 +1,7 @@
 package com.example.novalinea.presentation.components.email_field
 
 import android.util.Patterns
-import com.example.novalinea.common.Constants.EMAIL_INVALID
+import com.example.novalinea.common.Constants.ERROR_FIELD_EMAIL_INVALID
 import com.example.novalinea.presentation.components.fields_state.TextFieldState
 
 class EmailState: TextFieldState(
@@ -12,4 +12,4 @@ class EmailState: TextFieldState(
 
 private fun emailValid(email: String) = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-private fun emailErrorMessage() = EMAIL_INVALID
+private fun emailErrorMessage() = ERROR_FIELD_EMAIL_INVALID

@@ -2,40 +2,37 @@ package com.example.novalinea.presentation.screens.register
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.layout.*
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ARGUMENT_USER_EMAIL_KEY
 import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
-import com.example.novalinea.common.Constants.EMAIL_IS_USED
-import com.example.novalinea.common.Constants.ERROR_SERVER
-import com.example.novalinea.common.Constants.INVALID_REGISTER
 import com.example.novalinea.common.Constants.TAG
+import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.Response.*
 import com.example.novalinea.domain.model.StepsRegister
-import com.example.novalinea.presentation.components.email_field.Email
-import com.example.novalinea.presentation.components.password_field.Password
-import com.example.novalinea.presentation.components.error_field.ErrorField
-import com.example.novalinea.presentation.components.login_field.Login
-import com.example.novalinea.presentation.components.name_field.Name
 import com.example.novalinea.presentation.components.top_bar.StepsTopBar
 import com.example.novalinea.presentation.navigation.AuthNavRoute
-import com.example.novalinea.presentation.screens.register.components.RegisterBottomBar
+import com.example.novalinea.presentation.navigation.PresentNested
+import com.example.novalinea.presentation.screens.register.components.steps.MainData
+import com.example.novalinea.presentation.screens.register.components.steps.Photo
+import com.example.novalinea.presentation.screens.register.components.steps.UserName
 
+@OptIn(ExperimentalAnimationApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RegisterScreen(
 	navController: NavController,
 	viewModel: RegisterViewModel = hiltViewModel()
 ) {
-	val state = viewModel.state.observeAsState(Success(false)).value
+	val stateCheckEmail = viewModel.stateCheckEmail.observeAsState(Success(null)).value
+	val stateCheckUserName = viewModel.stateCheckUserName.observeAsState(Success(null)).value
+	val stateRegister = viewModel.stateRegister.observeAsState(Success(false)).value
+
 	val focusManager = LocalFocusManager.current
 
 	val stateSteps = remember {
@@ -52,12 +49,12 @@ fun RegisterScreen(
 				isShowBack = step.value != StepsRegister.MAIN_DATA,
 				onClickBack = {
 					when(step.value) {
-						StepsRegister.LOGIN -> {
+						StepsRegister.USERNAME -> {
 							step.value = StepsRegister.MAIN_DATA
 							stateSteps[1] = false
 						}
 						StepsRegister.PHOTO -> {
-							step.value = StepsRegister.LOGIN
+							step.value = StepsRegister.USERNAME
 							stateSteps[2] = false
 						}
 					}
@@ -66,87 +63,93 @@ fun RegisterScreen(
 					navController.popBackStack()
 				}
 			)
-		},
-		bottomBar = {
-			RegisterBottomBar(
-				enabledRegister = state != Loading
-						&& viewModel.name.isValidText()
-						&& viewModel.email.isValidText()
-						&& viewModel.password.isValidText(),
-				onClickLogin = {
-					navController.popBackStack()
-					navController.navigate(AUTHENTICATION_ROUTE)
-				},
-				onClickRegister = {
-					viewModel.registerByEmail()
-				}
-			)
 		}
 	) {
-		Column(
-			modifier = Modifier.padding(top = 70.dp, start = 40.dp, end = 40.dp),
-			horizontalAlignment = Alignment.CenterHorizontally
-		) {
-			when(state) {
-				is Loading -> Log.d(TAG, "Loading")
-				is Error -> Log.d(TAG, state.message)
-				is Success -> {
-					if (state.data) {
-						LaunchedEffect(state.data) {
-							navController.navigate(
-								AuthNavRoute.VerifyEmail.route
-										+ "?${ARGUMENT_USER_EMAIL_KEY}=${viewModel.email.text}"
-							)
-						}
+		if (stateCheckEmail is Success && stateCheckEmail.data == true) {
+			stateSteps[1] = true
+			step.value = StepsRegister.USERNAME
+		}
+
+		if (stateCheckUserName is Success && stateCheckUserName.data == true) {
+			stateSteps[2] = true
+			step.value = StepsRegister.PHOTO
+		}
+
+		when(stateRegister) {
+			is Loading -> Log.d(TAG, "Loading")
+			is Error -> Log.d(TAG, stateRegister.message)
+			is Success -> {
+				if (stateRegister.data) {
+					LaunchedEffect(stateRegister.data) {
+						navController.navigate(
+							AuthNavRoute.VerifyEmail.route
+									+ "?${ARGUMENT_USER_EMAIL_KEY}=${viewModel.email.text}"
+						)
 					}
 				}
 			}
+		}
 
-			Login(
-				viewModel.login.text,
-				viewModel.login.error,
-				focusManager
-			) {
-				viewModel.login.text = it
-				viewModel.login.validate()
-			}
-			Spacer(modifier = Modifier.height(10.dp))
-
-			Name(
-				viewModel.name.text,
-				viewModel.name.error,
-				focusManager
-			) {
-				viewModel.name.text = it
-				viewModel.name.validate()
-			}
-			Spacer(modifier = Modifier.height(10.dp))
-
-			Email(
-				viewModel.email.text,
-				viewModel.email.error,
-				focusManager
-			) {
-				viewModel.email.text = it
-				viewModel.email.validate()
-			}
-			Spacer(modifier = Modifier.height(10.dp))
-
-			Password(
-				viewModel.password.text,
-				viewModel.password.error,
-				focusManager
-			) {
-				viewModel.password.text = it
-				viewModel.password.validate()
+		when(step.value) {
+			StepsRegister.MAIN_DATA -> {
+				PresentNested {
+					MainData(
+						name = viewModel.name,
+						onChangeName = {
+							viewModel.name.text = it
+							viewModel.name.validate()
+						},
+						email = viewModel.email,
+						onChangeEmail = {
+							viewModel.email.text = it
+							viewModel.email.validate()
+						},
+						password = viewModel.password,
+						onChangePassword = {
+							viewModel.password.text = it
+							viewModel.password.validate()
+						},
+						enabled = stateCheckEmail != Loading
+								&& viewModel.name.isValidText()
+								&& viewModel.email.isValidText()
+								&& viewModel.password.isValidText(),
+						focusManager = focusManager,
+						stateCheckEmail = stateCheckEmail,
+						onClickLogin = {
+							navController.popBackStack()
+							navController.navigate(AUTHENTICATION_ROUTE)
+						},
+						onClickNext = {
+							viewModel.checkEmail()
+						}
+					)
+				}
 			}
 
-			if (state is Error) {
-				Spacer(modifier = Modifier.height(5.dp))
+			StepsRegister.USERNAME -> {
+				PresentNested {
+					UserName(
+						username = viewModel.username,
+						onChangeUserName = {
+							viewModel.username.text = it
+							viewModel.username.validate()
+						},
+						enabled = stateCheckUserName != Loading
+								&& viewModel.username.isValidText(),
+						focusManager = focusManager,
+						stateCheckUserName = stateCheckUserName,
+						onClickNext = {
+							viewModel.checkUserName()
+						}
+					)
+				}
+			}
 
-				when(state.message) {
-					EMAIL_IS_USED -> ErrorField(error = INVALID_REGISTER)
-					else -> ErrorField(error = ERROR_SERVER)
+			StepsRegister.PHOTO -> {
+				PresentNested {
+					Photo(
+
+					)
 				}
 			}
 		}

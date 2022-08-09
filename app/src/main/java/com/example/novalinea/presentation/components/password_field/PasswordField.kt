@@ -34,7 +34,7 @@ fun Password(
 	password: String,
 	error: String?,
 	focusManager: FocusManager,
-	onPasswordChanged: (String) -> Unit
+	onChangePassword: (String) -> Unit
 ) {
 	var passwordVisibility by remember { mutableStateOf(false) }
 	val iconVisibility = if (passwordVisibility)
@@ -48,7 +48,7 @@ fun Password(
 			.wrapContentHeight(align = Alignment.CenterVertically)
 			.height(57.dp),
 		value = password,
-		onValueChange = { value -> onPasswordChanged(value) },
+		onValueChange = { value -> onChangePassword(value) },
 		placeholder = {
 			Text(
 				text = PASSWORD_PLACEHOLDER,

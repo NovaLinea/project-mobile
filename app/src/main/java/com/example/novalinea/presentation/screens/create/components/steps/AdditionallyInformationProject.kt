@@ -24,8 +24,8 @@ import com.example.novalinea.common.Constants.TEXT_ADDED_MAX_COUNT_STAFF
 import com.example.novalinea.common.Constants.TEXT_ADD_EXISTING_STAFF
 import com.example.novalinea.common.Constants.TITLE_STAFF_PROJECT
 import com.example.novalinea.domain.model.TypesProject
+import com.example.novalinea.presentation.components.button_action.ButtonNextStep
 import com.example.novalinea.presentation.components.close_button.CloseButton
-import com.example.novalinea.presentation.screens.create.components.ButtonNextStep
 import com.example.novalinea.presentation.screens.create.components.create_text_field.CreatePriceField
 import com.example.novalinea.presentation.screens.create.components.create_text_field.CreateStaffField
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ fun AdditionallyInformationProject(
 	onPriceChange: (String) -> Unit,
 	listStaff: SnapshotStateList<String>,
 	enabled: Boolean,
-	nextStep: () -> Unit
+	onClickNext: () -> Unit
 ) {
 	val focusManager = LocalFocusManager.current
 	val listState = rememberLazyListState()
@@ -48,10 +48,17 @@ fun AdditionallyInformationProject(
 
 	Scaffold(
 		bottomBar = {
-			ButtonNextStep(
-				enabled = enabled,
-				nextStep = nextStep
-			)
+			Box(
+				modifier = Modifier
+					.padding(end = 15.dp, bottom = 15.dp)
+					.fillMaxWidth(),
+				contentAlignment = Alignment.CenterEnd
+			) {
+				ButtonNextStep(
+					enabled = enabled,
+					onClickNext = onClickNext
+				)
+			}
 		},
 		scaffoldState = scaffoldState,
 		snackbarHost = {

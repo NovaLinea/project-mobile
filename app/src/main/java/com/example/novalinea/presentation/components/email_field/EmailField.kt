@@ -30,7 +30,7 @@ fun Email(
 	email: String,
 	error: String?,
 	focusManager: FocusManager,
-	onEmailChanged: (String) -> Unit
+	onChangeEmail: (String) -> Unit
 ) {
 	TextField(
 		modifier = Modifier
@@ -38,7 +38,7 @@ fun Email(
 			.wrapContentHeight(align = Alignment.CenterVertically)
 			.height(57.dp),
 		value = email,
-		onValueChange = { value -> onEmailChanged(value) },
+		onValueChange = { value -> onChangeEmail(value) },
 		placeholder = {
 			Text(
 				text = EMAIL_PLACEHOLDER,

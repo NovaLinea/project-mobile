@@ -3,6 +3,8 @@ package com.example.novalinea.presentation.screens.login
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -14,22 +16,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.novalinea.common.Constants.ERROR_SERVER
 import com.example.novalinea.common.Constants.ERROR_VERIFY_EMAIL
-import com.example.novalinea.common.Constants.INVALID_USER
-import com.example.novalinea.common.Constants.INVALID_LOGIN_PASSWORD
-import com.example.novalinea.common.Constants.INVALID_PASSWORD
-import com.example.novalinea.common.Constants.BUTTON_LOGIN
-import com.example.novalinea.common.Constants.LOGIN_SCREEN
+import com.example.novalinea.common.Constants.ERROR_INVALID_USER
+import com.example.novalinea.common.Constants.ERROR_FIREBASE_INVALID_PASSWORD
+import com.example.novalinea.common.Constants.ERROR_INVALID_PASSWORD
 import com.example.novalinea.common.Constants.MAIN_ROUTE
-import com.example.novalinea.common.Constants.BUTTON_REGISTER
 import com.example.novalinea.common.Constants.TAG
-import com.example.novalinea.common.Constants.USER_NOT_FOUND
+import com.example.novalinea.common.Constants.TITLE_LOGIN_ACCOUNT
+import com.example.novalinea.common.Constants.ERROR_FIREBASE_USER_NOT_FOUND
 import com.example.novalinea.domain.model.Response.*
 import com.example.novalinea.presentation.components.email_field.Email
 import com.example.novalinea.presentation.components.password_field.Password
-import com.example.novalinea.presentation.components.button_action.ButtonActionText
 import com.example.novalinea.presentation.components.error_field.ErrorField
-import com.example.novalinea.presentation.components.text_button_action.TextButtonAction
 import com.example.novalinea.presentation.navigation.AuthNavRoute
+import com.example.novalinea.presentation.screens.login.components.LoginBottomBar
 import com.example.novalinea.presentation.screens.login.components.LoginTopBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -46,6 +45,20 @@ fun LoginScreen(
 			LoginTopBar() {
 				navController.popBackStack()
 			}
+		},
+		bottomBar = {
+			LoginBottomBar(
+				enabled = state != Loading
+						&& viewModel.email.isValidText()
+						&& viewModel.password.isValidText(),
+				onClickRegister = {
+					navController.popBackStack()
+					navController.navigate(AuthNavRoute.Register.route)
+				},
+				onClickLogin = {
+					viewModel.loginByEmail()
+				}
+			)
 		}
 	) {
 		when(state) {
@@ -63,60 +76,56 @@ fun LoginScreen(
 
 		Column(
 			modifier = Modifier
-				.padding(top = 50.dp, start = 40.dp, end = 40.dp),
-			horizontalAlignment = Alignment.CenterHorizontally
+				.fillMaxWidth()
+				.verticalScroll(rememberScrollState()),
 		) {
-			Text(
-				text = LOGIN_SCREEN,
-				style = MaterialTheme.typography.h3
-			)
-			Spacer(modifier = Modifier.height(30.dp))
-
-			Email(
-				viewModel.email.text,
-				viewModel.email.error,
-				focusManager
+			Spacer(modifier = Modifier.height(50.dp))
+			Box(
+				contentAlignment = Alignment.CenterStart
 			) {
-				viewModel.email.text = it
-				viewModel.email.validate()
+				Text(
+					modifier = Modifier.padding(start = 30.dp),
+					text = TITLE_LOGIN_ACCOUNT,
+					style = MaterialTheme.typography.h5
+				)
 			}
 
-			Spacer(modifier = Modifier.height(10.dp))
-
-			Password(
-				viewModel.password.text,
-				viewModel.password.error,
-				focusManager
+			Spacer(modifier = Modifier.height(20.dp))
+			Column(
+				modifier = Modifier.padding(horizontal = 30.dp),
+				horizontalAlignment = Alignment.CenterHorizontally
 			) {
-				viewModel.password.text = it
-				viewModel.password.validate()
-			}
 
-			if (state is Error) {
-				Spacer(modifier = Modifier.height(5.dp))
-
-				when(state.message) {
-					USER_NOT_FOUND -> ErrorField(error = INVALID_USER)
-					INVALID_LOGIN_PASSWORD -> ErrorField(error = INVALID_PASSWORD)
-					ERROR_VERIFY_EMAIL -> ErrorField(error = ERROR_VERIFY_EMAIL)
-					else -> ErrorField(error = ERROR_SERVER)
+				Email(
+					viewModel.email.text,
+					viewModel.email.error,
+					focusManager
+				) {
+					viewModel.email.text = it
+					viewModel.email.validate()
 				}
-			}
 
-			Spacer(modifier = Modifier.height(10.dp))
+				Spacer(modifier = Modifier.height(10.dp))
 
-			ButtonActionText(
-				BUTTON_LOGIN,
-				enabled = state != Loading
-						&& viewModel.email.isValidText()
-						&& viewModel.password.isValidText()
-			) {
-				viewModel.loginByEmail()
-			}
+				Password(
+					viewModel.password.text,
+					viewModel.password.error,
+					focusManager
+				) {
+					viewModel.password.text = it
+					viewModel.password.validate()
+				}
 
-			TextButtonAction(title = BUTTON_REGISTER) {
-				navController.popBackStack()
-				navController.navigate(AuthNavRoute.Register.route)
+				if (state is Error) {
+					Spacer(modifier = Modifier.height(5.dp))
+
+					when(state.message) {
+						ERROR_FIREBASE_USER_NOT_FOUND -> ErrorField(error = ERROR_INVALID_USER)
+						ERROR_FIREBASE_INVALID_PASSWORD -> ErrorField(error = ERROR_INVALID_PASSWORD)
+						ERROR_VERIFY_EMAIL -> ErrorField(error = ERROR_VERIFY_EMAIL)
+						else -> ErrorField(error = ERROR_SERVER)
+					}
+				}
 			}
 		}
 	}

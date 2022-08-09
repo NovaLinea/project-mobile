@@ -6,11 +6,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.novalinea.common.Constants.DESCRIPTION_PROJECT_PLACEHOLDER
 import com.example.novalinea.common.Constants.TITLE_PROJECT_PLACEHOLDER
-import com.example.novalinea.presentation.screens.create.components.ButtonNextStep
+import com.example.novalinea.presentation.components.button_action.ButtonNextStep
 import com.example.novalinea.presentation.screens.create.components.create_text_field.CreateTextField
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -21,14 +22,21 @@ fun MainInformationProject(
 	description: String,
 	onDescriptionChange: (String) -> Unit,
 	enabled: Boolean,
-	nextStep: () -> Unit
+	onClickNext: () -> Unit
 ) {
 	Scaffold(
 		bottomBar = {
-			ButtonNextStep(
-				enabled = enabled,
-				nextStep = nextStep
-			)
+			Box(
+				modifier = Modifier
+					.padding(end = 15.dp, bottom = 15.dp)
+					.fillMaxWidth(),
+				contentAlignment = Alignment.CenterEnd
+			) {
+				ButtonNextStep(
+					enabled = enabled,
+					onClickNext = onClickNext
+				)
+			}
 		}
 	) {
 		Column(

@@ -9,7 +9,7 @@ enum class StepsCreateProject {
 }
 
 enum class StepsRegister {
-	MAIN_DATA, LOGIN, PHOTO
+	MAIN_DATA, USERNAME, PHOTO
 }
 
 enum class TypesMessage {

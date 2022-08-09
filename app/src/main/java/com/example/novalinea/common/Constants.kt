@@ -21,14 +21,17 @@ object Constants {
 	const val AUTHENTICATION_ROUTE = "authentication_route"
 
 	// Errors
-	const val NAME_INVALID = "Имя и фамилия от 1 до 25 символов"
-	const val LOGIN_INVALID = "Имя пользователя от 1 до 20 символов"
-	const val EMAIL_INVALID = "Неверная почта"
-	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
-	const val FIELD_INVALID = "Запись не верна"
-	const val INVALID_USER = "Нет такого пользователя"
-	const val INVALID_PASSWORD = "Пароль не верный"
-	const val INVALID_REGISTER = "Эта почта уже используется"
+	const val ERROR_FIELD_NAME_INVALID = "Имя и фамилия от 1 до 25 символов"
+	const val ERROR_FIELD_USERNAME_INVALID = "Имя пользователя от 1 до 20 символов"
+	const val ERROR_FIELD_EMAIL_INVALID = "Неверная почта"
+	const val ERROR_FIELD_PASSWORD_INVALID = "Пароль не менее 6 символов"
+	const val ERROR_FIELD_INVALID = "Запись не верна"
+	const val ERROR_INVALID_USER = "Нет такого пользователя"
+	const val ERROR_INVALID_PASSWORD = "Пароль не верный"
+	const val ERROR_EMAIL_IS_USED = "Эта почта уже используется"
+	const val ERROR_USERNAME_IS_USED = "Этот логин уже используется"
+	const val ERROR_BY_CHECK_EMAIL = "Ошибка при проверке почты"
+	const val ERROR_BY_CHECK_USERNAME = "Ошибка при проверке логина"
 	const val ERROR_SERVER = "Ошибка на стороне сервера"
 	const val ERROR_VERIFY_EMAIL = "Для того чтобы войти в аккаунт, подтвердите почту"
 	const val ERROR_BY_GET_PROJECTS = "Ошибка при получении проектов"
@@ -41,16 +44,16 @@ object Constants {
 	const val ERROR_BY_EDIT_PROFILE = "Ошибка при редактировании профиля"
 	const val ERROR_BY_SEND_BUY_MESSAGE_PROJECT = "Ошибка при отправке заявки на покупку"
 	const val ERROR_BY_GET_ADDITIONALLY_DATA_PROJECT = "Ошибка при получении дополнительной информации проекта"
-	const val ERROR_BY_GET_PROFILE = "Ошибка при полчении данных профиля"
+	const val ERROR_BY_GET_PROFILE = "Ошибка при получении данных профиля"
 
 	// Errors Firebase
-	const val INVALID_LOGIN_PASSWORD = "The password is invalid or the user does not have a password."
-	const val USER_NOT_FOUND = "There is no user record corresponding to this identifier. The user may have been deleted."
-	const val EMAIL_IS_USED = "The email address is already in use by another account."
+	const val ERROR_FIREBASE_INVALID_PASSWORD = "The password is invalid or the user does not have a password."
+	const val ERROR_FIREBASE_USER_NOT_FOUND = "There is no user record corresponding to this identifier. The user may have been deleted."
+	const val ERROR_FIREBASE_EMAIL_IS_USED = "The email address is already in use by another account."
 
 	// Placeholders
 	const val NAME_PLACEHOLDER = "Имя и фамилия"
-	const val LOGIN_PLACEHOLDER = "Имя пользователя"
+	const val LOGIN_PLACEHOLDER = "Логин"
 	const val EMAIL_PLACEHOLDER = "Почта"
 	const val PASSWORD_PLACEHOLDER = "Пароль"
 	const val SEARCH_PLACEHOLDER = "Поиск"
@@ -62,11 +65,8 @@ object Constants {
 	const val STAFF_PLACEHOLDER = "Сотрудник"
 
 	// Screens
-	const val LOGIN_SCREEN = "Вход"
-	const val REGISTER_SCREEN = "Регистрация"
 	const val VERIFY_EMAIL_SCREEN = "Подтверждение почты"
 	const val MESSAGES_SCREEN = "Сообщения"
-	const val HOME_SCREEN = "Главная"
 	const val EDIT_PROFILE_SCREEN = "Редактирование"
 	const val ABOUT_APP_SCREEN = "О приложении"
 	const val THEMES_SCREEN = "Настройка темы"
@@ -101,12 +101,15 @@ object Constants {
 	const val BUTTON_SUBSCRIBE_USER = "Подписаться"
 	const val BUTTON_UNSUBSCRIBE_USER = "Отписаться"
 	const val BUTTON_TO_WRITE_USER = "Написать"
-	const val BUTTON_SEND = "Отправить"
 	const val BUTTON_CANCEL = "Отмена"
 	const val BUTTON_TRY_AGAIN = "Повторить попытку"
 	const val BUTTON_COMPLAIN = "Пожаловаться"
 
 	// Titles
+	const val TITLE_LOGIN_ACCOUNT = "Вход в аккаунт"
+	const val TITLE_CREATE_ACCOUNT = "Создание аккаунта"
+	const val TITLE_USERNAME_ACCOUNT = "Укажите уникальный логин"
+	const val TITLE_ALREADY_CREATE_ACCOUNT = "Уже есть учетная запись?"
 	const val TITLE_TYPE_PROJECT = "Выберите тип проекта"
 	const val TITLE_PRICE_PROJECT = "Стоимость проекта"
 	const val TITLE_STAFF_PROJECT = "Требуемые сотрудники"
@@ -166,9 +169,10 @@ object Constants {
 	const val UPDATED_AT_FIELD = "updatedAt"
 
 	const val NAME_USER_FIELD = "name"
+	const val USERNAME_USER_FIELD = "username"
+	const val EMAIL_USER_FIELD = "email"
 	const val PHOTO_USER_FIELD = "photo"
 	const val DESCRIPTION_USER_FIELD = "description"
-	const val EMAIL_USER_FIELD = "email"
 	const val VERIFY_USER_FIELD = "verify"
 	const val COUNT_PROJECTS_FIELD = "count_projects"
 

@@ -1,7 +1,7 @@
 package com.example.novalinea.presentation.components.name_field
 
 import com.example.novalinea.common.Constants.MAX_NAME_USER_LENGTH
-import com.example.novalinea.common.Constants.NAME_INVALID
+import com.example.novalinea.common.Constants.ERROR_FIELD_NAME_INVALID
 import com.example.novalinea.presentation.components.fields_state.TextFieldState
 
 class NameState: TextFieldState(
@@ -12,4 +12,4 @@ class NameState: TextFieldState(
 
 private fun nameValid(name: String) = name.length <= MAX_NAME_USER_LENGTH && name.isNotEmpty()
 
-private fun nameErrorMessage() = NAME_INVALID
+private fun nameErrorMessage() = ERROR_FIELD_NAME_INVALID
