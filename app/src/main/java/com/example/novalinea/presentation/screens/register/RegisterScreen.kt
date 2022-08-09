@@ -17,19 +17,17 @@ import com.example.novalinea.common.Constants.AUTHENTICATION_ROUTE
 import com.example.novalinea.common.Constants.EMAIL_IS_USED
 import com.example.novalinea.common.Constants.ERROR_SERVER
 import com.example.novalinea.common.Constants.INVALID_REGISTER
-import com.example.novalinea.common.Constants.BUTTON_LOGIN
-import com.example.novalinea.common.Constants.BUTTON_REGISTER
-import com.example.novalinea.common.Constants.REGISTER_SCREEN
 import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.domain.model.Response.*
+import com.example.novalinea.domain.model.StepsRegister
 import com.example.novalinea.presentation.components.email_field.Email
 import com.example.novalinea.presentation.components.password_field.Password
-import com.example.novalinea.presentation.components.button_action.ButtonActionText
 import com.example.novalinea.presentation.components.error_field.ErrorField
+import com.example.novalinea.presentation.components.login_field.Login
 import com.example.novalinea.presentation.components.name_field.Name
-import com.example.novalinea.presentation.components.text_button_action.TextButtonAction
+import com.example.novalinea.presentation.components.top_bar.StepsTopBar
 import com.example.novalinea.presentation.navigation.AuthNavRoute
-import com.example.novalinea.presentation.screens.register.components.RegisterTopBar
+import com.example.novalinea.presentation.screens.register.components.RegisterBottomBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -40,15 +38,53 @@ fun RegisterScreen(
 	val state = viewModel.state.observeAsState(Success(false)).value
 	val focusManager = LocalFocusManager.current
 
+	val stateSteps = remember {
+		mutableStateListOf(true, false, false)
+	}
+	var step = remember {
+		mutableStateOf(StepsRegister.MAIN_DATA)
+	}
+
 	Scaffold(
 		topBar = {
-			RegisterTopBar {
-				navController.popBackStack()
-			}
+			StepsTopBar(
+				stateSteps = stateSteps,
+				isShowBack = step.value != StepsRegister.MAIN_DATA,
+				onClickBack = {
+					when(step.value) {
+						StepsRegister.LOGIN -> {
+							step.value = StepsRegister.MAIN_DATA
+							stateSteps[1] = false
+						}
+						StepsRegister.PHOTO -> {
+							step.value = StepsRegister.LOGIN
+							stateSteps[2] = false
+						}
+					}
+				},
+				onClickClose = {
+					navController.popBackStack()
+				}
+			)
+		},
+		bottomBar = {
+			RegisterBottomBar(
+				enabledRegister = state != Loading
+						&& viewModel.name.isValidText()
+						&& viewModel.email.isValidText()
+						&& viewModel.password.isValidText(),
+				onClickLogin = {
+					navController.popBackStack()
+					navController.navigate(AUTHENTICATION_ROUTE)
+				},
+				onClickRegister = {
+					viewModel.registerByEmail()
+				}
+			)
 		}
 	) {
 		Column(
-			modifier = Modifier.padding(top = 50.dp, start = 40.dp, end = 40.dp),
+			modifier = Modifier.padding(top = 70.dp, start = 40.dp, end = 40.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			when(state) {
@@ -66,11 +102,15 @@ fun RegisterScreen(
 				}
 			}
 
-			Text(
-				text = REGISTER_SCREEN,
-				style = MaterialTheme.typography.h3
-			)
-			Spacer(modifier = Modifier.height(30.dp))
+			Login(
+				viewModel.login.text,
+				viewModel.login.error,
+				focusManager
+			) {
+				viewModel.login.text = it
+				viewModel.login.validate()
+			}
+			Spacer(modifier = Modifier.height(10.dp))
 
 			Name(
 				viewModel.name.text,
@@ -80,7 +120,6 @@ fun RegisterScreen(
 				viewModel.name.text = it
 				viewModel.name.validate()
 			}
-
 			Spacer(modifier = Modifier.height(10.dp))
 
 			Email(
@@ -91,7 +130,6 @@ fun RegisterScreen(
 				viewModel.email.text = it
 				viewModel.email.validate()
 			}
-
 			Spacer(modifier = Modifier.height(10.dp))
 
 			Password(
@@ -110,23 +148,6 @@ fun RegisterScreen(
 					EMAIL_IS_USED -> ErrorField(error = INVALID_REGISTER)
 					else -> ErrorField(error = ERROR_SERVER)
 				}
-			}
-
-			Spacer(modifier = Modifier.height(10.dp))
-
-			ButtonActionText(
-				BUTTON_REGISTER,
-				enabled = state != Loading
-						&& viewModel.name.isValidText()
-						&& viewModel.email.isValidText()
-						&& viewModel.password.isValidText()
-			) {
-				viewModel.registerByEmail()
-			}
-
-			TextButtonAction(title = BUTTON_LOGIN) {
-				navController.popBackStack()
-				navController.navigate(AUTHENTICATION_ROUTE)
 			}
 		}
 	}

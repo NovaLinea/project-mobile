@@ -1,5 +1,6 @@
 package com.example.novalinea.data.firestoreDB
 
+import com.example.novalinea.common.Constants.COUNT_PROJECTS_FIELD
 import com.example.novalinea.common.Constants.CREATED_AT_FIELD
 import com.example.novalinea.common.Constants.CREATOR_ID_PROJECT_FIELD
 import com.example.novalinea.common.Constants.DESCRIPTION_FIELD
@@ -21,7 +22,6 @@ import com.example.novalinea.common.Constants.VIEWS_PROJECT_FIELD
 import com.example.novalinea.domain.model.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query.Direction.DESCENDING
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
@@ -41,6 +41,7 @@ class FirestoreDBImpl(
 			mapUser[NAME_USER_FIELD] = userData.name
 			mapUser[EMAIL_USER_FIELD] = userData.email
 			mapUser[VERIFY_USER_FIELD] = false
+			mapUser[COUNT_PROJECTS_FIELD] = 0
  			mapUser[CREATED_AT_FIELD] = FieldValue.serverTimestamp()
 
 			db.collection(USERS_COLLECTION).document(uid).set(mapUser).await()
@@ -95,6 +96,19 @@ class FirestoreDBImpl(
 				NAME_USER_FIELD, user.name,
 				DESCRIPTION_USER_FIELD, user.description
 			).await()
+			emit(Response.Success(true))
+		} catch (e: Exception) {
+			emit(Response.Error(e.message ?: e.toString()))
+		}
+	}
+
+	override fun incrementCountProjects(id: String) = flow<Response<Boolean>> {
+		try {
+			emit(Response.Loading)
+			db.collection(USERS_COLLECTION)
+				.document(id)
+				.update(COUNT_PROJECTS_FIELD, FieldValue.increment(1))
+				.await()
 			emit(Response.Success(true))
 		} catch (e: Exception) {
 			emit(Response.Error(e.message ?: e.toString()))

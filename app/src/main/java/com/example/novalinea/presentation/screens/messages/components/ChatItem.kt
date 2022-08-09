@@ -1,5 +1,6 @@
 package com.example.novalinea.presentation.screens.messages.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -73,9 +74,11 @@ fun ChatItem(
 						verticalAlignment = Alignment.CenterVertically
 					) {
 						Text(
+							modifier = Modifier.fillMaxWidth(0.65f),
 							text = userName,
 							style = MaterialTheme.typography.subtitle1,
-							letterSpacing = 0.sp,
+							maxLines = 1,
+							overflow = TextOverflow.Ellipsis
 						)
 
 						if (userVerify) {

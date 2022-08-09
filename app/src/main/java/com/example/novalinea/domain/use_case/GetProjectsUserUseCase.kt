@@ -4,7 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.novalinea.common.Constants.LIMIT_PROJECTS_TAPE
-import com.example.novalinea.data.pagging.ProjectsUserPagingSource
+import com.example.novalinea.data.paging.ProjectsPagingSource
+import com.example.novalinea.domain.model.TypesPagingProjects
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 
@@ -20,6 +21,6 @@ class GetProjectsUserUseCase(
 			pageSize = LIMIT_PROJECTS_TAPE
 		)
 	) {
-		ProjectsUserPagingSource(db, userID)
+		ProjectsPagingSource(db, TypesPagingProjects.PROFILE, userID)
 	}.flow.cachedIn(viewModelScope)
 }

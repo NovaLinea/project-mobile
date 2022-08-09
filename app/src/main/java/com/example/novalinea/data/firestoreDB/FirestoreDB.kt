@@ -11,6 +11,7 @@ interface FirestoreDB{
 	fun uploadPhotoUser(photo: String, id: String): Flow<Response<String>>
 	fun deletePhotoUser(id: String): Flow<Response<Boolean>>
 	fun editProfile(user: UserEdit): Flow<Response<Boolean>>
+	fun incrementCountProjects(id: String): Flow<Response<Boolean>>
 
 	// Project
 	fun createProject(projectData: ProjectCreate): Flow<Response<String>>

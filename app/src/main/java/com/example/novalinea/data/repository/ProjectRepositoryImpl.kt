@@ -24,7 +24,7 @@ class ProjectRepositoryImpl(
 			emit(Response.Loading)
 			firestoreDB.createProject(project).collect { responseCreate ->
 				when(responseCreate) {
-					is Response.Loading -> emit(Response.Loading)
+					is Response.Loading -> emit(responseCreate)
 					is Response.Error -> emit(responseCreate)
 					is Response.Success -> {
 						if (images.isNotEmpty())
@@ -39,14 +39,18 @@ class ProjectRepositoryImpl(
 										firestoreDB.uploadUrlImagesProject(
 											images = responseImage.data,
 											id = responseCreate.data
-										).collect { respUpload ->
-											emit(respUpload)
+										).collect { responseUpload ->
+											emit(responseUpload)
 										}
 									}
 								}
 							}
 						else
 							emit(Response.Success(true))
+
+						firestoreDB.incrementCountProjects(project.creatorID).collect { responseIncrement ->
+							emit(responseIncrement)
+						}
 					}
 				}
 			}

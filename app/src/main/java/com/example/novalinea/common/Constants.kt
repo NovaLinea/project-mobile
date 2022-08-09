@@ -21,7 +21,8 @@ object Constants {
 	const val AUTHENTICATION_ROUTE = "authentication_route"
 
 	// Errors
-	const val NAME_INVALID = "Имя и фамилия от 1 до 20 символов"
+	const val NAME_INVALID = "Имя и фамилия от 1 до 25 символов"
+	const val LOGIN_INVALID = "Имя пользователя от 1 до 20 символов"
 	const val EMAIL_INVALID = "Неверная почта"
 	const val PASSWORD_INVALID = "Пароль не менее 6 символов"
 	const val FIELD_INVALID = "Запись не верна"
@@ -49,6 +50,7 @@ object Constants {
 
 	// Placeholders
 	const val NAME_PLACEHOLDER = "Имя и фамилия"
+	const val LOGIN_PLACEHOLDER = "Имя пользователя"
 	const val EMAIL_PLACEHOLDER = "Почта"
 	const val PASSWORD_PLACEHOLDER = "Пароль"
 	const val SEARCH_PLACEHOLDER = "Поиск"
@@ -168,6 +170,7 @@ object Constants {
 	const val DESCRIPTION_USER_FIELD = "description"
 	const val EMAIL_USER_FIELD = "email"
 	const val VERIFY_USER_FIELD = "verify"
+	const val COUNT_PROJECTS_FIELD = "count_projects"
 
 	// Nodes realtime database
 	const val NODE_MESSAGES = "messages"
@@ -184,6 +187,7 @@ object Constants {
 
 	// LIMITATIONS
 	const val MAX_NAME_USER_LENGTH = 25
+	const val MAX_LOGIN_USER_LENGTH = 20
 	const val MAX_DESCRIPTION_USER_LENGTH = 70
 	const val MAX_TITLE_PROJECT_LENGTH = 120
 	const val MAX_DESCRIPTION_PROJECT_LENGTH = 10000

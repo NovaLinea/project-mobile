@@ -25,7 +25,6 @@ fun ProfileInformation(
 	user: UserProfile,
 	photoProfile: String?,
 	isLoadingPhoto: Boolean,
-	countProjects: Int,
 	navController: NavController,
 	onClickAvatar: () -> Unit
 ) {
@@ -49,7 +48,7 @@ fun ProfileInformation(
 
 		Spacer(modifier = Modifier.height(15.dp))
 		ParamsUser(
-			countProjects = countProjects,
+			countProjects = user.count_projects,
 			follows = user.follows.size,
 			followings = user.followings.size)
 

@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.novalinea.common.asPrice
 import com.example.novalinea.domain.model.ProjectTape
 import com.example.novalinea.domain.model.TypesProject
 import com.example.novalinea.presentation.components.image_painter.ImagePainter
@@ -47,31 +45,19 @@ fun ProjectItem(
                     .padding(15.dp)
                     .fillMaxWidth()
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    CreatorProject(
-                        creatorName = project.creatorName,
-                        creatorPhoto = project.creatorPhoto,
-                        creatorVerify = project.creatorVerify,
-                        onClickCreator = { openProfile() }
-                    )
-
-                    if (project.type == TypesProject.SALE) {
-                        project.price?.let {
-                            Text(
-                                text = "${it.asPrice()} ₽",
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
-                    }
-                }
-
+                CreatorProject(
+                    creatorName = project.creatorName,
+                    creatorPhoto = project.creatorPhoto,
+                    creatorVerify = project.creatorVerify,
+                    onClickCreator = { openProfile() }
+                )
                 Spacer(modifier = Modifier.height(8.dp))
+
                 project.type?.let { type ->
-                    TypeProject(type = type)
+                    TypeProject(
+                        type = type,
+                        price = project.price
+                    )
                 }
                 Spacer(modifier = Modifier.height(4.dp))
 

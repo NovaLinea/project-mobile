@@ -17,8 +17,8 @@ import com.example.novalinea.common.Constants.TAG
 import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.StepsCreateProject
 import com.example.novalinea.domain.model.TypesProject
+import com.example.novalinea.presentation.components.top_bar.StepsTopBar
 import com.example.novalinea.presentation.navigation.PresentNested
-import com.example.novalinea.presentation.screens.create.components.CreateTopBar
 import com.example.novalinea.presentation.screens.create.components.steps.AdditionallyInformationProject
 import com.example.novalinea.presentation.screens.create.components.steps.ImagesProject
 import com.example.novalinea.presentation.screens.create.components.steps.MainInformationProject
@@ -48,7 +48,7 @@ fun CreateScreen(
 
 	Scaffold(
 		topBar = {
-			CreateTopBar(
+			StepsTopBar(
 				stateSteps = stateSteps,
 				isShowBack = step.value != StepsCreateProject.TYPE_PROJECT,
 				onClickBack = {

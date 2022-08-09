@@ -1,8 +1,10 @@
-package com.example.novalinea.presentation.screens.create.components
+package com.example.novalinea.presentation.components.top_bar
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -15,7 +17,7 @@ import com.example.novalinea.R
 import com.example.novalinea.presentation.components.close_button.CloseButton
 
 @Composable
-fun CreateTopBar(
+fun StepsTopBar(
 	stateSteps: MutableList<Boolean>,
 	isShowBack: Boolean,
 	onClickBack: () -> Unit,
@@ -83,8 +85,8 @@ fun StepItem(
 			.padding(horizontal = 2.dp),
 		backgroundColor = if (isDone) colorResource(id = R.color.app_blue) else Color.LightGray,
 		shape = if (isFirst) RoundedCornerShape(topStart = 10.dp, bottomStart = 10.dp)
-				else if (isLast) RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp)
-				else RoundedCornerShape(0.dp),
+		else if (isLast) RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp)
+		else RoundedCornerShape(0.dp),
 		elevation = 0.dp
 	) {}
 }

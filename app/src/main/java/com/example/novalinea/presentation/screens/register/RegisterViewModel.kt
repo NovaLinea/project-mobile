@@ -8,6 +8,7 @@ import com.example.novalinea.domain.model.Response
 import com.example.novalinea.domain.model.UserRegister
 import com.example.novalinea.domain.use_case.RegisterByEmailUseCase
 import com.example.novalinea.presentation.components.email_field.EmailState
+import com.example.novalinea.presentation.components.login_field.LoginState
 import com.example.novalinea.presentation.components.name_field.NameState
 import com.example.novalinea.presentation.components.password_field.PasswordState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,8 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
 	private val registerByEmailUseCase: RegisterByEmailUseCase
 ) : ViewModel() {
+
+	val login by lazy { LoginState() }
 	val name by lazy { NameState() }
 	val email by lazy { EmailState() }
 	val password by lazy { PasswordState() }
@@ -27,7 +30,11 @@ class RegisterViewModel @Inject constructor(
 
 	fun registerByEmail() {
 		viewModelScope.launch {
-			val user = UserRegister(name = name.text, email = email.text, password = password.text)
+			val user = UserRegister(
+				name = name.text,
+				email = email.text,
+				password = password.text
+			)
 			registerByEmailUseCase(user).collect { response ->
 				_state.postValue(response)
 			}

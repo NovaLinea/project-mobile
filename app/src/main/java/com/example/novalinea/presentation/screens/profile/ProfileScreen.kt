@@ -64,9 +64,7 @@ fun ProfileScreen(
 	val photoProfile = viewModel.photoProfile.observeAsState(null).value
 	val stateLogout = viewModel.stateLogout.observeAsState(Response.Success(false)).value
 
-	var countProjects = 0
 	val listState = rememberLazyListState()
-
 	val scaffoldState = rememberScaffoldState()
 	val scope = rememberCoroutineScope()
 
@@ -152,7 +150,6 @@ fun ProfileScreen(
 								user = user,
 								photoProfile = photoProfile,
 								isLoadingPhoto = statePhoto is Response.Loading,
-								countProjects = countProjects,
 								navController = navController
 							) {
 								if (USER.id == userID) {
@@ -206,8 +203,6 @@ fun ProfileScreen(
 					}
 				}
 				else {
-					countProjects = projects.itemCount
-
 					items(
 						items = projects,
 						key = { project ->
